@@ -5,6 +5,7 @@ import Events from "./pages/events.jsx";
 import Projects from "./pages/projects.jsx";
 import News from "./pages/news.jsx";
 import Contact from "./pages/contact.jsx";
+import Booking from "./pages/booking.jsx";
 import Navbar from "./components/Navbar";
 
 function App() {
