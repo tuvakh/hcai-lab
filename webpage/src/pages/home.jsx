@@ -5,8 +5,6 @@ export default function Home() {
   return (
     <div style={{ padding: "2rem", textAlign: "center" }}>
       <h1>Velkommen til HCAI Lab!</h1>
-      <p>Dette er en enkel test-side for å se at React fungerer.</p>
-      <p>Her kan vi senere legge inn prosjekter, events og nyheter.</p>
     </div>
   );
 }
