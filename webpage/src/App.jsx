@@ -1,11 +1,10 @@
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home.jsx";
 import People from "./pages/people.jsx";
 import Projects from "./pages/projects.jsx";
 import Events from "./pages/events.jsx";
 import News from "./pages/news.jsx";
-import Contact from "./pages/ContactsPage.jsx";
+import Contact from "./pages/contact.jsx";
 
 function App() {
   return (
