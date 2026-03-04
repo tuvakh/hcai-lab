@@ -109,7 +109,7 @@ export default function Navbar() {
     <>
       <style>{styles}</style>
       <nav className="navbar">
-        <NavLink to="/home" className="navbar-logo">
+        <NavLink to="/" className="navbar-logo">
           <span className="navbar-logo-badge">HCAI</span>
           <span className="navbar-logo-text">Human-Centered AI Lab</span>
         </NavLink>
