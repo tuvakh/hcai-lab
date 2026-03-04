@@ -5,6 +5,7 @@ import People from "./pages/people.jsx";
 import Projects from "./pages/projects.jsx";
 import Events from "./pages/events.jsx";
 import News from "./pages/news.jsx";
+import Contact from "./pages/ContactsPage.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/events" element={<Events />} />
         <Route path="/news" element={<News />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );
