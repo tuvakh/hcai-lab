@@ -1,3 +1,4 @@
+//connect styles into this page 
 import React from "react";
 
 export default function News() {
