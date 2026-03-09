@@ -11,6 +11,156 @@ h1, h2 {
     font-family: var(--title-font);
 }
 
+
 h3, p {
     font-family: var(--text-font);
+
+// ====================================
+// HCAI Design System - Sass Variables
+// ====================================
+
+// ============
+// MAIN COLORS
+// ============
+
+// Section colors
+$color-section: #1a2456;        // Deep navy blue
+
+// Background colors
+$color-bg-primary: #4a5a8c;     // Medium blue
+$color-bg-secondary: #8fa7d6;   // Light blue
+$color-bg-base: #d4dae8;        // Very light lavender (base background)
+
+// ============
+// LABEL COLORS
+// ============
+
+$color-label-blue: #0066cc;     // Bright blue
+$color-label-purple: #7b2d8e;   // Deep purple
+
+// ============
+// TYPOGRAPHY
+// ============
+
+// Headings
+$font-heading-primary: 'ANTON', sans-serif;           // H1
+$font-heading-secondary: 'Articulat CF', sans-serif;  // H2, body, paragraphs
+
+// Font weights
+$font-weight-bold: 700;
+$font-weight-regular: 400;
+
+// ============
+// BUTTONS
+// ============
+
+$button-bg: #ffffff;
+$button-text: #1a2456;
+$button-radius: 12px;
+$button-padding-x: 24px;
+$button-padding-y: 12px;
+
+// ============
+// CARDS & SECTIONS
+// ============
+
+// Card with drop shadow
+$card-bg: #1a2456;
+$card-radius: 8px;
+$card-shadow-color: #1C236F;
+$card-shadow-x: 7px;
+$card-shadow-y: 7px;
+$card-shadow-blur: 10px;
+
+// Image card
+$image-card-radius: 8px;
+$image-overlay-opacity: 0.65;
+
+// ============
+// SPACING
+// ============
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// ============
+// BREAKPOINTS
+// ============
+
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+$breakpoint-desktop: 1440px;
+
+// ============
+// MIXINS
+// ============
+
+// Drop shadow mixin
+@mixin drop-shadow($x: 7px, $y: 7px, $blur: 10px, $color: $card-shadow-color) {
+  box-shadow: #{$x} #{$y} #{$blur} #{$color};
+}
+
+// Button mixin
+@mixin button-base {
+  background-color: $button-bg;
+  color: $button-text;
+  border-radius: $button-radius;
+  padding: $button-padding-y $button-padding-x;
+  border: none;
+  cursor: pointer;
+  font-family: $font-heading-secondary;
+  font-weight: $font-weight-bold;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Card mixin
+@mixin card-base {
+  background-color: $card-bg;
+  border-radius: $card-radius;
+  @include drop-shadow($card-shadow-x, $card-shadow-y, $card-shadow-blur, $card-shadow-color);
+}
+
+// Image overlay mixin
+@mixin image-overlay($opacity: $image-overlay-opacity) {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $card-bg;
+    opacity: $opacity;
+    border-radius: $image-card-radius;
+  }
+}
+
+// Responsive mixin
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'mobile' {
+    @media (max-width: $breakpoint-mobile) {
+      @content;
+    }
+  }
+  @if $breakpoint == 'tablet' {
+    @media (max-width: $breakpoint-tablet) {
+      @content;
+    }
+  }
+  @if $breakpoint == 'desktop' {
+    @media (min-width: $breakpoint-desktop) {
+      @content;
+    }
+  }
 }
