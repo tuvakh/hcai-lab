@@ -1,2 +1,5 @@
 @use 'reset';
 @use 'global';
+@use 'variables';
+
+@use '../components/EventCard';
