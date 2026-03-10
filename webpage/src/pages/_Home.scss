@@ -1,13 +1,28 @@
-.events {
+.card-section {
     display: flex;
     flex-direction: column;
     gap: var(--normal-space);
     margin: var(--big-space) auto;
     width: 85%;
 
-    &__card {
+    &__grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: var(--bigger-space); 
+    }
+}
+
+.info-section {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: var(--big-space);
+    background-color: var(--primary-color);
+
+    div {
+        width: 50%;
+    }
+    &__contact {
+        border-right: 1px solid var(--white-color);
     }
 }

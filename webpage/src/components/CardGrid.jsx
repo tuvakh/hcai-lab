@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./_CardGrid.scss";
 
 /**
  * CardGrid — reusable for People and Projects pages
