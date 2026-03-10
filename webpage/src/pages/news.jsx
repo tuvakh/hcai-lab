@@ -365,3 +365,4 @@ export default function News() {
 // use a styling the matches everyones 
 // need a back button 
 //fix css so it matches the size and also the scroll has to work 
+//make sass for these pages & components 
