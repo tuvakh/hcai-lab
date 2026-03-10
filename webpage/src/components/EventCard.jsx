@@ -1,15 +1,18 @@
 import Button from './Buttons';
 
-export default function EventCard({title, description, date, eventImg, bookSeat}) {
+export default function EventCard({title, description, date, place, eventImg, bookSeat}) {
     return (
         <div className="eventCard">
-            <img className="eventCard__img" src={eventImg}/>
-            <div className='eventCard__info'>
-                <h3 className='eventCard__title'>{title}</h3>
-                <p className='eventCard__date'>{date}</p>
+            <div className='eventCard__info img-overlay'>
+                <img className="eventCard__img" src={eventImg}/>
+                <div className='eventCard__text'>
+                    <h3 className='eventCard__text--title'>{title}</h3>
+                    <p className='eventCard__text--date'>{date}</p>
+                    <p className='eventCard__text--place'>{place}</p>
+                </div>
             </div>
             <p className='eventCard__description'>{description}</p>
-            <Button text="Book seat" onClick={bookSeat} />
+            <Button className='eventCard__button' text="Book seat" variant="blue" onClick={bookSeat} />
         </div>
     )
 }

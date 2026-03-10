@@ -15,18 +15,42 @@ body {
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.5;
+  line-height: 1.3;
   background-color: #ffffff;
   color: #222222;
 }
 
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
+img {
+  display: block;
+  max-width: 100%;
 }
 
-main {
-  margin: var(--big-space);
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--white-color);
+  font-size: var(--step-0);
+}
+
+/* main {
+    margin: var(--big-space);
+} */
+h1 {
+  font-size: var(--step-3);
+}
+
+h2 {
+  font-size: var(--step-2);
+}
+
+h3 {
+  font-size: var(--step-1);
 }
 
 h1, h2 {
@@ -37,37 +61,115 @@ h3, p {
   font-family: var(--text-font);
 }
 
+h1, h2, h3 {
+  line-height: 1.1;
+  padding-block-end: var(--mini-space);
+}
+
+.img-overlay {
+  position: relative;
+}
+.img-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--border-radius-img);
+  background-color: rgba(28, 35, 111, 0.65);
+  pointer-events: none;
+}
+
 :root {
+  --step--2: clamp(0.6944rem, 0.6513rem + 0.1919vw, 0.8rem);
+  --step--1: clamp(0.8333rem, 0.7652rem + 0.303vw, 1rem);
+  --step-0: clamp(1rem, 0.8977rem + 0.4545vw, 1.2rem);
+  --step-1: clamp(1.2rem, 1.0517rem + 0.6591vw, 1.5rem);
+  --step-2: clamp(1.44rem, 1.2301rem + 0.933vw, 2.2rem);
+  --step-3: clamp(1.728rem, 1.4362rem + 1.2971vw, 2.5rem);
   --primary-color: #1C236F;
   --secondary-color: #8FA1DD;
   --background-color: #4E5CA3;
   --norwegian-label: #1350CB;
   --international-label: #672292;
-  --text-color: #ffffff;
+  --white-color: #ffffff;
   --black-color: #1A191D;
   --border-radius: 8px;
-  --border-radius-btn: 12px;
+  --border-radius-img: 8px 8px 0 0;
+  --border-radius-btn: 15px;
   --box-shadow: 7px 7px 10px var(--primary-color);
   --title-font: 'anton', sans-serif;
   --text-font: 'articulat-cf', sans-serif;
+  --mini-space: 0.25rem;
   --small-space: 0.5rem;
   --normal-space: 1rem;
   --medium-space: 2rem;
   --big-space: 3rem;
+  --bigger-space: 4rem;
 }
 
 .events {
-  display: flex; /* gjør barna til flex-items */
-  gap: 20px; /* mellomrom mellom kortene */
-  flex-wrap: wrap; /* bryt til ny rad hvis skjermen er for smal */
+  display: flex;
+  flex-direction: column;
+  gap: var(--normal-space);
+  margin: var(--big-space) auto;
+  width: 85%;
+}
+.events__card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--bigger-space);
 }
 
 .eventCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--secondary-color);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  width: 25%;
-  display: flex;
-  flex-direction: column;
+  flex: 1 1 250px; /* vokser og krymper, minimum 250px */
   text-align: center;
+}
+.eventCard__img {
+  border-radius: var(--border-radius-img);
+}
+.eventCard__info {
+  position: relative;
+}
+.eventCard__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  line-height: 1.1;
+}
+.eventCard__text--title {
+  width: 14ch;
+}
+.eventCard__description {
+  padding: var(--normal-space);
+}
+.eventCard__button {
+  margin: 0 auto var(--normal-space);
+}
+
+.button {
+  width: 30%;
+  font-weight: bold;
+  padding: var(--small-space);
+  border: none;
+  border-radius: var(--border-radius-btn);
+  font-size: var(--step--1);
+}
+.button--blue {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: 1px solid var(--white-color);
+}
+.button--white {
+  background-color: var(--white-color);
+  color: var(--primary-color);
 }/*# sourceMappingURL=main.css.map */

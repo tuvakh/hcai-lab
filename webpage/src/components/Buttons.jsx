@@ -1,5 +1,5 @@
-export default function Buttons({ text, action }) {
+export default function Buttons({ text, action, variant = "blue", className = "" }) {
     return (
-        <button class="button" onClick={() => action()}> {text} </button>
+        <button class={`button button--${variant} ${className}`} onClick={() => action()}> {text} </button>
     )
 }

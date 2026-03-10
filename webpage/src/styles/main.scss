@@ -2,6 +2,7 @@
 @use 'global';
 @use 'variables';
 
-@use '../pages/Events';
+@use '../pages/Home';
 
 @use '../components/EventCard';
+@use '../components/Buttons';

@@ -1,4 +1,19 @@
 .button {
+    width: 30%;
+    font-weight: bold;
+    padding: var(--small-space);
+    border: none;
     border-radius: var(--border-radius-btn);
-    color: var(--secondary-color);
+    font-size: var(--step--1);
+
+    &--blue {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        border: 1px solid var(--white-color);
+    }
+
+    &--white {
+        background-color: var(--white-color);
+        color: var(--primary-color);
+    }
 }
