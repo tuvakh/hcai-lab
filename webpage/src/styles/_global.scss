@@ -1,0 +1,17 @@
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+main {
+    margin: var(--big-space);
+}
+
+h1, h2 {
+    font-family: var(--title-font);
+}
+
+
+h3, p {
+    font-family: var(--text-font);
+}
