@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const INITIAL_COUNT = 6;
@@ -160,10 +160,12 @@ const NEWS = [
   },
 ];
 
-function NewsCard({ item, saved, onStar, onOpen }) {
+function NewsCard({ item, saved, onStar, onOpen, isFeatured = false }) {
   return (
     <div
-      className={`news-card${saved ? " saved" : ""}`}
+      className={`news-card${saved ? " saved" : ""}${
+        isFeatured ? " news-card--featured" : ""
+      }`}
       onClick={() => onOpen(item)}
     >
       <span className="news-tag">{item.tag}</span>
@@ -209,13 +211,14 @@ function Rail({ label, items, saved, onStar, onOpen }) {
     <div className="news-rail">
       <p className="news-section-label">{label}</p>
       <div className="news-track">
-        {visibleItems.map((item) => (
+        {visibleItems.map((item, index) => (
           <NewsCard
             key={item.id}
             item={item}
             saved={saved.has(item.id)}
             onStar={onStar}
             onOpen={onOpen}
+            isFeatured={index === 1}
           />
         ))}
       </div>
@@ -379,3 +382,11 @@ export default function News() {
     </>
   );
 }
+
+//todo
+//Add more news and the links to the articles
+//Make the cards more interactive and visually appealing, maybe add images or icons
+//Implement the "why it matters" section in a more engaging way, like a tooltip or expandable section
+//fix the coloring of the tags to be more distinct and visually appealing
+//fix the railing animation to be smoother and less jarring when it loops back to the start
+// consider adding a "trending" or "most popular" section based on the number of stars each news item has received
