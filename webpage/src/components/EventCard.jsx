@@ -1,5 +1,5 @@
-/* import Button from './Button';
- */
+import Button from './Buttons';
+
 export default function EventCard({title, description, date, eventImg, bookSeat}) {
     return (
         <div className="eventCard">
@@ -9,7 +9,7 @@ export default function EventCard({title, description, date, eventImg, bookSeat}
                 <p className='eventCard__date'>{date}</p>
             </div>
             <p className='eventCard__description'>{description}</p>
-            {/* <Button text="Book seat" onClick={bookSeat} /> */}
+            <Button text="Book seat" onClick={bookSeat} />
         </div>
     )
 }
