@@ -9,11 +9,16 @@ export default function Events() {
   }
 
   const events = [
-    { id: 1, title: 'Konsert', date: '10. mars', eventImg: '/images/event1.jpg', description: 'Info om event'}
+    { id: 1, title: 'Konsert', date: '10. mars', eventImg: '/images/event1.jpg', description: 'Info om event'},
+    { id: 2, title: 'Konsert', date: '12. mars', eventImg: '/images/event1.jpg', description: 'Info om event'},
+    { id: 3, title: 'Konsert', date: '14. mars', eventImg: '/images/event1.jpg', description: 'Info om event'}
   ];
 
   return (
-    <div className="events-section">
+    <>
+    <h1>Events</h1>
+    <p>Informasjon Informasjon Info Informasjon Info Info Informasjon Informasjon Info Info Info</p>
+    <div className="events">
       {events.map(event => (
         <EventCard
           key={event.id}
@@ -25,5 +30,6 @@ export default function Events() {
         />
       ))}
     </div>
+    </>
   );
 }
