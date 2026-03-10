@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-
+//make a burger menu evt. 
 const navItems = [
   { label: "Home", path: "/" },
   { label: "People", path: "/people" },
