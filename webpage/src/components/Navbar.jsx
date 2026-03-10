@@ -2,11 +2,11 @@ import { NavLink } from "react-router-dom";
 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "People", path: "/people" },
-  { label: "Projects", path: "/projects" },
-  { label: "Events", path: "/events" },
-  { label: "News", path: "/news" },
-  { label: "Booking", path: "/booking" },
+  { label: "People", path: "/People" },
+  { label: "Projects", path: "/Projects" },
+  { label: "Events", path: "/Events" },
+  { label: "News", path: "/News" },
+  { label: "Booking", path: "/Booking" },
 ];
 
 const styles = `
