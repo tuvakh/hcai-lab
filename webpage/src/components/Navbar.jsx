@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
-
+//make a burger menu evt. 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "People", path: "/people" },
-  { label: "Projects", path: "/projects" },
-  { label: "Events", path: "/events" },
-  { label: "News", path: "/news" },
-  { label: "Booking", path: "/booking" },
+  { label: "People", path: "/People" },
+  { label: "Projects", path: "/Projects" },
+  { label: "Events", path: "/Events" },
+  { label: "News", path: "/News" },
+  { label: "Booking", path: "/Booking" },
 ];
 
 const styles = `
