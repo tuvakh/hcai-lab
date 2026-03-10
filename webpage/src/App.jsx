@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home.jsx";
 import People from "./pages/people.jsx";
-import Events from "./pages/events.jsx";
+import Events from "./pages/Events.jsx";
 import Projects from "./pages/projects.jsx";
 import News from "./pages/news.jsx";
 import Booking from "./pages/booking.jsx";
