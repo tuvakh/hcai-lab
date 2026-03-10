@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 //make a burger menu evt. 
+// make the navbar according to the styles and the variables 
 const navItems = [
   { label: "Home", path: "/" },
   { label: "People", path: "/People" },
@@ -9,6 +10,7 @@ const navItems = [
   { label: "Booking", path: "/Booking" },
 ];
 
+//logo goes here 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
