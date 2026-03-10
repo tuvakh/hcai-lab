@@ -1,0 +1,24 @@
+.heroSection {
+    height: 70vh; // kan justeres
+    background-size: cover;
+    background-position: center 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &__intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+        gap: 1rem; // litt spacing mellom logo/title og tekst
+    }
+
+    &__intro--text {
+        width: 40ch;
+    }
+    &__intro--logo {
+        width: 25%;
+    }
+}

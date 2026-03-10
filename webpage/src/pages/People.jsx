@@ -1,12 +1,11 @@
 import CardGrid from "../components/CardGrid";
-import "./_People.scss";
 
-const PEOPLE = [
+const people = [
   {
     id: 1,
     name: "Ole Andreas Alsos",
     role: "Professor / Head of Shore Control Lab",
-    image: "/Ole.png",
+    image: "/assets/people/ole.png",
     shortDescription:
       "Professor at the Department of Design and head of the Shore Control Lab. MSc and PhD in Computer and Information Science from NTNU.",
     fullBio:
@@ -19,7 +18,7 @@ const PEOPLE = [
     id: 2,
     name: "Eleftherios Papachristou",
     role: "Associate Professor",
-    image: "/Lefty.png" ,
+    image: "/assets/people/lefty.png" ,
     shortDescription:
       "Research focus on Human-Centred AI and Interaction Design. Exploring how AI advances change the way we interact with technology.",
     fullBio:
@@ -32,7 +31,7 @@ const PEOPLE = [
     id: 3,
     name: "Yavuz Inal",
     role: "Associate Professor",
-    image: "/Yavuz.png",
+    image: "/assets/people/yavuz.png",
     shortDescription:
       "Research interests span Interaction Design, Usability, Digital Accessibility, Game Studies, and Human-Robot Interaction.",
     fullBio:
@@ -45,7 +44,7 @@ const PEOPLE = [
     id: 4,
     name: "Aliaksei Miniukovich",
     role: "Associate Professor",
-    image: "/Aliaksei.png",
+    image: "/assets/people/aliaksei.png",
     shortDescription:
       "Research on users' first impressions, preferences, and behaviour using quantitative methods and computational models.",
     fullBio:
@@ -58,7 +57,7 @@ const PEOPLE = [
     id: 5,
     name: "Carlos Vicient-Monllaó",
     role: "Associate Professor",
-    image: "/Carlos.png",
+    image: "/assets/people/carlos.png",
     shortDescription:
       "Research interests in artificial intelligence, HCAI, HCI, and interaction design.",
     fullBio:
@@ -71,7 +70,7 @@ const PEOPLE = [
     id: 6,
     name: "Erik Aleksander Veitch",
     role: "Senior Researcher",
-    image: "/Erik.png",
+    image: "/assets/people/erik.png",
     shortDescription:
       "Co-founder and Scientific Manager of the NTNU Shore Control Lab. Research on human-machine interaction and remote maritime operations.",
     fullBio:
@@ -84,7 +83,7 @@ const PEOPLE = [
     id: 7,
     name: "Taufik Akbar Sitompul",
     role: "Senior Researcher",
-    image: "/Taufik.png",
+    image: "/assets/people/taufik.png",
     shortDescription:
       "Member of the NTNU Shore Control Lab. Research on user interface design for remote operations and information visualisation.",
     fullBio:
@@ -97,7 +96,7 @@ const PEOPLE = [
     id: 8,
     name: "Sujay Shalawadi",
     role: "Postdoctoral Fellow",
-    image: "/Sujay.png",
+    image: "/assets/people/sujay.png",
     shortDescription:
       "HCI researcher exploring how smart home systems, self-tracking tools, and generative AI influence privacy, learning, and everyday life.",
     fullBio:
@@ -110,7 +109,7 @@ const PEOPLE = [
     id: 9,
     name: "Tanzima Habib",
     role: "Researcher",
-    image: "/Tanzima.png",
+    image: "/assets/people/tanzima.png",
     shortDescription:
       "Researcher at the Department of Design and Department of Computer Science, NTNU Gjøvik.",
     fullBio:
@@ -123,7 +122,7 @@ const PEOPLE = [
     id: 10,
     name: "Carly Grace Allen",
     role: "PhD Candidate",
-    image: "/Carly.png",
+    image: "/assets/people/carly.png",
     shortDescription:
       "Industrial PhD on how interaction design can support responsible gambling — helping players keep or regain control of their habits.",
     fullBio:
@@ -136,7 +135,7 @@ const PEOPLE = [
     id: 11,
     name: "Vedran Simic",
     role: "PhD Candidate",
-    image: "/Vedran.png",
+    image: "/assets/people/vedran.png",
     shortDescription:
       "First-year PhD at the Shore Control Lab. Creating user interfaces for teleoperation in shipbreaking and recycling operations.",
     fullBio:
@@ -163,7 +162,7 @@ export default function People() {
       </section>
 
       <section className="people-page__grid-section">
-        <CardGrid items={PEOPLE} variant="people" />
+        <CardGrid items={people} variant="people" />
       </section>
 
       <section className="people-page__contact">
