@@ -1,4 +1,8 @@
+<<<<<<< HEAD:webpage/src/pages/news.jsx
 import React, { useState, useRef } from "react";
+=======
+import { useState, useRef } from "react";
+>>>>>>> origin:webpage/src/pages/News.jsx
 
 //find another way to do this 
 const NEWS = [

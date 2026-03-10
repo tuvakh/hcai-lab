@@ -1,10 +1,9 @@
-// src/pages/Home.jsx
 import React from "react";
 
-export default function Home() {
+export default function People() {
   return (
     <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>Velkommen til HCAI Lab!</h1>
+      <h1>Velkommen til People!</h1>
     </div>
   );
 }
