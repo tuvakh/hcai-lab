@@ -13,11 +13,18 @@
     --international-label: #672292;
     --white-color: #ffffff;
     --black-color: #1A191D;
+    --role-color: #C084F5;
 
     --border-radius: 8px;
     --border-radius-img: 8px 8px 0 0;
     --border-radius-btn: 15px;
     --box-shadow: 7px 7px 10px var(--primary-color);
+    --navbar-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    --navbar-bg-gradient: linear-gradient(
+        90deg,
+        rgba(28, 35, 111, 0.9),
+        rgba(78, 92, 163, 0.85)
+    );
 
     --title-font: 'anton', sans-serif;
     --text-font: 'articulat-cf', sans-serif;

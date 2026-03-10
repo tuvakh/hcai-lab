@@ -1,0 +1,158 @@
+// ─── People Page ─────────────────────────────────────────────────────
+
+.people-page {
+  // cancel the global `main { margin: var(--big-space) }` 
+  margin: calc(-1 * var(--big-space));
+  width: calc(100% + calc(2 * var(--big-space)));
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+// ─── Hero ─────────────────────────────────────────────────────────────
+.people-page__hero {
+  background: var(--primary-color);
+  padding: 3rem 4rem 2.5rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    left: 10%;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+  }
+}
+
+.people-page__hero-inner {
+  max-width: 760px;
+  position: relative;
+  z-index: 1;
+}
+
+.people-page__label {
+  font-family: var(--text-font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--norwegian-label);
+  margin: 0 0 0.6rem;
+}
+
+.people-page__title {
+  font-family: var(--title-font);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-color);
+  margin: 0 0 1rem;
+  line-height: 1.05;
+}
+
+.people-page__intro {
+  font-family: var(--text-font);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 520px;
+  margin: 0;
+}
+
+// ─── Grid Section ────────────────────────────────────────────────────
+.people-page__grid-section {
+  width: 100%;
+  padding: 2rem 4rem;
+}
+
+// ─── Contact Section ─────────────────────────────────────────────────
+.people-page__contact {
+  background: var(--primary-color);
+  text-align: center;
+  padding: 3.5rem 2rem;
+}
+
+.people-page__contact-title {
+  font-family: var(--title-font);
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-color);
+  margin: 0 0 0.75rem;
+}
+
+.people-page__contact-text {
+  font-family: var(--text-font);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 400px;
+  margin: 0 auto 1.75rem;
+}
+
+.people-page__contact-btn {
+  display: inline-block;
+  font-family: var(--text-font);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: var(--border-radius-btn);
+  background: var(--norwegian-label);
+  color: var(--text-color);
+  box-shadow: var(--box-shadow);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: lighten(#1350CB, 8%);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────
+@media (max-width: 900px) {
+  .people-page__hero {
+    padding: 2.5rem 2rem 2rem;
+  }
+
+  .people-page__grid-section {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .people-page__hero {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+
+  .people-page__grid-section {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .people-page__contact {
+    padding: 2.5rem 1.25rem;
+  }
+}
