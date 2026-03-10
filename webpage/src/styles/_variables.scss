@@ -10,6 +10,12 @@
     --border-radius: 8px;
     --border-radius-btn: 12px;
     --box-shadow: 7px 7px 10px var(--primary-color);
+    --navbar-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    --navbar-bg-gradient: linear-gradient(
+        90deg,
+        rgba(28, 35, 111, 0.9),
+        rgba(78, 92, 163, 0.85)
+    );
 
     --title-font: 'anton', sans-serif;
     --text-font: 'articulat-cf', sans-serif;

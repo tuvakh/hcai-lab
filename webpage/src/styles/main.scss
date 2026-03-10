@@ -3,5 +3,8 @@
 @use 'variables';
 
 @use '../pages/Events';
+@use '../pages/News';
 
 @use '../components/EventCard';
+
+@use '../components/Navbar';
