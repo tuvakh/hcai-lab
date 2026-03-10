@@ -1,0 +1,5 @@
+.events {
+  display: flex;        /* gjør barna til flex-items */
+  gap: 20px;            /* mellomrom mellom kortene */
+  flex-wrap: wrap;      /* bryt til ny rad hvis skjermen er for smal */
+}
