@@ -2,9 +2,9 @@
 @use 'global';
 @use 'variables';
 
-@use '../pages/Events';
+@use '../pages/Home';
 @use '../pages/News';
 
 @use '../components/EventCard';
-
+@use '../components/Buttons';
 @use '../components/Navbar';

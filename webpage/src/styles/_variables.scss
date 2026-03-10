@@ -1,15 +1,23 @@
 :root {
+    --step--2: clamp(0.6944rem, 0.6513rem + 0.1919vw, 0.8rem);
+    --step--1: clamp(0.8333rem, 0.7652rem + 0.303vw, 1rem);
+    --step-0: clamp(1rem, 0.8977rem + 0.4545vw, 1.2rem);
+    --step-1: clamp(1.2rem, 1.0517rem + 0.6591vw, 1.5rem);
+    --step-2: clamp(1.44rem, 1.2301rem + 0.933vw, 2.2rem);
+    --step-3: clamp(1.728rem, 1.4362rem + 1.2971vw, 2.5rem);
+
     --primary-color: #1C236F;
     --secondary-color: #8FA1DD;
     --background-color: #4E5CA3;
     --norwegian-label: #1350CB;
     --international-label: #672292;
-    --text-color: #ffffff;
+    --white-color: #ffffff;
     --black-color: #1A191D;
     --role-color: #C084F5;
 
     --border-radius: 8px;
-    --border-radius-btn: 12px;
+    --border-radius-img: 8px 8px 0 0;
+    --border-radius-btn: 15px;
     --box-shadow: 7px 7px 10px var(--primary-color);
     --navbar-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
     --navbar-bg-gradient: linear-gradient(
@@ -21,8 +29,10 @@
     --title-font: 'anton', sans-serif;
     --text-font: 'articulat-cf', sans-serif;
 
+    --mini-space: 0.25rem;
     --small-space: 0.5rem;
     --normal-space: 1rem;
     --medium-space: 2rem;
     --big-space: 3rem;
+    --bigger-space: 4rem;
 }
