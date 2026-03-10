@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { useState, useRef } from "react";
+=======
+//connect styles into this page 
+import React from "react";
+>>>>>>> origin
 
 //find another way to do this 
 const NEWS = [

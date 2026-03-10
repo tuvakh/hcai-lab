@@ -7,7 +7,6 @@ const navItems = [
   { label: "Events", path: "/events" },
   { label: "News", path: "/news" },
   { label: "Booking", path: "/booking" },
-  { label: "Contact", path: "/contact" },
 ];
 
 const styles = `
