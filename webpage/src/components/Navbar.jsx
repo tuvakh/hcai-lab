@@ -38,15 +38,14 @@ export default function Navbar() {
   return (
     <>
       <nav className={`navbar${isScrolled ? " navbar--scrolled" : ""}`}>
-        <NavLink to="/" className="navbar-logo">
-          <img src={logo} alt="HCAI Lab logo" className="navbar-logo-image" />
-          <div className="navbar-logo-text-group">
-          </div>
+        <NavLink to="/" className="navbar__logo">
+          <img src={logo} alt="HCAI Lab logo" className="navbar__logo-image" />
+          <div className="navbar__logo-text-group"></div>
         </NavLink>
 
         <button
           type="button"
-          className={`navbar-toggle${isOpen ? " is-open" : ""}`}
+          className={`navbar__toggle${isOpen ? " navbar__toggle--open" : ""}`}
           aria-label="Toggle navigation"
           aria-expanded={isOpen}
           onClick={toggleMenu}
@@ -56,12 +55,16 @@ export default function Navbar() {
           <span />
         </button>
 
-        <ul className={`navbar-links${isOpen ? " is-open" : ""}`}>
+        <ul className={`navbar__links${isOpen ? " navbar__links--open" : ""}`}>
           {navItems.map((item) => (
             <li key={item.path}>
               <NavLink
                 to={item.path}
-                className={({ isActive }) => (isActive ? "active" : "")}
+                className={({ isActive }) =>
+                  isActive
+                    ? "navbar__link navbar__link--active"
+                    : "navbar__link"
+                }
                 onClick={closeMenu}
               >
                 {item.label}
@@ -70,7 +73,7 @@ export default function Navbar() {
           ))}
         </ul>
       </nav>
-      <div className="navbar-spacer" />
+      <div className="navbar__spacer" />
     </>
   );
 }

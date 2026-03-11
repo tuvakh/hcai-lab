@@ -163,20 +163,20 @@ const NEWS = [
 function NewsCard({ item, saved, onStar, onOpen, isFeatured = false }) {
   return (
     <div
-      className={`news-card${saved ? " saved" : ""}${
-        isFeatured ? " news-card--featured" : ""
+      className={`news__card${saved ? " news__card--saved" : ""}${
+        isFeatured ? " news__card--featured" : ""
       }`}
       onClick={() => onOpen(item)}
     >
-      <span className="news-tag">{item.tag}</span>
-      <p className="news-card-headline">{item.headline}</p>
-      <p className="news-card-summary">{item.summary}</p>
-      {item.why && <div className="news-card-why">{item.why}</div>}
-      <div className="news-card-footer">
-        <span className="news-card-time">{item.time}</span>
+      <span className="news__card-tag">{item.tag}</span>
+      <p className="news__card-title">{item.headline}</p>
+      <p className="news__card-summary">{item.summary}</p>
+      {item.why && <div className="news__card-why">{item.why}</div>}
+      <div className="news__card-footer">
+        <span className="news__card-time">{item.time}</span>
         <button
           type="button"
-          className={`news-star${saved ? " on" : ""}`}
+          className={`news__card-star${saved ? " news__card-star--on" : ""}`}
           onClick={(e) => {
             e.stopPropagation();
             onStar(item.id);
@@ -208,9 +208,9 @@ function Rail({ label, items, saved, onStar, onOpen }) {
       : [...items, ...items].slice(startIndex, startIndex + 3);
 
   return (
-    <div className="news-rail">
-      <p className="news-section-label">{label}</p>
-      <div className="news-track">
+    <div className="news__rail">
+      <p className="news__section-label">{label}</p>
+      <div className="news__track">
         {visibleItems.map((item, index) => (
           <NewsCard
             key={item.id}
@@ -247,17 +247,17 @@ export default function News() {
 
   return (
     <>
-      <div className="news-page">
+      <div className="news">
         <button
           type="button"
-          className="news-page-back"
+          className="news__back-button"
           onClick={() => navigate(-1)}
         >
           Back
         </button>
 
-        <div className="news-topbar">
-          <div className="news-toggle">
+        <div className="news__topbar">
+          <div className="news__toggle">
             {[
               ["norway", "Norway"],
               ["international", "International"],
@@ -265,71 +265,76 @@ export default function News() {
               <button
                 key={k}
                 type="button"
-                className={region === k ? "active" : ""}
+                className={
+                  region === k
+                    ? "news__toggle-button news__toggle-button--active"
+                    : "news__toggle-button"
+                }
                 onClick={() => setRegion(k)}
               >
                 {label}
               </button>
             ))}
           </div>
-          <h1 className="news-title">
+          <h1 className="news__title">
             AI News &amp; <span>Highlights</span>
           </h1>
         </div>
 
-        <div className="news-layout">
-          <div>
-            {(region === "norway" || region === "all") && (
-              <Rail
-                label="Norway"
-                items={norItems}
-                saved={saved}
-                onStar={toggleStar}
-                onOpen={setActiveItem}
-              />
-            )}
-            {(region === "international" || region === "all") && (
-              <Rail
-                label="International"
-                items={intlItems}
-                saved={saved}
-                onStar={toggleStar}
-                onOpen={setActiveItem}
-              />
-            )}
-            {count > INITIAL_COUNT && (
-              <div className="news-more-wrap">
+        <div className="news__layout">
+          <div className="news__main">
+            <div className="news__grid">
+              {(region === "norway" || region === "all") && (
+                <Rail
+                  label="Norway"
+                  items={norItems}
+                  saved={saved}
+                  onStar={toggleStar}
+                  onOpen={setActiveItem}
+                />
+              )}
+              {(region === "international" || region === "all") && (
+                <Rail
+                  label="International"
+                  items={intlItems}
+                  saved={saved}
+                  onStar={toggleStar}
+                  onOpen={setActiveItem}
+                />
+              )}
+            </div>
+
+            <div className="news__more">
+              {count > INITIAL_COUNT && (
                 <button
                   type="button"
-                  className="news-more-btn"
+                  className="news__more-button"
                   onClick={() => setCount(INITIAL_COUNT)}
                 >
                   Show less
                 </button>
-              </div>
-            )}
-            {count < NEWS.length && (
-              <div className="news-more-wrap">
+              )}
+              {count < NEWS.length && (
                 <button
                   type="button"
-                  className="news-more-btn"
+                  className="news__more-button"
                   onClick={() =>
                     setCount((c) => Math.min(c + 4, NEWS.length))
                   }
                 >
                   More news
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
-          <aside className="news-sidebar">
-            <p className="news-sidebar-title">Favorites</p>
+          <aside className="news__sidebar">
+            <p className="news__sidebar-title">Favorites</p>
             {favItems.length === 0 ? (
-              <p className="news-fav-empty">Star a card to save it.</p>
+              <p className="news__sidebar-empty">Star a card to save it.</p>
             ) : (
               favItems.map((item) => (
-                <div key={item.id} className="news-fav-item">
+                <div key={item.id} className="news__sidebar-item">
                   <strong>{item.tag}</strong> —{" "}
                   {item.headline.length > 38
                     ? `${item.headline.slice(0, 38)}...`
@@ -342,38 +347,38 @@ export default function News() {
 
         {activeItem && (
           <div
-            className="news-modal-overlay"
+            className="news__modal-overlay"
             onClick={() => setActiveItem(null)}
           >
             <div
-              className="news-modal"
+              className="news__modal"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
-                className="news-modal-close"
+                className="news__modal-close"
                 aria-label="Close"
                 onClick={() => setActiveItem(null)}
               >
                 ×
               </button>
 
-              <h2 className="news-modal-title">{activeItem.headline}</h2>
-              <p className="news-modal-summary">{activeItem.summary}</p>
+              <h2 className="news__modal-title">{activeItem.headline}</h2>
+              <p className="news__modal-summary">{activeItem.summary}</p>
               {activeItem.why && (
-                <div className="news-modal-why">{activeItem.why}</div>
+                <div className="news__modal-why">{activeItem.why}</div>
               )}
 
-              <div className="news-modal-footer">
+              <div className="news__modal-footer">
                 <a
-                  className="news-modal-link"
+                  className="news__modal-link"
                   href={activeItem.url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Open article
                 </a>
-                <p className="news-modal-meta">{activeItem.time}</p>
+                <p className="news__modal-meta">{activeItem.time}</p>
               </div>
             </div>
           </div>
