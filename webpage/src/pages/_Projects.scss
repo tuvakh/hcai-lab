@@ -1,0 +1,82 @@
+// ─── Projects Page ───────────────────────────────────────────────────
+.projects-page {
+  min-height: 100vh;
+  background-color: var(--background-color);
+
+  // ─── Hero text (reuses HeroSection, just styles the children) ──────
+  &__label {
+    font-family: var(--text-font);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--norwegian-label);
+    margin: 0 0 0.6rem;
+  }
+
+  &__title {
+    font-family: var(--title-font);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--white-color);
+    margin: 0 0 1rem;
+    line-height: 1.05;
+  }
+
+  &__intro {
+    font-family: var(--text-font);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 520px;
+    margin: 0;
+  }
+
+  // ─── Content area ──────────────────────────────────────────────────
+  &__content {
+    padding: 2rem 4rem 4rem;
+
+    @media (max-width: 900px) { padding: 1.5rem 2rem 3rem; }
+    @media (max-width: 600px) { padding: 1.25rem 1.25rem 2.5rem; }
+  }
+
+  // ─── Filter bar ────────────────────────────────────────────────────
+  &__filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+  }
+
+  &__filter-btn {
+    font-family: var(--text-font);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--border-radius-btn);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white-color);
+    }
+
+    &--active {
+      background: var(--norwegian-label);
+      border-color: var(--norwegian-label);
+      color: var(--white-color);
+      box-shadow: 0 4px 12px rgba(19, 80, 203, 0.4);
+    }
+  }
+}
