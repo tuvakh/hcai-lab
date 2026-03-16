@@ -87,14 +87,24 @@ export default function Home() {
 
     <section className="info-section">
         <div className="info-section__contact">
-            <h2>Contact</h2>
-            <p>Text text text</p>
-            <p>Text text text</p> 
+            <h2>Contact our team</h2>
+            <p>Do you need research help for an AI project?</p>
+            <Buttons
+                text="Contact info"
+                variant="white"
+                className="info-btn"
+                action={() => navigate("/People")} 
+            />
         </div>
         <div className="info-section__booking">
             <h2>Book equipment</h2>
-            <p>Text text text</p>
-            <p>Text text text</p> 
+            <p>Do you want to borrow any equipment?</p>
+            <Buttons
+                text="Book here"
+                variant="white"
+                className="info-btn"
+                action={() => navigate("/Booking")} 
+            />
         </div>
     </section>
     </>
