@@ -13,7 +13,7 @@ export default function CardGrid({ items = [], variant = "people" }) {
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { 
     document.body.style.overflow = selected ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [selected]);

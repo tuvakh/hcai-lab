@@ -1,99 +1,85 @@
 // _grid.scss
-// Handles ALL layout, sizing, and responsive behaviour for the News page.
+// Layout for the News page content section (below the hero).
+// The HeroSection component handles the top of the page — no top padding needed here.
 // Cosmetic styles live in _news.scss.
-// Import order in main.scss: @use 'news'; then @use 'grid';
+// Import order: @use 'news'; then @use 'grid';
 //
-// Named areas:
-//   topbar  — h1 + region toggle
-//   back    — back button (below title, left-aligned)
-//   body    — inner grid: main rails + sidebar
+// Named areas (inner layout):
+//   main    — news rails
+//   sidebar — favorites panel
+//   more    — pagination buttons
 // ─────────────────────────────────────────────────────────────────────────────
 
 .news-page {
+  // padding lives in news-page__content — see _News.scss
+
+  // ── inner layout: main content + sidebar ────────────────────────────────
+  &__layout {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
-      "topbar"
-      "back"
-      "body";
-    min-height: 100vh;
-    // top padding clears the fixed navbar (64px) + breathing room
-    padding: calc(64px + 2rem) var(--big-space) var(--bigger-space);
-    box-sizing: border-box;
-  
-    // ── named area placements ──────────────────────────────────────────────────
-    &__topbar { grid-area: topbar; margin-bottom: var(--normal-space); }
-    &__back   { grid-area: back;  align-self: start; justify-self: start; margin-bottom: var(--medium-space); }
-    &__layout { grid-area: body; }
-  
-    // ── inner layout: main content + sidebar ──────────────────────────────────
+      "main sidebar"
+      "main sidebar"
+      "more sidebar";
+    gap: var(--medium-space) var(--normal-space);
+    align-items: start;
+  }
+
+  &__main { grid-area: main; min-width: 0; }
+  &__more { grid-area: more; justify-self: center; width: 100%; }
+}
+
+// Sidebar — sticky so it follows as you scroll through cards
+.news-sidebar {
+  grid-area: sidebar;
+  align-self: stretch;
+  position: sticky;
+  top: calc(64px + 1rem);   // 64px = navbar height
+}
+
+// ─── Rail card track ─────────────────────────────────────────────────────────
+// Fixed 3-col grid — cards always appear as a tidy equal-width row.
+// minmax(0, 1fr) prevents any single card overflowing its column.
+.news-rail__track {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--normal-space);
+}
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+
+// Tablet (≤1024px): sidebar collapses above content, 2-col card grid
+@media (max-width: 1024px) {
+  .news-page {
+    padding-inline: var(--medium-space);
+
     &__layout {
-      display: grid;
-      grid-template-columns: 1fr 280px;   // sidebar wider: 220 → 280px
-      grid-template-rows: auto 1fr auto;
-      grid-template-areas:
-        "main    sidebar"
-        "main    sidebar"
-        "more    sidebar";
-      gap: var(--medium-space) var(--normal-space);
-      align-items: start;
-    }
-  
-    &__main { grid-area: main; min-width: 0; }
-    &__more { grid-area: more; justify-self: center; width: 100%; }
-  }
-  
-  // sidebar: fill the full height of its grid row, no gap at the bottom
-  .news-sidebar {
-    grid-area: sidebar;
-    align-self: stretch;          // fills height alongside the rail
-    position: sticky;
-    top: calc(64px + 1rem);
-  }
-  
-  // ─── rail card track ──────────────────────────────────────────────────────────
-  // Fixed 3-column grid so cards always appear as a tidy row.
-  // min() clamp stops columns going below 180px on narrow containers.
-  .news-rail__track {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--normal-space);
-  }
-  
-  // ─── breakpoints ──────────────────────────────────────────────────────────────
-  
-  // Tablet (≤1024px): collapse sidebar above content, 2-col cards
-  @media (max-width: 1024px) {
-    .news-page {
-      padding-inline: var(--medium-space);
-  
-      &__layout {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "sidebar"
-          "main"
-          "more";
-      }
-    }
-  
-    .news-sidebar {
-      position: static;
-      align-self: auto;
-    }
-  
-    .news-rail__track {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  
-  // Mobile (≤600px): single column, tighter padding
-  @media (max-width: 600px) {
-    .news-page {
-      padding-inline: var(--normal-space);
-    }
-  
-    .news-rail__track {
       grid-template-columns: 1fr;
+      grid-template-areas:
+        "sidebar"
+        "main"
+        "more";
     }
   }
+
+  .news-sidebar {
+    position: static;
+    align-self: auto;
+  }
+
+  .news-rail__track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// Mobile (≤600px): single column cards, tighter padding
+@media (max-width: 600px) {
+  .news-page {
+    padding-inline: var(--normal-space);
+  }
+
+  .news-rail__track {
+    grid-template-columns: 1fr;
+  }
+}

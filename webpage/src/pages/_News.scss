@@ -1,10 +1,11 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Block: news-page   — page wrapper, topbar, more button
-// Block: news-rail   — section label + card track
-// Block: news-card   — individual article card
+// Block: news-page    — content wrapper below the hero (cards + sidebar)
+// Block: news-rail    — section label + card track
+// Block: news-card    — individual article card
 // Block: news-sidebar — favorites panel
-// Block: news-modal  — article detail popup
+// Block: news-modal   — article detail popup
 //
+// The hero (title + region toggle) lives inside HeroSection — see _heroSection.scss
 // All colours reference :root variables from _variables.scss.
 // Layout / grid rules live in _grid.scss.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -12,84 +13,83 @@
 // ─── news-page ───────────────────────────────────────────────────────────────
 .news-page {
   min-height: 100vh;
-  font-family: var(--text-font);
-  color: var(--black-color);
+  background-color: var(--background-color);
 
-  &__back {
-    width: fit-content;
-    font-size: var(--step--1);
+  // ── Hero text — copied exactly from projects-page ─────────────────────────
+
+  &__label {
     font-family: var(--text-font);
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--white-color);
-    background: rgba(255, 255, 255, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: var(--border-radius-btn);
-    padding: 0.5rem 1.2rem;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.3);
-      border-color: rgba(255, 255, 255, 0.7);
-    }
-  }
-
-  &__topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--normal-space);
-    margin-bottom: var(--medium-space);
-    flex-wrap: wrap;
+    letter-spacing: 0.18em;
+    color: var(--norwegian-label);
+    margin: 0 0 0.6rem;
   }
 
   &__title {
     font-family: var(--title-font);
-    font-size: var(--step-3);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.04em;
     color: var(--white-color);
-    margin: 0;
-
-    span {
-      font-style: italic;
-      color: var(--secondary-color);   // light blue accent — passes AA on dark bg
-    }
+    margin: 0 0 1rem;
+    line-height: 1.05;
   }
 
-  // Black/white pill toggle — high contrast, matches original design
-  &__toggle {
-    display: flex;
-    background: var(--white-color);
-    border-radius: var(--border-radius);
-    padding: 3px;
-    gap: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &__toggle-btn {
-    padding: 6px 20px;
-    border-radius: calc(var(--border-radius) - 2px);
-    border: none;
-    background: transparent;
-    color: var(--black-color);
-    font-size: var(--step--2);
-    font-weight: 600;
+  &__intro {
     font-family: var(--text-font);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 520px;
+    margin: 0;
+  }
+
+  // ── Content area — copied exactly from projects-page__content ─────────────
+  &__content {
+    padding: 2rem 4rem 4rem;
+
+    @media (max-width: 900px) { padding: 1.5rem 2rem 3rem; }
+    @media (max-width: 600px) { padding: 1.25rem 1.25rem 2.5rem; }
+  }
+
+  // ── Filter bar — copied exactly from projects-page__filter-bar ────────────
+  &__filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+  }
+
+  &__filter-btn {
+    font-family: var(--text-font);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--border-radius-btn);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    opacity: 0.45;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--white-color);
+    }
 
     &--active {
-      background: var(--black-color);
+      background: var(--norwegian-label);
+      border-color: var(--norwegian-label);
       color: var(--white-color);
-      opacity: 1;
-    }
-
-    &:hover:not(.news-page__toggle-btn--active) {
-      opacity: 0.75;
+      box-shadow: 0 4px 12px rgba(19, 80, 203, 0.4);
     }
   }
 
@@ -102,26 +102,26 @@
   }
 
   &__more-btn {
-    font-size: var(--step--2);
     font-family: var(--text-font);
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
-    background: var(--white-color);
-    border: 1px solid rgba(28, 35, 111, 0.2);
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1.1rem;
     border-radius: var(--border-radius-btn);
-    padding: 0.55rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
-    color: var(--primary-color);
-    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-      background: var(--secondary-color);
-      border-color: var(--secondary-color);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--white-color);
     }
   }
 }
+
 
 // ─── news-rail ───────────────────────────────────────────────────────────────
 .news-rail {
