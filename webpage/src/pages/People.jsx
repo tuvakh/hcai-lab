@@ -6,9 +6,9 @@ export default function People() {
   return (
     <main className="people-page">
       <HeroSection heroImg="/assets/hero/hero-home.png">
-        <p className="people-page__label">The Team</p>
-        <h1 className="people-page__title">People &amp; Contact</h1>
-        <p className="people-page__intro">
+        <p className="heroSection__intro--label">The Team</p>
+        <h1 className="heroSection__intro--title">People &amp; Contact</h1>
+        <p className="heroSection__intro--text">
           We are a multidisciplinary group of researchers, engineers, and
           students working to make AI systems more transparent, fair, and
           human-centered.

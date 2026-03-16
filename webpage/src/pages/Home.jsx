@@ -28,7 +28,8 @@ export default function Home() {
 
     <HeroSection heroImg="/assets/projects.png">
         <h2 className="heroSection__intro--title">Projects</h2>
-        <p className="heroSection__intro--text">Text text text</p>
+        <p className="heroSection__intro--text">Exploring the intersection of human-centred design and artificial
+          intelligence through applied research and industry collaboration.</p>
     </HeroSection>
     
     <section className="card-section">

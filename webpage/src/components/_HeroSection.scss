@@ -12,13 +12,31 @@
         flex-direction: column;
         align-items: center;
         z-index: 1;
-        gap: 1rem; // litt spacing mellom logo/title og tekst
-    }
-
-    &__intro--text {
-        width: 40ch;
-    }
-    &__intro--logo {
-        width: 25%;
+    
+        &--logo {
+            width: 25%;
+            margin-block-end: var(--normal-space);
+        }
+        &--label {
+            font-size: var(--step--2);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--secondary-color);
+            margin-block-end: var(--normal-space);
+        }
+        &--title {
+            font-family: var(--title-font);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--white-color);
+            margin: 0 0 1rem;
+            line-height: 1.05;
+        }
+        &--text {
+            width: 38ch;
+            font-size: var(--step-0);
+        }
     }
 }

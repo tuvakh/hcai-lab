@@ -17,9 +17,9 @@ export default function Projects() {
   return (
     <main className="projects-page">
       <HeroSection heroImg="/assets/hero/hero-home.png">
-        <p className="projects-page__label">Research</p>
-        <h1 className="projects-page__title">Projects</h1>
-        <p className="projects-page__intro">
+        <p className="heroSection__intro--label">Research</p>
+        <h1 className="heroSection__intro--title">Projects</h1>
+        <p className="heroSection__intro--text">
           Exploring the intersection of human-centred design and artificial
           intelligence through applied research and industry collaboration.
         </p>
