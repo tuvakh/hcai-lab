@@ -1,16 +1,12 @@
 // _grid.scss
-// Grid layout for the News page.
-// Import this after _news.scss in your main stylesheet:
-//   @use 'grid';
+// Handles ALL layout, sizing, and responsive behaviour for the News page.
+// Cosmetic styles live in _news.scss.
+// Import order in main.scss: @use 'news'; then @use 'grid';
 //
-// Columns:
-//   [rail]   1fr      — main content (rails + more button)
-//   [aside]  210px    — favorites sidebar
-//
-// Rows:
-//   [back]   auto     — back button
-//   [topbar] auto     — toggle + title
-//   [body]   1fr      — rail + sidebar
+// Named areas:
+//   topbar  — h1 + region toggle
+//   back    — back button (below title, left-aligned)
+//   body    — inner grid: main rails + sidebar
 // ─────────────────────────────────────────────────────────────────────────────
 
 .news-page {
@@ -22,46 +18,56 @@
       "back"
       "body";
     min-height: 100vh;
-    padding: 2.5rem 2rem 4rem;
+    // top padding clears the fixed navbar (64px) + breathing room
+    padding: calc(64px + 2rem) var(--big-space) var(--bigger-space);
+    box-sizing: border-box;
   
     // ── named area placements ──────────────────────────────────────────────────
-    &__topbar  { grid-area: topbar; }
-    &__back    { grid-area: back;   align-self: start; justify-self: start; }
-    &__layout  { grid-area: body; }
+    &__topbar { grid-area: topbar; margin-bottom: var(--normal-space); }
+    &__back   { grid-area: back;  align-self: start; justify-self: start; margin-bottom: var(--medium-space); }
+    &__layout { grid-area: body; }
   
-    // ── inner layout: main rail + sidebar ─────────────────────────────────────
+    // ── inner layout: main content + sidebar ──────────────────────────────────
     &__layout {
       display: grid;
-      grid-template-columns: 1fr 210px;
-      grid-template-rows: 1fr auto;
+      grid-template-columns: 1fr 280px;   // sidebar wider: 220 → 280px
+      grid-template-rows: auto 1fr auto;
       grid-template-areas:
-        "main sidebar"
-        "more sidebar";
-      gap: 1.5rem;
+        "main    sidebar"
+        "main    sidebar"
+        "more    sidebar";
+      gap: var(--medium-space) var(--normal-space);
       align-items: start;
     }
   
-    &__main    { grid-area: main;    min-width: 0; }
-    &__more    { grid-area: more;    justify-self: center; }
+    &__main { grid-area: main; min-width: 0; }
+    &__more { grid-area: more; justify-self: center; width: 100%; }
   }
   
-  .news-sidebar { grid-area: sidebar; align-self: start; }
+  // sidebar: fill the full height of its grid row, no gap at the bottom
+  .news-sidebar {
+    grid-area: sidebar;
+    align-self: stretch;          // fills height alongside the rail
+    position: sticky;
+    top: calc(64px + 1rem);
+  }
   
-  // ─── rail track: 3-up card grid ───────────────────────────────────────────────
-  // Cards sit inside news-rail__track. We switch from flex to a 3-column grid
-  // so the rail has a predictable skeleton at each breakpoint.
+  // ─── rail card track ──────────────────────────────────────────────────────────
+  // Fixed 3-column grid so cards always appear as a tidy row.
+  // min() clamp stops columns going below 180px on narrow containers.
   .news-rail__track {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--normal-space);
-    padding: 4px 2px 12px;
   }
   
   // ─── breakpoints ──────────────────────────────────────────────────────────────
   
-  // Tablet — collapse sidebar below main, 2-up card grid
-  @media (max-width: 900px) {
+  // Tablet (≤1024px): collapse sidebar above content, 2-col cards
+  @media (max-width: 1024px) {
     .news-page {
+      padding-inline: var(--medium-space);
+  
       &__layout {
         grid-template-columns: 1fr;
         grid-template-areas:
@@ -71,17 +77,20 @@
       }
     }
   
-    .news-sidebar { order: -1; }   // keep sidebar on top visually
+    .news-sidebar {
+      position: static;
+      align-self: auto;
+    }
   
     .news-rail__track {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   
-  // Mobile — single column everything, 1-up cards
-  @media (max-width: 560px) {
+  // Mobile (≤600px): single column, tighter padding
+  @media (max-width: 600px) {
     .news-page {
-      padding-inline: 1.25rem;
+      padding-inline: var(--normal-space);
     }
   
     .news-rail__track {

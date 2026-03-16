@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
+// ─── navbar ──────────────────────────────────────────────────────────────────
+// Always transparent. Gains blur + shadow on scroll via navbar--scrolled.
+// No gradient ever — just backdrop-filter for the frosted glass illusion.
+// ─────────────────────────────────────────────────────────────────────────────
+
 .navbar {
     position: fixed;
     top: 0;
@@ -8,14 +13,19 @@
     z-index: 1000;
     background: transparent;
     backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 var(--big-space);
     height: 64px;
-    transition: background 0.2s ease, backdrop-filter 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        backdrop-filter 0.25s ease,
+        -webkit-backdrop-filter 0.25s ease,
+        box-shadow 0.25s ease;
 
+    // ── logo ─────────────────────────────────────────────────────────────────
     &__logo {
         display: flex;
         align-items: center;
@@ -24,7 +34,7 @@
     }
 
     &__logo-image {
-        height: 60px;
+        height: 48px;
         width: auto;
         display: block;
     }
@@ -37,9 +47,9 @@
 
     &__logo-badge {
         background: var(--international-label);
-        color: var(--text-color);
+        color: var(--white-color);
         font-family: var(--title-font);
-        font-size: 1rem;
+        font-size: var(--step--1);
         letter-spacing: 0.08em;
         padding: 0.3rem 0.75rem;
         border-radius: var(--border-radius);
@@ -48,12 +58,13 @@
 
     &__logo-text {
         font-family: var(--title-font);
-        font-size: 0.9rem;
-        color: var(--text-color);
+        font-size: var(--step--1);
+        color: var(--white-color);
         letter-spacing: 0.06em;
         text-transform: uppercase;
     }
 
+    // ── nav links ────────────────────────────────────────────────────────────
     &__links {
         display: flex;
         align-items: center;
@@ -69,19 +80,19 @@
         border-radius: var(--border-radius-btn);
         text-decoration: none;
         font-family: var(--text-font);
-        font-size: 0.85rem;
+        font-size: var(--step--1);
         font-weight: 500;
-        color: var(--text-color);
+        color: var(--white-color);
         letter-spacing: 0.04em;
-        transition: color 0.2s;
+        transition: opacity 0.2s;
         position: relative;
 
         &:hover {
-            color: var(--text-color);
+            opacity: 0.75;
         }
 
         &--active {
-            color: var(--text-color);
+            color: var(--white-color);
 
             &::after {
                 content: '';
@@ -91,18 +102,19 @@
                 transform: translateX(-50%);
                 width: 24px;
                 height: 2px;
-                background: var(--text-color);
+                background: var(--white-color);
                 border-radius: 2px;
             }
         }
     }
 
+    // ── hamburger ────────────────────────────────────────────────────────────
     &__toggle {
         display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 4px;
+        gap: 5px;
         width: 36px;
         height: 36px;
         background: transparent;
@@ -115,36 +127,32 @@
             width: 22px;
             height: 2px;
             border-radius: 999px;
-            background-color: var(--text-color);
+            background-color: var(--white-color);
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
         &--open {
-            span:nth-child(1) {
-                transform: translateY(4px) rotate(45deg);
-            }
-
-            span:nth-child(2) {
-                opacity: 0;
-            }
-
-            span:nth-child(3) {
-                transform: translateY(-4px) rotate(-45deg);
-            }
+            span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            span:nth-child(2) { opacity: 0; }
+            span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         }
     }
 }
 
+// ── spacer so page content clears the fixed bar ───────────────────────────────
 .navbar__spacer {
     height: 64px;
 }
 
+// ── scrolled state: frosted glass, no gradient ────────────────────────────────
 .navbar--scrolled {
-    background: var(--navbar-bg-gradient);
-    backdrop-filter: blur(20px);
+    background: rgba(28, 35, 111, 0.35);   // very subtle tint — barely visible
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
     box-shadow: var(--navbar-shadow);
 }
 
+// ── mobile ────────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
     .navbar {
         padding: 0 var(--normal-space);
@@ -158,8 +166,9 @@
             align-items: flex-start;
             padding: var(--normal-space);
             gap: var(--small-space);
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
+            background: rgba(28, 35, 111, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: none;
 
             &--open {
@@ -176,7 +185,5 @@
             display: flex;
         }
     }
+   
 }
-
-//have to fix the weird gradient part, get rid of it and keep it transparant 
-//make sure it blurs when scrolled, and add a shadow to make it more visible on light backgrounds
