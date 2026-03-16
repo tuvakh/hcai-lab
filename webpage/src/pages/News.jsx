@@ -88,7 +88,7 @@ const NEWS = [
     headline: "Apple Intelligence redesign leaks before WWDC",
     summary:
       "Skjermbilder viser nye UI‑mønstre med glassomorphism, kontekstuelle kort og diskrete AI‑hint i hele systemet.",
-    why: "These patterns vil inspirere porteføljeprosjekter og eksamensoppgaver innen UI‑design de neste par årene.",
+    why: "These patterns vil inspirere porteføljeprosjekter og eksamensoppgaver innen UI‑design de neste par årene.",
     time: "2h ago",
     url: "#",
   },
@@ -121,7 +121,7 @@ const NEWS = [
     headline: "NIKT 2026 announces dedicated HCAI track",
     summary:
       "The national ICT conference adds a full track for human‑centred AI papers, demos and student projects.",
-    why: "Perfect venue if you want to publish project work from IDG courses or master’s thesis.",
+    why: "Perfect venue if you want to publish project work from IDG courses or master's thesis.",
     time: "2w ago",
     url: "#",
   },
@@ -160,23 +160,39 @@ const NEWS = [
   },
 ];
 
+// ─── NewsCard ────────────────────────────────────────────────────────────────
+// Block: news-card
+// Elements: news-card__tag, news-card__title, news-card__summary,
+//           news-card__why, news-card__footer, news-card__time, news-card__star
+// Modifiers: news-card--saved, news-card--featured
 function NewsCard({ item, saved, onStar, onOpen, isFeatured = false }) {
   return (
-    <div
-      className={`news__card${saved ? " news__card--saved" : ""}${
-        isFeatured ? " news__card--featured" : ""
-      }`}
+    <article
+      className={[
+        "news-card",
+        saved ? "news-card--saved" : "",
+        isFeatured ? "news-card--featured" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       onClick={() => onOpen(item)}
+      onKeyDown={(e) => e.key === "Enter" && onOpen(item)}
+      tabIndex={0}
+      role="button"
+      aria-label={`Read article: ${item.headline}`}
+      aria-pressed={saved}
     >
-      <span className="news__card-tag">{item.tag}</span>
-      <p className="news__card-title">{item.headline}</p>
-      <p className="news__card-summary">{item.summary}</p>
-      {item.why && <div className="news__card-why">{item.why}</div>}
-      <div className="news__card-footer">
-        <span className="news__card-time">{item.time}</span>
+      <span className="news-card__tag" aria-label={`Category: ${item.tag}`}>{item.tag}</span>
+      <p className="news-card__title">{item.headline}</p>
+      <p className="news-card__summary">{item.summary}</p>
+      {item.why && <div className="news-card__why" aria-label="Why this matters">{item.why}</div>}
+      <div className="news-card__footer">
+        <span className="news-card__time" aria-label={`Published ${item.time}`}>{item.time}</span>
         <button
           type="button"
-          className={`news__card-star${saved ? " news__card-star--on" : ""}`}
+          className={`news-card__star${saved ? " news-card__star--on" : ""}`}
+          aria-label={saved ? `Remove ${item.headline} from favorites` : `Save ${item.headline} to favorites`}
+          aria-pressed={saved}
           onClick={(e) => {
             e.stopPropagation();
             onStar(item.id);
@@ -185,33 +201,21 @@ function NewsCard({ item, saved, onStar, onOpen, isFeatured = false }) {
           {saved ? "★" : "☆"}
         </button>
       </div>
-    </div>
+    </article>
   );
 }
 
-function Rail({ label, items, saved, onStar, onOpen }) {
-  const [startIndex, setStartIndex] = useState(0);
-
-  useEffect(() => {
-    if (items.length <= 3) return;
-    const id = setInterval(() => {
-      setStartIndex((prev) => (prev + 3) % items.length);
-    }, 3000);
-    return () => clearInterval(id);
-  }, [items.length]);
-
+// ─── NewsRail ────────────────────────────────────────────────────────────────
+// Block: news-rail
+// Elements: news-rail__label, news-rail__track
+function NewsRail({ label, items, saved, onStar, onOpen }) {
   if (!items.length) return null;
 
-  const visibleItems =
-    items.length <= 3
-      ? items
-      : [...items, ...items].slice(startIndex, startIndex + 3);
-
   return (
-    <div className="news__rail">
-      <p className="news__section-label">{label}</p>
-      <div className="news__track">
-        {visibleItems.map((item, index) => (
+    <section className="news-rail" aria-label={`${label} news`}>
+      <p className="news-rail__label" aria-hidden="true">{label}</p>
+      <div className="news-rail__track" role="list" aria-label={`${label} news cards`}>
+        {items.map((item, index) => (
           <NewsCard
             key={item.id}
             item={item}
@@ -222,10 +226,97 @@ function Rail({ label, items, saved, onStar, onOpen }) {
           />
         ))}
       </div>
+    </section>
+  );
+}
+
+// ─── NewsSidebar ─────────────────────────────────────────────────────────────
+// Block: news-sidebar
+// Elements: news-sidebar__title, news-sidebar__item, news-sidebar__empty
+function NewsSidebar({ favItems }) {
+  return (
+    <aside className="news-sidebar" aria-label="Saved articles">
+      <p className="news-sidebar__title" id="sidebar-heading">Favorites</p>
+      {favItems.length === 0 ? (
+        <p className="news-sidebar__empty" aria-live="polite">Star a card to save it.</p>
+      ) : (
+        <ul aria-labelledby="sidebar-heading" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+          {favItems.map((item) => (
+            <li key={item.id} className="news-sidebar__item" aria-label={`Saved: ${item.headline}`}>
+              <strong>{item.tag}</strong> —{" "}
+              {item.headline.length > 38
+                ? `${item.headline.slice(0, 38)}...`
+                : item.headline}
+            </li>
+          ))}
+        </ul>
+      )}
+    </aside>
+  );
+}
+
+// ─── NewsModal ───────────────────────────────────────────────────────────────
+// Block: news-modal
+// Elements: news-modal__overlay, news-modal__close, news-modal__title,
+//           news-modal__summary, news-modal__why, news-modal__footer,
+//           news-modal__link, news-modal__meta
+function NewsModal({ item, onClose }) {
+  useEffect(() => {
+    if (!item) return;
+    const handleKey = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [item, onClose]);
+
+  if (!item) return null;
+  return (
+    <div
+      className="news-modal__overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Article: ${item.headline}`}
+    >
+      <div className="news-modal" onClick={(e) => e.stopPropagation()}>
+        <button
+          type="button"
+          className="news-modal__close"
+          aria-label="Close article"
+          autoFocus
+          onClick={onClose}
+        >
+          ×
+        </button>
+        <h2 className="news-modal__title">{item.headline}</h2>
+        <p className="news-modal__summary">{item.summary}</p>
+        {item.why && (
+          <div className="news-modal__why" aria-label="Why this matters">
+            {item.why}
+          </div>
+        )}
+        <div className="news-modal__footer">
+          <a
+            className="news-modal__link"
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open full article: ${item.headline} (opens in new tab)`}
+          >
+            Open article
+          </a>
+          <p className="news-modal__meta" aria-label={`Published ${item.time}`}>{item.time}</p>
+        </div>
+      </div>
     </div>
   );
 }
 
+// ─── News (page) ─────────────────────────────────────────────────────────────
+// Block: news-page
+// Elements: news-page__back, news-page__topbar, news-page__title,
+//           news-page__toggle, news-page__toggle-btn, news-page__layout,
+//           news-page__main, news-page__more, news-page__more-btn
+// Modifiers: news-page__toggle-btn--active
 export default function News() {
   const navigate = useNavigate();
   const [region, setRegion] = useState("norway");
@@ -247,68 +338,68 @@ export default function News() {
 
   return (
     <>
-      <div className="news">
+      <div className="news-page">
         <button
           type="button"
-          className="news__back-button"
+          className="news-page__back"
+          aria-label="Go back to previous page"
           onClick={() => navigate(-1)}
         >
           Back
         </button>
 
-        <div className="news__topbar">
-          <div className="news__toggle">
-            {[
-              ["norway", "Norway"],
-              ["international", "International"],
-            ].map(([k, label]) => (
-              <button
-                key={k}
-                type="button"
-                className={
-                  region === k
-                    ? "news__toggle-button news__toggle-button--active"
-                    : "news__toggle-button"
-                }
-                onClick={() => setRegion(k)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <h1 className="news__title">
+        <div className="news-page__topbar">
+          <h1 className="news-page__title">
             AI News &amp; <span>Highlights</span>
           </h1>
+          <nav aria-label="Filter news by region">
+            <div className="news-page__toggle" role="group" aria-label="Region filter">
+              {[
+                ["norway", "Norway"],
+                ["international", "International"],
+              ].map(([k, label]) => (
+                <button
+                  key={k}
+                  type="button"
+                  className={`news-page__toggle-btn${
+                    region === k ? " news-page__toggle-btn--active" : ""
+                  }`}
+                  aria-pressed={region === k}
+                  aria-label={`Show ${label} news`}
+                  onClick={() => setRegion(k)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </nav>
         </div>
 
-        <div className="news__layout">
-          <div className="news__main">
-            <div className="news__grid">
-              {(region === "norway" || region === "all") && (
-                <Rail
-                  label="Norway"
-                  items={norItems}
-                  saved={saved}
-                  onStar={toggleStar}
-                  onOpen={setActiveItem}
-                />
-              )}
-              {(region === "international" || region === "all") && (
-                <Rail
-                  label="International"
-                  items={intlItems}
-                  saved={saved}
-                  onStar={toggleStar}
-                  onOpen={setActiveItem}
-                />
-              )}
-            </div>
-
-            <div className="news__more">
+        <div className="news-page__layout">
+          <main className="news-page__main">
+            {(region === "norway" || region === "all") && (
+              <NewsRail
+                label="Norway"
+                items={norItems}
+                saved={saved}
+                onStar={toggleStar}
+                onOpen={setActiveItem}
+              />
+            )}
+            {(region === "international" || region === "all") && (
+              <NewsRail
+                label="International"
+                items={intlItems}
+                saved={saved}
+                onStar={toggleStar}
+                onOpen={setActiveItem}
+              />
+            )}
+            <div className="news-page__more">
               {count > INITIAL_COUNT && (
                 <button
                   type="button"
-                  className="news__more-button"
+                  className="news-page__more-btn"
                   onClick={() => setCount(INITIAL_COUNT)}
                 >
                   Show less
@@ -317,81 +408,27 @@ export default function News() {
               {count < NEWS.length && (
                 <button
                   type="button"
-                  className="news__more-button"
-                  onClick={() =>
-                    setCount((c) => Math.min(c + 4, NEWS.length))
-                  }
+                  className="news-page__more-btn"
+                  onClick={() => setCount((c) => Math.min(c + 4, NEWS.length))}
                 >
                   More news
                 </button>
               )}
             </div>
-          </div>
+          </main>
 
-          <aside className="news__sidebar">
-            <p className="news__sidebar-title">Favorites</p>
-            {favItems.length === 0 ? (
-              <p className="news__sidebar-empty">Star a card to save it.</p>
-            ) : (
-              favItems.map((item) => (
-                <div key={item.id} className="news__sidebar-item">
-                  <strong>{item.tag}</strong> —{" "}
-                  {item.headline.length > 38
-                    ? `${item.headline.slice(0, 38)}...`
-                    : item.headline}
-                </div>
-              ))
-            )}
-          </aside>
+          <NewsSidebar favItems={favItems} />
         </div>
-
-        {activeItem && (
-          <div
-            className="news__modal-overlay"
-            onClick={() => setActiveItem(null)}
-          >
-            <div
-              className="news__modal"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                className="news__modal-close"
-                aria-label="Close"
-                onClick={() => setActiveItem(null)}
-              >
-                ×
-              </button>
-
-              <h2 className="news__modal-title">{activeItem.headline}</h2>
-              <p className="news__modal-summary">{activeItem.summary}</p>
-              {activeItem.why && (
-                <div className="news__modal-why">{activeItem.why}</div>
-              )}
-
-              <div className="news__modal-footer">
-                <a
-                  className="news__modal-link"
-                  href={activeItem.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open article
-                </a>
-                <p className="news__modal-meta">{activeItem.time}</p>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />
     </>
   );
 }
 
-//todo
-//Add more news and the links to the articles
-//Make the cards more interactive and visually appealing, maybe add images or icons
-//Implement the "why it matters" section in a more engaging way, like a tooltip or expandable section
-//fix the coloring of the tags to be more distinct and visually appealing
-//fix the railing animation to be smoother and less jarring when it loops back to the start
-// consider adding a "trending" or "most popular" section based on the number of stars each news item has received
+// todo
+// Add more news and the links to the articles
+// Make the cards more interactive and visually appealing, maybe add images or icons
+// fix the coloring of the tags to be more distinct and visually appealing
+// fix the railing animation to be smoother and less jarring when it loops back to the start
+// consider adding a "trending" or "most popular" section based on the number of stars

@@ -1,11 +1,21 @@
-.news {
+// ─────────────────────────────────────────────────────────────────────────────
+// Block: news-page   (the page wrapper / topbar / layout shell)
+// Block: news-rail   (section label + scrolling card track)
+// Block: news-card   (individual card)
+// Block: news-sidebar
+// Block: news-modal
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ─── news-page ───────────────────────────────────────────────────────────────
+.news-page {
   min-height: 100vh;
   font-family: var(--text-font);
   color: var(--text-color);
   padding: 2.5rem 2rem 4rem;
 
-  &__back-button {
-    margin-bottom: 1.5rem;
+  &__back {
+    width: fit-content;
+    margin-bottom: 1rem;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -14,7 +24,13 @@
     border-radius: 999px;
     padding: 0.4rem 0.9rem;
     cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
   }
+
   &__topbar {
     display: flex;
     align-items: baseline;
@@ -41,186 +57,27 @@
     border-radius: 8px;
     padding: 3px;
     gap: 2px;
-
-    &-button {
-      padding: 5px 16px;
-      border-radius: 6px;
-      border: none;
-      background: transparent;
-      color: #888;
-      font-size: 0.8rem;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.15s;
-
-      &--active {
-        background: #1c1c1c;
-        color: #fff;
-      }
-    }
   }
 
-  &__layout {
-    display: grid;
-    grid-template-columns: 1fr 210px;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  &__section-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #999;
-    font-family: 'Courier New', monospace;
-    margin-bottom: 0.75rem;
-  }
-
-  &__rail {
-    position: relative;
-    margin-bottom: 2rem;
-  }
-
-  &__track {
-    display: flex;
-    gap: var(--normal-space);
-    flex-wrap: wrap;
-    padding: 4px 2px 12px;
-  }
-
-  &__card {
-    flex: 1 1 240px;
-    max-width: 320px;
-    background: var(--secondary-color);
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    border-radius: 14px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: transform 0.18s, box-shadow 0.18s;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-    }
-
-    &--saved {
-      border-color: rgba(0, 0, 0, 0.18);
-    }
-
-    &--featured {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
-    }
-  }
-
-  &__card-tag {
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: 'Courier New', monospace;
-    color: var(--text-color);
-    background: var(--background-color);
-    padding: 2px 7px;
-    border-radius: 4px;
-    width: fit-content;
-  }
-
-  &__card-title {
-    font-family: var(--title-font);
-    font-size: 1rem;
-    line-height: 1.3;
-    color: var(--black-color);
-  }
-
-  &__card-summary {
-    font-size: 0.73rem;
-    color: rgba(0, 0, 0, 0.7);
-    line-height: 1.5;
-  }
-
-  &__card-why {
-    font-size: 0.67rem;
-    color: var(--black-color);
-    background: rgba(78, 92, 163, 0.15); // based on --background-color
-    border-left: 2px solid var(--background-color);
-    padding: 4px 8px;
-    border-radius: 0 4px 4px 0;
-    line-height: 1.4;
-  }
-
-  &__card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0.5rem;
-    margin-top: auto;
-    border-top: 1px solid rgba(0, 0, 0, 0.07);
-  }
-
-  &__card-time {
-    font-size: 0.6rem;
-    font-family: 'Courier New', monospace;
-    color: #aaa;
-  }
-
-  &__card-star {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #ccc;
-    padding: 0;
-    line-height: 1;
-    transition: color 0.15s;
-
-    &--on {
-      color: #1c1c1c;
-    }
-  }
-
-  &__sidebar {
-    background: rgba(12, 14, 40, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 14px;
-    padding: 1rem;
-    min-height: 280px;
-  }
-
-  &__sidebar-title {
-    font-size: 0.82rem;
-    font-weight: 700;
-    margin-bottom: 0.9rem;
-    letter-spacing: -0.01em;
-    color: var(--text-color);
-  }
-
-  &__sidebar-item {
-    font-size: 0.72rem;
-    color: var(--text-color);
-    background: rgba(255, 255, 255, 0.05);
+  &__toggle-btn {
+    padding: 5px 16px;
     border-radius: 6px;
-    padding: 6px 8px;
-    margin-bottom: 6px;
-    line-height: 1.4;
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: none;
+    background: transparent;
+    color: #888;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
-    transition: background 0.15s;
+    transition: all 0.15s;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.09);
+    &--active {
+      background: #1c1c1c;
+      color: #fff;
     }
   }
 
-  &__sidebar-empty {
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-family: 'Courier New', monospace;
-  }
+  // layout & grid rules live in _grid.scss
 
   &__more {
     display: flex;
@@ -229,7 +86,7 @@
     padding-top: 0.5rem;
   }
 
-  &__more-button {
+  &__more-btn {
     font-size: 0.7rem;
     font-family: 'Courier New', monospace;
     letter-spacing: 0.12em;
@@ -248,7 +105,179 @@
     }
   }
 
-  &__modal-overlay {
+  // responsive breakpoints live in _grid.scss
+}
+
+// ─── news-rail ───────────────────────────────────────────────────────────────
+.news-rail {
+  position: relative;
+  margin-bottom: 2rem;
+
+  &__label {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #999;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 0.75rem;
+  }
+
+  &__track {
+    // grid layout defined in _grid.scss
+    padding: 4px 2px 12px;
+  }
+}
+
+// ─── news-card ───────────────────────────────────────────────────────────────
+.news-card {
+  flex: 1 1 240px;
+  max-width: 320px;
+  background: var(--secondary-color);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  }
+
+  &--saved {
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  &--featured {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  &__tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+    background: var(--background-color);
+    padding: 2px 7px;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  &__title {
+    font-family: var(--title-font);
+    font-size: 1rem;
+    line-height: 1.3;
+    color: var(--black-color);
+  }
+
+  &__summary {
+    font-size: 0.73rem;
+    color: rgba(0, 0, 0, 0.7);
+    line-height: 1.5;
+  }
+
+  &__why {
+    font-size: 0.67rem;
+    color: var(--black-color);
+    background: rgba(78, 92, 163, 0.15);
+    border-left: 2px solid var(--background-color);
+    padding: 4px 8px;
+    border-radius: 0 4px 4px 0;
+    line-height: 1.4;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.5rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  &__time {
+    font-size: 0.6rem;
+    font-family: 'Courier New', monospace;
+    color: #aaa;
+  }
+
+  &__star {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #ccc;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.15s;
+
+    &--on {
+      color: #1c1c1c;
+    }
+  }
+}
+
+// ─── news-sidebar ────────────────────────────────────────────────────────────
+.news-sidebar {
+  background: rgba(12, 14, 40, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 1rem;
+  min-height: 280px;
+
+  &__title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+    color: var(--text-color);
+  }
+
+  &__item {
+    font-size: 0.72rem;
+    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: background 0.15s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__empty {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Courier New', monospace;
+  }
+
+  @media (max-width: 768px) {
+    order: -1;
+  }
+}
+
+// ─── news-modal ──────────────────────────────────────────────────────────────
+.news-modal {
+  background: rgba(12, 14, 40, 0.96);
+  border-radius: 18px;
+  max-width: 540px;
+  width: 90%;
+  padding: 1.75rem 1.5rem 1.5rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+  position: relative;
+
+  &__overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
@@ -258,17 +287,7 @@
     z-index: 2000;
   }
 
-  &__modal {
-    background: rgba(12, 14, 40, 0.96);
-    border-radius: 18px;
-    max-width: 540px;
-    width: 90%;
-    padding: 1.75rem 1.5rem 1.5rem;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
-    position: relative;
-  }
-
-  &__modal-close {
+  &__close {
     position: absolute;
     top: 0.9rem;
     right: 0.9rem;
@@ -276,22 +295,28 @@
     background: transparent;
     font-size: 1.2rem;
     cursor: pointer;
+    color: var(--text-color);
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
 
-  &__modal-title {
+  &__title {
     font-family: var(--title-font);
     font-size: 1.4rem;
     margin-bottom: 0.6rem;
     color: var(--text-color);
   }
 
-  &__modal-summary {
+  &__summary {
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.75);
     margin-bottom: 0.9rem;
   }
 
-  &__modal-why {
+  &__why {
     font-size: 0.8rem;
     background: rgba(78, 92, 163, 0.25);
     padding: 0.75rem;
@@ -300,14 +325,14 @@
     color: var(--text-color);
   }
 
-  &__modal-footer {
+  &__footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
   }
 
-  &__modal-link {
+  &__link {
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -317,23 +342,15 @@
     background: var(--background-color);
     color: #fff;
     text-decoration: none;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.85;
+    }
   }
 
-  &__modal-meta {
+  &__meta {
     font-size: 0.72rem;
     color: rgba(255, 255, 255, 0.6);
   }
-
-  @media (max-width: 768px) {
-    padding-inline: 1.25rem;
-
-    &__layout {
-      grid-template-columns: 1fr;
-    }
-
-    &__sidebar {
-      order: -1;
-    }
-  }
 }
-
