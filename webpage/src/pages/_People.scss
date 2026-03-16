@@ -3,78 +3,7 @@
 .people-page {
   min-height: 100vh;
   background-color: var(--background-color);
-
-  // ─── Hero ───────────────────────────────────────────────────────────
-  &__hero {
-    background: var(--primary-color);
-    padding: 3rem 4rem 2.5rem;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.03);
-      pointer-events: none;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -80px;
-      left: 10%;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.02);
-      pointer-events: none;
-    }
-
-    @media (max-width: 900px) { padding: 2.5rem 2rem 2rem; }
-    @media (max-width: 600px) { padding: 2rem 1.25rem 1.5rem; }
-  }
-
-  &__hero-inner {
-    max-width: 760px;
-    position: relative;
-    z-index: 1;
-  }
-
-  &__label {
-    font-family: var(--text-font);
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--norwegian-label);
-    margin: 0 0 0.6rem;
-  }
-
-  &__title {
-    font-family: var(--title-font);
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: var(--text-color);
-    margin: 0 0 1rem;
-    line-height: 1.05;
-  }
-
-  &__intro {
-    font-family: var(--text-font);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.72);
-    max-width: 520px;
-    margin: 0;
-  }
-
+ 
   // ─── Grid Section ─────────────────────────────────────────────────
   &__grid-section {
     width: 100%;
