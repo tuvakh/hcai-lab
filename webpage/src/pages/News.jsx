@@ -129,3 +129,9 @@ export default function News() {
     </main>
   );
 }
+
+//todo:
+// - add aria-labels to buttons and links
+// - add role="group" and aria-label to filter bar and more/less buttons
+// - add aria-hidden="true" to decorative elements in NewsModal (e.g. "Why it matters — " label)
+// api function 
