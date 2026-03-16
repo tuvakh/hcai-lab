@@ -1,52 +1,13 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Block: news-page    — content wrapper below the hero (cards + sidebar)
-// Block: news-rail    — section label + card track
-// Block: news-card    — individual article card
-// Block: news-sidebar — favorites panel
-// Block: news-modal   — article detail popup
-//
-// The hero (title + region toggle) lives inside HeroSection — see _heroSection.scss
-// All colours reference :root variables from _variables.scss.
-// Layout / grid rules live in _grid.scss.
-// ─────────────────────────────────────────────────────────────────────────────
+// src/pages/_News.scss
+// Page-level styles only — news-page block.
+// Component styles live in their own files in src/components/.
+// Hero text uses heroSection__intro--* — see _HeroSection.scss.
 
-// ─── news-page ───────────────────────────────────────────────────────────────
 .news-page {
   min-height: 100vh;
   background-color: var(--background-color);
 
-  // ── Hero text — copied exactly from projects-page ─────────────────────────
-
-  &__label {
-    font-family: var(--text-font);
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--norwegian-label);
-    margin: 0 0 0.6rem;
-  }
-
-  &__title {
-    font-family: var(--title-font);
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: var(--white-color);
-    margin: 0 0 1rem;
-    line-height: 1.05;
-  }
-
-  &__intro {
-    font-family: var(--text-font);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.72);
-    max-width: 520px;
-    margin: 0;
-  }
-
-  // ── Content area — copied exactly from projects-page__content ─────────────
+  // ── Content area — matches people-page and projects-page padding ──────────
   &__content {
     padding: 2rem 4rem 4rem;
 
@@ -54,7 +15,7 @@
     @media (max-width: 600px) { padding: 1.25rem 1.25rem 2.5rem; }
   }
 
-  // ── Filter bar — copied exactly from projects-page__filter-bar ────────────
+  // ── Filter bar ───────────────────────────────────────────────────────────
   &__filter-bar {
     display: flex;
     flex-wrap: wrap;
@@ -81,18 +42,28 @@
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.08);
       color: var(--white-color);
+      background: rgba(255, 255, 255, 0.08);
     }
 
-    &--active {
+    // Norway button active — uses --norwegian-label from variables
+    &--norway.news-page__filter-btn--active {
       background: var(--norwegian-label);
       border-color: var(--norwegian-label);
       color: var(--white-color);
       box-shadow: 0 4px 12px rgba(19, 80, 203, 0.4);
     }
+
+    // International button active — uses --international-label from variables
+    &--international.news-page__filter-btn--active {
+      background: var(--international-label);
+      border-color: var(--international-label);
+      color: var(--white-color);
+      box-shadow: 0 4px 12px rgba(103, 34, 146, 0.4);
+    }
   }
 
+  // ── More / show less buttons ──────────────────────────────────────────────
   &__more {
     display: flex;
     justify-content: center;
@@ -119,321 +90,5 @@
       background: rgba(255, 255, 255, 0.08);
       color: var(--white-color);
     }
-  }
-}
-
-
-// ─── news-rail ───────────────────────────────────────────────────────────────
-.news-rail {
-  margin-bottom: var(--medium-space);
-
-  &__label {
-    font-size: var(--step--2);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--background-color);
-    font-family: var(--text-font);
-    font-weight: 700;
-    margin-bottom: var(--small-space);
-  }
-
-  // <ul> reset — grid columns are set in _grid.scss
-  &__track {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    padding-bottom: var(--small-space);
-  }
-
-  // <li> wrapper — must fill its grid cell completely
-  &__item {
-    display: contents; // lets the <article> inside be the direct grid child
-  }
-}
-
-// ─── news-card ───────────────────────────────────────────────────────────────
-.news-card {
-  background: var(--white-color);
-  border: 1px solid rgba(28, 35, 111, 0.12);
-  border-radius: var(--border-radius);
-  padding: var(--normal-space);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  cursor: pointer;
-  min-width: 0;
-  transition: transform 0.18s, box-shadow 0.18s;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(28, 35, 111, 0.18);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--background-color);
-    outline-offset: 2px;
-  }
-
-  &--saved {
-    border-color: var(--background-color);
-    box-shadow: 0 0 0 1px var(--background-color);
-  }
-
-  &--featured {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(28, 35, 111, 0.22);
-  }
-
-  &__tag {
-    font-size: var(--step--2);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: var(--text-font);
-    font-weight: 700;
-    color: var(--white-color);
-    background: var(--background-color);
-    padding: 2px 8px;
-    border-radius: 4px;
-    width: fit-content;
-  }
-
-  &__title {
-    font-family: var(--title-font);
-    font-size: var(--step-0);
-    font-weight: 400;           // Anton is naturally heavy — no need to bold
-    line-height: 1.25;
-    color: var(--black-color);
-    margin: 0;
-  }
-
-  &__summary {
-    font-size: var(--step--2);
-    color: rgba(26, 25, 29, 0.65);
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  &__why {
-    font-size: var(--step--2);
-    color: var(--primary-color);
-    background: rgba(78, 92, 163, 0.1);
-    border-left: 3px solid var(--background-color);
-    padding: 6px 10px;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-    line-height: 1.45;
-    margin: auto 0 0;  // push to bottom of card
-  }
-
-  &__why-label {
-    font-weight: 700;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: var(--small-space);
-    border-top: 1px solid rgba(28, 35, 111, 0.07);
-    margin-top: auto;
-  }
-
-  &__time {
-    font-size: var(--step--2);
-    font-family: var(--text-font);
-    color: rgba(26, 25, 29, 0.4);
-  }
-
-  &__star {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    color: rgba(26, 25, 29, 0.25);
-    padding: 0;
-    line-height: 1;
-    transition: color 0.15s, transform 0.1s;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-
-    &--on {
-      color: var(--background-color);
-    }
-  }
-}
-
-// ─── news-sidebar ────────────────────────────────────────────────────────────
-.news-sidebar {
-  background: var(--primary-color);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--border-radius);
-  padding: var(--normal-space);
-  min-height: 200px;
-
-  // <h2> heading — discoverable in document outline
-  &__heading {
-    font-size: var(--step--1);
-    font-family: var(--title-font);
-    font-weight: 400;
-    margin: 0 0 var(--normal-space);
-    letter-spacing: 0.04em;
-    color: var(--white-color);
-  }
-
-  // <ul> list reset
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  // Individual saved article row
-  &__item {
-    font-size: var(--step--2);
-    font-family: var(--text-font);
-    color: var(--white-color);
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: calc(var(--border-radius) - 2px);
-    padding: 6px 10px;
-    margin-bottom: var(--small-space);
-    line-height: 1.4;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    transition: background 0.15s;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.14);
-    }
-  }
-
-  &__item-tag {
-    font-weight: 700;
-    font-size: var(--step--2);
-  }
-
-  &__item-title {
-    opacity: 0.85;
-  }
-
-  // Empty state — aria-live so screen readers announce first star
-  &__empty {
-    font-size: var(--step--2);
-    font-family: var(--text-font);
-    color: rgba(255, 255, 255, 0.5);
-  }
-}
-
-// ─── news-modal ──────────────────────────────────────────────────────────────
-.news-modal {
-  background: var(--primary-color);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--border-radius);
-  max-width: 560px;
-  width: 92%;
-  padding: var(--medium-space) var(--normal-space) var(--normal-space);
-  box-shadow: 0 28px 64px rgba(28, 35, 111, 0.55);
-  position: relative;
-
-  &__overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(28, 35, 111, 0.55);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-  }
-
-  &__close {
-    position: absolute;
-    top: var(--normal-space);
-    right: var(--normal-space);
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    cursor: pointer;
-    color: var(--white-color);
-    transition: background 0.15s;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.22);
-    }
-  }
-
-  &__title {
-    font-family: var(--title-font);
-    font-size: var(--step-2);
-    font-weight: 400;
-    line-height: 1.2;
-    margin: 0 0 var(--small-space);
-    color: var(--white-color);
-    padding-right: 2.5rem;
-  }
-
-  &__summary {
-    font-size: var(--step--1);
-    font-family: var(--text-font);
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.6;
-    margin: 0 0 var(--normal-space);
-  }
-
-  &__why {
-    font-size: var(--step--2);
-    font-family: var(--text-font);
-    background: rgba(255, 255, 255, 0.1);
-    border-left: 3px solid var(--secondary-color);
-    padding: var(--small-space) var(--normal-space);
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-    margin-bottom: var(--normal-space);
-    color: var(--white-color);
-    line-height: 1.5;
-  }
-
-  &__why-label {
-    font-weight: 700;
-  }
-
-  &__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--normal-space);
-    padding-top: var(--small-space);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  &__link {
-    font-size: var(--step--2);
-    font-family: var(--text-font);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 0.55rem 1.3rem;
-    border-radius: var(--border-radius-btn);
-    border: 1px solid var(--secondary-color);
-    background: var(--secondary-color);
-    color: var(--white-color);
-    text-decoration: none;
-    transition: opacity 0.15s;
-
-    &:hover {
-      opacity: 0.85;
-    }
-  }
-
-  &__meta {
-    font-size: var(--step--2);
-    font-family: var(--text-font);
-    color: rgba(255, 255, 255, 0.5);
   }
 }

@@ -5,9 +5,8 @@ import HeroSection from "../components/HeroSection";
 import NewsRail from "../components/NewsRail";
 import NewsSidebar from "../components/NewsSidebar";
 import NewsModal from "../components/NewsModal";
-import { news } from "../data/newsdata";
+import { news } from "../data/newsData";
 
-// Pre-filtered at module level — never re-created on render
 const ALL_NOR   = news.filter((n) => n.region === "norway");
 const ALL_INTL  = news.filter((n) => n.region === "international");
 const INIT_NOR  = Math.min(3, ALL_NOR.length);
@@ -42,32 +41,38 @@ export default function News() {
   return (
     <main className="news-page">
 
-      {/* Hero — identical structure to People.jsx and Projects.jsx */}
+      {/* Hero — uses heroSection__intro--* classes like People.jsx */}
       <HeroSection heroImg="/assets/hero/hero-home.png">
-        <p className="news-page__label">Latest Updates</p>
-        <h1 className="news-page__title">AI News &amp; Highlights</h1>
-        <p className="news-page__intro">
+        <p className="heroSection__intro--label">Latest Updates</p>
+        <h1 className="heroSection__intro--title">AI News &amp; Highlights</h1>
+        <p className="heroSection__intro--text">
           The latest in AI, tech and student opportunities — curated for HCAI.
         </p>
       </HeroSection>
 
-      {/* Content — mirrors projects-page__content */}
+      {/* Content */}
       <section className="news-page__content">
 
-        {/* Filter bar — mirrors projects-page__filter-bar */}
+        {/* Region filter — Norway blue / International purple from variables */}
         <div className="news-page__filter-bar" role="group" aria-label="Filter news by region">
-          {[["norway", "Norway"], ["international", "International"]].map(([k, label]) => (
-            <button
-              key={k}
-              type="button"
-              className={`news-page__filter-btn${region === k ? " news-page__filter-btn--active" : ""}`}
-              aria-pressed={region === k}
-              aria-label={`Show ${label} news`}
-              onClick={() => setRegion(k)}
-            >
-              {label}
-            </button>
-          ))}
+          <button
+            type="button"
+            className={`news-page__filter-btn news-page__filter-btn--norway${region === "norway" ? " news-page__filter-btn--active" : ""}`}
+            aria-pressed={region === "norway"}
+            aria-label="Show Norway news"
+            onClick={() => setRegion("norway")}
+          >
+            Norway
+          </button>
+          <button
+            type="button"
+            className={`news-page__filter-btn news-page__filter-btn--international${region === "international" ? " news-page__filter-btn--active" : ""}`}
+            aria-pressed={region === "international"}
+            aria-label="Show International news"
+            onClick={() => setRegion("international")}
+          >
+            International
+          </button>
         </div>
 
         {/* Card layout: rails + sidebar */}
@@ -120,7 +125,6 @@ export default function News() {
         </div>
       </section>
 
-      {/* Modal — at the end so it is never clipped by overflow */}
       <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />
     </main>
   );
