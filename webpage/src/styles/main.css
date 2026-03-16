@@ -656,50 +656,6 @@ h1, h2, h3 {
   transform: translateY(0);
 }
 
-.projects-page {
-  min-height: 100vh;
-  background-color: var(--background-color);
-}
-.projects-page__label {
-  font-family: var(--text-font);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--norwegian-label);
-  margin: 0 0 0.6rem;
-}
-.projects-page__title {
-  font-family: var(--title-font);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--white-color);
-  margin: 0 0 1rem;
-  line-height: 1.05;
-}
-.projects-page__intro {
-  font-family: var(--text-font);
-  font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.72);
-  max-width: 520px;
-  margin: 0;
-}
-.projects-page__content {
-  padding: 2rem 4rem 4rem;
-}
-@media (max-width: 900px) {
-  .projects-page__content {
-    padding: 1.5rem 2rem 3rem;
-  }
-}
-@media (max-width: 600px) {
-  .projects-page__content {
-    padding: 1.25rem 1.25rem 2.5rem;
-  }
-}
-<<<<<<< HEAD
 .news-page {
   display: grid;
   grid-template-columns: 1fr;
@@ -777,7 +733,49 @@ h1, h2, h3 {
     grid-template-columns: 1fr;
   }
 }
-=======
+.projects-page {
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+.projects-page__label {
+  font-family: var(--text-font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--norwegian-label);
+  margin: 0 0 0.6rem;
+}
+.projects-page__title {
+  font-family: var(--title-font);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--white-color);
+  margin: 0 0 1rem;
+  line-height: 1.05;
+}
+.projects-page__intro {
+  font-family: var(--text-font);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 520px;
+  margin: 0;
+}
+.projects-page__content {
+  padding: 2rem 4rem 4rem;
+}
+@media (max-width: 900px) {
+  .projects-page__content {
+    padding: 1.5rem 2rem 3rem;
+  }
+}
+@media (max-width: 600px) {
+  .projects-page__content {
+    padding: 1.25rem 1.25rem 2.5rem;
+  }
+}
 .projects-page__filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -813,7 +811,6 @@ h1, h2, h3 {
   box-shadow: 0 4px 12px rgba(19, 80, 203, 0.4);
 }
 
->>>>>>> 506e2d4d5d49d92ba8c63fb3b202689f4a99b8dd
 .eventCard {
   display: flex;
   flex-direction: column;
