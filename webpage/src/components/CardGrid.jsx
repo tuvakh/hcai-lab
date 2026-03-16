@@ -1,21 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-/**
- * CardGrid — reusable for People and Projects pages
- *
- * Props:
- *  items: Array of objects.
- *
- *  People item shape:
- *    { id, name, role, image, shortDescription, fullBio, email, linkedin, github }
- *
- *  Projects item shape:
- *    { id, name, tags, image, shortDescription, fullDescription, link, team }
- *
- *  variant: "people" | "projects"
- */
 export default function CardGrid({ items = [], variant = "people" }) {
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -27,9 +15,7 @@ export default function CardGrid({ items = [], variant = "people" }) {
 
   useEffect(() => {
     document.body.style.overflow = selected ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [selected]);
 
   return (
@@ -55,12 +41,15 @@ export default function CardGrid({ items = [], variant = "people" }) {
               {variant === "people" && item.role && (
                 <span className="card__role">{item.role}</span>
               )}
-              {variant === "projects" && item.tags && (
+              {variant === "projects" && (
                 <div className="card__tags">
-                  {item.tags.map((tag) => (
-                    <span key={tag} className="card__tag">
-                      {tag}
+                  {item.status && (
+                    <span className={`card__tag card__tag--${item.status.toLowerCase()}`}>
+                      {item.status}
                     </span>
+                  )}
+                  {item.tags?.map((tag) => (
+                    <span key={tag} className="card__tag">{tag}</span>
                   ))}
                 </div>
               )}
@@ -90,96 +79,147 @@ export default function CardGrid({ items = [], variant = "people" }) {
               ✕
             </button>
 
-            <div className="modal__header">
-              <div className="modal__image-wrap">
-                {selected.image ? (
-                  <img
-                    src={selected.image}
-                    alt={selected.name}
-                    className="modal__image"
-                  />
-                ) : (
-                  <div className="modal__image modal__image--placeholder" />
-                )}
-              </div>
-              <div className="modal__header-text">
-                <h2 className="modal__name">{selected.name}</h2>
-                {variant === "people" && selected.role && (
-                  <span className="modal__role">{selected.role}</span>
-                )}
-                {variant === "projects" && selected.tags && (
-                  <div className="modal__tags">
-                    {selected.tags.map((tag) => (
-                      <span key={tag} className="modal__tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="modal__body">
-              <p className="modal__bio">
-                {selected.fullBio ||
-                  selected.fullDescription ||
-                  selected.shortDescription}
-              </p>
-            </div>
-
+            {/* ── People modal ── */}
             {variant === "people" && (
-              <div className="modal__contact">
-                {selected.email && (
-                  <a
-                    href={`mailto:${selected.email}`}
-                    className="modal__contact-link"
-                  >
-                    <span className="modal__contact-icon">✉</span>
-                    {selected.email}
-                  </a>
-                )}
-                {selected.linkedin && (
-                  <a
-                    href={selected.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="modal__contact-link"
-                  >
-                    <span className="modal__contact-icon">in</span>
-                    LinkedIn
-                  </a>
-                )}
-                {selected.github && (
-                  <a
-                    href={selected.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="modal__contact-link"
-                  >
-                    <span className="modal__contact-icon">⌥</span>
-                    GitHub
-                  </a>
-                )}
-              </div>
+              <>
+                <div className="modal__header">
+                  <div className="modal__image-wrap">
+                    {selected.image ? (
+                      <img src={selected.image} alt={selected.name} className="modal__image" />
+                    ) : (
+                      <div className="modal__image modal__image--placeholder" />
+                    )}
+                  </div>
+                  <div className="modal__header-text">
+                    <h2 className="modal__name">{selected.name}</h2>
+                    {selected.role && (
+                      <span className="modal__role">{selected.role}</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="modal__body">
+                  <p className="modal__bio">
+                    {selected.fullBio || selected.shortDescription}
+                  </p>
+                </div>
+
+                <div className="modal__contact">
+                  {selected.email && (
+                    <a href={`mailto:${selected.email}`} className="modal__contact-link">
+                      <span className="modal__contact-icon">✉</span>
+                      {selected.email}
+                    </a>
+                  )}
+                  {selected.linkedin && (
+                    <a href={selected.linkedin} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">in</span>
+                      LinkedIn
+                    </a>
+                  )}
+                  {selected.github && (
+                    <a href={selected.github} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">⌥</span>
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              </>
             )}
 
+            {/* ── Projects modal ── */}
             {variant === "projects" && (
-              <div className="modal__contact">
-                {selected.link && (
-                  <a
-                    href={selected.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="modal__contact-link"
-                  >
-                    <span className="modal__contact-icon">↗</span>
-                    View Project
-                  </a>
+              <>
+                <div className="modal__header">
+                  <div className="modal__header-text modal__header-text--full">
+                    <div className="modal__tags">
+                      {selected.status && (
+                        <span className={`modal__tag modal__tag--${selected.status.toLowerCase()}`}>
+                          {selected.status}
+                        </span>
+                      )}
+                      {selected.tags?.map((tag) => (
+                        <span key={tag} className="modal__tag">{tag}</span>
+                      ))}
+                    </div>
+                    <h2 className="modal__name">{selected.name}</h2>
+                  </div>
+                </div>
+
+                <div className="modal__body">
+                  <p className="modal__bio">{selected.fullDescription || selected.shortDescription}</p>
+                </div>
+
+                {/* People involved */}
+                {selected.team?.length > 0 && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">People involved</h3>
+                    <div className="modal__team-grid">
+                      {selected.team.map((name) => (
+                        <div key={name} className="modal__team-card">
+                          <div className="modal__team-avatar" />
+                          <span className="modal__team-name">{name}</span>
+                          <button
+                            type="button"
+                            className="modal__team-btn"
+                            onClick={() => {
+                              setSelected(null);
+                              navigate("/People");
+                            }}
+                          >
+                            View profile
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
-                {selected.team && (
-                  <p className="modal__team">Team: {selected.team}</p>
+
+                {/* Outcomes */}
+                {selected.outcomes && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">Outcomes / Results</h3>
+                    <p className="modal__bio">{selected.outcomes}</p>
+                  </div>
                 )}
-              </div>
+
+                {/* External links */}
+                {selected.links?.length > 0 && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">External links</h3>
+                    <div className="modal__contact">
+                      {selected.links.map((link) => (
+                        <a
+                          key={link.label}
+                          href={link.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="modal__contact-link"
+                        >
+                          <span className="modal__contact-icon">↗</span>
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Watch presentation */}
+                {selected.presentationUrl && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">Watch presentation</h3>
+                    <a
+                      href={selected.presentationUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="modal__contact-link"
+                    >
+                      <span className="modal__contact-icon">▶</span>
+                      Watch now
+                    </a>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
