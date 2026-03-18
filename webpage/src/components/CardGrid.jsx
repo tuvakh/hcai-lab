@@ -13,7 +13,7 @@ export default function CardGrid({ items = [], variant = "people" }) {
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     document.body.style.overflow = selected ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [selected]);
@@ -82,6 +82,7 @@ export default function CardGrid({ items = [], variant = "people" }) {
             {/* ── People modal ── */}
             {variant === "people" && (
               <>
+                {/* Header */}
                 <div className="modal__header">
                   <div className="modal__image-wrap">
                     {selected.image ? (
@@ -98,12 +99,96 @@ export default function CardGrid({ items = [], variant = "people" }) {
                   </div>
                 </div>
 
+                {/* Bio */}
                 <div className="modal__body">
                   <p className="modal__bio">
                     {selected.fullBio || selected.shortDescription}
                   </p>
                 </div>
 
+                {/* Research interests */}
+                {selected.researchInterests?.length > 0 && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">Research interests</h3>
+                    <div className="modal__tags">
+                      {selected.researchInterests.map((interest) => (
+                        <span key={interest} className="modal__tag modal__tag--interest">
+                          {interest}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Projects */}
+                {selected.projects?.length > 0 && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">Projects</h3>
+                    <div className="modal__project-grid">
+                      {selected.projects.map((project) => (
+                        <div key={project.name} className="modal__project-card">
+                          <div className="modal__project-image-wrap">
+                            {project.image ? (
+                              <img
+                                src={project.image}
+                                alt={project.name}
+                                className="modal__project-image"
+                              />
+                            ) : (
+                              <div className="modal__project-image modal__project-image--placeholder" />
+                            )}
+                          </div>
+                          <span className="modal__project-name">{project.name}</span>
+                          {project.url && (
+                            <a
+                              href={project.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="modal__project-btn"
+                            >
+                              View project
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Publications */}
+                {selected.publications?.length > 0 && (
+                  <div className="modal__section">
+                    <h3 className="modal__section-title">Publications</h3>
+                    <ul className="modal__pub-list">
+                      {selected.publications.map((pub, i) => (
+                        <li key={i} className="modal__pub-item">
+                          {pub.url ? (
+                            <a
+                              href={pub.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="modal__pub-link"
+                            >
+                              <span className="modal__pub-title">{pub.title}</span>
+                              <span className="modal__pub-meta">
+                                {[pub.venue, pub.year].filter(Boolean).join(" · ")}
+                              </span>
+                            </a>
+                          ) : (
+                            <>
+                              <span className="modal__pub-title">{pub.title}</span>
+                              <span className="modal__pub-meta">
+                                {[pub.venue, pub.year].filter(Boolean).join(" · ")}
+                              </span>
+                            </>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Contact */}
                 <div className="modal__contact">
                   {selected.email && (
                     <a href={`mailto:${selected.email}`} className="modal__contact-link">
@@ -127,7 +212,7 @@ export default function CardGrid({ items = [], variant = "people" }) {
               </>
             )}
 
-            {/* ── Projects modal ── */}
+            {/* ── Projects modal (unchanged) ── */}
             {variant === "projects" && (
               <>
                 <div className="modal__header">
@@ -150,7 +235,6 @@ export default function CardGrid({ items = [], variant = "people" }) {
                   <p className="modal__bio">{selected.fullDescription || selected.shortDescription}</p>
                 </div>
 
-                {/* People involved */}
                 {selected.team?.length > 0 && (
                   <div className="modal__section">
                     <h3 className="modal__section-title">People involved</h3>
@@ -175,7 +259,6 @@ export default function CardGrid({ items = [], variant = "people" }) {
                   </div>
                 )}
 
-                {/* Outcomes */}
                 {selected.outcomes && (
                   <div className="modal__section">
                     <h3 className="modal__section-title">Outcomes / Results</h3>
@@ -183,7 +266,6 @@ export default function CardGrid({ items = [], variant = "people" }) {
                   </div>
                 )}
 
-                {/* External links */}
                 {selected.links?.length > 0 && (
                   <div className="modal__section">
                     <h3 className="modal__section-title">External links</h3>
@@ -204,7 +286,6 @@ export default function CardGrid({ items = [], variant = "people" }) {
                   </div>
                 )}
 
-                {/* Watch presentation */}
                 {selected.presentationUrl && (
                   <div className="modal__section">
                     <h3 className="modal__section-title">Watch presentation</h3>

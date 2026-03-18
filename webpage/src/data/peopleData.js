@@ -11,6 +11,38 @@ export const people = [
     email: "oleanda@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Autonomous Ships",
+      "Shore Control Centres",
+      "Situation Awareness",
+      "Human-Machine Interaction",
+      "Interaction Design",
+    ],
+    projects: [
+      { name: "Shore Control Lab", image: null, url: "https://www.ntnu.edu/web/shorecontrol" },
+      { name: "Autoteaming", image: null, url: null },
+      { name: "milliAmpere Ferry", image: null, url: null },
+    ],
+    publications: [
+      {
+        title: "Lessons Learned from the Trial Operation of an Autonomous Urban Passenger Ferry",
+        venue: "Transportation Research Interdisciplinary Perspectives",
+        year: 2024,
+        url: null,
+      },
+      {
+        title: "NTNU Shore Control Lab: Designing Shore Control Centres in the Age of Autonomous Ships",
+        venue: "Journal of Physics: Conference Series",
+        year: 2022,
+        url: null,
+      },
+      {
+        title: "Human-Centered Explainable AI for Marine Autonomous Surface Vehicles",
+        venue: "Journal of Marine Science and Engineering",
+        year: 2021,
+        url: null,
+      },
+    ],
   },
   {
     id: 2,
@@ -24,6 +56,38 @@ export const people = [
     email: "eleftherios.papachristos@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Human-Centered AI",
+      "Conversational Agents",
+      "LLMs in Education",
+      "AI for Accessibility",
+      "Human-AI Teaming",
+    ],
+    projects: [
+      { name: "HCAI Lab", image: null, url: "https://www.ntnu.edu/design/human-centered-ai-lab" },
+      { name: "SHEREC", image: null, url: null },
+      { name: "ECEH", image: null, url: null },
+    ],
+    publications: [
+      {
+        title: "Sound Strategies for Safe Driving: Exploring Auditory Interventions to Counteract Passive Driver Fatigue",
+        venue: "CHI",
+        year: 2024,
+        url: null,
+      },
+      {
+        title: "Exploring VUI-Supported Mindfulness Techniques for Smoking Cessation",
+        venue: "ACM CHI",
+        year: 2024,
+        url: null,
+      },
+      {
+        title: "It's Not All Bad – Worker Perceptions of Industrial Robots",
+        venue: "ACM/IEEE HRI",
+        year: 2022,
+        url: null,
+      },
+    ],
   },
   {
     id: 3,
@@ -37,6 +101,37 @@ export const people = [
     email: "yavuz.inal@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Digital Accessibility",
+      "Usability",
+      "Game Studies",
+      "Human-Robot Interaction",
+      "Digital Wellbeing",
+    ],
+    projects: [
+      { name: "Hyperspectral Images in Museums", image: null, url: null },
+      { name: "Web Accessibility Norway", image: null, url: null },
+    ],
+    publications: [
+      {
+        title: "My Eyes Don't Consent! Exploring Visual Attention in Cookie Consent Interfaces",
+        venue: "ACM CHI",
+        year: 2024,
+        url: null,
+      },
+      {
+        title: "Web Accessibility in Higher Education in Norway: To What Extent are University Websites Accessible?",
+        venue: "Lecture Notes in Computer Science",
+        year: 2023,
+        url: null,
+      },
+      {
+        title: "Effects of Gameplay Dynamics on Visual Attention",
+        venue: "IEEE Access",
+        year: 2024,
+        url: null,
+      },
+    ],
   },
   {
     id: 4,
@@ -50,6 +145,15 @@ export const people = [
     email: "aliaksei.miniukovich@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Visual Aesthetics",
+      "First Impressions",
+      "Computational Models",
+      "Quantitative UX Methods",
+      "Interface Design",
+    ],
+    projects: [],
+    publications: [],
   },
   {
     id: 5,
@@ -63,6 +167,29 @@ export const people = [
     email: "carlos.vicient@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Artificial Intelligence",
+      "Human-Centered AI",
+      "Interaction Design",
+      "Personalized Learning",
+    ],
+    projects: [
+      { name: "AI for Personalized Learning", image: null, url: null },
+    ],
+    publications: [
+      {
+        title: "The Use of Artificial Intelligence for Personalized Learning: Teacher Perspective",
+        venue: "ACM CHI",
+        year: 2024,
+        url: null,
+      },
+      {
+        title: "The Effective Use of Generative AI for Personalized Learning",
+        venue: "Conference on e-Learning",
+        year: 2024,
+        url: null,
+      },
+    ],
   },
   {
     id: 6,
@@ -76,6 +203,38 @@ export const people = [
     email: "erik.a.veitch@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Remote Maritime Operations",
+      "Situation Awareness",
+      "Human-Autonomy Teaming",
+      "Shore Control Centres",
+      "Explainable AI",
+    ],
+    projects: [
+      { name: "Autoteaming", image: null, url: null },
+      { name: "Shore Control Lab", image: null, url: "https://www.ntnu.edu/web/shorecontrol" },
+      { name: "milliAmpere2", image: null, url: null },
+    ],
+    publications: [
+      {
+        title: "Gorillas on a Boat: Inattentional Blindness During Supervisory Control of Autonomous Vessels",
+        venue: "Journal of Physics: Conference Series",
+        year: 2023,
+        url: null,
+      },
+      {
+        title: "Human-Centered Explainable AI for Marine Autonomous Surface Vehicles",
+        venue: "Journal of Marine Science and Engineering",
+        year: 2021,
+        url: null,
+      },
+      {
+        title: "Human Factor Influences on Supervisory Control of Remotely Operated and Autonomous Vessels",
+        venue: "Safety Science",
+        year: 2024,
+        url: null,
+      },
+    ],
   },
   {
     id: 7,
@@ -89,6 +248,38 @@ export const people = [
     email: "taufik.a.sitompul@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Remote Operation UI",
+      "Information Visualisation",
+      "Latency in Remote Control",
+      "Autonomous Ferries",
+      "Ship Recycling Safety",
+    ],
+    projects: [
+      { name: "SHEREC", image: null, url: null },
+      { name: "SFI Autoship", image: null, url: null },
+      { name: "Shore Control Lab", image: null, url: "https://www.ntnu.edu/web/shorecontrol" },
+    ],
+    publications: [
+      {
+        title: "Designing User Interface Elements for Remotely Operated Ship-to-shore Cranes",
+        venue: "ACM CHI",
+        year: 2023,
+        url: null,
+      },
+      {
+        title: "Handling Constant and Changing Latency with Graphical User Interfaces: A Study with Remote Crane Operators",
+        venue: "NordiCHI",
+        year: 2024,
+        url: null,
+      },
+      {
+        title: "Lessons Learned from the Trial Operation of an Autonomous Urban Passenger Ferry",
+        venue: "Transportation Research Interdisciplinary Perspectives",
+        year: 2024,
+        url: null,
+      },
+    ],
   },
   {
     id: 8,
@@ -102,6 +293,15 @@ export const people = [
     email: "sujay.shalawadi@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Privacy by Design",
+      "Smart Home Systems",
+      "Self-tracking",
+      "Generative AI",
+      "Human Values in Design",
+    ],
+    projects: [],
+    publications: [],
   },
   {
     id: 9,
@@ -115,6 +315,9 @@ export const people = [
     email: "syeda.t.habib@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [],
+    projects: [],
+    publications: [],
   },
   {
     id: 10,
@@ -128,6 +331,16 @@ export const people = [
     email: "carly.g.allen@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Responsible Gambling",
+      "Safety-Critical Design",
+      "Behaviour Change",
+      "Interaction Design",
+    ],
+    projects: [
+      { name: "Norsk Tipping Industrial PhD", image: null, url: null },
+    ],
+    publications: [],
   },
   {
     id: 11,
@@ -141,5 +354,16 @@ export const people = [
     email: "vedran.simic@ntnu.no",
     linkedin: null,
     github: null,
+    researchInterests: [
+      "Human-Robot Interaction",
+      "Teleoperation UI",
+      "Cognitive Load",
+      "Safety-Critical Systems",
+      "Ship Recycling",
+    ],
+    projects: [
+      { name: "SHEREC", image: null, url: null },
+    ],
+    publications: [],
   },
 ];
