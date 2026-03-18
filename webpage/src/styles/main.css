@@ -671,10 +671,6 @@ h1, h2, h3 {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-.navbar__spacer {
-  height: 64px;
-}
-
 .navbar--scrolled {
   background: rgba(28, 35, 111, 0.35);
   backdrop-filter: blur(18px) saturate(1.4);

@@ -73,7 +73,6 @@ export default function Navbar() {
           ))}
         </ul>
       </nav>
-      <div className="navbar__spacer" />
     </>
   );
 }
