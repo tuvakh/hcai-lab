@@ -28,11 +28,6 @@
     box-shadow: 0 0 0 1px var(--background-color);
   }
 
-  &--featured {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 32px rgba(28, 35, 111, 0.22);
-  }
-
   &__tag {
     font-size: var(--step--2);
     letter-spacing: 0.1em;
