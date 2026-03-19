@@ -1,37 +1,53 @@
 // src/components/_NewsModal.scss
 // BEM block: news-modal
+// Variables used: --primary-color #1C236F, --secondary-color #8FA1DD,
+//                 --background-color #4E5CA3, --white-color #ffffff
 
 .news-modal {
-    background: var(--primary-color);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    // Slightly lighter than --primary-color so it lifts off the dimmed page
+    background: linear-gradient(
+      160deg,
+      #1b215b 0%,       // a touch lighter than #1C236F
+      var(--primary-color) 100%
+    );
+    border: 1px solid rgba(143, 161, 221, 0.25);  // --secondary-color at low opacity
     border-radius: var(--border-radius);
-    max-width: 560px;
+    max-width: 640px;
     width: 92%;
-    padding: var(--medium-space) var(--normal-space) var(--normal-space);
-    box-shadow: 0 28px 64px rgba(28, 35, 111, 0.55);
+    max-height: 85vh;
+    // Deeper shadow using the navy so it sits clearly above the page
+    box-shadow:
+      0 4px 24px rgba(28, 35, 111, 0.6),
+      0 32px 80px rgba(10, 14, 50, 0.7);
     position: relative;
+    display: flex;
+    flex-direction: column;
   
+    // ── Overlay — dims the page behind the modal ──────────────────────────────
     &__overlay {
       position: fixed;
       inset: 0;
-      background: rgba(28, 35, 111, 0.55);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      // Darker overlay so modal card has real contrast against the page
+      background: rgba(14, 18, 55, 0.78);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2000;
+      padding: 1rem;
     }
   
+    // ── Close button ──────────────────────────────────────────────────────────
     &__close {
       position: absolute;
       top: var(--normal-space);
       right: var(--normal-space);
       border: none;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(143, 161, 221, 0.15);  // secondary-color tint
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -39,53 +55,127 @@
       cursor: pointer;
       color: var(--white-color);
       transition: background 0.15s;
+      z-index: 1;
+      flex-shrink: 0;
   
       &:hover {
-        background: rgba(255, 255, 255, 0.22);
+        background: rgba(143, 161, 221, 0.3);
       }
     }
   
+    // ── Scrollable inner container ────────────────────────────────────────────
+    &__scroll {
+      overflow-y: auto;
+      padding: var(--medium-space) var(--normal-space) var(--normal-space);
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--small-space);
+  
+      &::-webkit-scrollbar { width: 4px; }
+      &::-webkit-scrollbar-track { background: transparent; }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(143, 161, 221, 0.35);
+        border-radius: 2px;
+      }
+    }
+  
+    // ── Tag pill ──────────────────────────────────────────────────────────────
+    // Was just colored text — now a real pill so it reads as a label
+    &__tag {
+      display: inline-block;
+      font-family: var(--text-font);
+      font-size: var(--step--2);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--secondary-color);
+      background: rgba(143, 161, 221, 0.15);
+      border: 1px solid rgba(143, 161, 221, 0.3);
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      width: fit-content;
+      margin-bottom: var(--mini-space);
+    }
+  
+    // ── Headline ──────────────────────────────────────────────────────────────
     &__title {
       font-family: var(--title-font);
       font-size: var(--step-2);
       font-weight: 400;
       line-height: 1.2;
-      margin: 0 0 var(--small-space);
+      margin: 0;
+      // Full white — this is the most important text in the modal
       color: var(--white-color);
       padding-right: 2.5rem;
     }
   
+    // ── Divider between title block and body ──────────────────────────────────
+    // Gives a clear visual break — was missing before
     &__summary {
       font-size: var(--step--1);
       font-family: var(--text-font);
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.6;
-      margin: 0 0 var(--normal-space);
+      // Up from 0.8 — now clearly readable as a lead paragraph
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.65;
+      margin: 0;
+      font-style: italic;
+      padding-bottom: var(--normal-space);
+      // Section separator using secondary-color so it ties to your palette
+      border-bottom: 1px solid rgba(143, 161, 221, 0.2);
     }
   
-    &__why {
-      font-size: var(--step--2);
+    // ── Body paragraphs ───────────────────────────────────────────────────────
+    &__body {
+      font-size: var(--step--1);
       font-family: var(--text-font);
-      background: rgba(255, 255, 255, 0.1);
+      // Up from 0.75 — the biggest readability fix
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.75;
+  
+      p {
+        margin: 0 0 1em;
+        &:last-child { margin-bottom: 0; }
+      }
+    }
+  
+    // ── Why it matters callout ────────────────────────────────────────────────
+    // Was nearly invisible — now a proper callout box
+    &__why {
+      font-size: var(--step--1);
+      font-family: var(--text-font);
+      // Richer background using secondary-color tint instead of plain white
+      background: rgba(103, 122, 183, 0.12);
+      border: 1px solid rgba(143, 161, 221, 0.25);
       border-left: 3px solid var(--secondary-color);
-      padding: var(--small-space) var(--normal-space);
+      padding: var(--normal-space);
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
-      margin-bottom: var(--normal-space);
-      color: var(--white-color);
-      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.55;
+      margin: 0;
     }
   
     &__why-label {
+      display: block;
       font-weight: 700;
+      font-size: var(--step--2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--secondary-color);
+      margin-bottom: 0.35rem;
     }
   
+    // ── Footer ────────────────────────────────────────────────────────────────
     &__footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: var(--normal-space);
-      padding-top: var(--small-space);
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: var(--normal-space);
+      margin-top: auto;   // pushes footer to bottom when content is short
+      border-top: 1px solid rgba(143, 161, 221, 0.2);
+      flex-wrap: wrap;
     }
   
     &__link {
@@ -97,20 +187,22 @@
       padding: 0.55rem 1.3rem;
       border-radius: var(--border-radius-btn);
       border: 1px solid var(--secondary-color);
-      background: var(--secondary-color);
-      color: var(--white-color);
+      // Ghost button — more refined than a solid filled button
+      background: transparent;
+      color: var(--secondary-color);
       text-decoration: none;
-      transition: opacity 0.15s;
+      transition: background 0.15s, color 0.15s;
   
       &:hover {
-        opacity: 0.85;
+        background: var(--secondary-color);
+        color: var(--primary-color);  // dark text on light bg on hover
       }
     }
   
     &__meta {
       font-size: var(--step--2);
       font-family: var(--text-font);
-      color: rgba(255, 255, 255, 0.5);
+      // Slightly brighter than before — was almost invisible
+      color: rgba(255, 255, 255, 0.55);
     }
   }
-  
