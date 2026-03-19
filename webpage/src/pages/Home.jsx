@@ -35,6 +35,7 @@ export default function Home() {
                 <Buttons
                     text="More news"
                     variant="blue"
+                    className="info-btn"
                     action={() => navigate("/News")} 
                 />
             </div>

@@ -15,12 +15,14 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        flex-wrap: wrap;
     }
 }
 
 .info-section {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     text-align: center;
     padding: var(--big-space);
     background-color: var(--primary-color);
