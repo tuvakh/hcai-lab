@@ -11,6 +11,7 @@ const ALL_NOR   = news.filter((n) => n.region === "norway");
 const ALL_INTL  = news.filter((n) => n.region === "international");
 const INIT_NOR  = Math.min(3, ALL_NOR.length);
 const INIT_INTL = Math.min(3, ALL_INTL.length);
+//trenger 9 artikler for å fylle opp 3 i hver rail + 3 i sidebar, så hvis det er færre enn 9 totalt så må vi justere init count for å unngå tomme rails/sidebar
 
 export default function News() {
   const [region,     setRegion]     = useState("norway");

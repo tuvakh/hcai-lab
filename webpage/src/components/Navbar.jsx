@@ -9,6 +9,7 @@ const navItems = [
   { label: "News", path: "/News" },
   { label: "Booking", path: "/Booking" },
 ];
+//transperant nav bar version 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +74,6 @@ export default function Navbar() {
           ))}
         </ul>
       </nav>
-      <div className="navbar__spacer" />
     </>
   );
 }
