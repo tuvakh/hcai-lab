@@ -2,9 +2,16 @@ import React from "react";
 import { events } from '../data/eventData';
 import EventCard from '../components/EventCard';
 import HeroSection from '../components/HeroSection';
+import Buttons from "../components/Buttons";
+import NewsCard from "../components/NewsCard";
+import { news } from "../data/newsData";
 import logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+
+  const top3News = news.slice(0, 3);
+  const navigate = useNavigate();
   /* // funksjon som håndterer booking
   const handleBook = (eventId) => {
     console.log('Book event med id:', eventId);
@@ -19,10 +26,29 @@ export default function Home() {
     </HeroSection>
 
     <section className="card-section">
-        <div className="card-section_info">
-            <h2>News</h2>
-            <p>Text text text</p>
-            <p>Text text text</p> 
+        <div className="card-section__flex">
+            <div>
+                <h2>News</h2>
+                <p>The latest in AI, tech and student opportunities — curated for HCAI.</p>
+            </div>
+            <div>
+                <Buttons
+                    text="More news"
+                    variant="blue"
+                    action={() => navigate("/News")} 
+                />
+            </div>
+        </div>
+        <div className="news-rail__track">
+            {top3News.map(item => (
+            <NewsCard
+                key={item.id}
+                item={item}
+                saved={false}  
+                onOpen={(item) => console.log("Open clicked:", item.headline)}
+                isFeatured={item.id === 1} // første artikkel som featured
+            />
+            ))}
         </div>
     </section>
 
@@ -30,6 +56,12 @@ export default function Home() {
         <h2 className="heroSection__intro--title">Projects</h2>
         <p className="heroSection__intro--text">Exploring the intersection of human-centred design and artificial
           intelligence through applied research and industry collaboration.</p>
+        <Buttons
+            text="Read more"
+            variant="white"
+            className="info-btn"
+            action={() => navigate("/Projects")} 
+        />
     </HeroSection>
     
     <section className="card-section">
@@ -55,14 +87,24 @@ export default function Home() {
 
     <section className="info-section">
         <div className="info-section__contact">
-            <h2>Contact</h2>
-            <p>Text text text</p>
-            <p>Text text text</p> 
+            <h2>Contact our team</h2>
+            <p>Do you need research help for an AI project?</p>
+            <Buttons
+                text="Contact info"
+                variant="white"
+                className="info-btn"
+                action={() => navigate("/People")} 
+            />
         </div>
         <div className="info-section__booking">
             <h2>Book equipment</h2>
-            <p>Text text text</p>
-            <p>Text text text</p> 
+            <p>Do you want to borrow any equipment?</p>
+            <Buttons
+                text="Book here"
+                variant="white"
+                className="info-btn"
+                action={() => navigate("/Booking")} 
+            />
         </div>
     </section>
     </>

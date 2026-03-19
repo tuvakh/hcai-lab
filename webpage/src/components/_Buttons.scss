@@ -1,7 +1,7 @@
 .button {
-    width: 30%;
     font-weight: bold;
-    padding: var(--small-space);
+    padding-block: var(--small-space);
+    padding-inline: var(--normal-space);
     border: none;
     border-radius: var(--border-radius-btn);
     font-size: var(--step--1);
@@ -16,4 +16,8 @@
         background-color: var(--white-color);
         color: var(--primary-color);
     }
+}
+
+.info-btn {
+    margin-block-start: var(--normal-space);
 }
