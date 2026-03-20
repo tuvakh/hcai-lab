@@ -1,0 +1,129 @@
+.footer {
+    background: #111118;
+    color: var(--white-color);
+    padding: 4rem 0 2rem;
+  
+    &__inner {
+      width: min(1200px, 90%);
+      margin: 0 auto;
+    }
+  
+    &__top {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+  
+    &__brand {
+      display: flex;
+      align-items: flex-start;
+    }
+  
+    &__logo {
+      width: 220px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  
+    &__content {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.3fr;
+      gap: 3rem;
+      align-items: start;
+    }
+  
+    &__column {
+      min-width: 0;
+  
+      &--map {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  
+    &__heading {
+      font-family: var(--title-font);
+      font-size: 2rem;
+      line-height: 1;
+      margin: 0 0 0.75rem;
+      color: var(--white-color);
+      text-transform: uppercase;
+  
+      &--contact {
+        margin-top: 2rem;
+      }
+    }
+  
+    &__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  
+    &__list li {
+      margin-bottom: 0.35rem;
+    }
+  
+    &__list a,
+    &__text,
+    &__text a {
+      font-family: var(--text-font);
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: var(--white-color);
+      text-decoration: none;
+    }
+  
+    &__list a:hover,
+    &__text a:hover {
+      opacity: 0.75;
+    }
+  
+    &__map {
+      width: 100%;
+      max-width: 360px;
+      border-radius: var(--border-radius);
+      display: block;
+    }
+  
+    &__bottom {
+      margin-top: 3rem;
+      text-align: center;
+    }
+  
+    &__copyright {
+      margin: 0;
+      font-family: var(--text-font);
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .footer {
+      &__content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+  
+      &__column--map {
+        justify-content: flex-start;
+      }
+  
+      &__map {
+        max-width: 100%;
+      }
+  
+      &__heading {
+        font-size: 1.6rem;
+      }
+  
+      &__list a,
+      &__text,
+      &__text a,
+      &__copyright {
+        font-size: 1rem;
+      }
+    }
+  }
