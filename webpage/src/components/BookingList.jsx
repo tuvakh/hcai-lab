@@ -1,22 +1,31 @@
 function BookingList({ bookings, onUnbook }) {
   return (
-    <div className="my-bookings">
+    <div className="booking-list card-grid">
       {bookings.map((booking) => (
-        <div className="my-bookings__item" key={booking.id}>
-          <div className="my-bookings__info">
-            <h3>{booking.name}</h3>
-            <p>{booking.category}</p>
-            <p><strong>Start day:</strong> {booking.startDay}</p>
-            <p><strong>End day:</strong> {booking.endDay}</p>
-          </div>
+        <article className="card" key={booking.id}>
+          <div className="card__body">
+            <h3 className="card__name">{booking.name}</h3>
+            <span className="card__role">{booking.category}</span>
 
-          <button
-            className="unbook-button"
-            onClick={() => onUnbook(booking.id)}
-          >
-            Unbook
-          </button>
-        </div>
+            <div className="card__tags">
+              <span className="card__tag card__tag--student">Booked</span>
+            </div>
+
+            <p className="card__desc">
+              <strong>Start day:</strong> {booking.startDay}
+              <br />
+              <strong>End day:</strong> {booking.endDay}
+            </p>
+
+            <button
+              type="button"
+              className="button button--white"
+              onClick={() => onUnbook(booking.id)}
+            >
+              Unbook
+            </button>
+          </div>
+        </article>
       ))}
     </div>
   );

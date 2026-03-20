@@ -1,21 +1,79 @@
-import React, { useState } from "react";
-import EquipmentCard from "../components/EquipmentCard";
+import React, { useEffect, useState } from "react";
+import HeroSection from "../components/HeroSection";
 import AvailabilityCard from "../components/AvailabilityCard";
 import BookingList from "../components/BookingList";
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
-export default function Booking() {
-  const [equipment] = useState([
-    { id: 1, name: "Projector A", category: "Presentation" },
-    { id: 2, name: "Laptop Pro 15", category: "Computing" },
-    { id: 3, name: "Camera Kit", category: "Photography" },
-  ]);
+const equipmentData = [
+  {
+    id: 1,
+    name: "Projector",
+    category: "Presentation",
+    description: "Used for presentations and group demonstrations",
+    image: "/assets/equipments/projector.jpg",
+  },
+  {
+    id: 2,
+    name: "VR Headset",
+    category: "AR/VR",
+    description: "Used for immersive user testing",
+    image: "/assets/equipments/vr-headset.jpg",
+  },
+  {
+    id: 3,
+    name: "Eye Tracking Device",
+    category: "User Testing",
+    description: "Analyzes user attention and gaze patterns",
+    image: "/assets/equipments/eye-tracking-device.jpg",
+  },
+  {
+    id: 4,
+    name: "Camera Kit",
+    category: "Media",
+    description: "Recording experiments and documentation",
+    image: "/assets/equipments/camera-kit.jpg",
+  },
+  {
+    id: 5,
+    name: "Raspberry Pi Kit",
+    category: "IoT",
+    description: "Prototype hardware and sensor projects",
+    image: "/assets/equipments/raspberrypi-kit.jpg",
+  },
+  {
+    id: 6,
+    name: "Audio Recording Kit",
+    category: "User Testing",
+    description: "High-quality microphones for interviews and user studies",
+    image: "/assets/equipments/audio-recording-kit.jpg",
+  },
+];
 
+export default function Booking() {
+  const [equipment] = useState(equipmentData);
   const [myBookings, setMyBookings] = useState([]);
-  const [selectedEquipment, setSelectedEquipment] = useState(equipment[0]);
+  const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedStartDay, setSelectedStartDay] = useState("Monday");
   const [selectedEndDay, setSelectedEndDay] = useState("Monday");
+
+  useEffect(() => {
+    document.body.style.overflow = selectedEquipment ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedEquipment]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setSelectedEquipment(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   function getDayIndex(day) {
     return days.indexOf(day);
@@ -45,7 +103,7 @@ export default function Booking() {
     return allBooked ? "Booked" : "Available";
   }
 
-  function handleSelect(item) {
+  function openEquipment(item) {
     setSelectedEquipment(item);
 
     const availability = getAvailabilityForEquipment(item.id);
@@ -54,10 +112,15 @@ export default function Booking() {
     if (firstAvailable) {
       setSelectedStartDay(firstAvailable.day);
       setSelectedEndDay(firstAvailable.day);
+    } else {
+      setSelectedStartDay("Monday");
+      setSelectedEndDay("Monday");
     }
   }
 
   function handleBook() {
+    if (!selectedEquipment) return;
+
     const startIndex = getDayIndex(selectedStartDay);
     const endIndex = getDayIndex(selectedEndDay);
 
@@ -90,116 +153,204 @@ export default function Booking() {
     };
 
     setMyBookings((prev) => [...prev, newBooking]);
-
-    const updatedAvailability = getAvailabilityForEquipment(selectedEquipment.id);
-    const nextAvailable = updatedAvailability.find((slot) => slot.status === "Available");
-
-    if (nextAvailable) {
-      setSelectedStartDay(nextAvailable.day);
-      setSelectedEndDay(nextAvailable.day);
-    }
+    setSelectedEquipment(null);
   }
 
   function handleUnbook(id) {
     setMyBookings((prev) => prev.filter((booking) => booking.id !== id));
   }
 
-  const selectedAvailability = getAvailabilityForEquipment(selectedEquipment.id);
+  const selectedAvailability = selectedEquipment
+    ? getAvailabilityForEquipment(selectedEquipment.id)
+    : [];
+
+  const availableEndDays = selectedAvailability.filter(
+    (slot) => getDayIndex(slot.day) >= getDayIndex(selectedStartDay)
+  );
 
   return (
     <main className="booking-page">
-      <section className="booking-hero">
-        <div className="booking-hero__content">
-          <h1>Book equipment</h1>
-          <p>
-            Reserve available equipment from the HCAI lab and manage your bookings.
-          </p>
+      <HeroSection heroImg="/assets/hero/hero-home.png">
+        <p className="heroSection__intro--label">Equipment</p>
+        <h1 className="heroSection__intro--title">Book Equipment</h1>
+        <p className="heroSection__intro--text">
+          Reserve available equipment from the HCAI lab and manage your bookings.
+        </p>
+      </HeroSection>
+
+      <section className="booking-page__grid-section">
+        <h2 className="booking-page__section-title">Browse Equipment</h2>
+
+        <div className="card-grid">
+          {equipment.map((item, i) => {
+            const status = getOverallStatus(item);
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className="card"
+                onClick={() => openEquipment(item)}
+                style={{ animationDelay: `${i * 0.07}s` }}
+                aria-label={`Open ${item.name}`}
+              >
+                <div className="card__image-wrap">
+                  {item.image ? (
+                    <img src={item.image} alt={item.name} className="card__image" />
+                  ) : (
+                    <div className="card__image card__image--placeholder" />
+                  )}
+                </div>
+
+                <div className="card__body">
+                  <h3 className="card__name">{item.name}</h3>
+                  <span className="card__role">{item.category}</span>
+
+                  <div className="card__tags">
+                    <span
+                      className={`card__tag ${
+                        status === "Available"
+                          ? "card__tag--ongoing"
+                          : "card__tag--completed"
+                      }`}
+                    >
+                      {status}
+                    </span>
+                  </div>
+
+                  <p className="card__desc">{item.description}</p>
+                  <span className="card__cta">View booking details →</span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </section>
 
-      <section className="booking-section">
-        <h2>Browse Equipment</h2>
-
-        <div className="booking-cards">
-          {equipment.map((item) => (
-            <EquipmentCard
-              key={item.id}
-              name={item.name}
-              category={item.category}
-              status={getOverallStatus(item)}
-              isSelected={selectedEquipment.id === item.id}
-              onClick={() => handleSelect(item)}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="booking-section booking-section--middle">
-        <div className="details-card">
-          <h2>Selected Equipment Details</h2>
-          <p><strong>Name:</strong> {selectedEquipment.name}</p>
-          <p><strong>Category:</strong> {selectedEquipment.category}</p>
-          <p><strong>Status:</strong> {getOverallStatus(selectedEquipment)}</p>
-
-          <div className="booking-duration">
-            <label htmlFor="start-day"><strong>Start day:</strong></label>
-            <select
-              id="start-day"
-              value={selectedStartDay}
-              onChange={(e) => {
-                setSelectedStartDay(e.target.value);
-                setSelectedEndDay(e.target.value);
-              }}
+      {selectedEquipment && (
+        <div
+          className="modal-overlay"
+          onClick={(e) => e.target === e.currentTarget && setSelectedEquipment(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedEquipment.name}
+        >
+          <div className="modal">
+            <button
+              className="modal__close"
+              onClick={() => setSelectedEquipment(null)}
+              aria-label="Close"
             >
-              {selectedAvailability.map((slot) => (
-                <option
-                  key={slot.day}
-                  value={slot.day}
-                  disabled={slot.status === "Booked"}
-                >
-                  {slot.day}
-                </option>
-              ))}
-            </select>
-          </div>
+              ✕
+            </button>
 
-          <div className="booking-duration">
-            <label htmlFor="end-day"><strong>End day:</strong></label>
-            <select
-              id="end-day"
-              value={selectedEndDay}
-              onChange={(e) => setSelectedEndDay(e.target.value)}
-            >
-              {selectedAvailability
-                .filter(
-                  (slot) =>
-                    getDayIndex(slot.day) >= getDayIndex(selectedStartDay)
-                )
-                .map((slot) => (
-                  <option
-                    key={slot.day}
-                    value={slot.day}
-                    disabled={slot.status === "Booked"}
+            <div className="modal__header">
+              <div className="modal__image-wrap">
+                {selectedEquipment.image ? (
+                  <img
+                    src={selectedEquipment.image}
+                    alt={selectedEquipment.name}
+                    className="modal__image"
+                  />
+                ) : (
+                  <div className="modal__image modal__image--placeholder" />
+                )}
+              </div>
+
+              <div className="modal__header-text">
+                <h2 className="modal__name">{selectedEquipment.name}</h2>
+                <span className="modal__role">{selectedEquipment.category}</span>
+
+                <div className="modal__tags">
+                  <span
+                    className={`modal__tag ${
+                      getOverallStatus(selectedEquipment) === "Available"
+                        ? "modal__tag--ongoing"
+                        : "modal__tag--completed"
+                    }`}
                   >
-                    {slot.day}
-                  </option>
-                ))}
-            </select>
+                    {getOverallStatus(selectedEquipment)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="modal__body">
+              <p className="modal__bio">{selectedEquipment.description}</p>
+            </div>
+
+            <div className="modal__section">
+              <h3 className="modal__section-title">Booking Period</h3>
+
+              <div className="booking-duration">
+                <label htmlFor="start-day">
+                  <strong>Start day:</strong>
+                </label>
+                <select
+                  id="start-day"
+                  value={selectedStartDay}
+                  onChange={(e) => {
+                    setSelectedStartDay(e.target.value);
+                    setSelectedEndDay(e.target.value);
+                  }}
+                >
+                  {selectedAvailability.map((slot) => (
+                    <option
+                      key={slot.day}
+                      value={slot.day}
+                      disabled={slot.status === "Booked"}
+                    >
+                      {slot.day}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="booking-duration">
+                <label htmlFor="end-day">
+                  <strong>End day:</strong>
+                </label>
+                <select
+                  id="end-day"
+                  value={selectedEndDay}
+                  onChange={(e) => setSelectedEndDay(e.target.value)}
+                >
+                  {availableEndDays.map((slot) => (
+                    <option
+                      key={slot.day}
+                      value={slot.day}
+                      disabled={slot.status === "Booked"}
+                    >
+                      {slot.day}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="modal__section">
+              <AvailabilityCard availability={selectedAvailability} />
+            </div>
+
+            <div className="modal__contact">
+              <button
+                type="button"
+                className="button button--blue"
+                onClick={handleBook}
+              >
+                Book equipment
+              </button>
+            </div>
           </div>
         </div>
-
-        <AvailabilityCard availability={selectedAvailability} />
-
-        <div className="booking-button-wrap">
-          <button className="booking-button" onClick={handleBook}>
-            Book
-          </button>
-        </div>
-      </section>
+      )}
 
       {myBookings.length > 0 && (
-        <section className="booking-section">
-          <h2>My Bookings</h2>
+        <section className="booking-page__contact">
+          <h2 className="booking-page__contact-title">My Bookings</h2>
+          <p className="booking-page__contact-text">
+            Here you can review and manage your current equipment bookings.
+          </p>
           <BookingList bookings={myBookings} onUnbook={handleUnbook} />
         </section>
       )}
