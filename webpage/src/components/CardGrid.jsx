@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function CardGrid({ items = [], variant = "people" }) {
   const [selected, setSelected] = useState(null);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -43,11 +42,9 @@ export default function CardGrid({ items = [], variant = "people" }) {
               )}
               {variant === "projects" && (
                 <div className="card__tags">
-                  {item.status && (
-                    <span className={`card__tag card__tag--${item.status.toLowerCase()}`}>
-                      {item.status}
-                    </span>
-                  )}
+                  {item.status && (Array.isArray(item.status) ? item.status : [item.status]).map((s) => (
+                    <span key={s} className={`card__tag card__tag--${s.toLowerCase()}`}>{s}</span>
+                  ))}
                   {item.tags?.map((tag) => (
                     <span key={tag} className="card__tag">{tag}</span>
                   ))}
@@ -155,41 +152,25 @@ export default function CardGrid({ items = [], variant = "people" }) {
                   </div>
                 )}
 
-                {/* Publications */}
-                {selected.publications?.length > 0 && (
+                {/* Publications link */}
+                {selected.publicationsUrl && (
                   <div className="modal__section">
                     <h3 className="modal__section-title">Publications</h3>
-                    <ul className="modal__pub-list">
-                      {selected.publications.map((pub, i) => (
-                        <li key={i} className="modal__pub-item">
-                          {pub.url ? (
-                            <a
-                              href={pub.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="modal__pub-link"
-                            >
-                              <span className="modal__pub-title">{pub.title}</span>
-                              <span className="modal__pub-meta">
-                                {[pub.venue, pub.year].filter(Boolean).join(" · ")}
-                              </span>
-                            </a>
-                          ) : (
-                            <>
-                              <span className="modal__pub-title">{pub.title}</span>
-                              <span className="modal__pub-meta">
-                                {[pub.venue, pub.year].filter(Boolean).join(" · ")}
-                              </span>
-                            </>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
+                    <a href={selected.publicationsUrl} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">↗</span>
+                      View all publications
+                    </a>
                   </div>
                 )}
 
                 {/* Contact */}
                 <div className="modal__contact">
+                  {selected.ntnuProfile && (
+                    <a href={selected.ntnuProfile} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">N</span>
+                      NTNU Profile
+                    </a>
+                  )}
                   {selected.email && (
                     <a href={`mailto:${selected.email}`} className="modal__contact-link">
                       <span className="modal__contact-icon">✉</span>
@@ -202,10 +183,46 @@ export default function CardGrid({ items = [], variant = "people" }) {
                       LinkedIn
                     </a>
                   )}
+                  {selected.scholar && (
+                    <a href={selected.scholar} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">GS</span>
+                      Google Scholar
+                    </a>
+                  )}
+                  {selected.researchgate && (
+                    <a href={selected.researchgate} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">RG</span>
+                      ResearchGate
+                    </a>
+                  )}
+                  {selected.twitter && (
+                    <a href={selected.twitter} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">𝕏</span>
+                      X / Twitter
+                    </a>
+                  )}
+                  {selected.instagram && (
+                    <a href={selected.instagram} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">IG</span>
+                      Instagram
+                    </a>
+                  )}
                   {selected.github && (
                     <a href={selected.github} target="_blank" rel="noreferrer" className="modal__contact-link">
                       <span className="modal__contact-icon">⌥</span>
                       GitHub
+                    </a>
+                  )}
+                  {selected.scopus && (
+                    <a href={selected.scopus} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">Sc</span>
+                      Scopus
+                    </a>
+                  )}
+                  {selected.dblp && (
+                    <a href={selected.dblp} target="_blank" rel="noreferrer" className="modal__contact-link">
+                      <span className="modal__contact-icon">db</span>
+                      DBLP
                     </a>
                   )}
                 </div>
@@ -218,11 +235,9 @@ export default function CardGrid({ items = [], variant = "people" }) {
                 <div className="modal__header">
                   <div className="modal__header-text modal__header-text--full">
                     <div className="modal__tags">
-                      {selected.status && (
-                        <span className={`modal__tag modal__tag--${selected.status.toLowerCase()}`}>
-                          {selected.status}
-                        </span>
-                      )}
+                      {selected.status && (Array.isArray(selected.status) ? selected.status : [selected.status]).map((s) => (
+                        <span key={s} className={`modal__tag modal__tag--${s.toLowerCase()}`}>{s}</span>
+                      ))}
                       {selected.tags?.map((tag) => (
                         <span key={tag} className="modal__tag">{tag}</span>
                       ))}
@@ -241,18 +256,8 @@ export default function CardGrid({ items = [], variant = "people" }) {
                     <div className="modal__team-grid">
                       {selected.team.map((name) => (
                         <div key={name} className="modal__team-card">
-                          <div className="modal__team-avatar" />
+                          <img src="/assets/people/anonymous.png" alt={name} className="modal__team-avatar" />
                           <span className="modal__team-name">{name}</span>
-                          <button
-                            type="button"
-                            className="modal__team-btn"
-                            onClick={() => {
-                              setSelected(null);
-                              navigate("/People");
-                            }}
-                          >
-                            View profile
-                          </button>
                         </div>
                       ))}
                     </div>

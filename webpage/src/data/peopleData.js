@@ -9,8 +9,13 @@ export const people = [
     fullBio:
       "Ole Andreas Alsos is Professor at the Department of Design and leads the Shore Control Lab. He has an MSc in computer science and a PhD in computer and information science from NTNU. His background spans academia and industry — he co-founded Serious Games AS and led the usability department at BEKK Consulting in Trondheim. He has served as Head of Department and Vice Dean of Innovation and Dissemination at NTNU.",
     email: "oleanda@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/olealsos/",
     github: null,
+    scholar: "https://scholar.google.no/citations?user=b7fOvnoAAAAJ&hl=no",
+    researchgate: "https://www.researchgate.net/profile/Ole-Alsos",
+    twitter: "https://x.com/olealsos",
+    ntnuProfile: "https://www.ntnu.edu/employees/oleanda",
+    publicationsUrl: "https://www.ntnu.edu/employees/oleanda#nav-publications",
     researchInterests: [
       "Autonomous Ships",
       "Shore Control Centres",
@@ -23,26 +28,6 @@ export const people = [
       { name: "Autoteaming", image: null, url: null },
       { name: "milliAmpere Ferry", image: null, url: null },
     ],
-    publications: [
-      {
-        title: "Lessons Learned from the Trial Operation of an Autonomous Urban Passenger Ferry",
-        venue: "Transportation Research Interdisciplinary Perspectives",
-        year: 2024,
-        url: null,
-      },
-      {
-        title: "NTNU Shore Control Lab: Designing Shore Control Centres in the Age of Autonomous Ships",
-        venue: "Journal of Physics: Conference Series",
-        year: 2022,
-        url: null,
-      },
-      {
-        title: "Human-Centered Explainable AI for Marine Autonomous Surface Vehicles",
-        venue: "Journal of Marine Science and Engineering",
-        year: 2021,
-        url: null,
-      },
-    ],
   },
   {
     id: 2,
@@ -54,8 +39,13 @@ export const people = [
     fullBio:
       "Associate Professor at the Department of Design since 2022. His research sits at the intersection of Artificial Intelligence and Interaction Design — investigating intelligent assistants for behaviour change, health and mental wellbeing, AI bias, and the ethical implications of large-scale AI deployment. Previously Assistant Professor and Postdoc at Aalborg University, Denmark. PhD in Human-Computer Interaction from the University of Patras, Greece.",
     email: "eleftherios.papachristos@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/papachristose/",
     github: null,
+    scholar: "https://scholar.google.com/citations?user=UuXqjcUAAAAJ&hl=en",
+    researchgate: "https://www.researchgate.net/profile/Eleftherios-Papachristos",
+    twitter: "https://x.com/epap",
+    ntnuProfile: "https://www.ntnu.edu/employees/eleftherios.papachristos",
+    publicationsUrl: "https://www.ntnu.edu/employees/eleftherios.papachristos#nav-publications",
     researchInterests: [
       "Human-Centered AI",
       "Conversational Agents",
@@ -68,26 +58,6 @@ export const people = [
       { name: "SHEREC", image: null, url: null },
       { name: "ECEH", image: null, url: null },
     ],
-    publications: [
-      {
-        title: "Sound Strategies for Safe Driving: Exploring Auditory Interventions to Counteract Passive Driver Fatigue",
-        venue: "CHI",
-        year: 2024,
-        url: null,
-      },
-      {
-        title: "Exploring VUI-Supported Mindfulness Techniques for Smoking Cessation",
-        venue: "ACM CHI",
-        year: 2024,
-        url: null,
-      },
-      {
-        title: "It's Not All Bad – Worker Perceptions of Industrial Robots",
-        venue: "ACM/IEEE HRI",
-        year: 2022,
-        url: null,
-      },
-    ],
   },
   {
     id: 3,
@@ -99,8 +69,10 @@ export const people = [
     fullBio:
       "Associate Professor at the Department of Design, Faculty of Architecture and Design. Previously a Postdoctoral Fellow at the University of Bergen and Assistant Professor at Atilim University in Turkey. His broad research interests include Interaction Design, HCI, Usability, User Experience, Digital Accessibility, Game Studies, Player Experience, Health Informatics, Learning Technologies, and Human-Robot Interaction.",
     email: "yavuz.inal@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/yavuz-inal-35bab9348/",
     github: null,
+    ntnuProfile: "https://www.ntnu.edu/employees/yavuz.inal",
+    publicationsUrl: "https://www.ntnu.edu/employees/yavuz.inal#nav-publications",
     researchInterests: [
       "Digital Accessibility",
       "Usability",
@@ -111,26 +83,6 @@ export const people = [
     projects: [
       { name: "Hyperspectral Images in Museums", image: null, url: null },
       { name: "Web Accessibility Norway", image: null, url: null },
-    ],
-    publications: [
-      {
-        title: "My Eyes Don't Consent! Exploring Visual Attention in Cookie Consent Interfaces",
-        venue: "ACM CHI",
-        year: 2024,
-        url: null,
-      },
-      {
-        title: "Web Accessibility in Higher Education in Norway: To What Extent are University Websites Accessible?",
-        venue: "Lecture Notes in Computer Science",
-        year: 2023,
-        url: null,
-      },
-      {
-        title: "Effects of Gameplay Dynamics on Visual Attention",
-        venue: "IEEE Access",
-        year: 2024,
-        url: null,
-      },
     ],
   },
   {
@@ -145,6 +97,8 @@ export const people = [
     email: "aliaksei.miniukovich@ntnu.no",
     linkedin: null,
     github: null,
+    ntnuProfile: "https://www.ntnu.edu/employees/aliaksei.miniukovich",
+    publicationsUrl: "https://www.ntnu.edu/employees/aliaksei.miniukovich#nav-publications",
     researchInterests: [
       "Visual Aesthetics",
       "First Impressions",
@@ -153,7 +107,6 @@ export const people = [
       "Interface Design",
     ],
     projects: [],
-    publications: [],
   },
   {
     id: 5,
@@ -167,6 +120,9 @@ export const people = [
     email: "carlos.vicient@ntnu.no",
     linkedin: null,
     github: null,
+    dblp: "https://dblp.uni-trier.de/pid/52/10715.html",
+    ntnuProfile: "https://www.ntnu.edu/employees/carlos.vicient",
+    publicationsUrl: "https://www.ntnu.edu/employees/carlos.vicient#nav-publications",
     researchInterests: [
       "Artificial Intelligence",
       "Human-Centered AI",
@@ -175,20 +131,6 @@ export const people = [
     ],
     projects: [
       { name: "AI for Personalized Learning", image: null, url: null },
-    ],
-    publications: [
-      {
-        title: "The Use of Artificial Intelligence for Personalized Learning: Teacher Perspective",
-        venue: "ACM CHI",
-        year: 2024,
-        url: null,
-      },
-      {
-        title: "The Effective Use of Generative AI for Personalized Learning",
-        venue: "Conference on e-Learning",
-        year: 2024,
-        url: null,
-      },
     ],
   },
   {
@@ -203,6 +145,9 @@ export const people = [
     email: "erik.a.veitch@ntnu.no",
     linkedin: null,
     github: null,
+    scholar: "https://scholar.google.no/citations?user=4FSsRA4AAAAJ&hl=en&oi=ao",
+    ntnuProfile: "https://www.ntnu.edu/employees/erik.a.veitch",
+    publicationsUrl: "https://www.ntnu.edu/employees/erik.a.veitch#nav-publications",
     researchInterests: [
       "Remote Maritime Operations",
       "Situation Awareness",
@@ -214,26 +159,6 @@ export const people = [
       { name: "Autoteaming", image: null, url: null },
       { name: "Shore Control Lab", image: null, url: "https://www.ntnu.edu/web/shorecontrol" },
       { name: "milliAmpere2", image: null, url: null },
-    ],
-    publications: [
-      {
-        title: "Gorillas on a Boat: Inattentional Blindness During Supervisory Control of Autonomous Vessels",
-        venue: "Journal of Physics: Conference Series",
-        year: 2023,
-        url: null,
-      },
-      {
-        title: "Human-Centered Explainable AI for Marine Autonomous Surface Vehicles",
-        venue: "Journal of Marine Science and Engineering",
-        year: 2021,
-        url: null,
-      },
-      {
-        title: "Human Factor Influences on Supervisory Control of Remotely Operated and Autonomous Vessels",
-        venue: "Safety Science",
-        year: 2024,
-        url: null,
-      },
     ],
   },
   {
@@ -248,6 +173,11 @@ export const people = [
     email: "taufik.a.sitompul@ntnu.no",
     linkedin: null,
     github: null,
+    scholar: "https://scholar.google.com/citations?user=V_L9WecAAAAJ&hl=en",
+    scopus: "https://www.scopus.com/authid/detail.uri?authorId=57211169254",
+    researchgate: "https://www.researchgate.net/profile/Taufik-Sitompul",
+    ntnuProfile: "https://www.ntnu.edu/employees/taufik.a.sitompul",
+    publicationsUrl: "https://www.ntnu.edu/employees/taufik.a.sitompul#nav-publications",
     researchInterests: [
       "Remote Operation UI",
       "Information Visualisation",
@@ -260,26 +190,6 @@ export const people = [
       { name: "SFI Autoship", image: null, url: null },
       { name: "Shore Control Lab", image: null, url: "https://www.ntnu.edu/web/shorecontrol" },
     ],
-    publications: [
-      {
-        title: "Designing User Interface Elements for Remotely Operated Ship-to-shore Cranes",
-        venue: "ACM CHI",
-        year: 2023,
-        url: null,
-      },
-      {
-        title: "Handling Constant and Changing Latency with Graphical User Interfaces: A Study with Remote Crane Operators",
-        venue: "NordiCHI",
-        year: 2024,
-        url: null,
-      },
-      {
-        title: "Lessons Learned from the Trial Operation of an Autonomous Urban Passenger Ferry",
-        venue: "Transportation Research Interdisciplinary Perspectives",
-        year: 2024,
-        url: null,
-      },
-    ],
   },
   {
     id: 8,
@@ -291,8 +201,12 @@ export const people = [
     fullBio:
       "Postdoctoral researcher at the Department of Design, NTNU Gjøvik. His research combines technical prototyping with empirical inquiry — both quantitative and qualitative — focusing on designing artifacts that surface value tensions around automation, agency, and surveillance. During his PhD at Aalborg University he developed the Privacy Experience–Artifact Framework. Currently interested in how AI and automation intervene in personal decision-making in smart homes, educational tools, and self-tracking platforms.",
     email: "sujay.shalawadi@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/sujay-shalawadi-a884a070/",
     github: null,
+    scholar: "https://scholar.google.com/citations?user=lYJg6osAAAAJ&hl=en",
+    instagram: "https://www.instagram.com/sujayshalawadi/",
+    ntnuProfile: "https://www.ntnu.edu/employees/sujay.shalawadi",
+    publicationsUrl: "https://www.ntnu.edu/employees/sujay.shalawadi#nav-publications",
     researchInterests: [
       "Privacy by Design",
       "Smart Home Systems",
@@ -301,7 +215,6 @@ export const people = [
       "Human Values in Design",
     ],
     projects: [],
-    publications: [],
   },
   {
     id: 9,
@@ -313,11 +226,12 @@ export const people = [
     fullBio:
       "Researcher jointly affiliated with the Department of Design and the Department of Computer Science at NTNU Gjøvik.",
     email: "syeda.t.habib@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/tanzima-habib-b7b26021/",
     github: null,
+    ntnuProfile: "https://www.ntnu.edu/employees/syeda.t.habib",
+    publicationsUrl: "https://www.ntnu.edu/employees/syeda.t.habib#nav-publications",
     researchInterests: [],
     projects: [],
-    publications: [],
   },
   {
     id: 10,
@@ -329,8 +243,12 @@ export const people = [
     fullBio:
       "Carly Grace Allen is completing an industrial PhD at NTNU in collaboration with Norsk Tipping, Norway's state gambling operator. Her research focuses on how interaction design can support responsible gambling efforts. She led the creation of a new responsible gambling tool that won an Innovation Award from the European Lottery Association. She has also taught the Design of Critical Safety Systems course at NTNU Gjøvik and has been an external examiner for bachelor theses in interaction design and information systems.",
     email: "carly.g.allen@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/carlygraceallen/",
     github: null,
+    scholar: "https://scholar.google.com/citations?user=6FhjQ5IAAAAJ&hl=en",
+    researchgate: "https://www.researchgate.net/profile/Carly-Allen-2",
+    ntnuProfile: "https://www.ntnu.edu/employees/carlyga",
+    publicationsUrl: "https://www.ntnu.edu/employees/carlyga#nav-publications",
     researchInterests: [
       "Responsible Gambling",
       "Safety-Critical Design",
@@ -340,7 +258,6 @@ export const people = [
     projects: [
       { name: "Norsk Tipping Industrial PhD", image: null, url: null },
     ],
-    publications: [],
   },
   {
     id: 11,
@@ -352,8 +269,12 @@ export const people = [
     fullBio:
       "PhD Candidate at the Shore Control Lab working on the SHEREC project (Safe, Healthy and Environmental Ship Recycling). His research focuses on designing intuitive and adaptive user interfaces for teleoperation of robotic systems — crawler robots, drones, and robotic arm manipulators — in hazardous shipbreaking environments. His work addresses cognitive load, trust, and safety in Human-Robot Interaction.",
     email: "vedran.simic@ntnu.no",
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/vedransimic/",
+    scholar: "https://scholar.google.com/citations?user=vY1cOJMAAAAJ&hl=en&oi=ao",
+    researchgate: "https://www.researchgate.net/profile/Vedran_Simic",
     github: null,
+    ntnuProfile: "https://www.ntnu.edu/employees/vedran.simic",
+    publicationsUrl: "https://www.ntnu.edu/employees/vedran.simic#nav-publications",
     researchInterests: [
       "Human-Robot Interaction",
       "Teleoperation UI",
@@ -364,6 +285,5 @@ export const people = [
     projects: [
       { name: "SHEREC", image: null, url: null },
     ],
-    publications: [],
   },
 ];
