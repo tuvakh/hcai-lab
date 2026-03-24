@@ -1,5 +1,6 @@
 // // src/hooks/useNews.js
 // import { useState, useEffect } from "react";
+//COMMENT OUT WHEN SHOWING CODE
 
 // const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 // const BASE    = "https://eventregistry.org/api/v1/article/getArticles";
