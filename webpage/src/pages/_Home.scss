@@ -20,17 +20,28 @@
 }
 
 .info-section {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
     text-align: center;
-    padding: var(--big-space);
+    justify-content: center;
+    padding: var(--bigger-space) var(--medium-space);
     background-color: var(--primary-color);
 
-    div {
-        width: 50%;
+    @media (max-width: 600px) { 
+        gap: var(--big-space);
     }
     &__contact {
         border-right: 1px solid var(--white-color);
+
+        @media (max-width: 600px) { 
+            padding-block-end: var(--big-space);
+            border-bottom: 1px solid var(--white-color);
+            border-right: none;
+        }
+    }
+
+    p {
+        max-width: clamp(35ch, 50%, 50ch);
+        margin-inline: auto;
     }
 }

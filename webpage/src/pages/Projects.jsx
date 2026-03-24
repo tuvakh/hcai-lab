@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import HeroSection from "../components/HeroSection";
 import CardGrid from "../components/CardGrid";
 import { projects } from "../data/projectsData";
