@@ -7,6 +7,7 @@
 @use '../pages/People';
 @use '../pages/Newsgrid';
 @use '../pages/Projects';
+@use '../pages/AdminDashboard';
 
 
 
@@ -21,5 +22,8 @@
 @use '../components/NewsModal';
 @use '../components/NewsRail';
 @use '../components/NewsSideBar';
+
+// Admin Components
+@use '../components/AdminStatCard';
 
 @use "./booking";
