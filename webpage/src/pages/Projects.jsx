@@ -12,7 +12,9 @@ export default function Projects() {
   const filtered =
     activeFilter === "All"
       ? projects
-      : projects.filter((p) => p.status === activeFilter);
+      : projects.filter((p) =>
+          Array.isArray(p.status) ? p.status.includes(activeFilter) : p.status === activeFilter
+        );
 
   return (
     <main className="projects-page">
