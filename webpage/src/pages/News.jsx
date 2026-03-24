@@ -21,9 +21,9 @@ export default function News() {
   const norItems  = (norAll || []).slice(0, norCount);
   const intlItems = (intlAll || []).slice(0, intlCount);
   const favItems  = [...(norAll || []), ...(intlAll || [])]
-  .filter((n) => saved.has(n.url))
+  .filter((n) => saved.has(n.id))
   .filter((item, index, self) =>
-    index === self.findIndex((t) => t.url === item.url)
+    index === self.findIndex((t) => t.id === item.id)
   );
   const count     = region === "norway" ? norCount      : intlCount;
 
@@ -37,7 +37,7 @@ export default function News() {
   const toggleStar = (item) =>
     setSaved((prev) => {
       const next = new Set(prev);
-      next.has(item.url) ? next.delete(item.url) : next.add(item.url);
+      next.has(item.id) ? next.delete(item.id) : next.add(item.id);
       return next;
     });
 

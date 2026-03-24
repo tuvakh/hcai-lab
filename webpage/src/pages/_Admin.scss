@@ -1,0 +1,171 @@
+// src/pages/_Admin.scss
+// Page-level styles only — admin-page block.
+// Component styles (AdminStatCard) live in src/components/.
+
+.admin-page {
+  min-height: 100vh;
+  background-color: var(--background-color);
+
+  // ── Content area — matches other page padding ──────────────────────────
+  &__content {
+    padding: 2rem 4rem 4rem;
+
+    @media (max-width: 900px) { padding: 1.5rem 2rem 3rem; }
+    @media (max-width: 600px) { padding: 1.25rem 1.25rem 2.5rem; }
+  }
+
+  // ── Tab bar — same pattern as News/Projects filter bars ───────────────
+  &__tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+  }
+
+  &__tab-btn {
+    font-family: var(--text-font);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1.1rem;
+    border-radius: var(--border-radius-btn);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: var(--white-color);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &--active {
+      background: var(--norwegian-label);
+      border-color: var(--norwegian-label);
+      color: var(--white-color);
+      box-shadow: 0 4px 12px rgba(19, 80, 203, 0.4);
+    }
+  }
+
+  // ── Overview: stat card grid ───────────────────────────────────────────
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+
+    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 480px) { grid-template-columns: 1fr; }
+  }
+
+  // ── Table section ─────────────────────────────────────────────────────
+  &__table-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  &__table-heading {
+    font-family: var(--title-font);
+    font-size: var(--step-1);
+    font-weight: 400;
+    color: var(--white-color);
+    letter-spacing: 0.03em;
+  }
+
+  &__count {
+    font-family: var(--text-font);
+    font-size: var(--step--1);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  &__table-wrap {
+    overflow-x: auto;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--text-font);
+    font-size: var(--step--1);
+
+    th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.85rem 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+    }
+
+    tbody tr {
+      transition: background 0.15s ease;
+
+      &:hover { background: rgba(255, 255, 255, 0.04); }
+      &:last-child td { border-bottom: none; }
+    }
+  }
+
+  // ── Cells with long text ───────────────────────────────────────────────
+  &__team-cell,
+  &__desc-cell {
+    max-width: 280px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  // ── Inline badges ──────────────────────────────────────────────────────
+  &__role-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-btn);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+  }
+
+  &__status-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--border-radius-btn);
+    white-space: nowrap;
+
+    &--ongoing   { background: rgba(19, 80, 203, 0.25);  color: #93b4ff; }
+    &--completed { background: rgba(34, 197, 94, 0.18);  color: #86efac; }
+    &--student   { background: rgba(192, 132, 245, 0.2); color: var(--role-color); }
+  }
+
+  // ── Links ─────────────────────────────────────────────────────────────
+  &__link {
+    color: var(--tertiary-color);
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}
