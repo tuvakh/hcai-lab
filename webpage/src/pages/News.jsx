@@ -1,48 +1,49 @@
 // src/pages/News.jsx
-
 import { useState } from "react";
 import HeroSection from "../components/HeroSection";
 import NewsRail from "../components/NewsRail";
 import NewsSidebar from "../components/NewsSidebar";
 import NewsModal from "../components/NewsModal";
-import { news } from "../data/newsData";
+import { useNews } from "../hooks/useNews";
 
-const ALL_NOR   = news.filter((n) => n.region === "norway");
-const ALL_INTL  = news.filter((n) => n.region === "international");
-const INIT_NOR  = Math.min(3, ALL_NOR.length);
-const INIT_INTL = Math.min(3, ALL_INTL.length);
-//trenger 9 artikler for å fylle opp 3 i hver rail + 3 i sidebar, så hvis det er færre enn 9 totalt så må vi justere init count for å unngå tomme rails/sidebar
+const INIT_COUNT = 6;
 
 export default function News() {
-  const [region,     setRegion]     = useState("norway");
-  const [norCount,   setNorCount]   = useState(INIT_NOR);
-  const [intlCount,  setIntlCount]  = useState(INIT_INTL);
-  const [saved,      setSaved]      = useState(new Set());
+  const [region,    setRegion]    = useState("norway");
+  const [norCount,  setNorCount]  = useState(INIT_COUNT);
+  const [intlCount, setIntlCount] = useState(INIT_COUNT);
+  const [saved,     setSaved]     = useState(new Set());
   const [activeItem, setActiveItem] = useState(null);
 
-  const toggleStar = (id) =>
-    setSaved((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
+  const { items: norAll,  loading: norLoading,  error: norError  } = useNews("norway");
+  const { items: intlAll, loading: intlLoading, error: intlError } = useNews("international");
 
-  const norItems  = ALL_NOR.slice(0, norCount);
-  const intlItems = ALL_INTL.slice(0, intlCount);
-  const favItems  = news.filter((n) => saved.has(n.id));
+  const norItems  = (norAll || []).slice(0, norCount);
+  const intlItems = (intlAll || []).slice(0, intlCount);
+  const favItems  = [...(norAll || []), ...(intlAll || [])]
+  .filter((n) => saved.has(n.url))
+  .filter((item, index, self) =>
+    index === self.findIndex((t) => t.url === item.url)
+  );
+  const count     = region === "norway" ? norCount      : intlCount;
 
-  const count     = region === "norway" ? norCount    : intlCount;
-  const total     = region === "norway" ? ALL_NOR.length : ALL_INTL.length;
-  const initCount = region === "norway" ? INIT_NOR    : INIT_INTL;
-  const setCount  = region === "norway" ? setNorCount : setIntlCount;
+    const total     = region === "norway" ? norAll.length : intlAll.length;
+  const initCount = INIT_COUNT;
+  const setCount  = region === "norway" ? setNorCount   : setIntlCount;
 
   const canShowMore = count < total;
   const canShowLess = count > initCount;
 
+  const toggleStar = (item) =>
+    setSaved((prev) => {
+      const next = new Set(prev);
+      next.has(item.url) ? next.delete(item.url) : next.add(item.url);
+      return next;
+    });
+
   return (
     <main className="news-page">
 
-      {/* Hero — uses heroSection__intro--* classes like People.jsx */}
       <HeroSection heroImg="/assets/hero/hero-home.png">
         <p className="heroSection__intro--label">Latest Updates</p>
         <h1 className="heroSection__intro--title">AI News &amp; Highlights</h1>
@@ -51,10 +52,8 @@ export default function News() {
         </p>
       </HeroSection>
 
-      {/* Content */}
       <section className="news-page__content">
 
-        {/* Region filter — Norway blue / International purple from variables */}
         <div className="news-page__filter-bar" role="group" aria-label="Filter news by region">
           <button
             type="button"
@@ -76,26 +75,53 @@ export default function News() {
           </button>
         </div>
 
-        {/* Card layout: rails + sidebar */}
         <div className="news-page__layout">
           <div className="news-page__main">
+
+            {/* Norway tab */}
             {region === "norway" && (
-              <NewsRail
-                label="Norway"
-                items={norItems}
-                saved={saved}
-                onStar={toggleStar}
-                onOpen={setActiveItem}
-              />
+              <>
+                {norLoading && (
+                  <p className="news-page__status">Loading news...</p>
+                )}
+                {norError && (
+                  <p className="news-page__status news-page__status--error">
+                    Could not load: {norError}
+                  </p>
+                )}
+                {!norLoading && !norError && norItems.length > 0 && (
+                  <NewsRail
+                    label="Norway"
+                    items={norItems}
+                    saved={saved}
+                    onStar={toggleStar}
+                    onOpen={setActiveItem}
+                  />
+                )}
+              </>
             )}
+
+            {/* International tab */}
             {region === "international" && (
-              <NewsRail
-                label="International"
-                items={intlItems}
-                saved={saved}
-                onStar={toggleStar}
-                onOpen={setActiveItem}
-              />
+              <>
+                {intlLoading && (
+                  <p className="news-page__status">Loading news...</p>
+                )}
+                {intlError && (
+                  <p className="news-page__status news-page__status--error">
+                    Could not load: {intlError}
+                  </p>
+                )}
+                {!intlLoading && !intlError && intlItems.length > 0 && (
+                  <NewsRail
+                    label="International"
+                    items={intlItems}
+                    saved={saved}
+                    onStar={toggleStar}
+                    onOpen={setActiveItem}
+                  />
+                )}
+              </>
             )}
 
             <div className="news-page__more" role="group" aria-label="Load more or fewer articles">
@@ -130,9 +156,3 @@ export default function News() {
     </main>
   );
 }
-
-//todo:
-// - add aria-labels to buttons and links
-// - add role="group" and aria-label to filter bar and more/less buttons
-// - add aria-hidden="true" to decorative elements in NewsModal (e.g. "Why it matters — " label)
-// api function 

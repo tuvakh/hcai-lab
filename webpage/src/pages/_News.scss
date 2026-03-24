@@ -15,6 +15,15 @@
     @media (max-width: 600px) { padding: 1.25rem 1.25rem 2.5rem; }
   }
 
+  &__status {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: var(--text-font);
+    font-size: var(--step--1);
+    padding: var(--normal-space) 0;
+
+    &--error { color: #f87171; }
+  }
+
   // ── Filter bar ───────────────────────────────────────────────────────────
   &__filter-bar {
     display: flex;
@@ -91,4 +100,5 @@
       color: var(--white-color);
     }
   }
+  
 }
