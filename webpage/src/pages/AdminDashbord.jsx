@@ -1,6 +1,5 @@
 // src/pages/Admin.jsx
 import { useState } from "react";
-import HeroSection from "../components/HeroSection";
 import AdminStatCard from "../components/AdminStatCard";
 import { people } from "../data/peopleData";
 import { projects } from "../data/projectsData";
@@ -16,14 +15,11 @@ export default function Admin() {
 
   return (
     <main className="admin-page">
-      <HeroSection heroImg="/assets/hero/hero-home.png">
-        <p className="heroSection__intro--label">Dashboard</p>
-        <h1 className="heroSection__intro--title">Admin</h1>
-        <p className="heroSection__intro--text">
-          Manage HCAI Lab content — people, projects, events, and more.
-        </p>
-      </HeroSection>
-
+      <header className="admin-page__header">
+        <p className="admin-page__header--label">Dashboard</p>
+        <h1 className="admin-page__header--title">Admin</h1>
+      </header>
+  
       <section className="admin-page__content">
 
         {/* Tab bar */}

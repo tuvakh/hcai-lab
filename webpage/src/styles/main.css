@@ -422,6 +422,36 @@ h1, h2, h3 {
   min-height: 100vh;
   background-color: var(--background-color);
 }
+.admin-page__header {
+  padding: 2.5rem 4rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+@media (max-width: 900px) {
+  .admin-page__header {
+    padding: 2rem 2rem 1.25rem;
+  }
+}
+@media (max-width: 600px) {
+  .admin-page__header {
+    padding: 1.5rem 1.25rem 1rem;
+  }
+}
+.admin-page__header--label {
+  font-family: var(--text-font);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 0.35rem;
+}
+.admin-page__header--title {
+  font-family: var(--title-font);
+  font-size: var(--step-3);
+  font-weight: 400;
+  color: var(--white-color);
+  margin: 0;
+}
 .admin-page__content {
   padding: 2rem 4rem 4rem;
 }

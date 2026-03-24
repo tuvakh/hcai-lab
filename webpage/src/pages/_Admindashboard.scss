@@ -6,6 +6,33 @@
   min-height: 100vh;
   background-color: var(--background-color);
 
+  // ── Dashboard header (replaces HeroSection) ───────────────────────────
+&__header {
+  padding: 2.5rem 4rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  @media (max-width: 900px) { padding: 2rem 2rem 1.25rem; }
+  @media (max-width: 600px) { padding: 1.5rem 1.25rem 1rem; }
+
+  &--label {
+    font-family: var(--text-font);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 0.35rem;
+  }
+
+  &--title {
+    font-family: var(--title-font);
+    font-size: var(--step-3);
+    font-weight: 400;
+    color: var(--white-color);
+    margin: 0;
+  }
+}
+
   // ── Content area — matches other page padding ──────────────────────────
   &__content {
     padding: 2rem 4rem 4rem;
