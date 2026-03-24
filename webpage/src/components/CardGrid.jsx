@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+
 
 export default function CardGrid({ items = [], variant = "people" }) {
   const [selected, setSelected] = useState(null);
