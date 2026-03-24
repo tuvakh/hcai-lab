@@ -6,7 +6,6 @@ import News from "./pages/News.jsx";
 import Booking from "./pages/Booking.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
-import "./components/_footer.scss";
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
