@@ -156,3 +156,6 @@ export default function News() {
     </main>
   );
 }
+
+//fix the favorite button ebcause it selectes everthing into favorite. the favorite side bar is broken 
+// favorite articles can be removed from the side bar and not just from the news cards 
