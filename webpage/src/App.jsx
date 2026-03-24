@@ -1,4 +1,3 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Home from "./pages/Home.jsx";
 import People from "./pages/People.jsx";
 import Projects from "./pages/Projects.jsx";
@@ -11,7 +10,7 @@ import Admin from "./pages/AdminDashbord.jsx";
 //http://localhost:5173/Admin 
 
 // Removed duplicate App function and default export
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {
   const location = useLocation();
@@ -19,6 +18,7 @@ function Layout() {
 
   return (
     <>
+    <ScrollToTop /> 
       {!isAdmin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
