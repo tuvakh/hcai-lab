@@ -5,6 +5,8 @@ import Projects from "./pages/Projects.jsx";
 import News from "./pages/News.jsx";
 import Booking from "./pages/Booking.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer";
+import "./components/_footer.scss";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/News" element={<News />} />
         <Route path="/Booking" element={<Booking />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
