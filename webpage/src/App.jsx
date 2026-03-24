@@ -7,22 +7,37 @@ import Booking from "./pages/Booking.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
 import ScrollToTop from './components/ScrollToTop';
+import Admin from "./pages/AdminDashbord.jsx";
+//http://localhost:5173/Admin 
 
-function App() {
+// Removed duplicate App function and default export
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+
+function Layout() {
+  const location = useLocation();
+  const isAdmin = location.pathname === "/Admin";
+
   return (
-    <Router>
-      <Navbar />
-      <ScrollToTop />
+    <>
+      {!isAdmin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/People" element={<People />} />
         <Route path="/Projects" element={<Projects />} />
         <Route path="/News" element={<News />} />
         <Route path="/Booking" element={<Booking />} />
+        <Route path="/Admin" element={<Admin />} />
       </Routes>
-      <Footer />
+      {!isAdmin && <Footer />}
+    </>
+  );
+}
+function App() {
+  return (
+    <Router>
+      <Layout />
     </Router>
   );
 }
 
-export default App
+export default App;

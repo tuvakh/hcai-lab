@@ -12,7 +12,7 @@ export default function NewsRail({ label, items, saved, onStar, onOpen }) {
           <li key={item.id} className="news-rail__item">
             <NewsCard
               item={item}
-              saved={saved.has(item.url)}
+              saved={saved.has(item.id)}
               onStar={onStar}
               onOpen={onOpen}
               isFeatured={index === 1}
