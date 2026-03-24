@@ -4,14 +4,14 @@ import EventCard from '../components/EventCard';
 import HeroSection from '../components/HeroSection';
 import Buttons from "../components/Buttons";
 import NewsCard from "../components/NewsCard";
-import { news } from "../data/newsData";
+import { useNews } from "../hooks/useNews";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-
-  const top3News = news.slice(0, 3);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const { items, loading, error } = useNews("international");
+    const top3News = items.slice(0, 3);
   /* // funksjon som håndterer booking
   const handleBook = (eventId) => {
     console.log('Book event med id:', eventId);
