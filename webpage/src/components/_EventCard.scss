@@ -24,8 +24,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%); // this centers it
-        z-index: 1; // make sure it's above the image
+        transform: translate(-50%, -50%); 
+        z-index: 1; 
         line-height: 1.1;
 
         &--title {
@@ -51,5 +51,49 @@
         .eventCard__img {
             transform: scale(1.05);
         }
+    }
+}
+
+.event-form {
+    display: flex;
+    flex-direction: column;
+    padding: var(--normal-space);
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+
+    label {
+        margin-block-start: var(--small-space);
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+    input, button {
+        margin-block: var(--small-space);
+    }
+    input {
+        border-radius: var(--border-radius);
+        border: none;
+        padding: var(--normal-space);
+    }
+    button {
+        margin-block: var(--small-space);
+        align-self: end;
+    }
+    ::placeholder {
+        color: var(--secondary-color);
+    }
+}
+
+.event-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--medium-space);
+
+    &__date:hover {
+        color: var(--text-color);
+        transform: translateX(3px);
+        font-weight: 500;
+    }
+    &__icon {
+        padding-inline: var(--small-space);
     }
 }

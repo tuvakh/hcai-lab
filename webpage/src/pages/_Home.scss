@@ -27,10 +27,35 @@
     padding: var(--bigger-space) var(--medium-space);
     background-color: var(--primary-color);
 
+    &__box {
+        position: relative;
+        margin: var(--medium-space);
+        max-width: clamp(100px, 100%, 500px);
+        margin-inline: auto;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow-light);
+
+        &:hover{
+            box-shadow: 10px 15px 20px var(--tertiary-color);
+            .info-section__image {
+                transform: scale(1.05);
+            }
+        }
+    }
+    &__info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        z-index: 1; 
+        width: clamp(32ch, 50%, 60ch);
+    }
     @media (max-width: 600px) { 
         gap: var(--big-space);
     }
-    &__contact {
+
+     &__contact {
         border-right: 1px solid var(--white-color);
 
         @media (max-width: 600px) { 
@@ -38,10 +63,5 @@
             border-bottom: 1px solid var(--white-color);
             border-right: none;
         }
-    }
-
-    p {
-        max-width: clamp(35ch, 50%, 50ch);
-        margin-inline: auto;
     }
 }
