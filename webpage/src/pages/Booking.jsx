@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import HeroSection from "../components/HeroSection";
 import AvailabilityCard from "../components/AvailabilityCard";
 import BookingList from "../components/BookingList";
-import equipmentData from "../data/equipmentData";
+import { equipments } from "../data/equipmentData";
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 export default function Booking() {
-  const [equipment] = useState(equipmentData);
+  const [equipment] = useState(equipments);
   const [myBookings, setMyBookings] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedStartDay, setSelectedStartDay] = useState("Monday");

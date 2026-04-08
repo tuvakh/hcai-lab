@@ -1,4 +1,4 @@
-export const equipment = [
+export const equipments = [
   {
     id: 1,
     name: "Projector",
