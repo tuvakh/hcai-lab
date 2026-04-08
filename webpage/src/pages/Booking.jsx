@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import HeroSection from "../components/HeroSection";
 import AvailabilityCard from "../components/AvailabilityCard";
 import BookingList from "../components/BookingList";
 import { equipments } from "../data/equipmentData";
+import Modal from '../components/Modal';
 
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -12,24 +13,6 @@ export default function Booking() {
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedStartDay, setSelectedStartDay] = useState("Monday");
   const [selectedEndDay, setSelectedEndDay] = useState("Monday");
-
-  useEffect(() => {
-    document.body.style.overflow = selectedEquipment ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [selectedEquipment]);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setSelectedEquipment(null);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   function getDayIndex(day) {
     return days.indexOf(day);
@@ -184,22 +167,7 @@ export default function Booking() {
       </section>
 
       {selectedEquipment && (
-        <div
-          className="modal-overlay"
-          onClick={(e) => e.target === e.currentTarget && setSelectedEquipment(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-label={selectedEquipment.name}
-        >
-          <div className="modal">
-            <button
-              className="modal__close"
-              onClick={() => setSelectedEquipment(null)}
-              aria-label="Close"
-            >
-              ✕
-            </button>
-
+        <Modal onClose={() => setSelectedEquipment(null)} ariaLabel={selectedEquipment.name}>
             <div className="modal__header">
               <div className="modal__image-wrap">
                 {selectedEquipment.image ? (
@@ -297,8 +265,7 @@ export default function Booking() {
                 Book equipment
               </button>
             </div>
-          </div>
-        </div>
+        </Modal>
       )}
 
       {myBookings.length > 0 && (
