@@ -153,7 +153,8 @@ const MOCK_NEWS = {
     {
       id: "norway-0",
       region: "fetched",
-      tag: "Policy",
+      regionTag: "Norway", //repeat & add styling to make it  visiblevin the webpage 
+      tag: "Policy", 
       headline: "Norway tightens AI regulation ahead of EU Act deadline",
       summary: "The Norwegian government has proposed new oversight requirements for high-risk AI systems, aligning with incoming EU AI Act obligations through the EEA agreement.",
       body: "The Norwegian government has proposed new oversight requirements for high-risk AI systems, aligning with incoming EU AI Act obligations through the EEA agreement.\n\nThe proposal covers documentation standards, risk assessments, and mandatory human oversight for automated decision-making tools used in public services, hiring, and healthcare.\n\nPublished by Aftenposten on 1 March 2026.",
