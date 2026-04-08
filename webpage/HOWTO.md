@@ -34,6 +34,7 @@ Copy/paste and modify your compose.yaml into remote-compose.yaml
 - Modify the ports that your application runs on. You had two ports assigned to your team, one for your backend and one for frontend
     - Make sure that your backend application is accessible on http://localhost:backendport/
     - Make sure that your frontend application is accessible on http://localhost:frontendport/
+    - This is something necessary
 
 
 

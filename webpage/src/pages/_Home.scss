@@ -34,10 +34,8 @@
         margin-inline: auto;
         overflow: hidden;
         border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow-light);
 
         &:hover{
-            box-shadow: 10px 15px 20px var(--tertiary-color);
             .info-section__image {
                 transform: scale(1.05);
             }
