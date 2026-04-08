@@ -7,9 +7,8 @@
     --step-3: clamp(1.728rem, 1.4362rem + 1.2971vw, 2.5rem);
 
     --primary-color: #1C236F;
-    --tertiary-color: #8FA1DD;
-
     --secondary-color: #ccd6f9;
+    --tertiary-color: #8FA1DD;
     --background-color: #4E5CA3;
     --norwegian-label: #1350CB;
     --international-label: #672292;
@@ -21,6 +20,7 @@
     --border-radius-img: 8px 8px 0 0;
     --border-radius-btn: 15px;
     --box-shadow: 7px 7px 10px var(--primary-color);
+    --box-shadow-light: 7px 7px 10px var(--tertiary-color);
     --navbar-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
     --navbar-bg-gradient: linear-gradient(
         90deg,

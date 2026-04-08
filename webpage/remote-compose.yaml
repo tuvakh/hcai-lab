@@ -1,0 +1,36 @@
+services:
+  back-app:
+    image: tuvakh/idg2671_hcai_backend
+    container_name: library.backend.app
+    build: 
+      context: ./idg2671.26.backend.books
+      dockerfile: ./Dockerfile
+    ports: 
+      # 5678 is the port of our machine; 
+      #The requests to it will be forwarded to port 9001 inside the backend container
+      # and our backend application happens to listen on port 9001 inside our container
+      - 5678:9001 
+    networks:
+      some-network-name:
+    environment: 
+      DB_UNAME: Tuva
+      DB_PWD: 123
+      DB_HOSTNAME: library.db.app
+      DB_PORT: 2345
+
+  front-app:
+    image: tuvakh/idg2671_hcai_frontend
+    container_name: library.frontend.app
+    build: 
+      context: ./docker.basic.frontend.inclass
+      dockerfile: ./Dockerfile
+    ports: 
+      # 7100 - its on our machine, we can choose whatever we want
+      # 3000 - its inside a container; Our app will listen on that port
+      # if we try to load http://localhost:7000 in our browser, this request
+      # will be forwarded to port 3000 inside the container - and our app will respond to that
+      - 7200:3000
+
+networks:
+  some-network-name:
+

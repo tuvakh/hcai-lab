@@ -5,6 +5,7 @@
     border: none;
     border-radius: var(--border-radius-btn);
     font-size: var(--step--1);
+    cursor: pointer;
 
     &--blue {
         background-color: var(--primary-color);
