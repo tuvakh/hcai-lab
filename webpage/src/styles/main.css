@@ -909,6 +909,24 @@ h1, h2, h3 {
     grid-template-columns: 1fr;
   }
 }
+.card-grid--people, .card-grid--projects {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1100px) {
+  .card-grid--people, .card-grid--projects {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 750px) {
+  .card-grid--people, .card-grid--projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .card-grid--people, .card-grid--projects {
+    grid-template-columns: 1fr;
+  }
+}
 
 .card {
   background: var(--primary-color);
@@ -993,6 +1011,7 @@ h1, h2, h3 {
   flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1360,8 +1379,9 @@ h1, h2, h3 {
   width: 64px;
   height: 64px;
   border-radius: var(--border-radius);
-  background: var(--secondary-color);
-  opacity: 0.55;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
 }
 .modal__team-name {
   font-family: var(--text-font);
@@ -1950,11 +1970,6 @@ h1, h2, h3 {
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
   gap: 1.5rem;
   align-items: start;
-.booking-page__details-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
-  gap: 1.5rem;
-  align-items: start;
 }
 
 .booking-page__details-grid > * {
@@ -1970,18 +1985,8 @@ h1, h2, h3 {
   max-width: 760px;
   max-height: 92vh;
   overflow-y: auto;
-.booking-page .modal {
-  width: 100%;
-  max-width: 760px;
-  max-height: 92vh;
-  overflow-y: auto;
 }
 
-.booking-duration {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 .booking-duration {
   margin-top: 1rem;
   display: flex;
@@ -1991,19 +1996,6 @@ h1, h2, h3 {
 
 .booking-duration label {
   color: #ffffff;
-}
-
-.booking-duration select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  border: none;
-  background: #eef1ff;
-  color: #1f2556;
-  font-size: 1rem;
-  -webkit-appearance: auto;
-     -moz-appearance: auto;
-          appearance: auto;
 }
 
 .booking-duration select {

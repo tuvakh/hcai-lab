@@ -44,7 +44,7 @@ export default function News() {
   return (
     <main className="news-page">
 
-      <HeroSection heroImg="/assets/hero/hero-home.png">
+      <HeroSection heroImg="/assets/hero/ai-news.png">
         <p className="heroSection__intro--label">Latest Updates</p>
         <h1 className="heroSection__intro--title">AI News &amp; Highlights</h1>
         <p className="heroSection__intro--text">
