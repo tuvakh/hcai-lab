@@ -34,8 +34,7 @@
     }
 
     &__logo-image {
-        height: 48px;
-        width: auto;
+        width: clamp(80px, 10%, 250px);
         display: block;
     }
 
@@ -142,7 +141,7 @@
 // ── mobile ────────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
     .navbar {
-        padding: 0 var(--normal-space);
+        padding: var(--normal-space);
 
         &__links {
             position: absolute;

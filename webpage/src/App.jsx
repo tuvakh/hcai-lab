@@ -1,4 +1,3 @@
-// Removed duplicate import of BrowserRouter, Routes, and Route
 import Home from "./pages/Home.jsx";
 import People from "./pages/People.jsx";
 import Projects from "./pages/Projects.jsx";
@@ -6,11 +5,12 @@ import News from "./pages/News.jsx";
 import Booking from "./pages/Booking.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
+import ScrollToTop from './components/ScrollToTop';
 import Admin from "./pages/AdminDashbord.jsx";
 //http://localhost:5173/Admin 
 
 // Removed duplicate App function and default export
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {
   const location = useLocation();
@@ -18,6 +18,7 @@ function Layout() {
 
   return (
     <>
+    <ScrollToTop /> 
       {!isAdmin && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />

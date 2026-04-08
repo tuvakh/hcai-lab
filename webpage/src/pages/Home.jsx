@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { events } from '../data/eventData';
 import EventCard from '../components/EventCard';
 import HeroSection from '../components/HeroSection';
@@ -6,12 +6,14 @@ import Buttons from "../components/Buttons";
 import NewsCard from "../components/NewsCard";
 import { useNews } from "../hooks/useNews";
 import logo from "../assets/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+import NewsModal from "../components/NewsModal";
 
 export default function Home() {
     const navigate = useNavigate();
     const { items, loading, error } = useNews("international");
-    const top3News = items.slice(0, 3);
+    const top3News = items.slice(0, 6);
+    const [activeItem, setActiveItem] = useState(null);
   /* // funksjon som håndterer booking
   const handleBook = (eventId) => {
     console.log('Book event med id:', eventId);
@@ -35,6 +37,7 @@ export default function Home() {
                 <Buttons
                     text="More news"
                     variant="blue"
+                    className="info-btn"
                     action={() => navigate("/News")} 
                 />
             </div>
@@ -45,7 +48,7 @@ export default function Home() {
                 key={item.id}
                 item={item}
                 saved={false}  
-                onOpen={(item) => console.log("Open clicked:", item.headline)}
+                onOpen={(item) => setActiveItem(item)}
                 isFeatured={item.id === 1} // første artikkel som featured
             />
             ))}
@@ -68,7 +71,6 @@ export default function Home() {
         <div className="card-section__info">
             <h2>Events</h2>
             <p>We organize workshops, teaching sessions, and TED Talks related to AI!</p>
-            <p>Check out our upcoming events to learn more about AI.</p> 
         </div>
         <div className="card-section__grid">
         {events.map(event => (
@@ -89,8 +91,9 @@ export default function Home() {
         <div className="info-section__contact">
             <h2>Contact our team</h2>
             <p>Do you need research help for an AI project?</p>
+            <p>We have a team full of AI interested professionals that are happy to help!</p>
             <Buttons
-                text="Contact info"
+                text="More info"
                 variant="white"
                 className="info-btn"
                 action={() => navigate("/People")} 
@@ -99,6 +102,7 @@ export default function Home() {
         <div className="info-section__booking">
             <h2>Book equipment</h2>
             <p>Do you want to borrow any equipment?</p>
+            <p>The lab has a lot of different technology related equipment that you can book!</p>
             <Buttons
                 text="Book here"
                 variant="white"
@@ -107,6 +111,7 @@ export default function Home() {
             />
         </div>
     </section>
+    <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />
     </>
   );
 }

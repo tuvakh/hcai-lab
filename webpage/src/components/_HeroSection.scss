@@ -14,7 +14,7 @@
         z-index: 1;
     
         &--logo {
-            width: 25%;
+            width: clamp(100px, 35%, 250px);
             margin-block-end: var(--normal-space);
         }
         &--label {
@@ -35,7 +35,7 @@
             line-height: 1.05;
         }
         &--text {
-            width: 38ch;
+            max-width: clamp(30ch, 50%, 38ch);
             font-size: var(--step-0);
         }
     }
