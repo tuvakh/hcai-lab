@@ -87,9 +87,8 @@ export default function Home() {
     </section>
 
     <section className="info-section">
-        <div className="info-section__contact img-overlay">
+        <div className="info-section__contact">
             <div className="info-section__box" onClick={() => navigate("/People")} style={{cursor: "pointer"}}>
-                <img className="info-section__image" src="/assets/team.png"/>
                 <div className="info-section__info">
                     <h2>Contact our team</h2>
                     <p>We have a team full of AI interested professionals that are happy to help!</p>
@@ -102,9 +101,8 @@ export default function Home() {
                 </div>
             </div>
         </div>
-        <div className="info-section__booking img-overlay">
+        <div className="info-section__booking">
             <div className="info-section__box" onClick={() => navigate("/booking")} style={{cursor: "pointer"}}>
-                <img className="info-section__image" src="/assets/equipment.png"/>
                 <div className="info-section__info">
                     <h2>Book equipment</h2>
                     <p>The lab has a lot of different technology related equipment that you can book!</p>
