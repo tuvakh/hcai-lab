@@ -143,6 +143,9 @@
 // When ready for live: replace this file with the NewsAPI.ai version
 // ─────────────────────────────────────────────────────────────────────────────
 
+
+//make the tag purple and blue for the different tags, and make the tag more visible by putting it in a box with a background color that contrasts with the rest of the card. You can also experiment with different font sizes and weights to make the tag stand out more. Additionally, consider adding an icon or symbol next to the tag to draw attention to it.
+//tags for norwegian and international. 
 import { useState, useEffect } from "react";
 
 const MOCK_NEWS = {

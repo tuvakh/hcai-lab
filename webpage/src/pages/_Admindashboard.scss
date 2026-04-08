@@ -1,39 +1,38 @@
-// src/pages/_Admin.scss
-// Page-level styles only — admin-page block.
-// Component styles (AdminStatCard) live in src/components/.
+// src/pages/_Admindashboard.scss
 
+// ─── Admin Page ───────────────────────────────────────────────────────────────
 .admin-page {
   min-height: 100vh;
   background-color: var(--background-color);
 
-  // ── Dashboard header (replaces HeroSection) ───────────────────────────
-&__header {
-  padding: 2.5rem 4rem 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  // ── Dashboard header ───────────────────────────────────────────────────────
+  &__header {
+    padding: 2.5rem 4rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
-  @media (max-width: 900px) { padding: 2rem 2rem 1.25rem; }
-  @media (max-width: 600px) { padding: 1.5rem 1.25rem 1rem; }
+    @media (max-width: 900px) { padding: 2rem 2rem 1.25rem; }
+    @media (max-width: 600px) { padding: 1.5rem 1.25rem 1rem; }
 
-  &--label {
-    font-family: var(--text-font);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.45);
-    margin-bottom: 0.35rem;
+    &--label {
+      font-family: var(--text-font);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 0.35rem;
+    }
+
+    &--title {
+      font-family: var(--title-font);
+      font-size: var(--step-3);
+      font-weight: 400;
+      color: var(--white-color);
+      margin: 0;
+    }
   }
 
-  &--title {
-    font-family: var(--title-font);
-    font-size: var(--step-3);
-    font-weight: 400;
-    color: var(--white-color);
-    margin: 0;
-  }
-}
-
-  // ── Content area — matches other page padding ──────────────────────────
+  // ── Content area ───────────────────────────────────────────────────────────
   &__content {
     padding: 2rem 4rem 4rem;
 
@@ -41,7 +40,7 @@
     @media (max-width: 600px) { padding: 1.25rem 1.25rem 2.5rem; }
   }
 
-  // ── Tab bar — same pattern as News/Projects filter bars ───────────────
+  // ── Tab bar ────────────────────────────────────────────────────────────────
   &__tab-bar {
     display: flex;
     flex-wrap: wrap;
@@ -80,7 +79,7 @@
     }
   }
 
-  // ── Overview: stat card grid ───────────────────────────────────────────
+  // ── Overview stat grid ─────────────────────────────────────────────────────
   &__stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -90,11 +89,20 @@
     @media (max-width: 480px) { grid-template-columns: 1fr; }
   }
 
-  // ── Table section ─────────────────────────────────────────────────────
+  // ── Table section ──────────────────────────────────────────────────────────
   &__table-section {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+  }
+
+  // ── Section header (heading + add button) ──────────────────────────────────
+  &__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--small-space);
   }
 
   &__table-heading {
@@ -116,6 +124,13 @@
     overflow-x: auto;
     border-radius: var(--border-radius);
     border: 1px solid rgba(255, 255, 255, 0.1);
+
+    &::-webkit-scrollbar { height: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(143, 161, 221, 0.35);
+      border-radius: 2px;
+    }
   }
 
   &__table {
@@ -141,7 +156,7 @@
       padding: 0.85rem 1rem;
       color: rgba(255, 255, 255, 0.85);
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      vertical-align: top;
+      vertical-align: middle;
     }
 
     tbody tr {
@@ -152,30 +167,55 @@
     }
   }
 
-  // ── Cells with long text ───────────────────────────────────────────────
-  &__team-cell,
-  &__desc-cell {
-    max-width: 280px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.8rem;
-    line-height: 1.5;
+  // ── Drag handle ────────────────────────────────────────────────────────────
+  &__drag-col {
+    width: 2rem;
   }
 
-  // ── Inline badges ──────────────────────────────────────────────────────
-  &__role-badge {
-    display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.2rem 0.6rem;
-    border-radius: var(--border-radius-btn);
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.75);
+  &__drag-handle {
+    cursor: grab;
+    color: rgba(143, 161, 221, 0.3);
+    font-size: 1.15rem;
+    user-select: none;
+    text-align: center;
+    padding: 0.85rem 0.75rem !important;
+    transition: color 0.15s ease;
+
+    &:active { cursor: grabbing; }
+  }
+
+  &__table tbody tr:hover &__drag-handle {
+    color: rgba(143, 161, 221, 0.7);
+  }
+
+  // ── Drag-over row highlight ────────────────────────────────────────────────
+  &__row--drag-over td {
+    background: rgba(19, 80, 203, 0.14);
+    border-top: 2px solid var(--norwegian-label);
+  }
+
+  // ── Actions column ─────────────────────────────────────────────────────────
+  &__action-col {
+    width: 10rem;
     white-space: nowrap;
+  }
+
+  &__actions-cell {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  // ── Status badges ──────────────────────────────────────────────────────────
+  &__status-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
   }
 
   &__status-badge {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -188,11 +228,252 @@
     &--student   { background: rgba(192, 132, 245, 0.2); color: var(--role-color); }
   }
 
-  // ── Links ─────────────────────────────────────────────────────────────
+  // ── Role badge ─────────────────────────────────────────────────────────────
+  &__role-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-btn);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+  }
+
+  // ── Long-text cells ────────────────────────────────────────────────────────
+  &__team-cell,
+  &__desc-cell {
+    max-width: 280px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  // ── Links ──────────────────────────────────────────────────────────────────
   &__link {
     color: var(--tertiary-color);
     text-decoration: none;
 
     &:hover { text-decoration: underline; }
+  }
+}
+
+
+// ─── Admin Buttons ────────────────────────────────────────────────────────────
+.admin-btn {
+  font-family: var(--text-font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--border-radius-btn);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+
+  // Primary — matches the site's call-to-action button style
+  &--primary {
+    background: var(--norwegian-label);
+    border-color: var(--norwegian-label);
+    color: var(--white-color);
+    box-shadow: 0 4px 14px rgba(19, 80, 203, 0.35);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(19, 80, 203, 0.5);
+    }
+
+    &:active { transform: translateY(0); }
+  }
+
+  // Ghost — outlined, matches site's link/secondary buttons
+  &--ghost {
+    background: transparent;
+    border-color: rgba(143, 161, 221, 0.35);
+    color: rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      background: rgba(143, 161, 221, 0.1);
+      border-color: rgba(143, 161, 221, 0.6);
+      color: var(--white-color);
+    }
+  }
+
+  // Danger — red tint for destructive actions
+  &--danger {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.45);
+    }
+  }
+
+  // Small variant for inline table actions
+  &--sm {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.7rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+
+// ─── Admin Modal ──────────────────────────────────────────────────────────────
+.admin-modal {
+  // Overlay — same pattern as .news-modal__overlay
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 18, 55, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: var(--normal-space);
+
+  // Modal box — same gradient/border treatment as .news-modal
+  &__box {
+    background: linear-gradient(
+      160deg,
+      #1b215b 0%,
+      var(--primary-color) 100%
+    );
+    border: 1px solid rgba(143, 161, 221, 0.25);
+    border-radius: var(--border-radius);
+    box-shadow:
+      0 4px 24px rgba(28, 35, 111, 0.6),
+      0 32px 80px rgba(10, 14, 50, 0.7);
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: var(--medium-space) calc(var(--medium-space) * 1.25);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @media (max-width: 600px) {
+      padding: var(--normal-space) var(--normal-space);
+      max-height: 100vh;
+      border-radius: 0;
+    }
+
+    // Custom scrollbar — mirrors .news-modal__scroll
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(143, 161, 221, 0.35);
+      border-radius: 2px;
+    }
+  }
+
+  // Header row — title + close button
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--normal-space);
+    padding-bottom: var(--small-space);
+    border-bottom: 1px solid rgba(143, 161, 221, 0.15);
+  }
+
+  &__title {
+    font-family: var(--title-font);
+    font-size: var(--step-1);
+    font-weight: 400;
+    color: var(--white-color);
+    margin: 0;
+    letter-spacing: 0.03em;
+  }
+
+  // Close button — circular, same as .news-modal__close
+  &__close {
+    flex-shrink: 0;
+    background: rgba(143, 161, 221, 0.12);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.65);
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(143, 161, 221, 0.28);
+      color: var(--white-color);
+    }
+  }
+
+  // Form layout
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  &__label {
+    font-family: var(--text-font);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(143, 161, 221, 0.75);
+  }
+
+  // Input + textarea — same visual depth as the table cells
+  &__input,
+  &__textarea {
+    font-family: var(--text-font);
+    font-size: var(--step--1);
+    color: var(--white-color);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(143, 161, 221, 0.2);
+    border-radius: var(--border-radius-btn);
+    padding: 0.6rem 0.85rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    &:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--tertiary-color);
+      box-shadow: 0 0 0 3px rgba(143, 161, 221, 0.15);
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.55;
+  }
+
+  // Footer with Cancel / Save
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid rgba(143, 161, 221, 0.12);
   }
 }
