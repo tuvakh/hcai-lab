@@ -37,7 +37,6 @@ export default function Projects() {
       </HeroSection>
 
       <section className="projects-page__content">
-        {/* Filter bar */}
         <div className="projects-page__filter-bar">
           {FILTERS.map((f) => (
             <button
