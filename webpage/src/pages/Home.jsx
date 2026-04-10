@@ -38,7 +38,7 @@ export default function Home() {
                     text="More news"
                     variant="blue"
                     className="info-btn"
-                    action={() => navigate("/News")} 
+                    action={() => navigate("/news")} 
                 />
             </div>
         </div>
@@ -63,7 +63,7 @@ export default function Home() {
             text="Read more"
             variant="white"
             className="info-btn"
-            action={() => navigate("/Projects")} 
+            action={() => navigate("/projects")} 
         />
     </HeroSection>
     
@@ -88,7 +88,7 @@ export default function Home() {
 
     <section className="info-section">
         <div className="info-section__contact">
-            <div className="info-section__box" onClick={() => navigate("/People")} style={{cursor: "pointer"}}>
+            <div className="info-section__box" onClick={() => navigate("/people")} style={{cursor: "pointer"}}>
                 <div className="info-section__info">
                     <h2>Contact our team</h2>
                     <p>We have a team full of AI interested professionals that are happy to help!</p>
@@ -96,7 +96,7 @@ export default function Home() {
                         text="More info"
                         variant="white"
                         className="info-btn"
-                        action={() => navigate("/People")} 
+                        action={() => navigate("/people")} 
                     />
                 </div>
             </div>
@@ -110,7 +110,7 @@ export default function Home() {
                         text="Book here"
                         variant="white"
                         className="info-btn"
-                        action={() => navigate("/Booking")} 
+                        action={() => navigate("/booking")} 
                     />
                 </div>
             </div>

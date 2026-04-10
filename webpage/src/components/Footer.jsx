@@ -17,10 +17,10 @@ export default function Footer() {
                 <h2 className="footer__heading">General</h2>
                 <ul className="footer__list">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/People">People</a></li>
-                  <li><a href="/Projects">Projects</a></li>
-                  <li><a href="/News">News</a></li>
-                  <li><a href="/Booking">Equipment</a></li>
+                  <li><a href="/people">People</a></li>
+                  <li><a href="/projects">Projects</a></li>
+                  <li><a href="/news">News</a></li>
+                  <li><a href="/booking">Equipment</a></li>
                 </ul>
               </div>
   
