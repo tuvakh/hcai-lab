@@ -12,9 +12,9 @@ function BookingList({ bookings, onUnbook }) {
             </div>
 
             <p className="card__desc">
-              <strong>Start day:</strong> {booking.startDay}
+              <strong>Start day:</strong> {booking.startDate.toDateString()}
               <br />
-              <strong>End day:</strong> {booking.endDay}
+              <strong>End day:</strong> {booking.endDate.toDateString()}
             </p>
 
             <button

@@ -1,80 +1,64 @@
 import { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import HeroSection from "../components/HeroSection";
-import AvailabilityCard from "../components/AvailabilityCard";
 import BookingList from "../components/BookingList";
 import { equipments } from "../data/equipmentData";
-import Modal from '../components/Modal';
+import Modal from "../components/Modal";
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+function toKey(date) {
+  return date.toISOString().split("T")[0]; 
+}
+
+function getCurrentWeekDays() {
+  const today = new Date();
+  const day = today.getDay();
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1));
+
+  return Array.from({ length: 5 }, (_, i) => {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return d;
+  });
+}
 
 export default function Booking() {
   const [equipment] = useState(equipments);
   const [myBookings, setMyBookings] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
-  const [selectedStartDay, setSelectedStartDay] = useState("Monday");
-  const [selectedEndDay, setSelectedEndDay] = useState("Monday");
+  const [selectedRange, setSelectedRange] = useState(null); 
 
-  function getDayIndex(day) {
-    return days.indexOf(day);
-  }
-
-  function getAvailabilityForEquipment(equipmentId) {
-    return days.map((day, index) => {
-      const isBooked = myBookings.some((booking) => {
-        if (booking.equipmentId !== equipmentId) return false;
-
-        const startIndex = getDayIndex(booking.startDay);
-        const endIndex = getDayIndex(booking.endDay);
-
-        return index >= startIndex && index <= endIndex;
-      });
-
-      return {
-        day,
-        status: isBooked ? "Booked" : "Available",
-      };
+  function isDateBooked(equipmentId, date) {
+    const key = toKey(date);
+    return myBookings.some((booking) => {
+      if (booking.equipmentId !== equipmentId) return false;
+      return key >= toKey(booking.startDate) && key <= toKey(booking.endDate);
     });
   }
 
   function getOverallStatus(item) {
-    const availability = getAvailabilityForEquipment(item.id);
-    const allBooked = availability.every((slot) => slot.status === "Booked");
+    const allBooked = getCurrentWeekDays().every((date) =>
+      isDateBooked(item.id, date)
+    );
     return allBooked ? "Booked" : "Available";
   }
 
   function openEquipment(item) {
     setSelectedEquipment(item);
-
-    const availability = getAvailabilityForEquipment(item.id);
-    const firstAvailable = availability.find((slot) => slot.status === "Available");
-
-    if (firstAvailable) {
-      setSelectedStartDay(firstAvailable.day);
-      setSelectedEndDay(firstAvailable.day);
-    } else {
-      setSelectedStartDay("Monday");
-      setSelectedEndDay("Monday");
-    }
+    setSelectedRange(null);
   }
 
   function handleBook() {
-    if (!selectedEquipment) return;
-
-    const startIndex = getDayIndex(selectedStartDay);
-    const endIndex = getDayIndex(selectedEndDay);
-
-    if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) {
-      alert("End day must be the same day or after start day.");
-      return;
-    }
+    if (!selectedEquipment || !selectedRange) return;
+    const [startDate, endDate] = selectedRange;
 
     const conflict = myBookings.some((booking) => {
       if (booking.equipmentId !== selectedEquipment.id) return false;
-
-      const bookingStart = getDayIndex(booking.startDay);
-      const bookingEnd = getDayIndex(booking.endDay);
-
-      return !(endIndex < bookingStart || startIndex > bookingEnd);
+      return !(
+        toKey(endDate) < toKey(booking.startDate) ||
+        toKey(startDate) > toKey(booking.endDate)
+      );
     });
 
     if (conflict) {
@@ -87,25 +71,18 @@ export default function Booking() {
       equipmentId: selectedEquipment.id,
       name: selectedEquipment.name,
       category: selectedEquipment.category,
-      startDay: selectedStartDay,
-      endDay: selectedEndDay,
+      startDate,
+      endDate,
     };
 
     setMyBookings((prev) => [...prev, newBooking]);
     setSelectedEquipment(null);
+    setSelectedRange(null);
   }
 
   function handleUnbook(id) {
     setMyBookings((prev) => prev.filter((booking) => booking.id !== id));
   }
-
-  const selectedAvailability = selectedEquipment
-    ? getAvailabilityForEquipment(selectedEquipment.id)
-    : [];
-
-  const availableEndDays = selectedAvailability.filter(
-    (slot) => getDayIndex(slot.day) >= getDayIndex(selectedStartDay)
-  );
 
   return (
     <main className="booking-page">
@@ -206,61 +183,32 @@ export default function Booking() {
             <div className="modal__section">
               <h3 className="modal__section-title">Booking Period</h3>
 
-              <div className="booking-duration">
-                <label htmlFor="start-day">
-                  <strong>Start day:</strong>
-                </label>
-                <select
-                  id="start-day"
-                  value={selectedStartDay}
-                  onChange={(e) => {
-                    setSelectedStartDay(e.target.value);
-                    setSelectedEndDay(e.target.value);
-                  }}
-                >
-                  {selectedAvailability.map((slot) => (
-                    <option
-                      key={slot.day}
-                      value={slot.day}
-                      disabled={slot.status === "Booked"}
-                    >
-                      {slot.day}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <Calendar
+                    selectRange={true}
+                    onChange={setSelectedRange}
+                    value={selectedRange}
+                    tileClassName={({ date }) =>
+                        isDateBooked(selectedEquipment.id, date) ? "tile--booked" : null
+                    }
+                    tileDisabled={({ date }) =>
+                        isDateBooked(selectedEquipment.id, date)
+                    }
+                />
 
-              <div className="booking-duration">
-                <label htmlFor="end-day">
-                  <strong>End day:</strong>
-                </label>
-                <select
-                  id="end-day"
-                  value={selectedEndDay}
-                  onChange={(e) => setSelectedEndDay(e.target.value)}
-                >
-                  {availableEndDays.map((slot) => (
-                    <option
-                      key={slot.day}
-                      value={slot.day}
-                      disabled={slot.status === "Booked"}
-                    >
-                      {slot.day}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="modal__section">
-              <AvailabilityCard availability={selectedAvailability} />
-            </div>
+                {selectedRange && (
+              <p className="booking-duration__summary">
+                {selectedRange[0].toDateString()} → {selectedRange[1].toDateString()}
+              </p>
+            )}
+          </div>
+            
 
             <div className="modal__contact">
               <button
                 type="button"
                 className="button button--blue"
                 onClick={handleBook}
+                disabled={!selectedRange}
               >
                 Book equipment
               </button>

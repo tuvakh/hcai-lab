@@ -43,9 +43,7 @@
     }
   
     &__heading {
-      font-size: 2rem;
-      line-height: 1;
-      margin: 0 0 0.75rem;
+      margin-block-end: var(--mini-space);
       color: var(--white-color);
       text-transform: uppercase;
   
