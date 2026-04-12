@@ -85,7 +85,6 @@
     // Was just colored text — now a real pill so it reads as a label
     &__tag {
       display: inline-block;
-      font-family: var(--text-font);
       font-size: var(--step--2);
       font-weight: 700;
       text-transform: uppercase;
@@ -101,7 +100,6 @@
   
     // ── Headline ──────────────────────────────────────────────────────────────
     &__title {
-      font-family: var(--title-font);
       font-size: var(--step-2);
       font-weight: 400;
       line-height: 1.2;
@@ -115,7 +113,6 @@
     // Gives a clear visual break — was missing before
     &__summary {
       font-size: var(--step--1);
-      font-family: var(--text-font);
       // Up from 0.8 — now clearly readable as a lead paragraph
       color: rgba(255, 255, 255, 0.92);
       line-height: 1.65;
@@ -129,7 +126,6 @@
     // ── Body paragraphs ───────────────────────────────────────────────────────
     &__body {
       font-size: var(--step--1);
-      font-family: var(--text-font);
       // Up from 0.75 — the biggest readability fix
       color: rgba(255, 255, 255, 0.88);
       line-height: 1.75;
@@ -144,7 +140,6 @@
     // Was nearly invisible — now a proper callout box
     &__why {
       font-size: var(--step--1);
-      font-family: var(--text-font);
       // Richer background using secondary-color tint instead of plain white
       background: rgba(103, 122, 183, 0.12);
       border: 1px solid rgba(143, 161, 221, 0.25);
@@ -180,7 +175,6 @@
   
     &__link {
       font-size: var(--step--2);
-      font-family: var(--text-font);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -201,7 +195,6 @@
   
     &__meta {
       font-size: var(--step--2);
-      font-family: var(--text-font);
       // Slightly brighter than before — was almost invisible
       color: rgba(255, 255, 255, 0.55);
     }

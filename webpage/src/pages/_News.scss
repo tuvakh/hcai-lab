@@ -17,7 +17,6 @@
 
   &__status {
     color: rgba(255, 255, 255, 0.6);
-    font-family: var(--text-font);
     font-size: var(--step--1);
     padding: var(--normal-space) 0;
 
@@ -37,7 +36,6 @@
   }
 
   &__filter-btn {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -82,7 +80,6 @@
   }
 
   &__more-btn {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;

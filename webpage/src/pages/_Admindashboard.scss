@@ -14,7 +14,6 @@
     @media (max-width: 600px) { padding: 1.5rem 1.25rem 1rem; }
 
     &--label {
-      font-family: var(--text-font);
       font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
@@ -24,7 +23,6 @@
     }
 
     &--title {
-      font-family: var(--title-font);
       font-size: var(--step-3);
       font-weight: 400;
       color: var(--white-color);
@@ -53,7 +51,6 @@
   }
 
   &__tab-btn {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -106,7 +103,6 @@
   }
 
   &__table-heading {
-    font-family: var(--title-font);
     font-size: var(--step-1);
     font-weight: 400;
     color: var(--white-color);
@@ -114,7 +110,6 @@
   }
 
   &__count {
-    font-family: var(--text-font);
     font-size: var(--step--1);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.45);
@@ -136,7 +131,6 @@
   &__table {
     width: 100%;
     border-collapse: collapse;
-    font-family: var(--text-font);
     font-size: var(--step--1);
 
     th {
@@ -261,7 +255,6 @@
 
 // ─── Admin Buttons ────────────────────────────────────────────────────────────
 .admin-btn {
-  font-family: var(--text-font);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -383,7 +376,6 @@
   }
 
   &__title {
-    font-family: var(--title-font);
     font-size: var(--step-1);
     font-weight: 400;
     color: var(--white-color);
@@ -428,7 +420,6 @@
   }
 
   &__label {
-    font-family: var(--text-font);
     font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -439,7 +430,6 @@
   // Input + textarea — same visual depth as the table cells
   &__input,
   &__textarea {
-    font-family: var(--text-font);
     font-size: var(--step--1);
     color: var(--white-color);
     background: rgba(255, 255, 255, 0.06);

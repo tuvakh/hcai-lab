@@ -109,7 +109,6 @@
   }
 
   &__role {
-    font-family: var(--text-font);
     font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -118,7 +117,6 @@
   }
 
   &__desc {
-    font-family: var(--text-font);
     font-size: 0.82rem;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.72);
@@ -140,7 +138,6 @@
   }
 
   &__tag {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -154,7 +151,6 @@
 
   // ─── CTA ───────────────────────────────────────────────────────────
   &__cta {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -313,7 +309,6 @@
   }
 
   &__role {
-    font-family: var(--text-font);
     font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -329,7 +324,6 @@
   }
 
   &__tag {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -350,7 +344,6 @@
   }
 
   &__bio {
-    font-family: var(--text-font);
     font-size: 1rem;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.72);
@@ -364,7 +357,6 @@
   }
 
   &__section-title {
-    font-family: var(--text-font);
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -386,7 +378,6 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-family: var(--text-font);
     font-size: 1rem;
     font-weight: 600;
     color: var(--secondary-color);
@@ -415,7 +406,6 @@
   }
 
   &__team {
-    font-family: var(--text-font);
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.72);
     margin: 0.25rem 0 0;
@@ -465,7 +455,6 @@
   }
 
   &__project-name {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--white-color);
@@ -474,7 +463,6 @@
   }
 
   &__project-btn {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -525,7 +513,6 @@
   }
 
   &__pub-title {
-    font-family: var(--text-font);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--secondary-color);
@@ -534,7 +521,6 @@
   }
 
   &__pub-meta {
-    font-family: var(--text-font);
     font-size: 0.72rem;
     color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.03em;
@@ -564,7 +550,6 @@
   }
 
   &__team-name {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--white-color);
@@ -573,7 +558,6 @@
   }
 
   &__team-btn {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
