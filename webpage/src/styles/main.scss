@@ -7,6 +7,7 @@
 @use '../pages/People';
 @use '../pages/Newsgrid';
 @use '../pages/Projects';
+@use '../pages/Booking';
 @use '../pages/AdminDashboard';
 @use '../pages/Display';
 
@@ -25,5 +26,3 @@
 
 // Admin Components
 @use '../components/AdminStatCard';
-
-@use "./booking";

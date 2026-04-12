@@ -43,7 +43,6 @@
     }
   
     &__heading {
-      font-family: var(--title-font);
       font-size: 2rem;
       line-height: 1;
       margin: 0 0 0.75rem;
@@ -68,7 +67,6 @@
     &__list a,
     &__text,
     &__text a {
-      font-family: var(--text-font);
       font-size: 1.1rem;
       line-height: 1.5;
       color: var(--white-color);
@@ -94,7 +92,6 @@
   
     &__copyright {
       margin: 0;
-      font-family: var(--text-font);
       font-size: 1.1rem;
       color: rgba(255, 255, 255, 0.7);
     }

@@ -2,17 +2,45 @@ import { useState } from "react";
 import Button from './Buttons';
 import Modal from './Modal';
 
-export default function EventCard({title, description, date, place, eventImg, bookSeat, maxSeats}) {
+export default function EventCard({title, description, date, place, eventImg, maxSeats, variant}) {
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [seats, setSeats] = useState(1);
+
+    const dateParts = date.split(" ");
+    // "14. Mars kl. 11:00" → ["14.", "Mars", "kl.", "11:00"]
+    const day = dateParts[0];    // "14."
+    const month = dateParts[1];  // "Mars"
+    const time = dateParts[3];   // "11:00"
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({ name, email, seats, title, date, place });
     };
 
+    if (variant === "display") {
+        return (
+            <>
+                <div className="eventCardDisplay" >
+                    <div className="eventCardDisplay__info img-overlay">
+                        <div className='eventCardDisplay__text'>
+                            <span className='eventCardDisplay__text--day'>{day}</span>
+                            <span className='eventCardDisplay__text--month'>{month}</span>
+                        </div>
+                        <img className="eventCardDisplay__img" src={eventImg} />
+                    </div>
+                    <div className='eventCardDisplay__description'>
+                        <h3 className='eventCardDisplay__title'>{title}</h3>
+                        <p className='eventCardDisplay__time'>{time} {place}</p>
+                        <p className='eventCardDisplay__maxSeats'>{maxSeats} seats available – Book on our website!</p>
+                    </div>
+                </div>
+            </>
+        );
+    }
     return (
       <>
         <div className="eventCard" onClick={() => setIsOpen(true)} style={{cursor: "pointer"}}>
