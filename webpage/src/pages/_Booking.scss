@@ -29,7 +29,6 @@
 .booking-page__contact-title {
   margin: 0 0 1.5rem;
   color: #ffffff;
-  font-family: var(--title-font);
   line-height: 1;
 }
 
@@ -75,28 +74,6 @@
   max-width: 760px;
   max-height: 92vh;
   overflow-y: auto;
-}
-
-.booking-duration {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.booking-duration label {
-  color: #ffffff;
-}
-
-.booking-duration select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 0.75rem;
-  border: none;
-  background: #eef1ff;
-  color: #1f2556;
-  font-size: 1rem;
-  appearance: auto;
 }
 
 .availability-card {
@@ -182,19 +159,6 @@
 .booking-list .button {
   margin-top: auto;
   width: 100%;
-}
-.booking-duration select {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.booking-duration select:hover {
-  background: #ffffff;
-}
-
-.booking-duration select:focus {
-  outline: 2px solid #6dff9c;
-  outline-offset: 2px;
 }
 
 @media (max-width: 1100px) {
