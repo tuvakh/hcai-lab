@@ -13,7 +13,12 @@ export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = fal
       onClick={() => onOpen(item)}
       onKeyDown={(e) => e.key === "Enter" && onOpen(item)}
     >
-      <span className="news-card__tag">{item.tag}</span>
+      <div className="news-card__tags">
+        <span className={`news-card__tag news-card__tag--region news-card__tag--${item.regionTag?.toLowerCase()}`}>
+          {item.regionTag}
+        </span>
+        <span className="news-card__tag news-card__tag--topic">{item.tag}</span>
+      </div>
 
       <h3 className="news-card__title">{item.headline}</h3>
 

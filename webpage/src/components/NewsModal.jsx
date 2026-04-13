@@ -37,7 +37,12 @@ export default function NewsModal({ item, onClose }) {
         {/* __scroll wraps everything that should scroll */}
         <div className="news-modal__scroll">
 
-          <span className="news-modal__tag">{item.tag}</span>
+          <div className="news-modal__tags">
+            <span className={`news-modal__tag news-modal__tag--region news-modal__tag--${item.regionTag?.toLowerCase()}`}>
+              {item.regionTag}
+            </span>
+            <span className="news-modal__tag news-modal__tag--topic">{item.tag}</span>
+          </div>
 
           <h2 className="news-modal__title" id="modal-title">
             {item.headline}

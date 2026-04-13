@@ -28,6 +28,12 @@
     box-shadow: 0 0 0 1px var(--background-color);
   }
 
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
   &__tag {
     font-size: var(--step--2);
     letter-spacing: 0.1em;
@@ -39,6 +45,14 @@
     padding: 2px 8px;
     border-radius: 4px;
     width: fit-content;
+
+    &--norway {
+      background: var(--norwegian-label);
+    }
+
+    &--international {
+      background: var(--international-label);
+    }
   }
 
   &__title {
