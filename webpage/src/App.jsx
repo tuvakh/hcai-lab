@@ -15,7 +15,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 
 function Layout() {
   const location = useLocation();
-  const isAdmin = location.pathname === "/admin";
+  const isAdmin = location.pathname.toLowerCase() === "/admin";
   const isDisplay = location.pathname === "/display";
 
   return (
@@ -29,6 +29,7 @@ function Layout() {
         <Route path="/news" element={<News />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/Admin" element={<Admin />} />
         <Route path="/display" element={<Display />} />
       </Routes>
       {!isAdmin && !isDisplay && <Footer />}
