@@ -27,10 +27,22 @@
     padding: var(--bigger-space) var(--medium-space);
     background-color: var(--primary-color);
 
+    &__box {
+        margin: var(--medium-space);
+        max-width: clamp(150px, 100%, 350px);
+        margin-inline: auto;
+
+        &:hover{
+            .info-section__image {
+                transform: scale(1.05);
+            }
+        }
+    }
     @media (max-width: 600px) { 
         gap: var(--big-space);
     }
-    &__contact {
+
+     &__contact {
         border-right: 1px solid var(--white-color);
 
         @media (max-width: 600px) { 
@@ -38,10 +50,5 @@
             border-bottom: 1px solid var(--white-color);
             border-right: none;
         }
-    }
-
-    p {
-        max-width: clamp(35ch, 50%, 50ch);
-        margin-inline: auto;
     }
 }

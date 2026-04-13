@@ -23,7 +23,6 @@
   }
 
   &__contact-title {
-    font-family: var(--title-font);
     font-size: 1.75rem;
     font-weight: 400;
     letter-spacing: 0.04em;
@@ -32,7 +31,6 @@
   }
 
   &__contact-text {
-    font-family: var(--text-font);
     font-size: 0.95rem;
     line-height: 1.65;
     color: rgba(255, 255, 255, 0.72);
@@ -42,7 +40,6 @@
 
   &__contact-btn {
     display: inline-block;
-    font-family: var(--text-font);
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.08em;

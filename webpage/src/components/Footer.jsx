@@ -14,25 +14,25 @@ export default function Footer() {
   
             <div className="footer__content">
               <div className="footer__column">
-                <h2 className="footer__heading">General</h2>
+                <h3 className="footer__heading">General</h3>
                 <ul className="footer__list">
                   <li><a href="/">Home</a></li>
-                  <li><a href="/People">People</a></li>
-                  <li><a href="/Projects">Projects</a></li>
-                  <li><a href="/News">News</a></li>
-                  <li><a href="/Booking">Equipment</a></li>
+                  <li><a href="/people">People</a></li>
+                  <li><a href="/projects">Projects</a></li>
+                  <li><a href="/news">News</a></li>
+                  <li><a href="/booking">Equipment</a></li>
                 </ul>
               </div>
   
               <div className="footer__column">
-                <h2 className="footer__heading">Adresse</h2>
+                <h3 className="footer__heading">Adresse</h3>
                 <p className="footer__text">
                   Raufossvegen 40,
                   <br />
                   2821 Gjøvik
                 </p>
   
-                <h2 className="footer__heading footer__heading--contact">Contact</h2>
+                <h3 className="footer__heading footer__heading--contact">Contact</h3>
                 <p className="footer__text">
                   Sujay Shalawadi
                   <br />

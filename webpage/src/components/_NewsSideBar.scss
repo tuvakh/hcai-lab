@@ -10,7 +10,6 @@
   
     &__heading {
       font-size: var(--step--1);
-      font-family: var(--title-font);
       font-weight: 400;
       margin: 0 0 var(--normal-space);
       letter-spacing: 0.04em;
@@ -25,7 +24,6 @@
   
     &__item {
       font-size: var(--step--2);
-      font-family: var(--text-font);
       color: var(--white-color);
       background: rgba(255, 255, 255, 0.07);
       border-radius: calc(var(--border-radius) - 2px);
@@ -57,7 +55,6 @@
   
     &__empty {
       font-size: var(--step--2);
-      font-family: var(--text-font);
       color: rgba(255, 255, 255, 0.5);
     }
   }

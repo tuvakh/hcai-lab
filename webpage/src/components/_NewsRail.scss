@@ -9,7 +9,6 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--secondary-color);
-      font-family: var(--text-font);
       font-weight: 700;
       margin-bottom: var(--small-space);
     }
@@ -20,6 +19,13 @@
       margin: 0;
       padding: 0;
       padding-bottom: var(--small-space);
+
+      // hides 3 news on mobile so it's not too many
+      @media (max-width: 600px) {
+        .news-card:nth-child(n+4) {
+          display: none;
+        }
+      }
     }
   
     // display: contents lets the <article> be the direct grid child

@@ -38,7 +38,7 @@ export default function Home() {
                     text="More news"
                     variant="blue"
                     className="info-btn"
-                    action={() => navigate("/News")} 
+                    action={() => navigate("/news")} 
                 />
             </div>
         </div>
@@ -63,7 +63,7 @@ export default function Home() {
             text="Read more"
             variant="white"
             className="info-btn"
-            action={() => navigate("/Projects")} 
+            action={() => navigate("/projects")} 
         />
     </HeroSection>
     
@@ -80,35 +80,40 @@ export default function Home() {
             date={event.date}
             place={event.place}
             description={event.description}
-            eventImg={event.eventImg}/* 
-            bookSeat={() => handleBook(event.id)} */
-            />
+            eventImg={event.eventImg}
+            maxSeats={event.maxSeats}            />
         ))}
         </div>
     </section>
 
     <section className="info-section">
         <div className="info-section__contact">
-            <h2>Contact our team</h2>
-            <p>Do you need research help for an AI project?</p>
-            <p>We have a team full of AI interested professionals that are happy to help!</p>
-            <Buttons
-                text="More info"
-                variant="white"
-                className="info-btn"
-                action={() => navigate("/People")} 
-            />
+            <div className="info-section__box" onClick={() => navigate("/people")} style={{cursor: "pointer"}}>
+                <div className="info-section__info">
+                    <h2>Contact our team</h2>
+                    <p>We have a team full of AI interested professionals that are happy to help!</p>
+                    <Buttons
+                        text="More info"
+                        variant="white"
+                        className="info-btn"
+                        action={() => navigate("/people")} 
+                    />
+                </div>
+            </div>
         </div>
         <div className="info-section__booking">
-            <h2>Book equipment</h2>
-            <p>Do you want to borrow any equipment?</p>
-            <p>The lab has a lot of different technology related equipment that you can book!</p>
-            <Buttons
-                text="Book here"
-                variant="white"
-                className="info-btn"
-                action={() => navigate("/Booking")} 
-            />
+            <div className="info-section__box" onClick={() => navigate("/booking")} style={{cursor: "pointer"}}>
+                <div className="info-section__info">
+                    <h2>Book equipment</h2>
+                    <p>The lab has a lot of different technology related equipment that you can book!</p>
+                    <Buttons
+                        text="Book here"
+                        variant="white"
+                        className="info-btn"
+                        action={() => navigate("/booking")} 
+                    />
+                </div>
+            </div>
         </div>
     </section>
     <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />
