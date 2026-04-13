@@ -28,15 +28,26 @@
     background-color: var(--primary-color);
 
     &__box {
+        position: relative;
         margin: var(--medium-space);
-        max-width: clamp(150px, 100%, 350px);
+        max-width: clamp(100px, 100%, 500px);
         margin-inline: auto;
+        overflow: hidden;
+        border-radius: var(--border-radius);
 
         &:hover{
             .info-section__image {
                 transform: scale(1.05);
             }
         }
+    }
+    &__info {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        z-index: 1; 
+        width: clamp(32ch, 50%, 60ch);
     }
     @media (max-width: 600px) { 
         gap: var(--big-space);
