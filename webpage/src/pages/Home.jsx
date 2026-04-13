@@ -80,35 +80,42 @@ export default function Home() {
             date={event.date}
             place={event.place}
             description={event.description}
-            eventImg={event.eventImg}/* 
-            bookSeat={() => handleBook(event.id)} */
-            />
+            eventImg={event.eventImg}
+            maxSeats={event.maxSeats}            />
         ))}
         </div>
     </section>
 
     <section className="info-section">
-        <div className="info-section__contact">
-            <h2>Contact our team</h2>
-            <p>Do you need research help for an AI project?</p>
-            <p>We have a team full of AI interested professionals that are happy to help!</p>
-            <Buttons
-                text="More info"
-                variant="white"
-                className="info-btn"
-                action={() => navigate("/People")} 
-            />
+        <div className="info-section__contact img-overlay">
+            <div className="info-section__box" onClick={() => navigate("/People")} style={{cursor: "pointer"}}>
+                <img className="info-section__image" src="/assets/team.png"/>
+                <div className="info-section__info">
+                    <h2>Contact our team</h2>
+                    <p>We have a team full of AI interested professionals that are happy to help!</p>
+                    <Buttons
+                        text="More info"
+                        variant="white"
+                        className="info-btn"
+                        action={() => navigate("/People")} 
+                    />
+                </div>
+            </div>
         </div>
-        <div className="info-section__booking">
-            <h2>Book equipment</h2>
-            <p>Do you want to borrow any equipment?</p>
-            <p>The lab has a lot of different technology related equipment that you can book!</p>
-            <Buttons
-                text="Book here"
-                variant="white"
-                className="info-btn"
-                action={() => navigate("/Booking")} 
-            />
+        <div className="info-section__booking img-overlay">
+            <div className="info-section__box" onClick={() => navigate("/booking")} style={{cursor: "pointer"}}>
+                <img className="info-section__image" src="/assets/equipment.png"/>
+                <div className="info-section__info">
+                    <h2>Book equipment</h2>
+                    <p>The lab has a lot of different technology related equipment that you can book!</p>
+                    <Buttons
+                        text="Book here"
+                        variant="white"
+                        className="info-btn"
+                        action={() => navigate("/Booking")} 
+                    />
+                </div>
+            </div>
         </div>
     </section>
     <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />
