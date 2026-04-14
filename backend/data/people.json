@@ -331,5 +331,39 @@
         "url": null
       }
     ]
+  },
+  {
+    "name": "nico",
+    "role": "123122",
+    "email": "",
+    "image": "",
+    "shortDescription": "",
+    "fullBio": "",
+    "researchInterests": [],
+    "linkedin": "",
+    "twitter": "",
+    "scholar": "",
+    "researchgate": "",
+    "ntnuProfile": "",
+    "publicationsUrl": "",
+    "projects": [],
+    "id": 12
+  },
+  {
+    "name": "ali",
+    "role": "ali",
+    "email": "",
+    "image": "/assets/people/aliaksei.png",
+    "shortDescription": "",
+    "fullBio": "",
+    "researchInterests": [],
+    "linkedin": "",
+    "twitter": "",
+    "scholar": "",
+    "researchgate": "",
+    "ntnuProfile": "",
+    "publicationsUrl": "",
+    "projects": [],
+    "id": 13
   }
 ]
