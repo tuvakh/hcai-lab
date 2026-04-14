@@ -54,69 +54,72 @@ export default function Admin() {
   return (
     <main className="admin-page">
 
-      {/* ── Page Header ───────────────────────────────────────────────────── */}
-      <header className="admin-page__header">
-        <div className="admin-page__header-controls">
-          <button
-            className="admin-btn admin-btn--ghost"
-            onClick={() => setShowLogout(true)}
-            type="button"
-          >
-            Log out
-          </button>
+      {/* ── Sidebar ───────────────────────────────────────────────────────── */}
+      <aside className="admin-page__sidebar">
+        <button
+          className="admin-btn admin-btn--ghost admin-btn--logout"
+          onClick={() => setShowLogout(true)}
+          type="button"
+        >
+          Log out
+        </button>
+      </aside>
+
+      {/* ── Body ──────────────────────────────────────────────────────────── */}
+      <div className="admin-page__body">
+
+        {/* ── Page Header ─────────────────────────────────────────────────── */}
+        <header className="admin-page__header">
           {view !== "overview" && (
-            <button
-              className="admin-btn admin-btn--ghost admin-btn--back"
-              onClick={() => setView("overview")}
-              type="button"
-            >
-              &larr; Overview
-            </button>
-          )}
-        </div>
-
-        <div className="admin-page__header-info">
-          <p className="admin-page__header--label">
-            {view === "overview" ? "Dashboard" : "Dashboard / " + sectionLabel}
-          </p>
-          <h1 className="admin-page__header--title">
-            {view === "overview" ? "Admin" : sectionLabel}
-          </h1>
-        </div>
-      </header>
-
-      <section className="admin-page__content">
-
-        {/* ── Overview — stat cards ────────────────────────────────────────── */}
-        {view === "overview" && (
-          <div className="admin-page__overview">
-            <div className="admin-page__stats">
-              <AdminStatCard
-                label="Members"
-                value={people.length}
-                description="Add, edit, and reorder team members. Drag rows to change display order."
-                onClick={() => setView("people")}
-              />
-              <AdminStatCard
-                label="Projects"
-                value={projects.length}
-                description="Manage research projects, update status, tags, and team assignments."
-                onClick={() => setView("projects")}
-              />
-              <AdminStatCard
-                label="Events"
-                value={events.length}
-                description="Schedule and manage upcoming events, workshops, and public talks."
-                onClick={() => setView("events")}
-              />
-              <AdminStatCard
-                label="News"
-                value={TOTAL_NEWS_ARTICLES}
-                description="Total published articles across all news categories."
-              />
+            <div className="admin-page__header-controls">
+              <button
+                className="admin-btn admin-btn--ghost admin-btn--back"
+                onClick={() => setView("overview")}
+                type="button"
+              >
+                &larr; Overview
+              </button>
             </div>
+          )}
+
+          <div className="admin-page__header-info">
+            <p className="admin-page__header--label">
+              {view === "overview" ? "Dashboard" : "Dashboard / " + sectionLabel}
+            </p>
+            <h1 className="admin-page__header--title">
+              {view === "overview" ? "Admin" : sectionLabel}
+            </h1>
           </div>
-        )}
+        </header>
+
+        <section className="admin-page__content">
+
+          {/* ── Overview — stat cards ──────────────────────────────────────── */}
+          {view === "overview" && (
+            <div className="admin-page__overview">
+              <div className="admin-page__stats">
+                <AdminStatCard
+                  label="Members"
+                  value={people.length}
+                  onClick={() => setView("people")}
+                />
+                <AdminStatCard
+                  label="Projects"
+                  value={projects.length}
+                  onClick={() => setView("projects")}
+                />
+                <AdminStatCard
+                  label="Events"
+                  value={events.length}
+                  onClick={() => setView("events")}
+                />
+                <AdminStatCard
+                  label="News"
+                  value={TOTAL_NEWS_ARTICLES}
+                />
+              </div>
+            </div>
+          )}
 
         {/* ── People ──────────────────────────────────────────────────────── */}
         {view === "people" && (
@@ -133,7 +136,9 @@ export default function Admin() {
           <AdminEventsTable events={events} setEvents={setEvents} />
         )}
 
-      </section>
+        </section>
+
+      </div>{/* end admin-page__body */}
 
       {/* ── Logout Confirm ──────────────────────────────────────────────────── */}
       {showLogout && (

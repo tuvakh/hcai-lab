@@ -4,6 +4,29 @@
 .admin-page {
   min-height: 100vh;
   background-color: var(--background-color);
+  display: flex;
+
+  // ── Sidebar ────────────────────────────────────────────────────────────────
+  &__sidebar {
+    width: 200px;
+    min-height: 100vh;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.25rem;
+
+    @media (max-width: 600px) { width: 56px; padding: 1.25rem 0.5rem; }
+  }
+
+  // ── Body ───────────────────────────────────────────────────────────────────
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
 
   // ── Dashboard header ───────────────────────────────────────────────────────
   &__header {
@@ -102,10 +125,9 @@
   // ── Overview stat grid ─────────────────────────────────────────────────────
   &__stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
 
-    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
     @media (max-width: 480px) { grid-template-columns: 1fr; }
   }
 
