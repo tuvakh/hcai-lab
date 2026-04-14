@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminStatCard from "../components/AdminStatCard";
 import { events } from "../data/eventData";
+import { people as peopleData } from "../data/peopleData";
+import { projects as projectsData } from "../data/projectsData";
+import { equipments } from "../data/equipmentData";
 
-const TABS = ["Overview", "People", "Projects", "Events", "Equipment"];
-const TOTAL_NEWS_ARTICLES = 18;
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const EMPTY_PROJECT = {
@@ -25,30 +26,28 @@ export default function Admin() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Overview");
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(projectsData);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [projectForm, setProjectForm] = useState(EMPTY_PROJECT);
 
-  const [people, setPeople] = useState([]);
+  const [people, setPeople] = useState(peopleData);
   const [showPersonForm, setShowPersonForm] = useState(false);
   const [personForm, setPersonForm] = useState(EMPTY_PERSON);
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => { fetchProjects(); fetchPeople(); }, []);
-
-  function fetchProjects() {
+  useEffect(() => {
     fetch(`${API_URL}/api/projects`)
-      .then((r) => r.json()).then(setProjects)
-      .catch(() => setError("Could not load projects from backend."));
-  }
+      .then((r) => r.json())
+      .then(setProjects)
+      .catch(() => {/* keep local fallback */});
 
-  function fetchPeople() {
     fetch(`${API_URL}/api/people`)
-      .then((r) => r.json()).then(setPeople)
-      .catch(() => setError("Could not load people from backend."));
-  }
+      .then((r) => r.json())
+      .then(setPeople)
+      .catch(() => {/* keep local fallback */});
+  }, []);
 
   function handleStatusToggle(val) {
     setProjectForm((f) => ({
@@ -73,19 +72,21 @@ export default function Admin() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
-      fetchProjects();
-      setProjectForm(EMPTY_PROJECT);
-      setShowProjectForm(false);
-    } catch { setError("Failed to add project. Is the backend running?"); }
-    finally { setSaving(false); }
+      const saved = await res.json();
+      setProjects((prev) => [...prev, saved]);
+    } catch {
+      setProjects((prev) => [...prev, { ...payload, id: Date.now() }]);
+      setError("Saved locally — backend unreachable.");
+    }
+    setProjectForm(EMPTY_PROJECT);
+    setShowProjectForm(false);
+    setSaving(false);
   }
 
   async function handleDeleteProject(id) {
     if (!window.confirm("Delete this project?")) return;
-    try {
-      await fetch(`${API_URL}/api/projects/${id}`, { method: "DELETE" });
-      fetchProjects();
-    } catch { setError("Failed to delete project."); }
+    setProjects((prev) => prev.filter((p) => p.id !== id));
+    fetch(`${API_URL}/api/projects/${id}`, { method: "DELETE" }).catch(() => {});
   }
 
   async function handlePersonSubmit(e) {
@@ -102,19 +103,21 @@ export default function Admin() {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error();
-      fetchPeople();
-      setPersonForm(EMPTY_PERSON);
-      setShowPersonForm(false);
-    } catch { setError("Failed to add person. Is the backend running?"); }
-    finally { setSaving(false); }
+      const saved = await res.json();
+      setPeople((prev) => [...prev, saved]);
+    } catch {
+      setPeople((prev) => [...prev, { ...payload, id: Date.now() }]);
+      setError("Saved locally — backend unreachable.");
+    }
+    setPersonForm(EMPTY_PERSON);
+    setShowPersonForm(false);
+    setSaving(false);
   }
 
   async function handleDeletePerson(id) {
     if (!window.confirm("Delete this person?")) return;
-    try {
-      await fetch(`${API_URL}/api/people/${id}`, { method: "DELETE" });
-      fetchPeople();
-    } catch { setError("Failed to delete person."); }
+    setPeople((prev) => prev.filter((p) => p.id !== id));
+    fetch(`${API_URL}/api/people/${id}`, { method: "DELETE" }).catch(() => {});
   }
 
   return (
@@ -141,15 +144,12 @@ export default function Admin() {
 
         <section className="admin-page__content">
 
-          <div className="admin-page__tab-bar" role="tablist" aria-label="Admin sections">
-            {TABS.map((tab) => (
-              <button key={tab} type="button" role="tab" aria-selected={activeTab === tab}
-                className={`admin-page__tab-btn${activeTab === tab ? " admin-page__tab-btn--active" : ""}`}
-                onClick={() => setActiveTab(tab)}>
-                {tab}
-              </button>
-            ))}
-          </div>
+          {activeTab !== "Overview" && (
+            <button type="button" className="admin-btn admin-btn--ghost"
+              onClick={() => setActiveTab("Overview")}>
+              &larr; Back
+            </button>
+          )}
 
           {error && <p className="admin-page__error">{error}</p>}
 
@@ -160,7 +160,7 @@ export default function Admin() {
                 <AdminStatCard label="Employees"  value={people.length}    onClick={() => setActiveTab("People")} />
                 <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
                 <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
-                <AdminStatCard label="Equipment"  value={TOTAL_NEWS_ARTICLES} onClick={() => setActiveTab("Equipment")} />
+                <AdminStatCard label="Equipment"  value={equipments.length}   onClick={() => setActiveTab("Equipment")} />
               </div>
             </div>
           )}
@@ -448,8 +448,24 @@ export default function Admin() {
           {/* ── Equipment ───────────────────────────────────────────────── */}
           {activeTab === "Equipment" && (
             <div className="admin-page__table-section" role="tabpanel">
-              <h2 className="admin-page__table-heading">Equipment</h2>
-              <p className="admin-page__empty">No equipment data yet.</p>
+              <h2 className="admin-page__table-heading">
+                Equipment <span className="admin-page__count">({equipments.length})</span>
+              </h2>
+              <div className="admin-page__table-wrap">
+                <table className="admin-page__table">
+                  <thead>
+                    <tr><th>Name</th><th>Category</th></tr>
+                  </thead>
+                  <tbody>
+                    {equipments.map((item) => (
+                      <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.category}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
 

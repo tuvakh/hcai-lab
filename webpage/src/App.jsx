@@ -15,7 +15,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 
 function Layout() {
   const location = useLocation();
-  const isAdmin = location.pathname.toLowerCase() === "/admin";
+  const isAdmin = location.pathname.toLowerCase().startsWith("/admin");
   const isDisplay = location.pathname === "/display";
 
   return (
