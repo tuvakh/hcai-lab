@@ -10,6 +10,7 @@ if (!fs.existsSync(dataDir)) {
 }
 
 const projectsRouter = require("./routes/projects");
+const peopleRouter = require("./routes/people");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/projects", projectsRouter);
+app.use("/api/people", peopleRouter);
 
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
