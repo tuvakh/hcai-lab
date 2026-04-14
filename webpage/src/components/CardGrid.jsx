@@ -1,8 +1,23 @@
-import { useState } from "react";
-import Modal from './Modal'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+
 
 export default function CardGrid({ items = [], variant = "people" }) {
   const [selected, setSelected] = useState(null);
+
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = selected ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [selected]);
 
   return (
     <>
@@ -47,7 +62,22 @@ export default function CardGrid({ items = [], variant = "people" }) {
       </div>
 
       {selected && (
-        <Modal onClose={() => setSelected(null)} ariaLabel={selected.name}>
+        <div
+          className="modal-overlay"
+          onClick={(e) => e.target === e.currentTarget && setSelected(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.name}
+        >
+          <div className="modal">
+            <button
+              className="modal__close"
+              onClick={() => setSelected(null)}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+
             {/* ── People modal ── */}
             {variant === "people" && (
               <>
@@ -279,7 +309,8 @@ export default function CardGrid({ items = [], variant = "people" }) {
                 )}
               </>
             )}
-        </Modal>
+          </div>
+        </div>
       )}
     </>
   );

@@ -38,6 +38,7 @@
     font-size: var(--step--2);
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    font-family: var(--text-font);
     font-weight: 700;
     color: var(--white-color);
     background: var(--background-color);
@@ -52,12 +53,6 @@
     &--international {
       background: var(--international-label);
     }
-
-    &--display {
-      padding: var(--small-space);
-      font-size: var(--step--4);
-    }
-
   }
 
   &__title {
@@ -102,6 +97,7 @@
 
   &__time {
     font-size: var(--step--2);
+    font-family: var(--text-font);
     color: rgba(26, 25, 29, 0.4);
   }
 
@@ -123,16 +119,4 @@
       color: var(--background-color);
     }
   }
-}
-
-.news-card-display {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    padding: var(--medium-space);
-    border-radius: var(--border-radius);
-
-    &__title {
-        padding-block-start: var(--normal-space);
-        font-size: var(--step-3);
-    }
 }
