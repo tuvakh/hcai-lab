@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AdminStatCard from "../components/AdminStatCard";
 import { events } from "../data/eventData";
 
-const TABS = ["Overview", "People", "Projects", "Events"];
+const TABS = ["Overview", "People", "Projects", "Events", "Equipment"];
 const TOTAL_NEWS_ARTICLES = 18;
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -157,10 +157,10 @@ export default function Admin() {
           {activeTab === "Overview" && (
             <div className="admin-page__overview" role="tabpanel">
               <div className="admin-page__stats">
-                <AdminStatCard label="Members"  value={people.length} />
-                <AdminStatCard label="Projects" value={projects.length} />
-                <AdminStatCard label="Events"   value={events.length} />
-                <AdminStatCard label="News"     value={TOTAL_NEWS_ARTICLES} />
+                <AdminStatCard label="Employees"  value={people.length}    onClick={() => setActiveTab("People")} />
+                <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
+                <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
+                <AdminStatCard label="Equipment"  value={TOTAL_NEWS_ARTICLES} onClick={() => setActiveTab("Equipment")} />
               </div>
             </div>
           )}
@@ -170,7 +170,7 @@ export default function Admin() {
             <div className="admin-page__table-section" role="tabpanel">
               <div className="admin-page__section-header">
                 <h2 className="admin-page__table-heading">
-                  Members <span className="admin-page__count">({people.length})</span>
+                  Employees <span className="admin-page__count">({people.length})</span>
                 </h2>
                 <button type="button" className="admin-page__add-btn"
                   onClick={() => setShowPersonForm((v) => !v)}>
@@ -442,6 +442,14 @@ export default function Admin() {
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+
+          {/* ── Equipment ───────────────────────────────────────────────── */}
+          {activeTab === "Equipment" && (
+            <div className="admin-page__table-section" role="tabpanel">
+              <h2 className="admin-page__table-heading">Equipment</h2>
+              <p className="admin-page__empty">No equipment data yet.</p>
             </div>
           )}
 
