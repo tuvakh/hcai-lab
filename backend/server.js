@@ -1,16 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
-const fs = require("fs");
-
-// Ensure data directory exists before initializing database
-const dataDir = path.join(__dirname, "data");
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const projectsRouter = require("./routes/projects");
 const peopleRouter = require("./routes/people");
+const eventsRouter = require("./routes/events");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,7 +18,17 @@ app.use(express.json());
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/projects", projectsRouter);
 app.use("/api/people", peopleRouter);
+app.use("/api/events", eventsRouter);
 
-app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
-});
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => {
+      console.log(`Backend running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1);
+  });
