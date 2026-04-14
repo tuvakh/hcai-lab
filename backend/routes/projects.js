@@ -1,50 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const { readData, writeData } = require("../database");
+const Project = require("../models/Projects");
 
-// GET all projects
-router.get("/", (req, res) => {
-  const projects = readData();
-  res.json(projects.sort((a, b) => (b.year || 0) - (a.year || 0)));
+router.get("/", async (req, res) => {
+  const projects = await Project.find().sort({ year: -1 });
+  res.json(projects);
 });
 
-// GET single project
-router.get("/:id", (req, res) => {
-  const projects = readData();
-  const project = projects.find((p) => p.id === Number(req.params.id));
+router.get("/:id", async (req, res) => {
+  const project = await Project.findById(req.params.id);
   if (!project) return res.status(404).json({ error: "Project not found" });
   res.json(project);
 });
 
-// POST new project
-router.post("/", (req, res) => {
-  const projects = readData();
-  const newProject = {
-    ...req.body,
-    id: projects.length > 0 ? Math.max(...projects.map((p) => p.id)) + 1 : 1,
-  };
-  projects.push(newProject);
-  writeData(projects);
-  res.status(201).json(newProject);
+router.post("/", async (req, res) => {
+  const project = new Project(req.body);
+  await project.save();
+  res.status(201).json(project);
 });
 
-// PUT update project
-router.put("/:id", (req, res) => {
-  const projects = readData();
-  const index = projects.findIndex((p) => p.id === Number(req.params.id));
-  if (index === -1) return res.status(404).json({ error: "Project not found" });
-  projects[index] = { ...projects[index], ...req.body, id: projects[index].id };
-  writeData(projects);
-  res.json(projects[index]);
+router.put("/:id", async (req, res) => {
+  const project = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  if (!project) return res.status(404).json({ error: "Project not found" });
+  res.json(project);
 });
 
-// DELETE project
-router.delete("/:id", (req, res) => {
-  const projects = readData();
-  const index = projects.findIndex((p) => p.id === Number(req.params.id));
-  if (index === -1) return res.status(404).json({ error: "Project not found" });
-  projects.splice(index, 1);
-  writeData(projects);
+router.delete("/:id", async (req, res) => {
+  const project = await Project.findByIdAndDelete(req.params.id);
+  if (!project) return res.status(404).json({ error: "Project not found" });
   res.json({ message: "Project deleted" });
 });
 
