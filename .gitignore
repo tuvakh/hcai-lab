@@ -8,3 +8,10 @@
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*

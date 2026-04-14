@@ -13,12 +13,8 @@ FROM node:25-slim AS runtime
 RUN mkdir /run.app
 WORKDIR /run.app
 
-COPY --from=build /app/dist /run.app 
+COPY --from=build /app/dist /run.app
 
 RUN npm install --global serve
 
 EXPOSE 9001
-
-
-
-
