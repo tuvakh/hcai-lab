@@ -7,12 +7,15 @@
     box-shadow: var(--box-shadow);
     flex: 1 1 250px; 
     text-align: center;
+    min-height: clamp(350px, 50%, 420px);
     overflow: hidden;
 
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     animation: cardFadeUp 0.45s both;
 
     &__img {
+        aspect-ratio: 14 / 9;
+        object-fit: cover;
         border-radius: var(--border-radius-img);
     }
 
@@ -38,6 +41,7 @@
         font-size: var(--step--1);
         width: 32ch;
         margin: 0 auto;
+        flex: 1;
         color: var(--primary-color);
     }
     

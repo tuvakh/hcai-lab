@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { events } from '../data/eventData';
+import { useState, useEffect } from "react";
 import EventCard from '../components/EventCard';
 import HeroSection from '../components/HeroSection';
 import Buttons from "../components/Buttons";
@@ -8,6 +7,8 @@ import { useNews } from "../hooks/useNews";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router";
 import NewsModal from "../components/NewsModal";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -19,6 +20,16 @@ export default function Home() {
     console.log('Book event med id:', eventId);
     // her kan du f.eks navigere til booking-side eller åpne en modal
   } */
+
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+    fetch(`${API_URL}/api/events`)
+        .then((r) => r.json())
+        .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
+        .catch(() => {});
+    }, []);
+
 
   return (
     <>

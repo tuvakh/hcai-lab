@@ -677,6 +677,25 @@
     line-height: 1.55;
   }
 
+    &__checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    &__checkbox {
+        accent-color: var(--international-label);
+        cursor: pointer;
+    }
+
+    &__checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: var(--step--1);
+        cursor: pointer;
+    }
+
   // Footer with Cancel / Save
   &__actions {
     display: flex;

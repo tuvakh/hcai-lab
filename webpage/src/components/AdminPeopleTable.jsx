@@ -2,10 +2,22 @@
 import { useRef, useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 const PEOPLE_FIELDS = [
-  { key: "name",  label: "Name",  type: "text" },
-  { key: "role",  label: "Role",  type: "text" },
-  { key: "email", label: "Email", type: "text" },
+  { key: "name",             label: "Full Name",                          type: "text", required: true     },
+  { key: "role",             label: "Role",                               type: "text", required: true     },
+  { key: "email",            label: "Email",                              type: "email", required: true     },
+  { key: "image",            label: "Image path",                         type: "text", required: true    },
+  { key: "ntnuProfile",      label: "NTNU Profile URL",                   type: "text"     },
+  { key: "publicationsUrl",  label: "Publications URL",                   type: "text"     },
+  { key: "linkedin",         label: "LinkedIn",                           type: "text"     },
+  { key: "scholar",          label: "Google Scholar",                     type: "text"     },
+  { key: "researchgate",     label: "ResearchGate",                       type: "text"     },
+  { key: "twitter",          label: "Twitter / X",                        type: "text"     },
+  { key: "researchInterests",label: "Research Interests (comma-separated)",type: "text", isArray: true },
+  { key: "shortDescription", label: "Short Description",                  type: "textarea", required: true },
+  { key: "fullBio",          label: "Full Bio",                           type: "textarea" }
 ];
 
 export default function AdminPeopleTable({ people, setPeople }) {
@@ -33,22 +45,42 @@ export default function AdminPeopleTable({ people, setPeople }) {
     end: () => { dragIndex.current = null; setDragOverIndex(null); },
   };
 
-  function savePerson(data, index) {
-    if (index === null) {
-      setPeople((prev) => [
-        ...prev,
-        { id: Date.now(), image: null, shortDescription: "", fullBio: "", researchInterests: [], projects: [], ...data },
-      ]);
-    } else {
-      setPeople((prev) => prev.map((p, i) => (i === index ? { ...p, ...data } : p)));
+  async function savePerson(data, index) {
+  if (index === null) {
+    try {
+      const res = await fetch(`${API_URL}/api/people`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const saved = await res.json();
+      setPeople((prev) => [...prev, saved]);
+    } catch {
+      setPeople((prev) => [...prev, { id: Date.now(), ...data }]);
     }
-    setModal(null);
+  } else {
+    const person = people[index];
+    try {
+      const res = await fetch(`${API_URL}/api/people/${person._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const saved = await res.json();
+      setPeople((prev) => prev.map((e, i) => (i === index ? saved : e)));
+    } catch {
+      setPeople((prev) => prev.map((e, i) => (i === index ? { ...e, ...data } : e)));
+    }
   }
+  setModal(null);
+}
 
-  function deletePerson(index) {
-    if (!window.confirm("Remove this member?")) return;
+  async function deletePerson(index) {
+    if (!window.confirm("Remove this person?")) return;
+    const person = people[index];
     setPeople((prev) => prev.filter((_, i) => i !== index));
-  }
+    fetch(`${API_URL}/api/people/${person._id}`, { method: "DELETE" }).catch(() => { });
+}
 
   return (
     <div className="admin-page__table-section">

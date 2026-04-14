@@ -6,6 +6,7 @@ require("dotenv").config();
 const projectsRouter = require("./routes/projects");
 const peopleRouter = require("./routes/people");
 const eventsRouter = require("./routes/events");
+const uploadRouter = require("./routes/upload");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,6 +20,7 @@ app.get("/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api/projects", projectsRouter);
 app.use("/api/people", peopleRouter);
 app.use("/api/events", eventsRouter);
+app.use("/api/upload", uploadRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI)

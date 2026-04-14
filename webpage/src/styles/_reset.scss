@@ -31,3 +31,16 @@ textarea,
 select {
   font: inherit;
 }
+
+input[type="datetime-local"]::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type="datetime-local"]:focus::-webkit-datetime-edit,
+input[type="datetime-local"]:not([value=""])::-webkit-datetime-edit {
+  color: inherit;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+

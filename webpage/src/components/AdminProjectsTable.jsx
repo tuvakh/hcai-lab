@@ -2,12 +2,19 @@
 import { useRef, useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
 const PROJECT_FIELDS = [
-  { key: "name",   label: "Name",                     type: "text"   },
-  { key: "status", label: "Status (comma-separated)", type: "text",  isArray: true },
-  { key: "tags",   label: "Tags (comma-separated)",   type: "text",  isArray: true },
-  { key: "team",   label: "Team (comma-separated)",   type: "text",  isArray: true },
-  { key: "year",   label: "Year",                     type: "number" },
+  { key: "name",             label: "Project Name",                      type: "text",     required: true},
+  { key: "year",             label: "Year",                              type: "number",   required: true},
+  { key: "status",           label: "Status (comma-separated)",          type: "checkboxes",    options: ["Ongoing", "Completed", "Student"], isArray: false, required: true},
+  { key: "tags",             label: "Tags (comma-separated)",            type: "text",    isArray: true },
+  { key: "team",             label: "Team (comma-separated)",            type: "text",    isArray: true },
+  { key: "image",            label: "Image path",                        type: "text",    required: true},
+  { key: "links",            label: "Link URL",                          type: "text"     },
+  { key: "shortDescription", label: "Short Description",                 type: "textarea", required: true },
+  { key: "fullDescription",  label: "Full Description",                  type: "textarea" },
+  { key: "outcomes",         label: "Outcomes",                          type: "textarea" },
 ];
 
 export default function AdminProjectsTable({ projects, setProjects }) {
@@ -35,22 +42,47 @@ export default function AdminProjectsTable({ projects, setProjects }) {
     end: () => { dragIndex.current = null; setDragOverIndex(null); },
   };
 
-  function saveProject(data, index) {
-    if (index === null) {
-      setProjects((prev) => [
-        ...prev,
-        { id: Date.now(), image: null, shortDescription: "", fullDescription: "", outcomes: "", links: [], presentationUrl: null, ...data },
-      ]);
-    } else {
-      setProjects((prev) => prev.map((p, i) => (i === index ? { ...p, ...data } : p)));
+  async function saveProject(data, index) {
+    const payload = {
+    ...data,
+    links: data.links ? [{ label: "Read more", url: data.links }] : [],
+  };
+  if (index === null) {
+    try {
+      const res = await fetch(`${API_URL}/api/projects`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const saved = await res.json();
+      setProjects((prev) => [...prev, saved]);
+    } catch {
+      setProjects((prev) => [...prev, { id: Date.now(), ...data }]);
     }
-    setModal(null);
+  } else {
+    const project = projects[index];
+    try {
+      const res = await fetch(`${API_URL}/api/projects/${project._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const saved = await res.json();
+      setProjects((prev) => prev.map((e, i) => (i === index ? saved : e)));
+    } catch {
+      setProjects((prev) => prev.map((e, i) => (i === index ? { ...e, ...data } : e)));
+    }
   }
+  setModal(null);
+}
 
-  function deleteProject(index) {
+
+  async function deleteProject(index) {
     if (!window.confirm("Remove this project?")) return;
+    const project = projects[index];
     setProjects((prev) => prev.filter((_, i) => i !== index));
-  }
+    fetch(`${API_URL}/api/projects/${project._id}`, { method: "DELETE" }).catch(() => { });
+}
 
   return (
     <div className="admin-page__table-section">
@@ -105,7 +137,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                 <td className="admin-page__actions-cell">
                   <button
                     className="admin-btn admin-btn--sm admin-btn--ghost"
-                    onClick={() => setModal({ item: project, index: i })}
+                    onClick={() => setModal({ item: { ...project, links: project.links?.[0]?.url ?? "" }, index: i })}
                   >Edit</button>
                   <button
                     className="admin-btn admin-btn--sm admin-btn--danger"

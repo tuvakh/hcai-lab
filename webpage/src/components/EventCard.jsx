@@ -12,6 +12,15 @@ export default function EventCard({title, description, date, place, eventImg, bo
         console.log({ name, email, seats, title, date, place });
     };
 
+    function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        if (isNaN(d)) return dateStr; // fallback for old format
+        return d.toLocaleString("nb-NO", {
+            day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
+        });
+    }
+
+
     useEffect(() => {
         const handleKey = (e) => { if (e.key === "Escape") setIsOpen(false); };
         window.addEventListener("keydown", handleKey);
@@ -30,7 +39,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
                 <img className="eventCard__img" src={eventImg}/>
                 <div className='eventCard__text'>
                     <h3 className='eventCard__text--title'>{title}</h3>
-                    <p className='eventCard__text--date'>{date}</p>
+                    <p className='eventCard__text--date'>{formatDate(date)}</p>
                     <p className='eventCard__text--place'>{place}</p>
                 </div>
             </div>
@@ -55,7 +64,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
                         <h3 className="modal__section-title">Details</h3>
                         <div className="event-details">
                             <span className="event-details__date">
-                                <span className="event-details__icon">📅</span>{date}
+                                <span className="event-details__icon">📅</span>{formatDate(date)}
                             </span>
                             <span className="event-details__date">
                                 <span className="event-details__icon">📍</span>{place}
