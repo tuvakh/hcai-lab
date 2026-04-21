@@ -5,8 +5,8 @@ import AdminStatCard from "../components/AdminStatCard";
 import AdminEventsTable from "../components/AdminEventsTable";
 import AdminProjectsTable from "../components/AdminProjectsTable";
 import AdminPeopleTable from "../components/AdminPeopleTable";
+import AdminEquipmentTable from "../components/AdminEquipmentTable";
 
-import { equipments } from "../data/equipmentData";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -17,6 +17,7 @@ export default function Admin() {
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
   const [events, setEvents] = useState([]);
+  const [equipments, setEquipments] = useState([]);
   
   useEffect(() => {
     fetch(`${API_URL}/api/projects`)
@@ -34,6 +35,10 @@ export default function Admin() {
         .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
         .catch(() => {});
 
+    fetch(`${API_URL}/api/equipment`)
+      .then((r) => r.json())
+      .then(setEquipments)
+      .catch(() => {});
   }, []);
 
   return (
@@ -96,28 +101,8 @@ export default function Admin() {
 
           {/* ── Equipment ───────────────────────────────────────────────── */}
           {activeTab === "Equipment" && (
-            <div className="admin-page__table-section" role="tabpanel">
-              <h2 className="admin-page__table-heading">
-                Equipment <span className="admin-page__count">({equipments.length})</span>
-              </h2>
-              <div className="admin-page__table-wrap">
-                <table className="admin-page__table">
-                  <thead>
-                    <tr><th>Name</th><th>Category</th></tr>
-                  </thead>
-                  <tbody>
-                    {equipments.map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.name}</td>
-                        <td>{item.category}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                <AdminEquipmentTable equipments={equipments} setEquipments={setEquipments} />
           )}
-
         </section>
       </div>
     </main>

@@ -66,7 +66,7 @@ export default function Home() {
         </div>
     </section>
 
-    <HeroSection heroImg="/assets/projects.png">
+    <HeroSection heroImg="/assets/hero/project-hero.jpg">
         <h2 className="heroSection__intro--title">Projects</h2>
         <p className="heroSection__intro--text">Exploring the intersection of human-centred design and artificial
           intelligence through applied research and industry collaboration.</p>

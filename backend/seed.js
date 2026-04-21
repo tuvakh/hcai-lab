@@ -1,25 +1,20 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const Person = require("./models/Person");
-const Project = require("./models/Projects");
-const Event = require("./models/Event");
+
+const Equipment = require("./models/Equipment");
 
 
-const people = require("./data/people.json");
-const projects = require("./data/projects.json");
-const events = require("./data/events.json");
+const equipments = require("./data/equipments.json");
 
 async function seed() {
   await mongoose.connect(process.env.MONGODB_URI);
   console.log("Connected");
 
-  await Person.deleteMany();
-  await Project.deleteMany();
-  await Event.deleteMany();
+  
+  await Equipment.deleteMany();
 
-  await Person.insertMany(people);
-  await Project.insertMany(projects);
-  await Event.insertMany(events);
+
+  await Equipment.insertMany(equipments);
 
   console.log("Seeded successfully");
   process.exit(0);
