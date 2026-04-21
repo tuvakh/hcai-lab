@@ -120,34 +120,21 @@ export default function CardGrid({ items = [], variant = "people" }) {
                 )}
 
                 {/* Projects */}
-                {selected.projects?.length > 0 && (
+                {selected.projects?.some((p) => p.url) && (
                   <div className="modal__section">
                     <h3 className="modal__section-title">Projects</h3>
                     <div className="modal__project-grid">
-                      {selected.projects.map((project) => (
+                      {selected.projects.filter((p) => p.url).map((project) => (
                         <div key={project.name} className="modal__project-card">
-                          <div className="modal__project-image-wrap">
-                            {project.image ? (
-                              <img
-                                src={project.image}
-                                alt={project.name}
-                                className="modal__project-image"
-                              />
-                            ) : (
-                              <div className="modal__project-image modal__project-image--placeholder" />
-                            )}
-                          </div>
                           <span className="modal__project-name">{project.name}</span>
-                          {project.url && (
-                            <a
-                              href={project.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="modal__project-btn"
-                            >
-                              View project
-                            </a>
-                          )}
+                          <a
+                            href={project.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="modal__project-btn"
+                          >
+                            View project
+                          </a>
                         </div>
                       ))}
                     </div>
