@@ -4,7 +4,6 @@ import HeroSection from '../components/HeroSection';
 import NewsCard from "../components/NewsCard";
 import { useNews } from "../hooks/useNews";
 import logo from "../assets/logo.png";
-import { equipments } from '../data/equipmentData';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -13,6 +12,8 @@ export default function Home() {
     const topNews = items.slice(0, 1);
     const [activeItem, setActiveItem] = useState(null);
     const [events, setEvents] = useState([]);
+    const [equipments, setEquipments] = useState([]);
+
 
     function fetchEvents() {
         fetch(`${API_URL}/api/events`)
@@ -26,6 +27,14 @@ export default function Home() {
         const interval = setInterval(fetchEvents, 30000);
         return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        fetch(`${API_URL}/api/equipment`)
+            .then(r => r.json())
+            .then(setEquipments)
+            .catch(() => {});
+        }, []);
+
 
     const nextEvent = events.slice(0, 1);
 
