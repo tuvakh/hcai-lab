@@ -15,3 +15,6 @@ node_modules/
 # Environment files
 .env
 .env.*
+
+# User-uploaded files (stored locally, not committed)
+webpage/public/assets/uploads/
