@@ -7,10 +7,11 @@ export default function EventCard({title, description, date, place, eventImg, bo
     const [email, setEmail] = useState('');
     const [seats, setSeats] = useState(1);
 
-    const dateParts = date.split(" ");
-    const day = dateParts[0];
-    const month = dateParts[1];
-    const time = dateParts[3];
+    const d = new Date(date);
+    const isValidDate = !isNaN(d);
+    const day   = isValidDate ? d.getDate() + "." : date.split(" ")[0];
+    const month = isValidDate ? d.toLocaleString("nb-NO", { month: "long" }) : date.split(" ")[1];
+    const time  = isValidDate ? d.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
 
     const handleSubmit = (e) => {
         e.preventDefault();

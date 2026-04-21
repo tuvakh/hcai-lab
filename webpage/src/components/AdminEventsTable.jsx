@@ -10,7 +10,7 @@ const EVENT_FIELDS = [
     { key: "place", label: "Location", type: "text", required: true },
     { key: "maxSeats", label: "Max Seats", type: "number", required: true },
     { key: "description", label: "Description", type: "textarea", maxLength: 160, required: true},
-    { key: "eventImg", label: "Image path", type: "text", required: true },
+    { key: "eventImg", label: "Image path", type: "text", required: true, folder: "events" },
 
 ];
 
