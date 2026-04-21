@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import Button from './Buttons';
 
-export default function EventCard({title, description, date, place, eventImg, bookSeat, maxSeats}) {
+export default function EventCard({title, description, date, place, eventImg, bookSeat, maxSeats, variant}) {
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [seats, setSeats] = useState(1);
+
+    const dateParts = date.split(" ");
+    const day = dateParts[0];
+    const month = dateParts[1];
+    const time = dateParts[3];
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,7 +25,6 @@ export default function EventCard({title, description, date, place, eventImg, bo
         });
     }
 
-
     useEffect(() => {
         const handleKey = (e) => { if (e.key === "Escape") setIsOpen(false); };
         window.addEventListener("keydown", handleKey);
@@ -31,6 +35,27 @@ export default function EventCard({title, description, date, place, eventImg, bo
         document.body.style.overflow = isOpen ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
     }, [isOpen]);
+
+    if (variant === "display") {
+        return (
+            <>
+                <div className="eventCardDisplay">
+                    <div className="eventCardDisplay__info img-overlay">
+                        <div className="eventCardDisplay__text">
+                            <span className="eventCardDisplay__text--day">{day}</span>
+                            <span className="eventCardDisplay__text--month">{month}</span>
+                        </div>
+                        <img className="eventCardDisplay__img" src={eventImg} />
+                    </div>
+                    <div className="eventCardDisplay__description">
+                        <h3 className="eventCardDisplay__title">{title}</h3>
+                        <p className="eventCardDisplay__time">{time} {place}</p>
+                        <p className="eventCardDisplay__maxSeats">{maxSeats} seats available – Book on our website!</p>
+                    </div>
+                </div>
+            </>
+        );
+    }
 
     return (
       <>

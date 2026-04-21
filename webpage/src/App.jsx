@@ -21,7 +21,7 @@ function Layout() {
   return (
     <>
     <ScrollToTop /> 
-      {!isAdmin && <Navbar />}
+      {!isAdmin && !isDisplay && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/people" element={<People />} />
@@ -31,7 +31,7 @@ function Layout() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/display" element={<Display />} />
       </Routes>
-      {!isAdmin && <Footer />}
+      {!isAdmin && !isDisplay && <Footer />}
     </>
   );
 }

@@ -1,9 +1,18 @@
-export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = false }) {
+export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = false, variant }) {
   const classes = [
     "news-card",
     saved      && "news-card--saved",
     isFeatured && "news-card--featured",
   ].filter(Boolean).join(" ");
+
+  if (variant === "display") {
+    return (
+      <article className="news-card-display" aria-label={`${item.tag} — ${item.headline}`}>
+        <span className="news-card__tag news-card__tag--display">{item.tag}</span>
+        <h3 className="news-card-display__title">{item.headline}</h3>
+      </article>
+    );
+  }
 
   return (
     <article
