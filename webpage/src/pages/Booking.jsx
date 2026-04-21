@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import HeroSection from "../components/HeroSection";
 import BookingList from "../components/BookingList";
-import { equipments } from "../data/equipmentData";
 import Modal from "../components/Modal";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 function toKey(date) {
   return date.toISOString().split("T")[0]; 
@@ -24,10 +25,18 @@ function getCurrentWeekDays() {
 }
 
 export default function Booking() {
-  const [equipment] = useState(equipments);
+  const [equipment, setEquipment] = useState([]);
   const [myBookings, setMyBookings] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [selectedRange, setSelectedRange] = useState(null); 
+
+
+    useEffect(() => {
+    fetch(`${API_URL}/api/equipment`)
+        .then(r => r.json())
+        .then(setEquipment)
+        .catch(() => {});
+    }, []);
 
   function isDateBooked(equipmentId, date) {
     const key = toKey(date);

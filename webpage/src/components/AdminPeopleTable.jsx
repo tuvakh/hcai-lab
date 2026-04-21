@@ -8,7 +8,7 @@ const PEOPLE_FIELDS = [
   { key: "name",             label: "Full Name",                          type: "text", required: true     },
   { key: "role",             label: "Role",                               type: "text", required: true     },
   { key: "email",            label: "Email",                              type: "email", required: true     },
-  { key: "image",            label: "Image path",                         type: "text", required: true    },
+  { key: "image",            label: "Image path",                         type: "text", required: true, folder: "people" },
   { key: "ntnuProfile",      label: "NTNU Profile URL",                   type: "text"     },
   { key: "publicationsUrl",  label: "Publications URL",                   type: "text"     },
   { key: "linkedin",         label: "LinkedIn",                           type: "text"     },

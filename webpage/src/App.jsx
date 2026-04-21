@@ -3,6 +3,7 @@ import People from "./pages/People.jsx";
 import Projects from "./pages/Projects.jsx";
 import News from "./pages/News.jsx";
 import Booking from "./pages/Booking.jsx";
+import Events from "./pages/Event.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
 import ScrollToTop from './components/ScrollToTop';
@@ -27,6 +28,7 @@ function Layout() {
         <Route path="/people" element={<People />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/news" element={<News />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/display" element={<Display />} />
