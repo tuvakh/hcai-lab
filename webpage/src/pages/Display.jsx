@@ -14,11 +14,17 @@ export default function Home() {
     const [activeItem, setActiveItem] = useState(null);
     const [events, setEvents] = useState([]);
 
-    useEffect(() => {
+    function fetchEvents() {
         fetch(`${API_URL}/api/events`)
             .then(r => r.json())
             .then(data => setEvents(data.filter(e => new Date(e.date) >= new Date()).sort((a, b) => new Date(a.date) - new Date(b.date))))
             .catch(() => {});
+    }
+
+    useEffect(() => {
+        fetchEvents();
+        const interval = setInterval(fetchEvents, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     const nextEvent = events.slice(0, 1);
