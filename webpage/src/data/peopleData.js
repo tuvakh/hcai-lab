@@ -32,7 +32,7 @@ export const people = [
   {
     id: 2,
     name: "Eleftherios Papachristou",
-    role: "Associate Professor",
+    role: "Lab Leader HCAI / Associate Professor",
     image: "/assets/people/lefty.png",
     shortDescription:
       "Research focus on Human-Centred AI and Interaction Design. Exploring how AI advances change the way we interact with technology.",
