@@ -10,7 +10,7 @@ const PROJECT_FIELDS = [
   { key: "status",           label: "Status (comma-separated)",          type: "checkboxes",    options: ["Ongoing", "Completed", "Student"], isArray: false, required: true},
   { key: "tags",             label: "Tags (comma-separated)",            type: "text",    isArray: true },
   { key: "team",             label: "Team (comma-separated)",            type: "text",    isArray: true },
-  { key: "image",            label: "Image path",                        type: "text",    required: true},
+  { key: "image",            label: "Image path",                        type: "text",    required: true, folder: "projects" },
   { key: "links",            label: "Link URL",                          type: "text"     },
   { key: "shortDescription", label: "Short Description",                 type: "textarea", required: true },
   { key: "fullDescription",  label: "Full Description",                  type: "textarea" },

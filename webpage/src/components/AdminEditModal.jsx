@@ -91,7 +91,7 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                                 if (!file) return;
                                 const formData = new FormData();
                                 formData.append("file", file);
-                                const res = await fetch(`${API_URL}/api/upload`, { method: "POST", body: formData });
+                                const res = await fetch(`${API_URL}/api/upload?folder=${f.folder || "misc"}`, { method: "POST", body: formData });
                                 const { path } = await res.json();
                                 handleChange(f.key, path);
                                 }}

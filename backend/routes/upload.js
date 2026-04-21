@@ -1,19 +1,30 @@
 const express = require("express");
 const multer = require("multer");
-const path = require("path");
+const cloudinary = require("cloudinary").v2;
 const router = express.Router();
 
-const UPLOAD_DIR = path.join(__dirname, "../../webpage/public/assets/uploads");
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", upload.single("file"), (req, res) => {
-  res.json({ path: `/assets/uploads/${req.file.filename}` });
+router.post("/", upload.single("file"), async (req, res) => {
+  try {
+    const folder = req.query.folder || "misc";
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { folder: `hcai/${folder}` },
+        (err, result) => (err ? reject(err) : resolve(result))
+      );
+      stream.end(req.file.buffer);
+    });
+    res.json({ path: result.secure_url });
+  } catch (err) {
+    res.status(500).json({ error: "Upload failed" });
+  }
 });
 
 module.exports = router;
