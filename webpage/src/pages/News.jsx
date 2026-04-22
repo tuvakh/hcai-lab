@@ -44,7 +44,7 @@ export default function News() {
   return (
     <main className="news-page">
 
-      <HeroSection heroImg="/assets/hero/hero-home.png">
+      <HeroSection heroImg="/assets/hero/ai-news.png">
         <p className="heroSection__intro--label">Latest Updates</p>
         <h1 className="heroSection__intro--title">AI News &amp; Highlights</h1>
         <p className="heroSection__intro--text">
@@ -159,3 +159,4 @@ export default function News() {
 
 //fix the favorite button ebcause it selectes everthing into favorite. the favorite side bar is broken 
 // favorite articles can be removed from the side bar and not just from the news cards 
+// fix the conflictfor github. -- seems to be because of the main.css file 

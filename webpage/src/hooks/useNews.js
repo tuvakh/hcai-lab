@@ -1,4 +1,7 @@
 // // src/hooks/useNews.js
+// is there a way to logic for api that can be middleware (so u dont have to refresh and use tokens in the api)
+//save it in the database
+//tag for the real api?
 // import { useState, useEffect } from "react";
 //COMMENT OUT WHEN SHOWING CODE
 
@@ -143,6 +146,9 @@
 // When ready for live: replace this file with the NewsAPI.ai version
 // ─────────────────────────────────────────────────────────────────────────────
 
+
+//make the tag purple and blue for the different tags, and make the tag more visible by putting it in a box with a background color that contrasts with the rest of the card. You can also experiment with different font sizes and weights to make the tag stand out more. Additionally, consider adding an icon or symbol next to the tag to draw attention to it.
+//tags for norwegian and international. 
 import { useState, useEffect } from "react";
 
 const MOCK_NEWS = {
@@ -150,7 +156,8 @@ const MOCK_NEWS = {
     {
       id: "norway-0",
       region: "fetched",
-      tag: "Policy",
+      regionTag: "Norway", //repeat & add styling to make it  visiblevin the webpage //tags like this 
+      tag: "Policy", 
       headline: "Norway tightens AI regulation ahead of EU Act deadline",
       summary: "The Norwegian government has proposed new oversight requirements for high-risk AI systems, aligning with incoming EU AI Act obligations through the EEA agreement.",
       body: "The Norwegian government has proposed new oversight requirements for high-risk AI systems, aligning with incoming EU AI Act obligations through the EEA agreement.\n\nThe proposal covers documentation standards, risk assessments, and mandatory human oversight for automated decision-making tools used in public services, hiring, and healthcare.\n\nPublished by Aftenposten on 1 March 2026.",
@@ -162,6 +169,7 @@ const MOCK_NEWS = {
     {
       id: "norway-1",
       region: "fetched",
+      regionTag: "Norway",
       tag: "Research",
       headline: "NTNU researchers publish landmark study on human-AI teaming",
       summary: "A new paper from the NTNU Shore Control Lab documents findings from field studies aboard Norwegian coastal vessels, examining real crew interactions with autonomous systems.",
@@ -174,6 +182,7 @@ const MOCK_NEWS = {
     {
       id: "norway-2",
       region: "fetched",
+      regionTag: "Norway",
       tag: "Startup",
       headline: "Cognite expands Trondheim AI hub with 50 new hires",
       summary: "Industrial data company Cognite is doubling its Trondheim office, recruiting data engineers, UX designers and ML researchers from Norwegian universities.",
@@ -186,6 +195,7 @@ const MOCK_NEWS = {
     {
       id: "norway-3",
       region: "fetched",
+      regionTag: "Norway",
       tag: "Education",
       headline: "NIKT 2026 opens submissions for dedicated HCAI research track",
       summary: "Norway's national ICT conference has opened submissions for a new Human-Centred AI track, welcoming full papers, demos, and student project showcases.",
@@ -377,7 +387,9 @@ export function useNews(region) {
   useEffect(() => {
     // Simulate a brief loading state so the UI behaves the same as live mode
     const timer = setTimeout(() => {
-      setItems(MOCK_NEWS[region] ?? []);
+      const regionLabel = region === "norway" ? "Norway" : "International";
+      const shaped = (MOCK_NEWS[region] ?? []).map((item) => ({ ...item, regionTag: regionLabel }));
+      setItems(shaped);
       setLoading(false);
     }, 400);
 

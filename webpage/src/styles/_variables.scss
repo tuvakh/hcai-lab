@@ -5,22 +5,25 @@
     --step-1: clamp(1.2rem, 1.0517rem + 0.6591vw, 1.5rem);
     --step-2: clamp(1.44rem, 1.2301rem + 0.933vw, 2.2rem);
     --step-3: clamp(1.728rem, 1.4362rem + 1.2971vw, 2.5rem);
+    --step-4: clamp(2.2rem, 1.8345rem + 1.6vw, 3rem);
 
     --primary-color: #1C236F;
-    --tertiary-color: #8FA1DD;
-
     --secondary-color: #ccd6f9;
+    --tertiary-color: #8FA1DD;
     --background-color: #4E5CA3;
     --norwegian-label: #1350CB;
     --international-label: #672292;
     --white-color: #ffffff;
     --black-color: #1A191D;
     --role-color: #C084F5;
+    --available-color: #088b64;
+    --booked-color: #970d50;
 
     --border-radius: 8px;
     --border-radius-img: 8px 8px 0 0;
     --border-radius-btn: 15px;
     --box-shadow: 7px 7px 10px var(--primary-color);
+    --box-shadow-light: 7px 7px 10px var(--tertiary-color);
     --navbar-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
     --navbar-bg-gradient: linear-gradient(
         90deg,

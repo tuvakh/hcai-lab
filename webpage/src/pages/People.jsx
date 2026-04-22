@@ -1,11 +1,22 @@
+import { useState, useEffect } from "react";
 import CardGrid from "../components/CardGrid";
 import HeroSection from "../components/HeroSection";
-import { people } from "../data/peopleData";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export default function People() {
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/people`)
+      .then((r) => r.json())
+      .then(setPeople)
+      .catch((err) => console.error("Failed to fetch people:", err));
+  }, []);
+
   return (
     <main className="people-page">
-      <HeroSection heroImg="/assets/hero/hero-home.png">
+      <HeroSection heroImg="/assets/hero/team-hero.png">
         <p className="heroSection__intro--label">The Team</p>
         <h1 className="heroSection__intro--title">People &amp; Contact</h1>
         <p className="heroSection__intro--text">

@@ -13,13 +13,24 @@
     grid-template-columns: 1fr;
   }
 
-  &--people,
-  &--projects {
+  &--people {
     grid-template-columns: repeat(4, 1fr);
 
     @media (max-width: 1100px) {
       grid-template-columns: repeat(3, 1fr);
     }
+
+    @media (max-width: 750px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--projects {
+    grid-template-columns: repeat(3, 1fr);
 
     @media (max-width: 750px) {
       grid-template-columns: repeat(2, 1fr);
@@ -109,7 +120,6 @@
   }
 
   &__role {
-    font-family: var(--text-font);
     font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -118,7 +128,6 @@
   }
 
   &__desc {
-    font-family: var(--text-font);
     font-size: 0.82rem;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.72);
@@ -140,7 +149,6 @@
   }
 
   &__tag {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -154,7 +162,6 @@
 
   // ─── CTA ───────────────────────────────────────────────────────────
   &__cta {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -239,7 +246,6 @@
     justify-content: center;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1;
-
     &:hover {
       background: rgba(255, 255, 255, 0.18);
       transform: rotate(90deg);
@@ -252,6 +258,16 @@
     align-items: flex-start;
     gap: var(--normal-space);
     padding: 1.5rem 1.5rem 0;
+
+    &--event {
+        display: flex;
+        flex-direction: column;
+        gap: var(--small-space);
+        position: absolute;
+        bottom: 7%;
+        width: clamp(30ch, 100%, 50ch);
+        z-index: 1;
+    }
   }
 
   &__image-wrap {
@@ -274,6 +290,10 @@
       opacity: 0.55;
       width: 100%;
       height: 100%;
+    }
+    &--event {
+        height: clamp(20vh, 100vh, 50vh);
+        object-position: bottom;
     }
   }
 
@@ -300,7 +320,6 @@
   }
 
   &__role {
-    font-family: var(--text-font);
     font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -316,7 +335,6 @@
   }
 
   &__tag {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -337,7 +355,6 @@
   }
 
   &__bio {
-    font-family: var(--text-font);
     font-size: 1rem;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.72);
@@ -351,7 +368,6 @@
   }
 
   &__section-title {
-    font-family: var(--text-font);
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -373,7 +389,6 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-family: var(--text-font);
     font-size: 1rem;
     font-weight: 600;
     color: var(--secondary-color);
@@ -402,7 +417,6 @@
   }
 
   &__team {
-    font-family: var(--text-font);
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.72);
     margin: 0.25rem 0 0;
@@ -452,7 +466,6 @@
   }
 
   &__project-name {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--white-color);
@@ -461,7 +474,6 @@
   }
 
   &__project-btn {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -512,7 +524,6 @@
   }
 
   &__pub-title {
-    font-family: var(--text-font);
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--secondary-color);
@@ -521,7 +532,6 @@
   }
 
   &__pub-meta {
-    font-family: var(--text-font);
     font-size: 0.72rem;
     color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.03em;
@@ -551,7 +561,6 @@
   }
 
   &__team-name {
-    font-family: var(--text-font);
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--white-color);
@@ -560,7 +569,6 @@
   }
 
   &__team-btn {
-    font-family: var(--text-font);
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;

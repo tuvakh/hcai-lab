@@ -3,32 +3,37 @@ import People from "./pages/People.jsx";
 import Projects from "./pages/Projects.jsx";
 import News from "./pages/News.jsx";
 import Booking from "./pages/Booking.jsx";
+import Events from "./pages/Event.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
 import ScrollToTop from './components/ScrollToTop';
 import Admin from "./pages/AdminDashbord.jsx";
-//http://localhost:5173/Admin 
+import Display from "./pages/Display.jsx";
+//http://localhost:5173/Admin
 
 // Removed duplicate App function and default export
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {
   const location = useLocation();
-  const isAdmin = location.pathname === "/Admin";
+  const isAdmin = location.pathname.toLowerCase().startsWith("/admin");
+  const isDisplay = location.pathname === "/display";
 
   return (
     <>
     <ScrollToTop /> 
-      {!isAdmin && <Navbar />}
+      {!isAdmin && !isDisplay && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/People" element={<People />} />
-        <Route path="/Projects" element={<Projects />} />
-        <Route path="/News" element={<News />} />
-        <Route path="/Booking" element={<Booking />} />
-        <Route path="/Admin" element={<Admin />} />
+        <Route path="/people" element={<People />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/display" element={<Display />} />
       </Routes>
-      {!isAdmin && <Footer />}
+      {!isAdmin && !isDisplay && <Footer />}
     </>
   );
 }

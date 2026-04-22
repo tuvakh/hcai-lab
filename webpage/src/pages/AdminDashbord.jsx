@@ -1,162 +1,110 @@
 // src/pages/Admin.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminStatCard from "../components/AdminStatCard";
-import { people } from "../data/peopleData";
-import { projects } from "../data/projectsData";
-import { events } from "../data/eventData";
+import AdminEventsTable from "../components/AdminEventsTable";
+import AdminProjectsTable from "../components/AdminProjectsTable";
+import AdminPeopleTable from "../components/AdminPeopleTable";
+import AdminEquipmentTable from "../components/AdminEquipmentTable";
 
-const TABS = ["Overview", "People", "Projects", "Events"];
 
-// Norway + International mock articles combined
-const TOTAL_NEWS_ARTICLES = 18;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export default function Admin() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Overview");
+
+  const [projects, setProjects] = useState([]);
+  const [people, setPeople] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [equipments, setEquipments] = useState([]);
+  
+  useEffect(() => {
+    fetch(`${API_URL}/api/projects`)
+      .then((r) => r.json())
+      .then(setProjects)
+      .catch(() => {});
+
+    fetch(`${API_URL}/api/people`)
+      .then((r) => r.json())
+      .then(setPeople)
+      .catch(() => {});
+    
+    fetch(`${API_URL}/api/events`)
+        .then((r) => r.json())
+        .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
+        .catch(() => {});
+
+    fetch(`${API_URL}/api/equipment`)
+      .then((r) => r.json())
+      .then(setEquipments)
+      .catch(() => {});
+  }, []);
 
   return (
     <main className="admin-page">
-      <header className="admin-page__header">
-        <p className="admin-page__header--label">Dashboard</p>
-        <h1 className="admin-page__header--title">Admin</h1>
-      </header>
-  
-      <section className="admin-page__content">
 
-        {/* Tab bar */}
-        <div className="admin-page__tab-bar" role="tablist" aria-label="Admin sections">
-          {TABS.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              role="tab"
-              aria-selected={activeTab === tab}
-              className={`admin-page__tab-btn${activeTab === tab ? " admin-page__tab-btn--active" : ""}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
+      {/* ── Sidebar ───────────────────────────────────────────────────────── */}
+      <aside className="admin-page__sidebar">
+        <button
+          className="admin-btn admin-btn--ghost"
+          onClick={() => navigate("/")}
+          type="button"
+        >
+          Log out
+        </button>
+      </aside>
+
+      {/* ── Body ──────────────────────────────────────────────────────────── */}
+      <div className="admin-page__body">
+
+        <header className="admin-page__header">
+          <p className="admin-page__header--label">Dashboard</p>
+          <h1 className="admin-page__header--title">Admin</h1>
+        </header>
+
+        <section className="admin-page__content">
+
+          {activeTab !== "Overview" && (
+            <button type="button" className="admin-btn admin-btn--ghost"
+              onClick={() => setActiveTab("Overview")}>
+              &larr; Back
             </button>
-          ))}
-        </div>
+          )}
 
-        {/* ── Overview ──────────────────────────────────────────────────── */}
-        {activeTab === "Overview" && (
-          <div className="admin-page__overview" role="tabpanel" aria-label="Overview">
-            <div className="admin-page__stats">
-              <AdminStatCard label="Members"  value={people.length}           icon="👥" />
-              <AdminStatCard label="Projects" value={projects.length}          icon="🔬" />
-              <AdminStatCard label="Events"   value={events.length}            icon="📅" />
-              <AdminStatCard label="News"     value={TOTAL_NEWS_ARTICLES}      icon="📰" />
+          {/* ── Overview ────────────────────────────────────────────────── */}
+          {activeTab === "Overview" && (
+            <div className="admin-page__overview" role="tabpanel">
+              <div className="admin-page__stats">
+                <AdminStatCard label="Employees"  value={people.length}    onClick={() => setActiveTab("People")} />
+                <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
+                <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
+                <AdminStatCard label="Equipment"  value={equipments.length}   onClick={() => setActiveTab("Equipment")} />
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ── People ────────────────────────────────────────────────────── */}
-        {activeTab === "People" && (
-          <div className="admin-page__table-section" role="tabpanel" aria-label="People">
-            <h2 className="admin-page__table-heading">
-              Members <span className="admin-page__count">({people.length})</span>
-            </h2>
-            <div className="admin-page__table-wrap">
-              <table className="admin-page__table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {people.map((person) => (
-                    <tr key={person.id}>
-                      <td>{person.name}</td>
-                      <td>
-                        <span className="admin-page__role-badge">{person.role}</span>
-                      </td>
-                      <td>
-                        <a
-                          href={`mailto:${person.email}`}
-                          className="admin-page__link"
-                        >
-                          {person.email}
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+          {/* ── People ──────────────────────────────────────────────────── */}
+          {activeTab === "People" && (
+              <AdminPeopleTable people={people} setPeople={setPeople} />
+          )}
 
-        {/* ── Projects ──────────────────────────────────────────────────── */}
-        {activeTab === "Projects" && (
-          <div className="admin-page__table-section" role="tabpanel" aria-label="Projects">
-            <h2 className="admin-page__table-heading">
-              Projects <span className="admin-page__count">({projects.length})</span>
-            </h2>
-            <div className="admin-page__table-wrap">
-              <table className="admin-page__table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Tags</th>
-                    <th>Team</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {projects.map((project) => (
-                    <tr key={project.id}>
-                      <td>{project.name}</td>
-                      <td>
-                        <span
-                          className={`admin-page__status-badge admin-page__status-badge--${project.status.toLowerCase()}`}
-                        >
-                          {project.status}
-                        </span>
-                      </td>
-                      <td>{project.tags.join(", ")}</td>
-                      <td className="admin-page__team-cell">{project.team.join(", ")}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+          {/* ── Projects ────────────────────────────────────────────────── */}
+          {activeTab === "Projects" && (
+              <AdminProjectsTable projects={projects} setProjects={setProjects} />
+          )}
 
-        {/* ── Events ────────────────────────────────────────────────────── */}
-        {activeTab === "Events" && (
-          <div className="admin-page__table-section" role="tabpanel" aria-label="Events">
-            <h2 className="admin-page__table-heading">
-              Events <span className="admin-page__count">({events.length})</span>
-            </h2>
-            <div className="admin-page__table-wrap">
-              <table className="admin-page__table">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Location</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {events.map((event) => (
-                    <tr key={event.id}>
-                      <td>{event.title}</td>
-                      <td>{event.date}</td>
-                      <td>{event.place}</td>
-                      <td className="admin-page__desc-cell">{event.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+          {/* ── Events ──────────────────────────────────────────────────── */}
+          {activeTab === "Events" && (
+                <AdminEventsTable events={events} setEvents={setEvents} />
+          )}
 
-      </section>
+          {/* ── Equipment ───────────────────────────────────────────────── */}
+          {activeTab === "Equipment" && (
+                <AdminEquipmentTable equipments={equipments} setEquipments={setEquipments} />
+          )}
+        </section>
+      </div>
     </main>
   );
 }

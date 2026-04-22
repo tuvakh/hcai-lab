@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { events } from '../data/eventData';
+import { useState, useEffect } from "react";
 import EventCard from '../components/EventCard';
 import HeroSection from '../components/HeroSection';
 import Buttons from "../components/Buttons";
@@ -8,6 +7,8 @@ import { useNews } from "../hooks/useNews";
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router";
 import NewsModal from "../components/NewsModal";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -19,6 +20,16 @@ export default function Home() {
     console.log('Book event med id:', eventId);
     // her kan du f.eks navigere til booking-side eller åpne en modal
   } */
+
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+    fetch(`${API_URL}/api/events`)
+        .then((r) => r.json())
+        .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
+        .catch(() => {});
+    }, []);
+
 
   return (
     <>
@@ -38,7 +49,7 @@ export default function Home() {
                     text="More news"
                     variant="blue"
                     className="info-btn"
-                    action={() => navigate("/News")} 
+                    action={() => navigate("/news")} 
                 />
             </div>
         </div>
@@ -55,7 +66,7 @@ export default function Home() {
         </div>
     </section>
 
-    <HeroSection heroImg="/assets/projects.png">
+    <HeroSection heroImg="/assets/hero/project-hero.jpg">
         <h2 className="heroSection__intro--title">Projects</h2>
         <p className="heroSection__intro--text">Exploring the intersection of human-centred design and artificial
           intelligence through applied research and industry collaboration.</p>
@@ -63,7 +74,7 @@ export default function Home() {
             text="Read more"
             variant="white"
             className="info-btn"
-            action={() => navigate("/Projects")} 
+            action={() => navigate("/projects")} 
         />
     </HeroSection>
     
@@ -80,35 +91,40 @@ export default function Home() {
             date={event.date}
             place={event.place}
             description={event.description}
-            eventImg={event.eventImg}/* 
-            bookSeat={() => handleBook(event.id)} */
-            />
+            eventImg={event.eventImg}
+            maxSeats={event.maxSeats}            />
         ))}
         </div>
     </section>
 
     <section className="info-section">
         <div className="info-section__contact">
-            <h2>Contact our team</h2>
-            <p>Do you need research help for an AI project?</p>
-            <p>We have a team full of AI interested professionals that are happy to help!</p>
-            <Buttons
-                text="More info"
-                variant="white"
-                className="info-btn"
-                action={() => navigate("/People")} 
-            />
+            <div className="info-section__box" onClick={() => navigate("/people")} style={{cursor: "pointer"}}>
+                <div className="info-section__info">
+                    <h2>Contact our team</h2>
+                    <p>We have a team full of AI interested professionals that are happy to help!</p>
+                    <Buttons
+                        text="More info"
+                        variant="white"
+                        className="info-btn"
+                        action={() => navigate("/people")} 
+                    />
+                </div>
+            </div>
         </div>
         <div className="info-section__booking">
-            <h2>Book equipment</h2>
-            <p>Do you want to borrow any equipment?</p>
-            <p>The lab has a lot of different technology related equipment that you can book!</p>
-            <Buttons
-                text="Book here"
-                variant="white"
-                className="info-btn"
-                action={() => navigate("/Booking")} 
-            />
+            <div className="info-section__box" onClick={() => navigate("/booking")} style={{cursor: "pointer"}}>
+                <div className="info-section__info">
+                    <h2>Book equipment</h2>
+                    <p>The lab has a lot of different technology related equipment that you can book!</p>
+                    <Buttons
+                        text="Book here"
+                        variant="white"
+                        className="info-btn"
+                        action={() => navigate("/booking")} 
+                    />
+                </div>
+            </div>
         </div>
     </section>
     <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />

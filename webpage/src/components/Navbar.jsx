@@ -4,10 +4,11 @@ import logo from "../assets/logo.png";
 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "People", path: "/People" },
-  { label: "Projects", path: "/Projects" },
-  { label: "News", path: "/News" },
-  { label: "Booking", path: "/Booking" },
+  { label: "Events", path: "/events" },
+  { label: "People", path: "/people" },
+  { label: "Projects", path: "/projects" },
+  { label: "News", path: "/news" },
+  { label: "Booking", path: "/booking" },
 ];
 //transperant nav bar version 
 
