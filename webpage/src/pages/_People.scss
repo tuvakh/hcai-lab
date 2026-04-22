@@ -33,8 +33,7 @@
   &__contact-text {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.72);
-    max-width: 400px;
+    max-width: clamp(30ch, 50%, 35ch);
     margin: 0 auto 1.75rem;
   }
 
