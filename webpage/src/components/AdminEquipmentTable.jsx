@@ -116,11 +116,11 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                                 <td className="admin-page__desc-cell">{equipment.description}</td>
                                 <td className="admin-page__actions-cell">
                                     <button
-                                        className="admin-btn admin-btn--sm admin-btn--ghost"
+                                        className="admin-btn admin-btn--sm admin-btn--edit"
                                         onClick={() => setModal({ item: equipment, index: i })}
                                     >Edit</button>
                                     <button
-                                        className="admin-btn admin-btn--sm admin-btn--danger"
+                                        className="admin-btn admin-btn--sm admin-btn--delete"
                                         onClick={() => deleteEvent(i)}
                                     >Delete</button>
                                 </td>

@@ -58,9 +58,7 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
       <div className="admin-modal__box">
         <div className="admin-modal__header">
           <h2 className="admin-modal__title">{title}</h2>
-          <button className="admin-modal__close" onClick={onClose} type="button" aria-label="Close">
-            &times;
-          </button>
+          <button className="admin-modal__close" onClick={onClose} type="button" aria-label="Close">&times;</button>
         </div>
         <form className="admin-modal__form" onSubmit={handleSubmit}>
           {fields.map((f) => (
@@ -81,7 +79,7 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                ) : (f.key === "eventImg" || f.key === "image") ? (
                     <>
                         <label style={{ cursor: "pointer" }}>
-                            <span className="admin-btn admin-btn--ghost">Choose image</span>
+                            <span className="admin-btn admin-btn--edit">Choose image</span>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -139,10 +137,10 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
             </div>
           ))}
           <div className="admin-modal__actions">
-            <button type="button" className="admin-btn admin-btn--ghost" onClick={onClose}>
+            <button type="button" className="admin-btn admin-btn--edit" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="admin-btn admin-btn--primary">
+            <button type="submit" className="admin-btn admin-btn--save">
               Save
             </button>
           </div>

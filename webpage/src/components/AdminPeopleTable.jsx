@@ -127,11 +127,11 @@ export default function AdminPeopleTable({ people, setPeople }) {
                 </td>
                 <td className="admin-page__actions-cell">
                   <button
-                    className="admin-btn admin-btn--sm admin-btn--ghost"
+                    className="admin-btn admin-btn--sm admin-btn--edit"
                     onClick={() => setModal({ item: person, index: i })}
                   >Edit</button>
                   <button
-                    className="admin-btn admin-btn--sm admin-btn--danger"
+                    className="admin-btn admin-btn--sm admin-btn--delete"
                     onClick={() => deletePerson(i)}
                   >Delete</button>
                 </td>

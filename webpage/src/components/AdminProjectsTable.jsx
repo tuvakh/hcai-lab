@@ -136,11 +136,11 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                 <td className="admin-page__team-cell">{project.team.join(", ")}</td>
                 <td className="admin-page__actions-cell">
                   <button
-                    className="admin-btn admin-btn--sm admin-btn--ghost"
+                    className="admin-btn admin-btn--sm admin-btn--edit"
                     onClick={() => setModal({ item: { ...project, links: project.links?.[0]?.url ?? "" }, index: i })}
                   >Edit</button>
                   <button
-                    className="admin-btn admin-btn--sm admin-btn--danger"
+                    className="admin-btn admin-btn--sm admin-btn--delete"
                     onClick={() => deleteProject(i)}
                   >Delete</button>
                 </td>
