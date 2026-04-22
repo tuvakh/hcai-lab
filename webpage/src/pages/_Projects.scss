@@ -44,7 +44,7 @@
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover:not(.projects-page__filter-btn--active) {
-      background: var(--label-color);
+      background: var(--tertiary-color);
       color: var(--white-color);
     }
 

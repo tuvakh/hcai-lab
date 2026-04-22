@@ -47,7 +47,7 @@ export default function Admin() {
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
         <button
-          className="admin-btn admin-btn--ghost"
+          className="admin-btn admin-btn--edit"
           onClick={() => navigate("/")}
           type="button"
         >
@@ -66,7 +66,7 @@ export default function Admin() {
         <section className="admin-page__content">
 
           {activeTab !== "Overview" && (
-            <button type="button" className="admin-btn admin-btn--ghost"
+            <button type="button" className="admin-btn admin-btn--back"
               onClick={() => setActiveTab("Overview")}>
               &larr; Back
             </button>
