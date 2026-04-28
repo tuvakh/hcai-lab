@@ -9,10 +9,11 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 export default function Home() {
     const { items } = useNews("international");
-    const topNews = items.slice(0, 1);
-    const [activeItem, setActiveItem] = useState(null);
+    const newsItems = items.slice(0, 5);
+    const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
     const [events, setEvents] = useState([]);
     const [equipments, setEquipments] = useState([]);
+    const [bookings, setBookings] = useState([]);
 
 
     function fetchEvents() {
@@ -33,10 +34,40 @@ export default function Home() {
             .then(r => r.json())
             .then(setEquipments)
             .catch(() => {});
-        }, []);
+    }, []);
+
+    function fetchBookings() {
+        fetch(`${API_URL}/api/bookings`)
+            .then(r => r.json())
+            .then(setBookings)
+            .catch(() => {});
+    }
+
+    useEffect(() => {
+        fetchBookings();
+        const interval = setInterval(fetchBookings, 30000);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (newsItems.length === 0) return;
+        const timer = setInterval(() => {
+            setCurrentNewsIndex(i => (i + 1) % newsItems.length);
+        }, 10000);
+        return () => clearInterval(timer);
+    }, [newsItems.length]);
 
 
     const nextEvent = events.slice(0, 1);
+
+    function isBookedToday(equipmentId) {
+        const today = new Date().toISOString().split("T")[0];
+        return bookings.some(b =>
+            b.equipmentId === equipmentId &&
+            today >= b.startDate.split("T")[0] &&
+            today <= b.endDate.split("T")[0]
+        );
+    }
 
   return (
     <>
@@ -88,25 +119,25 @@ export default function Home() {
                 {equipments.map(item => (
                     <div key={item.id} className="display-equipment__item">
                         <span>{item.name}</span>
-                        <span className="display-equipment__circle display-equipment__circle--available" />
+                        <span className={`display-equipment__circle display-equipment__circle--${isBookedToday(item.id) ? "booked" : "available"}`} />
                     </div>
                 ))}
             </div>
         </section>
 
-        <section className="display-section">
+        <section className="display-section display-section--news">
             <h2 className="display-h2">Relevant AI news</h2>
             
             <div>
-                {topNews.map(item => (
-                <NewsCard 
-                    variant="display"
-                    key={item.id}
-                    item={item}
-                    saved={false}  
-                    isFeatured={item.id === 1} // første artikkel som featured
-                />
-                ))}
+                {newsItems[currentNewsIndex] && (
+                    <NewsCard
+                        variant="display"
+                        key={newsItems[currentNewsIndex].id}
+                        item={newsItems[currentNewsIndex]}
+                        saved={false}
+                        isFeatured={currentNewsIndex === 0}
+                    />
+                )}
             </div>
         </section>
     </div>

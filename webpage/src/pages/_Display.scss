@@ -27,6 +27,9 @@
         align-items: center;
         padding-block: 0;
     }
+    &--news {
+        min-height: 375px;
+    }
     &__box {
         padding-block: var(--normal-space);
         color: var(--primary-color);

@@ -7,6 +7,7 @@ const projectsRouter = require("./routes/projects");
 const peopleRouter = require("./routes/people");
 const eventsRouter = require("./routes/events");
 const equipmentsRouter = require("./routes/equipment");
+const bookingsRouter = require("./routes/bookings");
 const uploadRouter = require("./routes/upload");
 
 const app = express();
@@ -22,6 +23,7 @@ app.use("/api/projects", projectsRouter);
 app.use("/api/people", peopleRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/equipment", equipmentsRouter);
+app.use("/api/bookings", bookingsRouter);
 app.use("/api/upload", uploadRouter);
 
 mongoose
