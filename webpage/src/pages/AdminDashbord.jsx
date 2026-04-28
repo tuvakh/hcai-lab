@@ -6,6 +6,7 @@ import AdminEventsTable from "../components/AdminEventsTable";
 import AdminProjectsTable from "../components/AdminProjectsTable";
 import AdminPeopleTable from "../components/AdminPeopleTable";
 import AdminEquipmentTable from "../components/AdminEquipmentTable";
+import AdminBookingsTable from "../components/AdminBookingsTable";
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -18,6 +19,7 @@ export default function Admin() {
   const [people, setPeople] = useState([]);
   const [events, setEvents] = useState([]);
   const [equipments, setEquipments] = useState([]);
+  const [bookings, setBookings] = useState([]);
   
   useEffect(() => {
     fetch(`${API_URL}/api/projects`)
@@ -38,6 +40,11 @@ export default function Admin() {
     fetch(`${API_URL}/api/equipment`)
       .then((r) => r.json())
       .then(setEquipments)
+      .catch(() => {});
+
+    fetch(`${API_URL}/api/bookings`)
+      .then((r) => r.json())
+      .then(setBookings)
       .catch(() => {});
   }, []);
 
@@ -80,6 +87,7 @@ export default function Admin() {
                 <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
                 <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
                 <AdminStatCard label="Equipment"  value={equipments.length}   onClick={() => setActiveTab("Equipment")} />
+                <AdminStatCard label="Bookings"   value={bookings.length}     onClick={() => setActiveTab("Bookings")} />
               </div>
             </div>
           )}
@@ -102,6 +110,11 @@ export default function Admin() {
           {/* ── Equipment ───────────────────────────────────────────────── */}
           {activeTab === "Equipment" && (
                 <AdminEquipmentTable equipments={equipments} setEquipments={setEquipments} />
+          )}
+
+          {/* ── Bookings ────────────────────────────────────────────────── */}
+          {activeTab === "Bookings" && (
+                <AdminBookingsTable bookings={bookings} setBookings={setBookings} />
           )}
         </section>
       </div>

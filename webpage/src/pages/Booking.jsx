@@ -4,39 +4,43 @@ import "react-calendar/dist/Calendar.css";
 import HeroSection from "../components/HeroSection";
 import BookingList from "../components/BookingList";
 import Modal from "../components/Modal";
+import CardGrid from "../components/CardGrid";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 function toKey(date) {
-  return date.toISOString().split("T")[0]; 
-}
-
-function getCurrentWeekDays() {
-  const today = new Date();
-  const day = today.getDay();
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - (day === 0 ? 6 : day - 1));
-
-  return Array.from({ length: 5 }, (_, i) => {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    return d;
-  });
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0"),
+  ].join("-");
 }
 
 export default function Booking() {
   const [equipment, setEquipment] = useState([]);
   const [myBookings, setMyBookings] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
-  const [selectedRange, setSelectedRange] = useState(null); 
+  const [selectedRange, setSelectedRange] = useState(null);
+  const [bookedByName, setBookedByName] = useState("");
+  const [bookedByEmail, setBookedByEmail] = useState("");
 
-
-    useEffect(() => {
+  useEffect(() => {
     fetch(`${API_URL}/api/equipment`)
-        .then(r => r.json())
-        .then(setEquipment)
-        .catch(() => {});
-    }, []);
+      .then(r => r.json())
+      .then(setEquipment)
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/bookings`)
+      .then(r => r.json())
+      .then(data => setMyBookings(data.map(b => ({
+        ...b,
+        startDate: new Date(b.startDate),
+        endDate: new Date(b.endDate),
+      }))))
+      .catch(() => {});
+  }, []);
 
   function isDateBooked(equipmentId, date) {
     const key = toKey(date);
@@ -47,10 +51,7 @@ export default function Booking() {
   }
 
   function getOverallStatus(item) {
-    const allBooked = getCurrentWeekDays().every((date) =>
-      isDateBooked(item.id, date)
-    );
-    return allBooked ? "Booked" : "Available";
+    return isDateBooked(item.id, new Date()) ? "Booked" : "Available";
   }
 
   function openEquipment(item) {
@@ -82,14 +83,29 @@ export default function Booking() {
       category: selectedEquipment.category,
       startDate,
       endDate,
+      bookedByName,
+      bookedByEmail,
     };
 
-    setMyBookings((prev) => [...prev, newBooking]);
+    fetch(`${API_URL}/api/bookings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBooking),
+    })
+      .then(r => r.json())
+      .then(saved => setMyBookings(prev => [...prev, {
+        ...saved,
+        startDate: new Date(saved.startDate),
+        endDate: new Date(saved.endDate),
+      }]))
+      .catch(() => setMyBookings(prev => [...prev, newBooking]));
+
     setSelectedEquipment(null);
     setSelectedRange(null);
   }
 
   function handleUnbook(id) {
+    fetch(`${API_URL}/api/bookings/${id}`, { method: "DELETE" }).catch(() => {});
     setMyBookings((prev) => prev.filter((booking) => booking.id !== id));
   }
 
@@ -105,123 +121,97 @@ export default function Booking() {
 
       <section className="booking-page__grid-section">
         <h2 className="booking-page__section-title">Browse Equipment</h2>
-
-        <div className="card-grid">
-          {equipment.map((item, i) => {
-            const status = getOverallStatus(item);
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                className="card"
-                onClick={() => openEquipment(item)}
-                style={{ animationDelay: `${i * 0.07}s` }}
-                aria-label={`Open ${item.name}`}
-              >
-                <div className="card__image-wrap">
-                  {item.image ? (
-                    <img src={item.image} alt={item.name} className="card__image" />
-                  ) : (
-                    <div className="card__image card__image--placeholder" />
-                  )}
-                </div>
-
-                <div className="card__body">
-                  <h3 className="card__name">{item.name}</h3>
-                  <span className="card__role">{item.category}</span>
-
-                  <div className="card__tags">
-                    <span
-                      className={`card__tag ${
-                        status === "Available"
-                          ? "card__tag--ongoing"
-                          : "card__tag--completed"
-                      }`}
-                    >
-                      {status}
-                    </span>
-                  </div>
-
-                  <p className="card__desc">{item.description}</p>
-                  <span className="card__cta">View booking details →</span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
+        <CardGrid
+          variant="equipment"
+          items={equipment.map(item => ({ ...item, status: getOverallStatus(item) }))}
+          onSelect={openEquipment}
+        />
       </section>
 
       {selectedEquipment && (
         <Modal onClose={() => setSelectedEquipment(null)} ariaLabel={selectedEquipment.name}>
-            <div className="modal__header">
-              <div className="modal__image-wrap">
-                {selectedEquipment.image ? (
-                  <img
-                    src={selectedEquipment.image}
-                    alt={selectedEquipment.name}
-                    className="modal__image"
-                  />
-                ) : (
-                  <div className="modal__image modal__image--placeholder" />
-                )}
-              </div>
-
-              <div className="modal__header-text">
-                <h2 className="modal__name">{selectedEquipment.name}</h2>
-                <span className="modal__role">{selectedEquipment.category}</span>
-
-                <div className="modal__tags">
-                  <span
-                    className={`modal__tag ${
-                      getOverallStatus(selectedEquipment) === "Available"
-                        ? "modal__tag--ongoing"
-                        : "modal__tag--completed"
-                    }`}
-                  >
-                    {getOverallStatus(selectedEquipment)}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="modal__body">
-              <p className="modal__bio">{selectedEquipment.description}</p>
-            </div>
-
-            <div className="modal__section">
-              <h3 className="modal__section-title">Booking Period</h3>
-
-                <Calendar
-                    selectRange={true}
-                    onChange={setSelectedRange}
-                    value={selectedRange}
-                    tileClassName={({ date }) =>
-                        isDateBooked(selectedEquipment.id, date) ? "tile--booked" : null
-                    }
-                    tileDisabled={({ date }) =>
-                        isDateBooked(selectedEquipment.id, date)
-                    }
+          <div className="modal__header">
+            <div className="modal__image-wrap">
+              {selectedEquipment.image ? (
+                <img
+                  src={selectedEquipment.image}
+                  alt={selectedEquipment.name}
+                  className="modal__image"
                 />
+              ) : (
+                <div className="modal__image modal__image--placeholder" />
+              )}
+            </div>
 
-                {selectedRange && (
-              <p className="booking-duration__summary">
-                {selectedRange[0].toDateString()} → {selectedRange[1].toDateString()}
-              </p>
-            )}
+            <div className="modal__header-text">
+              <h2 className="modal__name">{selectedEquipment.name}</h2>
+              <span className="modal__role">{selectedEquipment.category}</span>
+
+              <div className="modal__tags">
+                <span className={`modal__tag modal__tag--${selectedEquipment.status === "Available" ? "available" : "booked"}`}>
+                  {selectedEquipment.status}
+                </span>
+              </div>
+            </div>
           </div>
-            
 
-            <div className="modal__contact">
+          <div className="modal__body">
+            <p className="modal__bio">{selectedEquipment.description}</p>
+          </div>
+
+          <form className="modal__section" onSubmit={e => { e.preventDefault(); handleBook(); }}>
+            <h3 className="modal__section-title">Book Equipment</h3>
+            <div className="event-form">
+              <label htmlFor="bookedByName">Name:</label>
+              <input
+                id="bookedByName"
+                type="text"
+                placeholder="Your name"
+                value={bookedByName}
+                onChange={e => setBookedByName(e.target.value)}
+                required
+              />
+              <p className="form-hint">Your name may be visible to others. Avoid using your full name unless intended.</p>
+              <label htmlFor="bookedByEmail">Email:</label>
+              <input
+                id="bookedByEmail"
+                type="email"
+                placeholder="Your email"
+                value={bookedByEmail}
+                onChange={e => setBookedByEmail(e.target.value)}
+                required
+              />
+              <p className="form-hint">Your email is only visible to admins.</p>
+              <label>Select booking period:</label>
+              <Calendar
+                selectRange={true}
+                onChange={setSelectedRange}
+                value={selectedRange}
+                tileClassName={({ date }) =>
+                  isDateBooked(selectedEquipment.id, date) ? "tile--booked" : null
+                }
+                tileDisabled={({ date, view }) => {
+                  if (view !== "month") return false;
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+                  return date < today || isDateBooked(selectedEquipment.id, date);
+                }}
+              />
+              <p className="form-hint form-hint--calendar">Greyed out dates are already booked or in the past.</p>
+              {selectedRange && (
+                <p className="booking-duration__summary">
+                  {selectedRange[0].toDateString()} → {selectedRange[1].toDateString()}
+                </p>
+              )}
               <button
-                type="button"
+                type="submit"
                 className="button button--blue"
-                onClick={handleBook}
                 disabled={!selectedRange}
               >
                 Book equipment
               </button>
             </div>
+          </form>
         </Modal>
       )}
 

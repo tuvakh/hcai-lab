@@ -8,13 +8,13 @@ function BookingList({ bookings, onUnbook }) {
             <span className="card__role">{booking.category}</span>
 
             <div className="card__tags">
-              <span className="card__tag card__tag--student">Booked</span>
+              <span className="card__tag card__tag--booked">Booked</span>
             </div>
 
             <p className="card__desc">
-              <strong>Start day:</strong> {booking.startDay}
-              <br />
-              <strong>End day:</strong> {booking.endDay}
+              <strong>Booked by:</strong> {booking.bookedByName}<br />
+              <strong>Start:</strong> {new Date(booking.startDate).toDateString()}<br />
+              <strong>End:</strong> {new Date(booking.endDate).toDateString()}
             </p>
 
             <button
