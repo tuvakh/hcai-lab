@@ -473,6 +473,7 @@ h1, h2, h3 {
 .booking-page .react-calendar {
   margin-block-start: var(--mini-space);
   width: 70%;
+  border: 1px solid var(--tertiary-color);
   border-radius: var(--border-radius);
   font-family: inherit;
   background: var(--primary-color);
