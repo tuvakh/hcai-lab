@@ -1,11 +1,13 @@
-export default function Buttons({ text, action, variant = "blue", className = "" }) {
-    
-    const handleClick = () => {
-        if (action) action();
-        window.scrollTo(0, 0);
-    };
+export default function Button({ text, action, variant = "primary", size, type = "button", scrollTop = false, className = "" }) {
+  const cls = ["btn", `btn--${variant}`, size && `btn--${size}`, className].filter(Boolean).join(" ");
 
-    return (
-        <button className={`button button--${variant} ${className}`} onClick={handleClick}> {text} </button>
-    )
+  const handleClick = () => {
+    if (action) action();
+    if (scrollTop) window.scrollTo(0, 0);
+  };
+
+  return (
+    <button type={type} className={cls} onClick={handleClick}>{text}</button>
+  );
 }
+
