@@ -1,3 +1,5 @@
+import Tag from './Tags';
+
 function EquipmentCard({ name, category, description, image, status, onClick, isSelected }) {   return (
       <article
         className={`equipment-card ${isSelected ? "equipment-card--selected" : ""}`}
@@ -10,15 +12,7 @@ function EquipmentCard({ name, category, description, image, status, onClick, is
         <h3>{name}</h3>
         <p>{category}</p>
         <p className="equipment-card__description">{description}</p>
-        <span
-          className={`equipment-card__status ${
-            status === "Available"
-              ? "equipment-card__status--available"
-              : "equipment-card__status--booked"
-          }`}
-        >
-          {status}
-        </span>
+        <Tag status={status === "Available" ? "available" : "booked"}>{status}</Tag>
       </article>
     );
   }

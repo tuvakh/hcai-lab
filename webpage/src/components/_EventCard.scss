@@ -50,7 +50,7 @@
     }
     &:hover {
         transform: translateY(-5px);
-        box-shadow: 10px 20px 20px var(--primary-color);
+        box-shadow: var(--box-shadow);
 
         .eventCard__img {
             transform: scale(1.05);
@@ -89,13 +89,12 @@
         }
 
         &--day {
-            font-size: 4rem;
             font-weight: bold;
         }
     }
 
     &__description {
-        padding: var(--medium-space);
+        padding: var(--big-space);
         align-content: center;
         color: var(--primary-color);
         font-size: var(--step-2);
@@ -127,7 +126,6 @@
         padding: var(--normal-space);
     }
     button {
-        margin-block: var(--small-space);
         align-self: end;
     }
     ::placeholder {
@@ -138,10 +136,10 @@
 .event-details {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--medium-space);
+    gap: var(--big-space);
 
     &__date:hover {
-        color: var(--text-color);
+        color: var(--white-color);
         transform: translateX(3px);
         font-weight: 500;
     }

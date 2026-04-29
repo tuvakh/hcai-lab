@@ -5,6 +5,7 @@ import HeroSection from "../components/HeroSection";
 import BookingList from "../components/BookingList";
 import Modal from "../components/Modal";
 import CardGrid from "../components/CardGrid";
+import Tag from '../components/Tags';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -148,9 +149,9 @@ export default function Booking() {
               <span className="modal__role">{selectedEquipment.category}</span>
 
               <div className="modal__tags">
-                <span className={`modal__tag modal__tag--${selectedEquipment.status === "Available" ? "available" : "booked"}`}>
-                  {selectedEquipment.status}
-                </span>
+                <Tag status={selectedEquipment.status === "Available" ? "available" : "booked"}>
+                    {selectedEquipment.status}
+                </Tag>
               </div>
             </div>
           </div>
@@ -159,7 +160,7 @@ export default function Booking() {
             <p className="modal__bio">{selectedEquipment.description}</p>
           </div>
 
-          <form className="modal__section" onSubmit={e => { e.preventDefault(); handleBook(); }}>
+          <form className="modal__section" onSubmit={event => { event.preventDefault(); handleBook(); }}>
             <h3 className="modal__section-title">Book Equipment</h3>
             <div className="event-form">
               <label htmlFor="bookedByName">Name:</label>
@@ -168,7 +169,7 @@ export default function Booking() {
                 type="text"
                 placeholder="Your name"
                 value={bookedByName}
-                onChange={e => setBookedByName(e.target.value)}
+                onChange={event => setBookedByName(event.target.value)}
                 required
               />
               <p className="form-hint">Your name may be visible to others. Avoid using your full name unless intended.</p>
@@ -178,7 +179,7 @@ export default function Booking() {
                 type="email"
                 placeholder="Your email"
                 value={bookedByEmail}
-                onChange={e => setBookedByEmail(e.target.value)}
+                onChange={event => setBookedByEmail(event.target.value)}
                 required
               />
               <p className="form-hint">Your email is only visible to admins.</p>
@@ -205,7 +206,7 @@ export default function Booking() {
               )}
               <button
                 type="submit"
-                className="button button--blue"
+                className="btn btn--primary btn--large"
                 disabled={!selectedRange}
               >
                 Book equipment

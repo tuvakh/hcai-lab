@@ -1,0 +1,33 @@
+
+.booking-list {
+  margin-top: var(--big-space);
+  align-items: stretch;
+
+  &.card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  }
+
+  .card {
+    min-height: 100%;
+    width: 100%;
+    cursor: default;
+    transform: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: var(--box-shadow);
+    }
+
+    &__cta {
+      transform: none;
+    }
+
+    &__body {
+      min-width: 0;
+    }
+    &__desc {
+        font-size: 1rem;
+    }
+  }
+}

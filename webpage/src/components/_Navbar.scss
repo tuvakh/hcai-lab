@@ -11,14 +11,11 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: transparent;
-    backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--medium-space) var(--big-space);
+    padding: var(--bigger-space);
    
     background: rgba(28, 35, 111, 0.35);
     backdrop-filter: blur(18px);
@@ -38,31 +35,6 @@
         display: block;
     }
 
-    &__logo-text-group {
-        display: flex;
-        flex-direction: column;
-        gap: var(--small-space);
-    }
-
-    &__logo-badge {
-        background: var(--international-label);
-        color: var(--white-color);
-        font-family: var(--title-font);
-        font-size: var(--step--1);
-        letter-spacing: 0.08em;
-        padding: 0.3rem 0.75rem;
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow);
-    }
-
-    &__logo-text {
-        font-family: var(--title-font);
-        font-size: var(--step--1);
-        color: var(--white-color);
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-    }
-
     // ── nav links ────────────────────────────────────────────────────────────
     &__links {
         display: flex;
@@ -75,24 +47,21 @@
 
     &__link {
         display: block;
-        padding: 0.4rem 1rem;
+        padding: var(--small-space) var(--normal-space);
         border-radius: var(--border-radius-btn);
         text-decoration: none;
-        font-family: var(--text-font);
         font-size: var(--step--1);
         font-weight: 500;
-        color: var(--white-color);
         letter-spacing: 0.04em;
         transition: opacity 0.2s;
         position: relative;
-
+        color: var(--white-color);
+        
         &:hover {
             opacity: 0.75;
         }
 
         &--active {
-            color: var(--white-color);
-
             &::after {
                 content: '';
                 position: absolute;

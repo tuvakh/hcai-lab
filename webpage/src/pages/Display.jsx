@@ -19,7 +19,7 @@ export default function Home() {
     function fetchEvents() {
         fetch(`${API_URL}/api/events`)
             .then(r => r.json())
-            .then(data => setEvents(data.filter(e => new Date(e.date) >= new Date()).sort((a, b) => new Date(a.date) - new Date(b.date))))
+            .then(data => setEvents(data.filter(event => new Date(event.date) >= new Date()).sort((a, b) => new Date(a.date) - new Date(b.date))))
             .catch(() => {});
     }
 
@@ -90,7 +90,7 @@ export default function Home() {
         <section className="display-section">
             <h2 className="display-h2">Next event</h2>
 
-            <div className="display-section__grid">
+            <div>
             {nextEvent.map(event => (
                 <EventCard 
                 variant="display"

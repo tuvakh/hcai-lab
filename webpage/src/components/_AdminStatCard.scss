@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
-  padding: 1.75rem 2rem;
+  padding: var(--big-space);
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
@@ -13,14 +13,13 @@
   transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--border-color);
   }
 
   &--clickable {
     cursor: pointer;
 
     &:hover {
-      border-color: rgba(143, 161, 221, 0.35);
       transform: translateY(-2px);
     }
 
@@ -29,14 +28,8 @@
     }
   }
 
-  &__icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-  }
-
   &__value {
     font-size: var(--step-3);
-    color: var(--white-color);
     line-height: 1;
   }
 
@@ -45,25 +38,16 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.55);
-  }
-
-  &__description {
-    font-family: var(--text-font);
-    font-size: var(--step--2);
-    color: rgba(255, 255, 255, 0.4);
-    margin: 0.35rem 0 0;
-    line-height: 1.5;
+    color: var(--secondary-color);
   }
 
   &__action {
-    font-family: var(--text-font);
-    font-size: 0.65rem;
+    font-size: var(--step--2);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--tertiary-color);
-    margin-top: 0.6rem;
+    color: var(--secondary-color);
+    margin-top: var(--small-space);
     opacity: 0.7;
     transition: opacity 0.2s ease;
 

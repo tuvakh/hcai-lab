@@ -1,3 +1,5 @@
+import Tag from './Tags';
+
 export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = false, variant }) {
   const classes = [
     "news-card",
@@ -8,7 +10,7 @@ export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = fal
   if (variant === "display") {
     return (
       <article className="news-card-display" aria-label={`${item.tag} — ${item.headline}`}>
-        <span className="news-card__tag news-card__tag--display">{item.tag}</span>
+        <Tag variant="display">{item.tag}</Tag>
         <h3 className="news-card-display__title">{item.headline}</h3>
       </article>
     );
@@ -20,16 +22,14 @@ export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = fal
       tabIndex={0}
       aria-label={`${item.tag} — ${item.headline}`}
       onClick={() => onOpen(item)}
-      onKeyDown={(e) => e.key === "Enter" && onOpen(item)}
+      onKeyDown={(event) => event.key === "Enter" && onOpen(item)}
     >
       <div className="news-card__tags">
-        <span className={`news-card__tag news-card__tag--region news-card__tag--${item.regionTag?.toLowerCase()}`}>
-          {item.regionTag}
-        </span>
-        <span className="news-card__tag news-card__tag--topic">{item.tag}</span>
+        <Tag status={item.regionTag?.toLowerCase()}>{item.regionTag}</Tag>
+        <Tag variant="news">{item.tag}</Tag>
       </div>
 
-      <h3 className="news-card__title">{item.headline}</h3>
+      <h2 className="news-card__title">{item.headline}</h2>
 
       <p className="news-card__summary">{item.summary}</p>
 
@@ -55,7 +55,7 @@ export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = fal
             ? `Remove "${item.headline}" from favorites`
             : `Save "${item.headline}" to favorites`}
           aria-pressed={saved}
-          onClick={(e) => { e.stopPropagation(); onStar(item); }}
+          onClick={(event) => { event.stopPropagation(); onStar(item); }}
         >
           {saved ? "★" : "☆"}
         </button>

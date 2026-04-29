@@ -1,3 +1,5 @@
+import Tag from './Tags';
+
 function BookingList({ bookings, onUnbook }) {
   return (
     <div className="booking-list card-grid">
@@ -7,10 +9,6 @@ function BookingList({ bookings, onUnbook }) {
             <h3 className="card__name">{booking.name}</h3>
             <span className="card__role">{booking.category}</span>
 
-            <div className="card__tags">
-              <span className="card__tag card__tag--booked">Booked</span>
-            </div>
-
             <p className="card__desc">
               <strong>Booked by:</strong> {booking.bookedByName}<br />
               <strong>Start:</strong> {new Date(booking.startDate).toDateString()}<br />
@@ -19,7 +17,7 @@ function BookingList({ bookings, onUnbook }) {
 
             <button
               type="button"
-              className="button button--white"
+              className="btn btn--white btn--large"
               onClick={() => onUnbook(booking.id)}
             >
               Unbook

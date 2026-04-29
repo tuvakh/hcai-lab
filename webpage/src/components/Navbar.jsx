@@ -42,7 +42,6 @@ export default function Navbar() {
       <nav className={`navbar${isScrolled ? " navbar--scrolled" : ""}`}>
         <NavLink to="/" className="navbar__logo">
           <img src={logo} alt="HCAI Lab logo" className="navbar__logo-image" />
-          <div className="navbar__logo-text-group"></div>
         </NavLink>
 
         <button
