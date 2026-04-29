@@ -1,0 +1,87 @@
+.tag {
+    display: inline-block;
+    font-size: var(--step--2);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0.08em;
+    padding: var(--mini-space) var(--small-space);
+    border-radius: var(--border-radius-btn);
+    border: 1px solid var(--border-color);
+    background: var(--tag-color);
+    color: var(--tag-text-color);
+    white-space: nowrap;
+
+    // Innholds-varianter
+    &--interest {
+        background: var(--tertiary-color);
+        color: var(--primary-color);
+        text-transform: uppercase;
+    }
+
+    // Status-varianter
+    &--ongoing {
+        background: rgba(19, 80, 203, 0.25);
+        border-color: rgba(19, 80, 203, 0.5);
+        color: #a8c0ff;
+    }
+
+    &--completed {
+        background: rgba(15, 106, 59, 0.565);
+        border-color: rgba(34, 130, 80, 0.621);
+        color: #a8e5c5;
+    }
+
+    &--student {
+        background: rgba(151, 23, 85, 0.689);
+        border-color: rgba(215, 88, 147, 0.5);
+        color: #f7bbe0;
+    }
+
+    &--available {
+        background: rgba(8, 139, 100, 0.3);
+        border-color: #4bc8a3;
+        color: #4bc8a3;
+    }
+
+    &--booked {
+        background: rgba(151, 13, 80, 0.3);
+        border-color: #e25a9c;
+        color: #e25a9c;
+    }
+
+    // Region (fra news)
+    &--norway {
+        background: var(--norwegian-label);
+        color: var(--white-color);
+        border-color: transparent;
+        border-radius: var(--border-radius);
+    text-transform: uppercase;
+    }
+
+    &--international {
+        background: var(--international-label);
+        color: var(--white-color);
+        border-color: transparent;
+        border-radius: var(--border-radius);
+    text-transform: uppercase;
+    }
+
+    &--news {
+        color: var(--white-color);
+        background: var(--background-color);
+        border-color: transparent;
+        border-radius: var(--border-radius);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    &--display {
+        color: var(--white-color);
+        background: var(--background-color);
+        border-color: transparent;
+        border-radius: var(--border-radius);
+        padding: var(--small-space);
+        font-size: var(--step--4);
+        letter-spacing: 0.1em;
+    }
+}

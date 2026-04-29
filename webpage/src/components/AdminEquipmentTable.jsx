@@ -25,7 +25,7 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
 
     const drag = {
         start: (i) => { dragIndex.current = i; },
-        over: (e, i) => { e.preventDefault(); setDragOverIndex(i); },
+        over: (event, i) => { event.preventDefault(); setDragOverIndex(i); },
         drop: (i) => {
             if (dragIndex.current !== null && dragIndex.current !== i) {
                 setEquipments(reorder(equipments, dragIndex.current, i));
@@ -58,9 +58,9 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                     body: JSON.stringify(data),
                 });
                 const saved = await res.json();
-                setEquipments((prev) => prev.map((e, i) => (i === index ? saved : e)));
+                setEquipments((prev) => prev.map((event, i) => (i === index ? saved : event)));
             } catch {
-                setEquipments((prev) => prev.map((e, i) => (i === index ? { ...e, ...data } : e)));
+                setEquipments((prev) => prev.map((event, i) => (i === index ? { ...event, ...data } : event)));
             }
         }
         setModal(null);
@@ -82,7 +82,7 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                     Equipments <span className="admin-page__count">({equipments.length})</span>
                 </h2>
                 <button
-                    className="admin-btn admin-btn--primary"
+                    className="btn btn--primary"
                     onClick={() => setModal({ item: null, index: null })}
                 >
                     Add Equipment
@@ -105,7 +105,7 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                                 key={equipment.id}
                                 draggable
                                 onDragStart={() => drag.start(i)}
-                                onDragOver={(e) => drag.over(e, i)}
+                                onDragOver={(event) => drag.over(event, i)}
                                 onDrop={() => drag.drop(i)}
                                 onDragEnd={drag.end}
                                 className={dragOverIndex === i && dragIndex.current !== i ? "admin-page__row--drag-over" : ""}
@@ -116,11 +116,11 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                                 <td className="admin-page__desc-cell">{equipment.description}</td>
                                 <td className="admin-page__actions-cell">
                                     <button
-                                        className="admin-btn admin-btn--sm admin-btn--edit"
+                                        className="btn btn--secondary btn--small"
                                         onClick={() => setModal({ item: equipment, index: i })}
                                     >Edit</button>
                                     <button
-                                        className="admin-btn admin-btn--sm admin-btn--delete"
+                                        className="btn btn--delete btn--small"
                                         onClick={() => deleteEvent(i)}
                                     >Delete</button>
                                 </td>

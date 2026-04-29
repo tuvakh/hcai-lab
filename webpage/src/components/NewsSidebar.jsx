@@ -17,7 +17,7 @@ export default function NewsSidebar({ favItems, onOpen }) {
                 tabIndex={0}
                 aria-label={`Open article: ${item.headline}`}
                 onClick={() => onOpen(item)}
-                onKeyDown={(e) => e.key === "Enter" && onOpen(item)}
+                onKeyDown={(event) => event.key === "Enter" && onOpen(item)}
               >
                 <strong className="news-sidebar__item-tag">{item.tag}</strong>
                 {" — "}

@@ -22,7 +22,7 @@
       "main sidebar"
       "main sidebar"
       "more sidebar";
-    gap: var(--medium-space) var(--normal-space);
+    gap: var(--big-space) var(--normal-space);
     align-items: start;
   }
 
@@ -52,7 +52,7 @@
 // Tablet (≤1024px): sidebar collapses above content, 2-col card grid
 @media (max-width: 1024px) {
   .news-page {
-    padding-inline: var(--medium-space);
+    padding-inline: var(--big-space);
 
     &__layout {
       grid-template-columns: 1fr;

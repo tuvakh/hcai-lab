@@ -42,7 +42,7 @@ export default function Projects() {
             <button
               key={f}
               type="button"
-              className={`projects-page__filter-btn${activeFilter === f ? " projects-page__filter-btn--active" : ""}`}
+              className={`btn btn--filter${activeFilter === f ? " btn--filter--active" : ""}`}
               onClick={() => setActiveFilter(f)}
             >
               {f}
@@ -51,7 +51,7 @@ export default function Projects() {
         </div>
 
         {loading ? (
-          <p className="projects-page__loading">Loading projects...</p>
+          <p>Loading projects...</p>
         ) : (
           <CardGrid items={filtered} variant="projects" />
         )}

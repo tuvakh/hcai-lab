@@ -38,7 +38,7 @@ export default function AdminBookingsTable({ bookings, setBookings }) {
                                 <td>{new Date(booking.endDate).toDateString()}</td>
                                 <td className="admin-page__actions-cell">
                                     <button
-                                        className="admin-btn admin-btn--sm admin-btn--delete"
+                                        className="btn btn--delete btn--small"
                                         onClick={() => deleteBooking(booking.id)}
                                     >
                                         Delete

@@ -14,8 +14,8 @@ export default function EventCard({title, description, date, place, eventImg, bo
     const month = isValidDate ? d.toLocaleString("nb-NO", { month: "long" }) : date.split(" ")[1];
     const time  = isValidDate ? d.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
         console.log({ name, email, seats, title, date, place });
     };
 
@@ -39,8 +39,8 @@ export default function EventCard({title, description, date, place, eventImg, bo
                 </div>
                 <div className="eventCardDisplay__description">
                     <h3 className="eventCardDisplay__title">{title}</h3>
-                    <p className="eventCardDisplay__time">{time} {place}</p>
-                    <p className="eventCardDisplay__maxSeats">{maxSeats} seats available – Book on our website!</p>
+                    <p>{time} {place}</p>
+                    <p>{maxSeats} seats available – Book on our website!</p>
                 </div>
             </div>
         );
@@ -53,12 +53,12 @@ export default function EventCard({title, description, date, place, eventImg, bo
                     <img className="eventCard__img" src={eventImg}/>
                     <div className='eventCard__text'>
                         <h3 className='eventCard__text--title'>{title}</h3>
-                        <p className='eventCard__text--date'>{formatDate(date)}</p>
-                        <p className='eventCard__text--place'>{place}</p>
+                        <p>{formatDate(date)}</p>
+                        <p>{place}</p>
                     </div>
                 </div>
                 <p className='eventCard__description'>{description}</p>
-                <Button className='eventCard__button' text="Book seat" action={() => setIsOpen(true)} variant="blue" />
+                <Button className='eventCard__button' text="Book seat" action={() => setIsOpen(true)} variant="primary" />
             </div>
 
             {isOpen && (
@@ -87,12 +87,12 @@ export default function EventCard({title, description, date, place, eventImg, bo
                         <h3 className="modal__section-title">Book Seat</h3>
                         <form onSubmit={handleSubmit} className="event-form">
                             <label htmlFor="name">First name:</label>
-                            <input id="name" type="text" placeholder="What's your first name" value={name} onChange={(e) => setName(e.target.value)} required />
+                            <input id="name" type="text" placeholder="What's your first name" value={name} onChange={(event) => setName(event.target.value)} required />
                             <label htmlFor="email">Email:</label>
-                            <input id="email" type="email" placeholder="What's your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                            <input id="email" type="email" placeholder="What's your email" value={email} onChange={(event) => setEmail(event.target.value)} required />
                             <label htmlFor="seats">How many seats do you want?</label>
-                            <input id="seats" type="number" min="1" max={maxSeats} value={seats} onChange={(e) => setSeats(e.target.value)} />
-                            <button type="submit" className="button button--blue">Book seat</button>
+                            <input id="seats" type="number" min="1" max={maxSeats} value={seats} onChange={(event) => setSeats(event.target.value)} />
+                            <button type="submit" className="btn btn--primary btn--large">Book seat</button>
                         </form>
                     </div>
                 </Modal>

@@ -15,12 +15,6 @@ export default function Home() {
     const { items, loading, error } = useNews("international");
     const top3News = items.slice(0, 6);
     const [activeItem, setActiveItem] = useState(null);
-  /* // funksjon som håndterer booking
-  const handleBook = (eventId) => {
-    console.log('Book event med id:', eventId);
-    // her kan du f.eks navigere til booking-side eller åpne en modal
-  } */
-
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
@@ -47,7 +41,8 @@ export default function Home() {
             <div>
                 <Buttons
                     text="More news"
-                    variant="blue"
+                    variant="primary"
+                    size="large"
                     className="info-btn"
                     action={() => navigate("/news")} 
                 />
@@ -73,13 +68,14 @@ export default function Home() {
         <Buttons
             text="Read more"
             variant="white"
+            size="large"
             className="info-btn"
             action={() => navigate("/projects")} 
         />
     </HeroSection>
     
     <section className="card-section">
-        <div className="card-section__info">
+        <div>
             <h2>Events</h2>
             <p>We organize workshops, teaching sessions, and TED Talks related to AI!</p>
         </div>
@@ -106,13 +102,14 @@ export default function Home() {
                     <Buttons
                         text="More info"
                         variant="white"
+                        size="large"
                         className="info-btn"
                         action={() => navigate("/people")} 
                     />
                 </div>
             </div>
         </div>
-        <div className="info-section__booking">
+        <div>
             <div className="info-section__box" onClick={() => navigate("/booking")} style={{cursor: "pointer"}}>
                 <div className="info-section__info">
                     <h2>Book equipment</h2>
@@ -120,6 +117,7 @@ export default function Home() {
                     <Buttons
                         text="Book here"
                         variant="white"
+                        size="large"
                         className="info-btn"
                         action={() => navigate("/booking")} 
                     />

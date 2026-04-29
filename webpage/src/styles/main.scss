@@ -16,7 +16,10 @@
 @use '../components/Navbar';
 @use '../components/HeroSection';
 @use '../components/CardGrid';
+@use '../components/BookingList';
 @use '../components/Footer';
+@use '../components/Tags';
+@use '../components/Modal';
 
 //News Components
 @use '../components/NewsCards';

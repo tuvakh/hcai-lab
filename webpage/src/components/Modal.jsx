@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-export default function Modal({ onClose, ariaLabel, children }) {
+export default function Modal({ onClose, ariaLabel, children, size }) {
     useEffect(() => {
-        const handleKey = (e) => {
-            if (e.key === "Escape") onClose();
+        const handleKey = (event) => {
+            if (event.key === "Escape") onClose();
         };
         window.addEventListener("keydown", handleKey);
         return () => window.removeEventListener("keydown", handleKey);
@@ -15,11 +15,11 @@ export default function Modal({ onClose, ariaLabel, children }) {
     }, []);
 
     return (
-        <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-            <div className="modal" role="dialog" aria-modal="true" aria-label={ariaLabel}>
-                <button className="modal__close" onClick={onClose} aria-label="Close">✕</button>
-                {children}
-            </div>
+      <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+        <div className={`modal${size ? ` modal--${size}` : ''}`} role="dialog" aria-modal="true" aria-label={ariaLabel}>
+            <button className="modal__close" onClick={onClose} aria-label="Close">✕</button>
+            {children}
         </div>
+      </div>
     );
 }

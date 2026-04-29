@@ -9,6 +9,7 @@ const eventsRouter = require("./routes/events");
 const equipmentsRouter = require("./routes/equipment");
 const bookingsRouter = require("./routes/bookings");
 const uploadRouter = require("./routes/upload");
+const ntnuRouter = require("./routes/ntnu");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,6 +26,7 @@ app.use("/api/events", eventsRouter);
 app.use("/api/equipment", equipmentsRouter);
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/upload", uploadRouter);
+app.use("/api/ntnu", ntnuRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI)

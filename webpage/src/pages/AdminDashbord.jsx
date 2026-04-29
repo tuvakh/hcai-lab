@@ -54,7 +54,7 @@ export default function Admin() {
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
         <button
-          className="admin-btn admin-btn--edit"
+          className="btn btn--secondary"
           onClick={() => navigate("/")}
           type="button"
         >
@@ -73,7 +73,7 @@ export default function Admin() {
         <section className="admin-page__content">
 
           {activeTab !== "Overview" && (
-            <button type="button" className="admin-btn admin-btn--back"
+            <button type="button" className="btn btn--secondary" 
               onClick={() => setActiveTab("Overview")}>
               &larr; Back
             </button>
@@ -81,13 +81,13 @@ export default function Admin() {
 
           {/* ── Overview ────────────────────────────────────────────────── */}
           {activeTab === "Overview" && (
-            <div className="admin-page__overview" role="tabpanel">
+            <div role="tabpanel">
               <div className="admin-page__stats">
                 <AdminStatCard label="Employees"  value={people.length}    onClick={() => setActiveTab("People")} />
                 <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
                 <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
                 <AdminStatCard label="Equipment"  value={equipments.length}   onClick={() => setActiveTab("Equipment")} />
-                <AdminStatCard label="Bookings"   value={bookings.length}     onClick={() => setActiveTab("Bookings")} />
+                <AdminStatCard label="Booked equipment"   value={bookings.length}     onClick={() => setActiveTab("Booked equipment")} />
               </div>
             </div>
           )}
@@ -113,7 +113,7 @@ export default function Admin() {
           )}
 
           {/* ── Bookings ────────────────────────────────────────────────── */}
-          {activeTab === "Bookings" && (
+          {activeTab === "Booked equipment" && (
                 <AdminBookingsTable bookings={bookings} setBookings={setBookings} />
           )}
         </section>

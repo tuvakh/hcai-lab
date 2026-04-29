@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import Tag from './Tags';
 
 export default function CardGrid({ items = [], variant = "people", onSelect }) {
   const [selected, setSelected] = useState(null);
@@ -23,7 +24,7 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
               )}
             </div>
             <div className="card__body">
-              <h3 className="card__name">{item.name}</h3>
+              <h2 className="card__name">{item.name}</h2>
               {variant === "people" && item.role && (
                 <span className="card__role">{item.role}</span>
               )}
@@ -32,19 +33,17 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
               )}
               {variant === "projects" && (
                 <div className="card__tags">
-                  {item.status && (Array.isArray(item.status) ? item.status : [item.status]).map((s) => (
-                    <span key={s} className={`card__tag card__tag--${s.toLowerCase()}`}>{s}</span>
+                  {item.status && (Array.isArray(item.status) ? item.status : [item.status]).map((status) => (
+                    <Tag key={status} status={status}>{status}</Tag>
                   ))}
                   {item.tags?.map((tag) => (
-                    <span key={tag} className="card__tag">{tag}</span>
+                    <Tag key={tag}>{tag}</Tag>
                   ))}
                 </div>
               )}
               {variant === "equipment" && (
                 <div className="card__tags">
-                  <span className={`card__tag card__tag--${item.status === "Available" ? "available" : "booked"}`}>
-                    {item.status}
-                  </span>
+                  <Tag status={item.status === "Available" ? "available" : "booked"}>{item.status}</Tag>
                 </div>
               )}
               <p className="card__desc">{item.shortDescription || item.description}</p>
@@ -87,9 +86,7 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
                   <h3 className="modal__section-title">Research interests</h3>
                   <div className="modal__tags">
                     {selected.researchInterests.map((interest) => (
-                      <span key={interest} className="modal__tag modal__tag--interest">
-                        {interest}
-                      </span>
+                      <Tag key={interest} variant="interest">{interest}</Tag>
                     ))}
                   </div>
                 </div>
@@ -102,7 +99,7 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
                     {selected.projects.filter((p) => p.url).map((project) => (
                       <div key={project.name} className="modal__project-card">
                         <span className="modal__project-name">{project.name}</span>
-                        <a href={project.url} target="_blank" rel="noreferrer" className="modal__project-btn">
+                        <a href={project.url} target="_blank" rel="noreferrer" className="btn btn--secondary btn--small">
                           View project
                         </a>
                       </div>
@@ -191,11 +188,11 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
               <div className="modal__header">
                 <div className="modal__header-text modal__header-text--full">
                   <div className="modal__tags">
-                    {selected.status && (Array.isArray(selected.status) ? selected.status : [selected.status]).map((s) => (
-                      <span key={s} className={`modal__tag modal__tag--${s.toLowerCase()}`}>{s}</span>
+                    {selected.status && (Array.isArray(selected.status) ? selected.status : [selected.status]).map((status) => (
+                        <Tag key={status} status={status}>{status}</Tag>
                     ))}
                     {selected.tags?.map((tag) => (
-                      <span key={tag} className="modal__tag">{tag}</span>
+                        <Tag key={tag}>{tag}</Tag>
                     ))}
                   </div>
                   <h2 className="modal__name">{selected.name}</h2>

@@ -57,7 +57,7 @@ export default function News() {
         <div className="news-page__filter-bar" role="group" aria-label="Filter news by region">
           <button
             type="button"
-            className={`news-page__filter-btn news-page__filter-btn--norway${region === "norway" ? " news-page__filter-btn--active" : ""}`}
+            className={`btn btn--filter btn--filter--norway${region === "norway" ? " btn--filter--active" : ""}`}
             aria-pressed={region === "norway"}
             aria-label="Show Norway news"
             onClick={() => setRegion("norway")}
@@ -66,7 +66,7 @@ export default function News() {
           </button>
           <button
             type="button"
-            className={`news-page__filter-btn news-page__filter-btn--international${region === "international" ? " news-page__filter-btn--active" : ""}`}
+            className={`btn btn--filter btn--filter--international${region === "international" ? " btn--filter--active" : ""}`}
             aria-pressed={region === "international"}
             aria-label="Show International news"
             onClick={() => setRegion("international")}
@@ -128,7 +128,7 @@ export default function News() {
               {canShowLess && (
                 <button
                   type="button"
-                  className="news-page__more-btn"
+                  className="btn btn--ghost"
                   aria-label="Show fewer articles"
                   onClick={() => setCount(initCount)}
                 >
@@ -138,7 +138,7 @@ export default function News() {
               {canShowMore && (
                 <button
                   type="button"
-                  className="news-page__more-btn"
+                  className="btn btn--ghost"
                   aria-label="Load 3 more articles"
                   onClick={() => setCount((c) => Math.min(c + 3, total))}
                 >

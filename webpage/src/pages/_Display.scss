@@ -3,10 +3,6 @@
     max-height: 100vh;
 }
 
-.display-h1 {
-    font-size: var(--step-3);
-}
-
 .display-h2 {
     font-size: var(--step-4);
     padding: 0;
@@ -16,7 +12,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--normal-space);
-    padding: var(--big-space);
+    padding: var(--bigger-space);
 
     &:nth-of-type(odd) {
         background-color: var(--primary-color);
@@ -84,7 +80,7 @@
         justify-content: space-between;
         align-items: center;
         background-color: var(--primary-color);
-        padding: var(--medium-space);
+        padding: var(--big-space);
         border-radius: var(--border-radius);
     }
 

@@ -1,3 +1,5 @@
+import Tag from './Tags';
+
 // src/components/AdminProjectsTable.jsx
 import { useRef, useState } from "react";
 import AdminEditModal from "./AdminEditModal";
@@ -31,7 +33,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
 
   const drag = {
     start: (i) => { dragIndex.current = i; },
-    over:  (e, i) => { e.preventDefault(); setDragOverIndex(i); },
+    over:  (event, i) => { event.preventDefault(); setDragOverIndex(i); },
     drop:  (i) => {
       if (dragIndex.current !== null && dragIndex.current !== i) {
         setProjects(reorder(projects, dragIndex.current, i));
@@ -68,9 +70,9 @@ export default function AdminProjectsTable({ projects, setProjects }) {
         body: JSON.stringify(data),
       });
       const saved = await res.json();
-      setProjects((prev) => prev.map((e, i) => (i === index ? saved : e)));
+      setProjects((prev) => prev.map((event, i) => (i === index ? saved : event)));
     } catch {
-      setProjects((prev) => prev.map((e, i) => (i === index ? { ...e, ...data } : e)));
+      setProjects((prev) => prev.map((event, i) => (i === index ? { ...event, ...data } : event)));
     }
   }
   setModal(null);
@@ -91,7 +93,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
           Projects <span className="admin-page__count">({projects.length})</span>
         </h2>
         <button
-          className="admin-btn admin-btn--primary"
+          className="btn btn--primary"
           onClick={() => setModal({ item: null, index: null })}
         >
           Add Project
@@ -115,7 +117,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                 key={project.id}
                 draggable
                 onDragStart={() => drag.start(i)}
-                onDragOver={(e) => drag.over(e, i)}
+                onDragOver={(event) => drag.over(event, i)}
                 onDrop={() => drag.drop(i)}
                 onDragEnd={drag.end}
                 className={dragOverIndex === i && dragIndex.current !== i ? "admin-page__row--drag-over" : ""}
@@ -124,11 +126,8 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                 <td>{project.name}</td>
                 <td>
                   <div className="admin-page__status-badges">
-                    {[].concat(project.status).map((s) => (
-                      <span
-                        key={s}
-                        className={`admin-page__status-badge admin-page__status-badge--${s.toLowerCase()}`}
-                      >{s}</span>
+                    {[].concat(project.status).map((status) => (
+                        <Tag key={status} status={status.toLowerCase()}>{status}</Tag>
                     ))}
                   </div>
                 </td>
@@ -136,11 +135,11 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                 <td className="admin-page__team-cell">{project.team.join(", ")}</td>
                 <td className="admin-page__actions-cell">
                   <button
-                    className="admin-btn admin-btn--sm admin-btn--edit"
+                    className="btn btn--secondary btn--small"
                     onClick={() => setModal({ item: { ...project, links: project.links?.[0]?.url ?? "" }, index: i })}
                   >Edit</button>
                   <button
-                    className="admin-btn admin-btn--sm admin-btn--delete"
+                    className="btn btn--delete btn--small"
                     onClick={() => deleteProject(i)}
                   >Delete</button>
                 </td>
