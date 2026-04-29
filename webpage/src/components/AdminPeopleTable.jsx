@@ -6,19 +6,19 @@ import AdminSearch from "./AdminSearch";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const PEOPLE_FIELDS = [
-    { key: "name", label: "Full Name", type: "text", required: true },
-    { key: "role", label: "Role", type: "text", required: true },
-    { key: "email", label: "Email", type: "email", required: true },
+    { key: "name", label: "Full Name", type: "text", required: true, placeholder: "e.g. Ola Nordmann" },
+    { key: "role", label: "Role", type: "text", required: true, placeholder: "e.g. Associate Professor" },
+    { key: "email", label: "Email", type: "email", required: true, placeholder: "e.g. ola@ntnu.no" },
     { key: "image", label: "Image path", type: "text", required: true, folder: "people" },
-    { key: "ntnuProfile", label: "NTNU Profile URL", type: "text" },
-    { key: "publicationsUrl", label: "Publications URL", type: "text" },
-    { key: "linkedin", label: "LinkedIn", type: "text" },
-    { key: "scholar", label: "Google Scholar", type: "text" },
-    { key: "researchgate", label: "ResearchGate", type: "text" },
-    { key: "twitter", label: "Twitter / X", type: "text" },
-    { key: "researchInterests", label: "Research Interests (comma-separated)", type: "text", isArray: true },
-    { key: "shortDescription", label: "Short Description", type: "textarea", required: true },
-    { key: "fullBio", label: "Full Bio", type: "textarea" }
+    { key: "ntnuProfile", label: "NTNU Profile URL", type: "text", placeholder: "https://www.ntnu.edu/employees/username" },
+    { key: "publicationsUrl", label: "Publications URL", type: "text", placeholder: "https://..." },
+    { key: "linkedin", label: "LinkedIn", type: "text", placeholder: "https://linkedin.com/in/username" },
+    { key: "scholar", label: "Google Scholar", type: "text", placeholder: "https://scholar.google.com/citations?user=..." },
+    { key: "researchgate", label: "ResearchGate", type: "text", placeholder: "https://researchgate.net/profile/..." },
+    { key: "twitter", label: "Twitter / X", type: "text", placeholder: "@username" },
+    { key: "researchInterests", label: "Research Interests (comma-separated)", type: "text", isArray: true, placeholder: "e.g. AI, HCI, Ethics" },
+    { key: "shortDescription", label: "Short Description", type: "textarea", placeholder: "Brief intro visible on the people page" },
+    { key: "fullBio", label: "Full Bio", type: "textarea", placeholder: "Extended biography shown in the profile modal" }
 ];
 
 export default function AdminPeopleTable({ people, setPeople }) {
@@ -90,20 +90,22 @@ export default function AdminPeopleTable({ people, setPeople }) {
                 <h2 className="admin-page__table-heading">
                     Employees <span className="admin-page__count">({people.length})</span>
                 </h2>
-                <button
-                    className="btn btn--primary"
-                    onClick={() => setModal({ item: null, index: null })}
-                >
-                    Add Employee
-                </button>
-
-                <button
-                    className="admin-btn admin-btn--primary"
-                    onClick={() => setCristinModal(true)}
-                >
-                    Import Employee
-                </button>
+                <div style={{ display: "flex", gap: "var(--small-space)" }}>
+                    <button
+                        className="btn btn--primary"
+                        onClick={() => setModal({ item: null, index: null })}
+                    >
+                        Add Employee
+                    </button>
+                    <button
+                        className="btn btn--primary"
+                        onClick={() => setCristinModal(true)}
+                    >
+                        Import Employee
+                    </button>
+                </div>
             </div>
+
             <div className="admin-page__table-wrap">
                 <table className="admin-page__table">
                     <thead>
@@ -162,6 +164,7 @@ export default function AdminPeopleTable({ people, setPeople }) {
 
             {cristinModal && (
                 <AdminSearch
+                    type="employee"
                     existingEmails={people.map(p => p.email?.toLowerCase())}
 
                     onClose={() => setCristinModal(false)}

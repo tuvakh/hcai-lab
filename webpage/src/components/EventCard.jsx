@@ -91,7 +91,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
                             <label htmlFor="email">Email:</label>
                             <input id="email" type="email" placeholder="What's your email" value={email} onChange={(event) => setEmail(event.target.value)} required />
                             <label htmlFor="seats">How many seats do you want?</label>
-                            <input id="seats" type="number" min="1" max={maxSeats} value={seats} onChange={(event) => setSeats(event.target.value)} />
+                            <input id="seats" type="number" min="1" max={maxSeats} placeholder="Number of seats" value={seats} onChange={(event) => setSeats(event.target.value)} />
                             <button type="submit" className="btn btn--primary btn--large">Book seat</button>
                         </form>
                     </div>

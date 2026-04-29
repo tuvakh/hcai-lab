@@ -65,13 +65,13 @@ router.get("/search", async (req, res) => {
     const response = await fetch(url);
     const data = await response.json();
 
-    const results = (data.docs || []).map(d => ({
-      username: d.username,
-      name: d.displayName,
-      role: d.roleTitle || "",
-      email: d.email || "",
-      image: d.pictureUrl || "",
-      department: d.personOrgName || "",
+    const results = (data.docs || []).map(employee => ({
+        username: employee.username,
+        name: employee.displayName,
+        role: employee.roleTitle || "",
+        email: employee.email || "",
+        image: employee.pictureUrl || "",
+        department: employee.personOrgName || "",
     }));
 
     res.json(results);
@@ -81,5 +81,31 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.get("/cristin/projects", async (req, res) => {
+  const { query } = req.query;
+  if (!query) return res.status(400).json({ error: "query required" });
+  try {
+    const url = `https://api.cristin.no/v2/results?title=${encodeURIComponent(query)}&institution=194&per_page=10&fields=all`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const results = (Array.isArray(data) ? data : []).map(result => {
+      const archiveLink = (result.links || []).find(link => link.url_type === "ARKIV");
+      const doiLink = (result.links || []).find(link => link.url_type === "DOI");
+      return {
+        id: result.cristin_result_id,
+        name: result.title?.en || result.title?.nb || "",
+        year: result.year_published || "",
+        status: ["Completed"],
+        team: (result.contributors?.preview || []).map(contributor => `${contributor.first_name} ${contributor.surname}`),
+        shortDescription: (result.summary?.en || result.summary?.nb || "").slice(0, 160),
+        fullDescription: result.summary?.en || result.summary?.nb || "",
+        links: archiveLink?.url || doiLink?.url || "",
+      };
+    });
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to search NVA" });
+  }
+});
 
 module.exports = router;
