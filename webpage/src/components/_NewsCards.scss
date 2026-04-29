@@ -77,21 +77,6 @@
     color: var(--tertiary-color);
   }
 
-}
-
-.news-card-display {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-  padding: var(--big-space);
-  border-radius: var(--border-radius);
-
-  &__title {
-    padding-block-start: var(--normal-space);
-    font-size: var(--step-3);
-  }
-}
-
-.news-card {
   &__star {
     background: none;
     border: none;
@@ -109,5 +94,18 @@
     &--on {
       color: var(--background-color);
     }
+  }
+
+}
+
+.news-card-display {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  padding: var(--big-space);
+  border-radius: var(--border-radius);
+
+  &__title {
+    padding-block-start: var(--normal-space);
+    font-size: var(--step-3);
   }
 }

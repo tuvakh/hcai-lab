@@ -5,13 +5,12 @@ import AdminEditModal from "./AdminEditModal";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const EVENT_FIELDS = [
-    { key: "title", label: "Title", type: "text", maxLength: 40, required: true },
+    { key: "title", label: "Title", type: "text", maxLength: 40, required: true, placeholder: "e.g. AI Workshop" },
     { key: "date", label: "Date", type: "datetime-local", required: true },
-    { key: "place", label: "Location", type: "text", required: true },
-    { key: "maxSeats", label: "Max Seats", type: "number", required: true },
-    { key: "description", label: "Description", type: "textarea", maxLength: 160, required: true},
+    { key: "place", label: "Location", type: "text", required: true, placeholder: "e.g. Statsbygg, Trondheim" },
+    { key: "maxSeats", label: "Max Seats", type: "number", required: true, placeholder: "e.g. 30" },
+    { key: "description", label: "Description", type: "textarea", maxLength: 160, required: true, placeholder: "Brief event description" },
     { key: "eventImg", label: "Image path", type: "text", required: true, folder: "events" },
-
 ];
 
 export default function AdminEventsTable({ events, setEvents }) {

@@ -4,10 +4,10 @@ import AdminEditModal from "./AdminEditModal";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-const EVENT_FIELDS = [
-    { key: "name", label: "Name", type: "text", maxLength: 40, required: true },
-    { key: "category", label: "Category", type: "text", required: true },
-    { key: "description", label: "Description", type: "textarea", maxLength: 160, required: true },
+const EQUIPMENT_FIELDS = [
+    { key: "name", label: "Name", type: "text", maxLength: 40, required: true, placeholder: "e.g. Oculus Quest 2" },
+    { key: "category", label: "Category", type: "text", required: true, placeholder: "e.g. VR Headset" },
+    { key: "description", label: "Description", type: "textarea", maxLength: 160, required: true, placeholder: "Brief equipment description" },
     { key: "image", label: "Image path", type: "text", required: true, folder: "equipments" },
 ];
 
@@ -133,7 +133,7 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
             {modal && (
                 <AdminEditModal
                     title={modal.item ? "Edit Equipment" : "Add Equipment"}
-                    fields={EVENT_FIELDS}
+                    fields={EQUIPMENT_FIELD}
                     data={modal.item}
                     onSave={(data) => saveEvent(data, modal.index)}
                     onClose={() => setModal(null)}

@@ -74,6 +74,7 @@ export default function Admin() {
 
           {activeTab !== "Overview" && (
             <button type="button" className="btn btn--secondary" 
+              style={{ marginBlockEnd: "var(--normal-space)" }}
               onClick={() => setActiveTab("Overview")}>
               &larr; Back
             </button>

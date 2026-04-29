@@ -50,36 +50,29 @@
     }
 
     // Region (fra news)
-    &--norway {
-        background: var(--norwegian-label);
+    &--norway, &--international, &--display, &--news {
         color: var(--white-color);
         border-color: transparent;
         border-radius: var(--border-radius);
-    text-transform: uppercase;
+        text-transform: uppercase;
+    }
+    
+    &--norway {
+        background: var(--norwegian-label);
     }
 
     &--international {
         background: var(--international-label);
-        color: var(--white-color);
-        border-color: transparent;
-        border-radius: var(--border-radius);
-    text-transform: uppercase;
     }
 
     &--news {
-        color: var(--white-color);
         background: var(--background-color);
-        border-color: transparent;
-        border-radius: var(--border-radius);
         letter-spacing: 0.1em;
-        text-transform: uppercase;
     }
 
     &--display {
-        color: var(--white-color);
+        text-transform: none;
         background: var(--background-color);
-        border-color: transparent;
-        border-radius: var(--border-radius);
         padding: var(--small-space);
         font-size: var(--step--4);
         letter-spacing: 0.1em;
