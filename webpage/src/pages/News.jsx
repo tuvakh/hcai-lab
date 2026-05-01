@@ -1,4 +1,3 @@
-// src/pages/News.jsx
 import { useState } from "react";
 import HeroSection from "../components/HeroSection";
 import NewsRail from "../components/NewsRail";

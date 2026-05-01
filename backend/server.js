@@ -8,6 +8,8 @@ const peopleRouter = require("./routes/people");
 const eventsRouter = require("./routes/events");
 const equipmentsRouter = require("./routes/equipment");
 const uploadRouter = require("./routes/upload");
+const newsRouter = require("./routes/news");
+const { startNewsFetcher } = require("./services/newsFetcher");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,11 +25,13 @@ app.use("/api/people", peopleRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/equipment", equipmentsRouter);
 app.use("/api/upload", uploadRouter);
+app.use("/api/news", newsRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
+    startNewsFetcher();
     app.listen(PORT, () => {
       console.log(`Backend running on http://localhost:${PORT}`);
     });
