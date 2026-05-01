@@ -63,3 +63,5 @@ export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = fal
     </article>
   );
 }
+
+//Fix the favorite thing again. not working -- shoud be able to remove in the side bar aswell

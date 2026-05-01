@@ -2379,6 +2379,29 @@ h1, h2, h3 {
   font-size: var(--step--2);
   color: var(--tertiary-color);
 }
+.news-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.news-sidebar__item-title {
+  flex: 1;
+}
+.news-sidebar__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  padding: 0 2px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.1s, color 0.15s;
+}
+.news-sidebar__remove:hover {
+  transform: scale(1.2);
+  color: #fff;
+}
 
 .admin-stat-card {
   display: flex;
