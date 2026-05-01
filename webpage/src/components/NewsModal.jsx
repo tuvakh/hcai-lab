@@ -38,12 +38,23 @@ export default function NewsModal({ item, onClose }) {
                 )}
 
                 <div className="news-modal__footer">
-
                     <time className="news-modal__meta" dateTime={item.time}>
                         {new Date(item.time).toLocaleDateString("en-GB", {
                             day: "numeric", month: "short", year: "numeric",
                         })}
                     </time>
+
+                    {item.url && item.url !== "#" && (
+                        <a
+                            className="news-modal__read-more"
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Read full article: ${item.headline}`}
+                        >
+                            Read full article →
+                        </a>
+                    )}
                 </div>
 
             </div>
