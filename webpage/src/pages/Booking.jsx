@@ -36,11 +36,15 @@ export default function Booking() {
   useEffect(() => {
     fetch(`${API_URL}/api/bookings`)
       .then(response => response.json())
-      .then(data => setMyBookings(data.map(booking => ({
-        ...booking,
-        startDate: new Date(booking.startDate),
-        endDate: new Date(booking.endDate),
-      }))))
+      .then(data => setMyBookings(
+        data
+            .filter(b => b.type === "equipment")
+            .map(booking => ({ 
+                ...booking, 
+                startDate: new Date(booking.startDate), 
+                endDate: new Date(booking.endDate) 
+            }))
+        ))
       .catch(() => {});
   }, []);
 
@@ -80,6 +84,7 @@ export default function Booking() {
 
     const newBooking = {
       id: crypto.randomUUID(),
+      type: "equipment",
       equipmentId: selectedEquipment.id,
       name: selectedEquipment.name,
       category: selectedEquipment.category,

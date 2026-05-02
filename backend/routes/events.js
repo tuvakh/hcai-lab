@@ -1,10 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
+const Booking = require("../models/Booking");
 
 router.get("/", async (req, res) => {
-  const events = await Event.find();
-  res.json(events);
+  const [events, bookings] = await Promise.all([
+    Event.find(),
+    Booking.find({ type: "seat" }),
+  ]);
+
+  const eventsWithSeats = events.map(event => {
+    const booked = bookings
+      .filter(b => b.eventId === event.id)
+      .reduce((sum, b) => sum + (b.seats || 0), 0);
+    return { ...event.toJSON(), seatsLeft: event.maxSeats - booked };
+  });
+
+  res.json(eventsWithSeats);
 });
 
 router.get("/:id", async (req, res) => {

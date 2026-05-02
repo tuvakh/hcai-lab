@@ -47,7 +47,7 @@ export default function Footer() {
                     src="https://www.google.com/maps?q=Raufossvegen+40+Gjøvik&output=embed"
                     width="100%"
                     height="250"
-                    style={{ border: 0, borderRadius: "8px" }}
+                    className="footer__map"
                     allowFullScreen=""
                     loading="lazy"
                 ></iframe>

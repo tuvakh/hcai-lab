@@ -78,11 +78,11 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
         </form>
 
         {isEmployee && selected && (
-          <form onSubmit={handleFetchNTNU} style={{ padding: "1rem 1.5rem" }}>
-            <p style={{ color: "#ccc", fontSize: "0.9rem", marginBottom: "0.5rem" }}>
+          <form onSubmit={handleFetchNTNU} className="admin-modal__confirm-form">
+            <p className="admin-modal__confirm-text">
               Confirm NTNU username for <strong>{selected.person.name}</strong>:
             </p>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
+            <div className="admin-modal__confirm-row">
               <input className="admin-modal__input" placeholder="e.g. olano" value={username} onChange={event => setUsername(event.target.value)} />
               <button type="submit" className="btn btn--save btn--small" disabled={fetching}>
                 {fetching ? "Fetching..." : "Import"}
@@ -92,22 +92,22 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
         )}
 
         {searched && !loading && (
-          <ul style={{ listStyle: "none", padding: "0 1.5rem", marginTop: "1rem" }}>
-            {results.length === 0 && <li style={{ color: "#aaa" }}>No results found.</li>}
+          <ul className="admin-search__results">
+            {results.length === 0 && <li className="admin-search__no-results">No results found.</li>}
             {results.map(item => isEmployee ? (
-              <li key={item.username} style={{ padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
+              <li key={item.username} className="admin-search__result-item">
                 <span>
                   <strong>{item.name}</strong>
-                  {item.role && <span style={{ marginLeft: "0.5rem", color: "#888", fontSize: "0.9rem" }}>{item.role}</span>}
-                  {existingEmails.includes(item.email?.toLowerCase()) && <span style={{ marginLeft: "0.5rem", color: "#f79fc1", fontSize: "0.8rem" }}>(already added)</span>}
+                  {item.role && <span className="admin-search__result-meta">{item.role}</span>}
+                  {existingEmails.includes(item.email?.toLowerCase()) && <span className="admin-search__result-existing">(already added)</span>}
                 </span>
                 <Button text="Select" action={() => setSelected({ person: item })} disabled={existingEmails.includes(item.email?.toLowerCase())} variant="save" size="small" />
               </li>
             ) : (
-              <li key={item.id} style={{ padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
+              <li key={item.id} className="admin-search__result-item">
                 <span>
                   <strong>{item.name}</strong>
-                  <span style={{ marginLeft: "0.5rem", color: "#888", fontSize: "0.9rem" }}>{item.year} · {item.status}</span>
+                  <span className="admin-search__result-meta">{item.year} · {item.status}</span>
                 </span>
                 <Button text="Select" action={() => { onSelect(item); onClose(); }} variant="save" size="small" />
               </li>

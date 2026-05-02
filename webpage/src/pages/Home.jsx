@@ -24,6 +24,13 @@ export default function Home() {
         .catch(() => {});
     }, []);
 
+    function handleSeatBooked(eventId, bookedSeats) {
+    setEvents(prev => prev.map(event =>
+        event.id === eventId
+            ? { ...event, seatsLeft: event.seatsLeft - bookedSeats }
+            : event
+    ));
+}
 
   return (
     <>
@@ -83,12 +90,15 @@ export default function Home() {
         {events.map(event => (
             <EventCard
             key={event.id}
+            eventId={event.id}
             title={event.title}
             date={event.date}
             place={event.place}
             description={event.description}
             eventImg={event.eventImg}
-            maxSeats={event.maxSeats}            />
+            maxSeats={event.maxSeats} 
+            seatsLeft={event.seatsLeft}
+            onBooked={handleSeatBooked}          />
         ))}
         </div>
     </section>

@@ -2,11 +2,14 @@ import { useState } from "react";
 import Button from './Buttons';
 import Modal from './Modal';
 
-export default function EventCard({title, description, date, place, eventImg, bookSeat, maxSeats, variant}) {
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+export default function EventCard({ title, description, date, place, eventImg, eventId, bookSeat, maxSeats, seatsLeft, variant, onBooked}) {
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [seats, setSeats] = useState(1);
+    const [booked, setBooked] = useState(false);
 
     const eventDate = new Date(date);
     const isValidDate = !isNaN(eventDate);
@@ -14,10 +17,37 @@ export default function EventCard({title, description, date, place, eventImg, bo
     const month = isValidDate ? eventDate.toLocaleString("nb-NO", { month: "long" }) : date.split(" ")[1];
     const time  = isValidDate ? eventDate.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log({ name, email, seats, title, date, place });
-    };
+    const handleSubmit = async (formEvent) => {
+    formEvent.preventDefault();
+    try {
+        const response = await fetch(`${API_URL}/api/bookings`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                type: "seat",
+                eventId,
+                eventTitle: title,
+                bookedByName: name,
+                bookedByEmail: email,
+                seats,
+            }),
+        });
+        if (!response.ok) {
+            const err = await response.json();
+            alert(err.error || "Booking failed");
+            return;
+        }
+        onBooked(eventId, seats);
+        setBooked(true);
+        setIsOpen(false);
+        setName('');
+        setEmail('');
+        setSeats(1);
+    } catch (error) {
+        console.error("Booking failed:", error);
+    }
+};
+
 
     function formatDate(dateStr) {
         const eventDate = new Date(dateStr);
@@ -48,7 +78,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
 
     return (
         <>
-            <button className="eventCard" onClick={() => setIsOpen(true)}>
+            <div className="eventCard" onClick={() => setIsOpen(true)}>
                 <div className='eventCard__info img-overlay'>
                     <img className="eventCard__img" src={eventImg}/>
                     <div className='eventCard__text'>
@@ -59,7 +89,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
                 </div>
                 <p className='eventCard__description'>{description}</p>
                 <Button className='eventCard__button' text="Book seat" action={() => setIsOpen(true)} variant="primary" />
-            </button>
+            </div>
 
             {isOpen && (
                 <Modal onClose={() => setIsOpen(false)} ariaLabel={title}>
@@ -80,20 +110,29 @@ export default function EventCard({title, description, date, place, eventImg, bo
                             <span className="event-details__date">
                                 <span className="event-details__icon">📍</span>{place}
                             </span>
+                            <span className="event-details__date">
+                                <span className="event-details__icon">🪑</span>{seatsLeft} / {maxSeats} seats available
+                            </span>
                         </div>
                     </div>
 
                     <div className="modal__section">
                         <h3 className="modal__section-title">Book Seat</h3>
-                        <form onSubmit={handleSubmit} className="event-form">
-                            <label htmlFor="name">First name:</label>
-                            <input id="name" type="text" placeholder="What's your first name" value={name} onChange={(event) => setName(event.target.value)} required />
-                            <label htmlFor="email">Email:</label>
-                            <input id="email" type="email" placeholder="What's your email" value={email} onChange={(event) => setEmail(event.target.value)} required />
-                            <label htmlFor="seats">How many seats do you want?</label>
-                            <input id="seats" type="number" min="1" max={maxSeats} placeholder="Number of seats" value={seats} onChange={(event) => setSeats(event.target.value)} />
-                            <Button className='eventCard__button' text="Book seat" action={() => setIsOpen(true)} variant="primary" size="large" />
-                        </form>
+                        {booked ? (
+                            <p>Your seat has been booked!</p>
+                        ) : seatsLeft <= 0 ? (
+                            <p>This event is fully booked.</p>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="event-form">
+                                <label htmlFor="name">First name:</label>
+                                <input id="name" type="text" placeholder="What's your first name" value={name} onChange={(event) => setName(event.target.value)} required />
+                                <label htmlFor="email">Email:</label>
+                                <input id="email" type="email" placeholder="What's your email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+                                <label htmlFor="seats">How many seats do you want?</label>
+                                <input id="seats" type="number" min="1" max={seatsLeft} placeholder="Number of seats" value={seats} onChange={(event) => setSeats(Number(event.target.value))} />
+                                <Button text="Book seat" type="submit" variant="primary" size="large" disabled={seatsLeft <= 0}/>
+                            </form>
+                        )}
                     </div>
                 </Modal>
             )}

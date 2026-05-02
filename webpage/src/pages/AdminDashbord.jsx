@@ -6,7 +6,9 @@ import AdminEventsTable from "../components/AdminEventsTable";
 import AdminProjectsTable from "../components/AdminProjectsTable";
 import AdminPeopleTable from "../components/AdminPeopleTable";
 import AdminEquipmentTable from "../components/AdminEquipmentTable";
-import AdminBookingsTable from "../components/AdminBookingsTable";
+import AdminEquipmentBookingsTable from "../components/AdminEquipmentBookingsTable";
+import AdminSeatBookingsTable from "../components/AdminSeatBookingsTable";
+
 import Button from "../components/Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -19,7 +21,8 @@ export default function Admin() {
   const [people, setPeople] = useState([]);
   const [events, setEvents] = useState([]);
   const [equipments, setEquipments] = useState([]);
-  const [bookings, setBookings] = useState([]);
+  const [equipmentBookings, setEquipmentBookings] = useState([]);
+  const [seatBookings, setSeatBookings] = useState([]);
   
   useEffect(() => {
     fetch(`${API_URL}/api/projects`)
@@ -43,9 +46,12 @@ export default function Admin() {
       .catch(() => {});
 
     fetch(`${API_URL}/api/bookings`)
-      .then((response) => response.json())
-      .then(setBookings)
-      .catch(() => {});
+        .then(r => r.json())
+        .then(data => {
+            setEquipmentBookings(data.filter(b => b.type === "equipment"));
+            setSeatBookings(data.filter(b => b.type === "seat"));
+        })
+        .catch(() => {});
   }, []);
 
   return (
@@ -67,7 +73,7 @@ export default function Admin() {
         <section className="admin-page__content">
 
           {activeTab !== "Overview" && (
-            <Button text="← Back" style={{ marginBlockEnd: "var(--normal-space)" }} action={() => setActiveTab("Overview")} variant="secondary" size="small" />
+            <Button text="← Back" className="admin-page__back-btn" action={() => setActiveTab("Overview")} variant="secondary" size="small" />
           )}
 
           {/* ── Overview ────────────────────────────────────────────────── */}
@@ -78,7 +84,8 @@ export default function Admin() {
                 <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
                 <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
                 <AdminStatCard label="Equipment"  value={equipments.length}   onClick={() => setActiveTab("Equipment")} />
-                <AdminStatCard label="Booked equipment"   value={bookings.length}     onClick={() => setActiveTab("Booked equipment")} />
+                <AdminStatCard label="Booked equipment"   value={equipmentBookings.length}     onClick={() => setActiveTab("Booked equipment")} />
+                <AdminStatCard label="Booked seats" value={seatBookings.length} onClick={() => setActiveTab("Booked seats")} />
               </div>
             </div>
           )}
@@ -105,8 +112,14 @@ export default function Admin() {
 
           {/* ── Bookings ────────────────────────────────────────────────── */}
           {activeTab === "Booked equipment" && (
-                <AdminBookingsTable bookings={bookings} setBookings={setBookings} />
+                <AdminEquipmentBookingsTable bookings={equipmentBookings} setBookings={setEquipmentBookings} />
           )}
+
+          {activeTab === "Booked seats" && (
+                <AdminSeatBookingsTable bookings={seatBookings} setBookings={setSeatBookings} events={events} />
+          )}
+
+
         </section>
       </div>
     </main>

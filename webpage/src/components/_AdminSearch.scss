@@ -1,0 +1,33 @@
+
+.admin-search {
+    &__results {
+        list-style: none;
+        padding: 0 var(--big-space);
+        margin-top: var(--normal-space);
+    }
+
+    &__no-results {
+        color: var(--tertiary-color);
+    }
+
+    &__result-item {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--normal-space);
+    }
+
+    &__result-meta {
+        margin-left: var(--small-space);
+        color: var(--tertiary-color);
+        font-size: var(--step--1);
+    }
+
+    &__result-existing {
+        margin-left: var(--small-space);
+        color: #f79fc1;
+        font-size: var(--step--2);
+    }
+}

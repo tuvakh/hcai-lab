@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/Booking");
+const Event = require("../models/Event");
 
 router.get("/", async (req, res) => {
   const bookings = await Booking.find();
@@ -8,9 +9,25 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const booking = new Booking(req.body);
-  await booking.save();
-  res.status(201).json(booking);
+  try {
+    if (req.body.type === "seat") {
+      const event = await Event.findById(req.body.eventId);
+      if (!event) return res.status(404).json({ error: "Event not found" });
+
+      const existing = await Booking.find({ type: "seat", eventId: req.body.eventId });
+      const totalBooked = existing.reduce((sum, b) => sum + (b.seats || 0), 0);
+
+      if (totalBooked + (req.body.seats || 0) > event.maxSeats) {
+        return res.status(400).json({ error: `Only ${event.maxSeats - totalBooked} seats left` });
+      }
+    }
+
+    const booking = new Booking(req.body);
+    await booking.save();
+    res.status(201).json(booking);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.delete("/:id", async (req, res) => {

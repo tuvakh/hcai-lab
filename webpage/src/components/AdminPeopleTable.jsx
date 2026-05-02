@@ -90,7 +90,7 @@ export default function AdminPeopleTable({ people, setPeople }) {
                 <h2 className="admin-page__table-heading">
                     Employees <span className="admin-page__count">({people.length})</span>
                 </h2>
-                <div style={{ display: "flex", gap: "var(--small-space)" }}>
+                <div className="admin-page__btn-group">
                     <button
                         className="btn btn--primary"
                         onClick={() => setModal({ item: null, index: null })}

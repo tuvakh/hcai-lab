@@ -1,4 +1,4 @@
-export default function Button({ text, action, variant = "primary", size, type = "button", scrollTop = false, className = "", style }) {
+export default function Button({ text, action, variant = "primary", size, type = "button", scrollTop = false, className = "", style, disabled = false }) {
   const cls = ["btn", `btn--${variant}`, size && `btn--${size}`, className].filter(Boolean).join(" ");
 
   const handleClick = () => {
@@ -7,7 +7,6 @@ export default function Button({ text, action, variant = "primary", size, type =
   };
 
   return (
-    <button type={type} style={style} className={cls} onClick={handleClick}>{text}</button>
+    <button type={type} style={style} className={cls} onClick={handleClick} disabled={disabled}>{text}</button>
   );
 }
-
