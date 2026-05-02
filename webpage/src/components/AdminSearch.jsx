@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Button from "./Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -17,8 +18,8 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
     if (selected) setUsername(selected.person.username);
   }, [selected]);
 
-  async function handleSearch(e) {
-    e.preventDefault();
+  async function handleSearch(event) {
+    event.preventDefault();
     if (!query.trim()) return;
     setLoading(true);
     setSearched(true);
@@ -26,20 +27,20 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
       const url = isEmployee
         ? `${API_URL}/api/search/search?query=${encodeURIComponent(query)}`
         : `${API_URL}/api/search/cristin/projects?query=${encodeURIComponent(query)}`;
-      const res = await fetch(url);
-      setResults(await res.json());
+      const response = await fetch(url);
+      setResults(await response.json());
     } catch {
       setResults([]);
     }
     setLoading(false);
   }
 
-  async function handleFetchNTNU(e) {
-    e.preventDefault();
+  async function handleFetchNTNU(event) {
+    event.preventDefault();
     setFetching(true);
     try {
-      const res = await fetch(`${API_URL}/api/search/profile?username=${encodeURIComponent(username)}`);
-      const data = await res.json();
+      const response = await fetch(`${API_URL}/api/search/profile?username=${encodeURIComponent(username)}`);
+      const data = await response.json();
       if (!data.name) { alert("Could not fetch profile. Check the username."); setFetching(false); return; }
       onSelect(data);
     } catch {
@@ -62,13 +63,14 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
               className="admin-modal__input"
               type="text"
               value={query}
-              onChange={e => setQuery(e.target.value)}
+              onChange={event => setQuery(event.target.value)}
               placeholder={isEmployee ? "e.g. Hansen" : "e.g. AI, HCI"}
               autoFocus
             />
           </div>
           <div className="admin-modal__actions">
-            <button type="button" className="btn btn--secondary" onClick={onClose}>Cancel</button>
+            <Button text="Cancel" action={onClose} variant="secondary" />
+
             <button type="submit" className="btn btn--save" disabled={loading}>
               {loading ? "Searching..." : "Search"}
             </button>
@@ -81,7 +83,7 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
               Confirm NTNU username for <strong>{selected.person.name}</strong>:
             </p>
             <div style={{ display: "flex", gap: "0.5rem" }}>
-              <input className="admin-modal__input" placeholder="e.g. olano" value={username} onChange={e => setUsername(e.target.value)} />
+              <input className="admin-modal__input" placeholder="e.g. olano" value={username} onChange={event => setUsername(event.target.value)} />
               <button type="submit" className="btn btn--save btn--small" disabled={fetching}>
                 {fetching ? "Fetching..." : "Import"}
               </button>
@@ -99,7 +101,7 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
                   {item.role && <span style={{ marginLeft: "0.5rem", color: "#888", fontSize: "0.9rem" }}>{item.role}</span>}
                   {existingEmails.includes(item.email?.toLowerCase()) && <span style={{ marginLeft: "0.5rem", color: "#f79fc1", fontSize: "0.8rem" }}>(already added)</span>}
                 </span>
-                <button className="btn btn--save btn--small" onClick={() => setSelected({ person: item })} disabled={existingEmails.includes(item.email?.toLowerCase())}>Select</button>
+                <Button text="Select" action={() => setSelected({ person: item })} disabled={existingEmails.includes(item.email?.toLowerCase())} variant="save" size="small" />
               </li>
             ) : (
               <li key={item.id} style={{ padding: "0.6rem 0", borderBottom: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
@@ -107,7 +109,7 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
                   <strong>{item.name}</strong>
                   <span style={{ marginLeft: "0.5rem", color: "#888", fontSize: "0.9rem" }}>{item.year} · {item.status}</span>
                 </span>
-                <button className="btn btn--save btn--small" onClick={() => { onSelect(item); onClose(); }}>Select</button>
+                <Button text="Select" action={() => { onSelect(item); onClose(); }} variant="save" size="small" />
               </li>
             ))}
           </ul>

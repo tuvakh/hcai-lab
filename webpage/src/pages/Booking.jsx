@@ -6,6 +6,7 @@ import BookingList from "../components/BookingList";
 import Modal from "../components/Modal";
 import CardGrid from "../components/CardGrid";
 import Tag from '../components/Tags';
+import Button from "../components/Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -27,18 +28,18 @@ export default function Booking() {
 
   useEffect(() => {
     fetch(`${API_URL}/api/equipment`)
-      .then(r => r.json())
+      .then(response => response.json())
       .then(setEquipment)
       .catch(() => {});
   }, []);
 
   useEffect(() => {
     fetch(`${API_URL}/api/bookings`)
-      .then(r => r.json())
-      .then(data => setMyBookings(data.map(b => ({
-        ...b,
-        startDate: new Date(b.startDate),
-        endDate: new Date(b.endDate),
+      .then(response => response.json())
+      .then(data => setMyBookings(data.map(booking => ({
+        ...booking,
+        startDate: new Date(booking.startDate),
+        endDate: new Date(booking.endDate),
       }))))
       .catch(() => {});
   }, []);
@@ -93,7 +94,7 @@ export default function Booking() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newBooking),
     })
-      .then(r => r.json())
+      .then(response => response.json())
       .then(saved => setMyBookings(prev => [...prev, {
         ...saved,
         startDate: new Date(saved.startDate),

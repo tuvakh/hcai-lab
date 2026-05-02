@@ -9,7 +9,7 @@ export default function People() {
 
   useEffect(() => {
     fetch(`${API_URL}/api/people`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then(setPeople)
       .catch((err) => console.error("Failed to fetch people:", err));
   }, []);

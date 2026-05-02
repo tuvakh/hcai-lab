@@ -8,11 +8,11 @@ export default function EventCard({title, description, date, place, eventImg, bo
     const [email, setEmail] = useState('');
     const [seats, setSeats] = useState(1);
 
-    const d = new Date(date);
-    const isValidDate = !isNaN(d);
-    const day   = isValidDate ? d.getDate() + "." : date.split(" ")[0];
-    const month = isValidDate ? d.toLocaleString("nb-NO", { month: "long" }) : date.split(" ")[1];
-    const time  = isValidDate ? d.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
+    const eventDate = new Date(date);
+    const isValidDate = !isNaN(eventDate);
+    const day   = isValidDate ? eventDate.getDate() + "." : date.split(" ")[0];
+    const month = isValidDate ? eventDate.toLocaleString("nb-NO", { month: "long" }) : date.split(" ")[1];
+    const time  = isValidDate ? eventDate.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -20,9 +20,9 @@ export default function EventCard({title, description, date, place, eventImg, bo
     };
 
     function formatDate(dateStr) {
-        const d = new Date(dateStr);
-        if (isNaN(d)) return dateStr;
-        return d.toLocaleString("nb-NO", {
+        const eventDate = new Date(dateStr);
+        if (isNaN(eventDate)) return dateStr;
+        return eventDate.toLocaleString("nb-NO", {
             day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
         });
     }
@@ -48,7 +48,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
 
     return (
         <>
-            <div className="eventCard" onClick={() => setIsOpen(true)} style={{cursor: "pointer"}}>
+            <button className="eventCard" onClick={() => setIsOpen(true)}>
                 <div className='eventCard__info img-overlay'>
                     <img className="eventCard__img" src={eventImg}/>
                     <div className='eventCard__text'>
@@ -59,7 +59,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
                 </div>
                 <p className='eventCard__description'>{description}</p>
                 <Button className='eventCard__button' text="Book seat" action={() => setIsOpen(true)} variant="primary" />
-            </div>
+            </button>
 
             {isOpen && (
                 <Modal onClose={() => setIsOpen(false)} ariaLabel={title}>
@@ -92,7 +92,7 @@ export default function EventCard({title, description, date, place, eventImg, bo
                             <input id="email" type="email" placeholder="What's your email" value={email} onChange={(event) => setEmail(event.target.value)} required />
                             <label htmlFor="seats">How many seats do you want?</label>
                             <input id="seats" type="number" min="1" max={maxSeats} placeholder="Number of seats" value={seats} onChange={(event) => setSeats(event.target.value)} />
-                            <button type="submit" className="btn btn--primary btn--large">Book seat</button>
+                            <Button className='eventCard__button' text="Book seat" action={() => setIsOpen(true)} variant="primary" size="large" />
                         </form>
                     </div>
                 </Modal>

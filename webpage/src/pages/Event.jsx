@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import EventCard from '../components/EventCard';
 import HeroSection from '../components/HeroSection';
-import Buttons from "../components/Buttons";
 import { useNews } from "../hooks/useNews";
 import logo from "../assets/logo.png";
 
@@ -12,8 +11,8 @@ export default function Events() {
 
     useEffect(() => {
     fetch(`${API_URL}/api/events`)
-        .then((r) => r.json())
-        .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
+        .then((response) => response.json())
+        .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
         .catch(() => {});
     }, []);
 

@@ -8,12 +8,12 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
   return (
     <>
       <div className={`card-grid card-grid--${variant}`}>
-        {items.map((item, i) => (
+        {items.map((item, index) => (
           <button
             key={item.id}
             className="card"
             onClick={() => onSelect ? onSelect(item) : setSelected(item)}
-            style={{ animationDelay: `${i * 0.07}s` }}
+            style={{ animationDelay: `${index * 0.07}s` }}
             aria-label={`View ${item.name}`}
           >
             <div className="card__image-wrap">
@@ -92,11 +92,11 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
                 </div>
               )}
 
-              {selected.projects?.some((p) => p.url) && (
+              {selected.projects?.some((project) => project.url) && (
                 <div className="modal__section">
                   <h3 className="modal__section-title">Projects</h3>
                   <div className="modal__project-grid">
-                    {selected.projects.filter((p) => p.url).map((project) => (
+                    {selected.projects.filter((project) => project.url).map((project) => (
                       <div key={project.name} className="modal__project-card">
                         <span className="modal__project-name">{project.name}</span>
                         <a href={project.url} target="_blank" rel="noreferrer" className="btn btn--secondary btn--small">

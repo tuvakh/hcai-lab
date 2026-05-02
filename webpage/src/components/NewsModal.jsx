@@ -22,8 +22,8 @@ export default function NewsModal({ item, onClose }) {
 
                 {item.body && (
                     <div className="news-modal__body">
-                        {item.body.split("\n\n").map((paragraph, i) => (
-                            <p key={i}>{paragraph}</p>
+                        {item.body.split("\n\n").map((paragraph, index) => (
+                            <p key={index}>{paragraph}</p>
                         ))}
                     </div>
                 )}

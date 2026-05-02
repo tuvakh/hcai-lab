@@ -29,7 +29,7 @@ export default function NewsSidebar({ favItems, onOpen, onStar }) {
                   type="button"
                   className="news-sidebar__remove"
                   aria-label={`Remove "${item.headline}" from favorites`}
-                  onClick={(e) => { e.stopPropagation(); onStar(item); }}
+                  onClick={(event) => { event.stopPropagation(); onStar(item); }}
                 >
                   ★
                 </button>

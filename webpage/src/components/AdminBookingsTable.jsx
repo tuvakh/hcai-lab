@@ -3,7 +3,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 export default function AdminBookingsTable({ bookings, setBookings }) {
     async function deleteBooking(id) {
         if (!window.confirm("Remove this booking?")) return;
-        setBookings(prev => prev.filter(b => b.id !== id));
+        setBookings(prev => prev.filter(booking => booking.id !== id));
         fetch(`${API_URL}/api/bookings/${id}`, { method: "DELETE" }).catch(() => {});
     }
 
