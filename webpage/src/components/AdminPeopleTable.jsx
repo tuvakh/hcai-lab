@@ -35,11 +35,11 @@ export default function AdminPeopleTable({ people, setPeople }) {
     }
 
     const drag = {
-        start: (i) => { dragIndex.current = i; },
-        over: (event, i) => { event.preventDefault(); setDragOverIndex(i); },
-        drop: (i) => {
-            if (dragIndex.current !== null && dragIndex.current !== i) {
-                setPeople(reorder(people, dragIndex.current, i));
+        start: (index) => { dragIndex.current = index; },
+        over: (event, index) => { event.preventDefault(); setDragOverIndex(index); },
+        drop: (index) => {
+            if (dragIndex.current !== null && dragIndex.current !== index) {
+                setPeople(reorder(people, dragIndex.current, index));
             }
             dragIndex.current = null;
             setDragOverIndex(null);
@@ -50,12 +50,12 @@ export default function AdminPeopleTable({ people, setPeople }) {
     async function savePerson(data, index) {
         if (index === null) {
             try {
-                const res = await fetch(`${API_URL}/api/people`, {
+                const response = await fetch(`${API_URL}/api/people`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data),
                 });
-                const saved = await res.json();
+                const saved = await response.json();
                 setPeople((prev) => [...prev, saved]);
             } catch {
                 setPeople((prev) => [...prev, { id: Date.now(), ...data }]);
@@ -63,15 +63,15 @@ export default function AdminPeopleTable({ people, setPeople }) {
         } else {
             const person = people[index];
             try {
-                const res = await fetch(`${API_URL}/api/people/${person._id}`, {
+                const response = await fetch(`${API_URL}/api/people/${person._id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data),
                 });
-                const saved = await res.json();
-                setPeople((prev) => prev.map((event, i) => (i === index ? saved : event)));
+                const saved = await response.json();
+                setPeople((prev) => prev.map((person, itemIndex) => (itemIndex === index ? saved : person)));
             } catch {
-                setPeople((prev) => prev.map((event, i) => (i === index ? { ...event, ...data } : event)));
+                setPeople((prev) => prev.map((person, itemIndex) => (itemIndex === index ? { ...person, ...data } : person)));
             }
         }
         setModal(null);
@@ -80,7 +80,7 @@ export default function AdminPeopleTable({ people, setPeople }) {
     async function deletePerson(index) {
         if (!window.confirm("Remove this person?")) return;
         const person = people[index];
-        setPeople((prev) => prev.filter((_, i) => i !== index));
+        setPeople((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
         fetch(`${API_URL}/api/people/${person._id}`, { method: "DELETE" }).catch(() => { });
     }
 
@@ -118,15 +118,15 @@ export default function AdminPeopleTable({ people, setPeople }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {people.map((person, i) => (
+                        {people.map((person, index) => (
                             <tr
                                 key={person.id}
                                 draggable
-                                onDragStart={() => drag.start(i)}
-                                onDragOver={(event) => drag.over(event, i)}
-                                onDrop={() => drag.drop(i)}
+                                onDragStart={() => drag.start(index)}
+                                onDragOver={(event) => drag.over(event, index)}
+                                onDrop={() => drag.drop(index)}
                                 onDragEnd={drag.end}
-                                className={dragOverIndex === i && dragIndex.current !== i ? "admin-page__row--drag-over" : ""}
+                                className={dragOverIndex === index && dragIndex.current !== index ? "admin-page__row--drag-over" : ""}
                             >
                                 <td className="admin-page__drag-handle" title="Drag to reorder">&#8942;</td>
                                 <td>{person.name}</td>
@@ -139,11 +139,11 @@ export default function AdminPeopleTable({ people, setPeople }) {
                                 <td className="admin-page__actions-cell">
                                     <button
                                         className="btn btn--secondary btn--small"
-                                        onClick={() => setModal({ item: person, index: i })}
+                                        onClick={() => setModal({ item: person, index: index })}
                                     >Edit</button>
                                     <button
                                         className="btn btn--delete btn--small"
-                                        onClick={() => deletePerson(i)}
+                                        onClick={() => deletePerson(index)}
                                     >Delete</button>
                                 </td>
                             </tr>
@@ -165,13 +165,13 @@ export default function AdminPeopleTable({ people, setPeople }) {
             {cristinModal && (
                 <AdminSearch
                     type="employee"
-                    existingEmails={people.map(p => p.email?.toLowerCase())}
+                    existingEmails={people.map(person => person.email?.toLowerCase())}
 
                     onClose={() => setCristinModal(false)}
                     onSelect={(prefilled) => {
                         const exists = people.some(
-                            p => p.email?.toLowerCase() === prefilled.email?.toLowerCase() ||
-                                p.ntnuProfile === prefilled.ntnuProfile
+                            person => person.email?.toLowerCase() === prefilled.email?.toLowerCase() ||
+                                person.ntnuProfile === prefilled.ntnuProfile
                         );
                         if (exists) {
                             alert(`${prefilled.name} is already in the employee list.`);

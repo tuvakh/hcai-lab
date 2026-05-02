@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 import AdminSearch from "./AdminSearch";
 import Tag from './Tags';
+import Button from "./Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -33,11 +34,11 @@ export default function AdminProjectsTable({ projects, setProjects }) {
   }
 
   const drag = {
-    start: (i) => { dragIndex.current = i; },
-    over:  (event, i) => { event.preventDefault(); setDragOverIndex(i); },
-    drop:  (i) => {
-      if (dragIndex.current !== null && dragIndex.current !== i) {
-        setProjects(reorder(projects, dragIndex.current, i));
+    start: (index) => { dragIndex.current = index; },
+    over:  (event, index) => { event.preventDefault(); setDragOverIndex(index); },
+    drop:  (index) => {
+      if (dragIndex.current !== null && dragIndex.current !== index) {
+        setProjects(reorder(projects, dragIndex.current, index));
       }
       dragIndex.current = null;
       setDragOverIndex(null);
@@ -52,12 +53,12 @@ export default function AdminProjectsTable({ projects, setProjects }) {
   };
   if (index === null) {
     try {
-      const res = await fetch(`${API_URL}/api/projects`, {
+      const response = await fetch(`${API_URL}/api/projects`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const saved = await res.json();
+      const saved = await response.json();
       setProjects((prev) => [...prev, saved]);
     } catch {
       setProjects((prev) => [...prev, { id: Date.now(), ...data }]);
@@ -65,15 +66,15 @@ export default function AdminProjectsTable({ projects, setProjects }) {
   } else {
     const project = projects[index];
     try {
-      const res = await fetch(`${API_URL}/api/projects/${project._id}`, {
+      const response = await fetch(`${API_URL}/api/projects/${project._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const saved = await res.json();
-      setProjects((prev) => prev.map((event, i) => (i === index ? saved : event)));
+      const saved = await response.json();
+      setProjects((prev) => prev.map((project, itemIndex) => (itemIndex === index ? saved : project)));
     } catch {
-      setProjects((prev) => prev.map((event, i) => (i === index ? { ...event, ...data } : event)));
+      setProjects((prev) => prev.map((project, itemIndex) => (itemIndex === index ? { ...project, ...data } : project)));
     }
   }
   setModal(null);
@@ -83,7 +84,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
   async function deleteProject(index) {
     if (!window.confirm("Remove this project?")) return;
     const project = projects[index];
-    setProjects((prev) => prev.filter((_, i) => i !== index));
+    setProjects((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
     fetch(`${API_URL}/api/projects/${project._id}`, { method: "DELETE" }).catch(() => { });
 }
 
@@ -94,12 +95,8 @@ export default function AdminProjectsTable({ projects, setProjects }) {
           Projects <span className="admin-page__count">({projects.length})</span>
         </h2>
         <div style={{ display: "flex", gap: "0.5rem" }}>
-            <button className="btn btn--primary" onClick={() => setModal({ item: null, index: null })}>
-                Add Project
-            </button>
-            <button className="btn btn--primary" onClick={() => setCristinModal(true)}>
-                Import Project
-            </button>
+            <Button text="Add Project" action={() => setModal({ item: null, index: null })} variant="primary" />
+            <Button text="Import Project" action={() => setCristinModal(true)} variant="primary" />
         </div>
       </div>
       <div className="admin-page__table-wrap">
@@ -115,15 +112,15 @@ export default function AdminProjectsTable({ projects, setProjects }) {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project, i) => (
+            {projects.map((project, index) => (
               <tr
                 key={project.id}
                 draggable
-                onDragStart={() => drag.start(i)}
-                onDragOver={(event) => drag.over(event, i)}
-                onDrop={() => drag.drop(i)}
+                onDragStart={() => drag.start(index)}
+                onDragOver={(event) => drag.over(event, index)}
+                onDrop={() => drag.drop(index)}
                 onDragEnd={drag.end}
-                className={dragOverIndex === i && dragIndex.current !== i ? "admin-page__row--drag-over" : ""}
+                className={dragOverIndex === index && dragIndex.current !== index ? "admin-page__row--drag-over" : ""}
               >
                 <td className="admin-page__drag-handle" title="Drag to reorder">&#8942;</td>
                 <td>{project.name}</td>
@@ -137,14 +134,8 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                 <td>{project.tags.join(", ")}</td>
                 <td className="admin-page__team-cell">{project.team.join(", ")}</td>
                 <td className="admin-page__actions-cell">
-                  <button
-                    className="btn btn--secondary btn--small"
-                    onClick={() => setModal({ item: { ...project, links: project.links?.[0]?.url ?? "" }, index: i })}
-                  >Edit</button>
-                  <button
-                    className="btn btn--delete btn--small"
-                    onClick={() => deleteProject(i)}
-                  >Delete</button>
+                    <Button text="Edit" action={() => setModal({ item: { ...project, links: project.links?.[0]?.url ?? "" }, index: index })} variant="secondary" size="small" />
+                    <Button text="Delete" action={() => deleteProject(index)} variant="delete" size="small" />
                 </td>
               </tr>
             ))}

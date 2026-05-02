@@ -19,8 +19,8 @@ export default function Home() {
 
     useEffect(() => {
     fetch(`${API_URL}/api/events`)
-        .then((r) => r.json())
-        .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
+        .then((response) => response.json())
+        .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
         .catch(() => {});
     }, []);
 
@@ -95,7 +95,7 @@ export default function Home() {
 
     <section className="info-section">
         <div className="info-section__contact">
-            <div className="info-section__box" onClick={() => navigate("/people")} style={{cursor: "pointer"}}>
+            <div className="info-section__box">
                 <div className="info-section__info">
                     <h2>Contact our team</h2>
                     <p>We have a team full of AI interested professionals that are happy to help!</p>
@@ -110,7 +110,7 @@ export default function Home() {
             </div>
         </div>
         <div>
-            <div className="info-section__box" onClick={() => navigate("/booking")} style={{cursor: "pointer"}}>
+            <div className="info-section__box">
                 <div className="info-section__info">
                     <h2>Book equipment</h2>
                     <p>The lab has a lot of different technology related equipment that you can book!</p>

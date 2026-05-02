@@ -15,7 +15,7 @@ export default function Modal({ onClose, ariaLabel, children, size }) {
     }, []);
 
     return (
-      <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="modal-overlay" onClick={(event) => event.target === event.currentTarget && onClose()}>
         <div className={`modal${size ? ` modal--${size}` : ''}`} role="dialog" aria-modal="true" aria-label={ariaLabel}>
             <button className="modal__close" onClick={onClose} aria-label="Close">✕</button>
             {children}

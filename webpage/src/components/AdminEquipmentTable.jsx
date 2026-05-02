@@ -24,11 +24,11 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
     }
 
     const drag = {
-        start: (i) => { dragIndex.current = i; },
-        over: (event, i) => { event.preventDefault(); setDragOverIndex(i); },
-        drop: (i) => {
-            if (dragIndex.current !== null && dragIndex.current !== i) {
-                setEquipments(reorder(equipments, dragIndex.current, i));
+        start: (index) => { dragIndex.current = index; },
+        over: (event, index) => { event.preventDefault(); setDragOverIndex(index); },
+        drop: (index) => {
+            if (dragIndex.current !== null && dragIndex.current !== index) {
+                setEquipments(reorder(equipments, dragIndex.current, index));
             }
             dragIndex.current = null;
             setDragOverIndex(null);
@@ -36,15 +36,15 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
         end: () => { dragIndex.current = null; setDragOverIndex(null); },
     };
 
-    async function saveEvent(data, index) {
+    async function saveEquipment(data, index) {
         if (index === null) {
             try {
-                const res = await fetch(`${API_URL}/api/equipment`, {
+                const response = await fetch(`${API_URL}/api/equipment`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data),
                 });
-                const saved = await res.json();
+                const saved = await response.json();
                 setEquipments((prev) => [...prev, saved]);
             } catch {
                 setEquipments((prev) => [...prev, { id: Date.now(), ...data }]);
@@ -52,25 +52,25 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
         } else {
             const equipment = equipments[index];
             try {
-                const res = await fetch(`${API_URL}/api/equipment/${equipment._id}`, {
+                const response = await fetch(`${API_URL}/api/equipment/${equipment._id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data),
                 });
-                const saved = await res.json();
-                setEquipments((prev) => prev.map((event, i) => (i === index ? saved : event)));
+                const saved = await response.json();
+                setEquipments((prev) => prev.map((equipment, itemIndex) => (itemIndex === index ? saved : equipment)));
             } catch {
-                setEquipments((prev) => prev.map((event, i) => (i === index ? { ...event, ...data } : event)));
+                setEquipments((prev) => prev.map((equipment, itemIndex) => (itemIndex === index ? { ...equipment, ...data } : equipment)));
             }
         }
         setModal(null);
     }
 
 
-    async function deleteEvent(index) {
+    async function deleteEquipment(index) {
         if (!window.confirm("Remove this equipment?")) return;
         const equipment = equipments[index];
-        setEquipments((prev) => prev.filter((_, i) => i !== index));
+        setEquipments((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
         fetch(`${API_URL}/api/equipment/${equipment._id}`, { method: "DELETE" }).catch(() => { });
     }
 
@@ -100,15 +100,15 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {equipments.map((equipment, i) => (
+                        {equipments.map((equipment, index) => (
                             <tr
                                 key={equipment.id}
                                 draggable
-                                onDragStart={() => drag.start(i)}
-                                onDragOver={(event) => drag.over(event, i)}
-                                onDrop={() => drag.drop(i)}
+                                onDragStart={() => drag.start(index)}
+                                onDragOver={(event) => drag.over(event, index)}
+                                onDrop={() => drag.drop(index)}
                                 onDragEnd={drag.end}
-                                className={dragOverIndex === i && dragIndex.current !== i ? "admin-page__row--drag-over" : ""}
+                                className={dragOverIndex === index && dragIndex.current !== index ? "admin-page__row--drag-over" : ""}
                             >
                                 <td className="admin-page__drag-handle" title="Drag to reorder">&#8942;</td>
                                 <td>{equipment.name}</td>
@@ -117,11 +117,11 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
                                 <td className="admin-page__actions-cell">
                                     <button
                                         className="btn btn--secondary btn--small"
-                                        onClick={() => setModal({ item: equipment, index: i })}
+                                        onClick={() => setModal({ item: equipment, index: index })}
                                     >Edit</button>
                                     <button
                                         className="btn btn--delete btn--small"
-                                        onClick={() => deleteEvent(i)}
+                                        onClick={() => deleteEquipment(index)}
                                     >Delete</button>
                                 </td>
                             </tr>
@@ -133,9 +133,9 @@ export default function AdminEquipmentsTable({ equipments, setEquipments }) {
             {modal && (
                 <AdminEditModal
                     title={modal.item ? "Edit Equipment" : "Add Equipment"}
-                    fields={EQUIPMENT_FIELD}
+                    fields={EQUIPMENT_FIELDS}
                     data={modal.item}
-                    onSave={(data) => saveEvent(data, modal.index)}
+                    onSave={(data) => saveEquipment(data, modal.index)}
                     onClose={() => setModal(null)}
                 />
             )}

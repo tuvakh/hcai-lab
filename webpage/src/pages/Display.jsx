@@ -7,7 +7,7 @@ import logo from "../assets/logo.png";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-export default function Home() {
+export default function Display() {
     const { items } = useNews("international");
     const newsItems = items.slice(0, 5);
     const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
@@ -18,8 +18,8 @@ export default function Home() {
 
     function fetchEvents() {
         fetch(`${API_URL}/api/events`)
-            .then(r => r.json())
-            .then(data => setEvents(data.filter(event => new Date(event.date) >= new Date()).sort((a, b) => new Date(a.date) - new Date(b.date))))
+            .then(response => response.json())
+            .then(data => setEvents(data.filter(event => new Date(event.date) >= new Date()).sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
             .catch(() => {});
     }
 
@@ -31,14 +31,14 @@ export default function Home() {
 
     useEffect(() => {
         fetch(`${API_URL}/api/equipment`)
-            .then(r => r.json())
+            .then(response => response.json())
             .then(setEquipments)
             .catch(() => {});
     }, []);
 
     function fetchBookings() {
         fetch(`${API_URL}/api/bookings`)
-            .then(r => r.json())
+            .then(response => response.json())
             .then(setBookings)
             .catch(() => {});
     }
@@ -62,10 +62,10 @@ export default function Home() {
 
     function isBookedToday(equipmentId) {
         const today = new Date().toISOString().split("T")[0];
-        return bookings.some(b =>
-            b.equipmentId === equipmentId &&
-            today >= b.startDate.split("T")[0] &&
-            today <= b.endDate.split("T")[0]
+        return bookings.some(booking =>
+            booking.equipmentId === equipmentId &&
+            today >= booking.startDate.split("T")[0] &&
+            today <= booking.endDate.split("T")[0]
         );
     }
 

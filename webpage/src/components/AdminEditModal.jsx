@@ -1,6 +1,7 @@
 // src/components/AdminEditModal.jsx
 import { useState } from "react";
 import Modal from "./Modal";
+import Button from "./Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -38,19 +39,19 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
             }
         }
 
-        const out = {};
+        const output = {};
         fields.forEach((field) => {
             if (field.type === "checkboxes") {
-                out[field.key] = values[field.key] || [];
+                output[field.key] = values[field.key] || [];
             } else if (field.isArray) {
-                out[field.key] = values[field.key].split(",").map((s) => s.trim()).filter(Boolean);
+                output[field.key] = values[field.key].split(",").map((s) => s.trim()).filter(Boolean);
             } else if (field.type === "number") {
-                out[field.key] = Number(values[field.key]);
+                output[field.key] = Number(values[field.key]);
             } else {
-                out[field.key] = values[field.key];
+                output[field.key] = values[field.key];
             }
         });
-        onSave(out);
+        onSave(output);
     }
 
     return (
@@ -90,8 +91,8 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                                                 setUploading(true);
                                                 const formData = new FormData();
                                                 formData.append("file", file);
-                                                const res = await fetch(`${API_URL}/api/upload?folder=${field.folder || "misc"}`, { method: "POST", body: formData });
-                                                const { path } = await res.json();
+                                                const response = await fetch(`${API_URL}/api/upload?folder=${field.folder || "misc"}`, { method: "POST", body: formData });
+                                                const { path } = await response.json();
                                                 handleChange(field.key, path);
                                                 setUploading(false);
                                             }}
@@ -141,12 +142,8 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                         </div>
                     ))}
                     <div className="admin-modal__actions">
-                        <button type="button" className="btn btn--secondary" onClick={onClose}>
-                            Cancel
-                        </button>
-                        <button type="submit" className="btn btn--save">
-                            Save
-                        </button>
+                        <Button text="Close" action={onClose} variant="secondary" />
+                        <Button text="Save" action={onClose} variant="save" />
                     </div>
                 </form>
             </div>

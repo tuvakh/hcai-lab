@@ -21,8 +21,8 @@ export default function Projects() {
   const filtered =
     activeFilter === "All"
       ? projects
-      : projects.filter((p) =>
-          Array.isArray(p.status) ? p.status.includes(activeFilter) : p.status === activeFilter
+      : projects.filter((project) =>
+          Array.isArray(project.status) ? project.status.includes(activeFilter) : project.status === activeFilter
         );
 
   return (
@@ -38,14 +38,14 @@ export default function Projects() {
 
       <section className="projects-page__content">
         <div className="projects-page__filter-bar">
-          {FILTERS.map((f) => (
+          {FILTERS.map((filterLabel) => (
             <button
-              key={f}
+              key={filterLabel}
               type="button"
-              className={`btn btn--filter${activeFilter === f ? " btn--filter--active" : ""}`}
-              onClick={() => setActiveFilter(f)}
+              className={`btn btn--filter${activeFilter === filterLabel ? " btn--filter--active" : ""}`}
+              onClick={() => setActiveFilter(filterLabel)}
             >
-              {f}
+              {filterLabel}
             </button>
           ))}
         </div>

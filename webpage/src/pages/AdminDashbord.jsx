@@ -7,7 +7,7 @@ import AdminProjectsTable from "../components/AdminProjectsTable";
 import AdminPeopleTable from "../components/AdminPeopleTable";
 import AdminEquipmentTable from "../components/AdminEquipmentTable";
 import AdminBookingsTable from "../components/AdminBookingsTable";
-
+import Button from "../components/Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -23,27 +23,27 @@ export default function Admin() {
   
   useEffect(() => {
     fetch(`${API_URL}/api/projects`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then(setProjects)
       .catch(() => {});
 
     fetch(`${API_URL}/api/people`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then(setPeople)
       .catch(() => {});
     
     fetch(`${API_URL}/api/events`)
-        .then((r) => r.json())
-        .then((data) => setEvents(data.sort((soon, later) => new Date(soon.date) - new Date(later.date))))
+        .then((response) => response.json())
+        .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
         .catch(() => {});
 
     fetch(`${API_URL}/api/equipment`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then(setEquipments)
       .catch(() => {});
 
     fetch(`${API_URL}/api/bookings`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then(setBookings)
       .catch(() => {});
   }, []);
@@ -53,13 +53,7 @@ export default function Admin() {
 
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
-        <button
-          className="btn btn--secondary"
-          onClick={() => navigate("/")}
-          type="button"
-        >
-          Log out
-        </button>
+        <Button text="Log out" action={() => navigate("/")} variant="secondary"/>
       </aside>
 
       {/* ── Body ──────────────────────────────────────────────────────────── */}
@@ -73,11 +67,7 @@ export default function Admin() {
         <section className="admin-page__content">
 
           {activeTab !== "Overview" && (
-            <button type="button" className="btn btn--secondary" 
-              style={{ marginBlockEnd: "var(--normal-space)" }}
-              onClick={() => setActiveTab("Overview")}>
-              &larr; Back
-            </button>
+            <Button text="← Back" style={{ marginBlockEnd: "var(--normal-space)" }} action={() => setActiveTab("Overview")} variant="secondary" size="small" />
           )}
 
           {/* ── Overview ────────────────────────────────────────────────── */}
