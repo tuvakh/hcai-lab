@@ -10,4 +10,11 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './tests/reactComponent/setup.js',
+    css: false,
+    include: ['./tests/reactComponent/**/*.test.{js,jsx}'],
+  } 
 })
