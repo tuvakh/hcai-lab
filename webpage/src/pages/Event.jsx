@@ -10,12 +10,19 @@ export default function Events() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-    fetch(`${API_URL}/api/events`)
-        .then((response) => response.json())
-        .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
-        .catch(() => {});
+        fetch(`${API_URL}/api/events`)
+            .then((response) => response.json())
+            .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
+            .catch(() => {});
     }, []);
 
+    function handleSeatBooked(eventId, bookedSeats) {
+        setEvents(prev => prev.map(event =>
+            event.id === eventId
+                ? { ...event, seatsLeft: event.seatsLeft - bookedSeats }
+                : event
+        ));
+    }
 
   return (
     <>
@@ -30,12 +37,15 @@ export default function Events() {
         {events.map(event => (
             <EventCard
             key={event.id}
+            eventId={event.id}
             title={event.title}
             date={event.date}
             place={event.place}
             description={event.description}
             eventImg={event.eventImg}
-            maxSeats={event.maxSeats}            
+            maxSeats={event.maxSeats} 
+            seatsLeft={event.seatsLeft}
+            onBooked={handleSeatBooked}
             />
         ))}
         </div>

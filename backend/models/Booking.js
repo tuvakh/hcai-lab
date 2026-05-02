@@ -2,13 +2,23 @@ const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema(
   {
-    equipmentId: { type: String, required: true },
-    name: String,
-    category: String,
-    startDate: Date,
-    endDate: Date,
-    bookedByName: String,
+    type: { 
+        type: String, 
+        enum: ["equipment", "seat"], 
+        required: true 
+    },
+    bookedByName:  String,
     bookedByEmail: String,
+    // equipment only
+    equipmentId:  String,
+    name:         String,
+    category:     String,
+    startDate:    Date,
+    endDate:      Date,
+    // seat only
+    eventId:      String,
+    eventTitle:   String,
+    seats:        Number,
   },
   {
     toJSON: {

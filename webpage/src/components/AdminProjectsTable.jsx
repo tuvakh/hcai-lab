@@ -94,7 +94,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
         <h2 className="admin-page__table-heading">
           Projects <span className="admin-page__count">({projects.length})</span>
         </h2>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
+        <div className="admin-page__btn-group">
             <Button text="Add Project" action={() => setModal({ item: null, index: null })} variant="primary" />
             <Button text="Import Project" action={() => setCristinModal(true)} variant="primary" />
         </div>

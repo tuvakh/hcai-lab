@@ -77,14 +77,14 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                                 />
                             ) : (field.key === "eventImg" || field.key === "image") ? (
                                 <>
-                                    <label style={{ cursor: "pointer" }}>
+                                    <label className="admin-modal__image-label">
                                         <span className="btn btn--secondary">
                                             {uploading ? "Uploading..." : "Choose image"}
                                         </span>
                                         <input
                                             type="file"
                                             accept="image/*"
-                                            style={{ display: "none" }}
+                                            className="admin-modal__image-input"
                                             onChange={async (event) => {
                                                 const file = event.target.files[0];
                                                 if (!file) return;
@@ -102,7 +102,7 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                                         <img
                                             src={values[field.key]}
                                             alt="preview"
-                                            style={{ marginTop: "8px", maxHeight: "100px", objectFit: "cover", borderRadius: "4px" }}
+                                            className="admin-modal__image-preview"
                                             onError={(event) => event.target.style.display = "none"}
                                         />
                                     )}

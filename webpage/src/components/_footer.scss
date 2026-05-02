@@ -91,6 +91,11 @@
       font-size: var(--step--1);
       color: var(--tertiary-color);
     }
+
+    &__map {
+    border: 0;
+    border-radius: var(--border-radius);
+}
   }
   
   @media (max-width: 900px) {
