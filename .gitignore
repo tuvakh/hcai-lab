@@ -18,3 +18,6 @@ node_modules/
 
 # User-uploaded files (stored locally, not committed)
 webpage/public/assets/uploads/
+playwright-report/
+test-results/
+
