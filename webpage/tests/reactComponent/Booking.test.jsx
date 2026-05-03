@@ -4,7 +4,6 @@ import { http, HttpResponse } from 'msw';
 import { server } from './setup';
 import Booking from "../../src/pages/Booking";
 
-
 describe("Booking", () => { 
     beforeEach(() => {
         server.use(
@@ -26,7 +25,7 @@ describe("Booking", () => {
         expect(screen.getByLabelText('Name:')).toBeInTheDocument()
     })
 
-    it('book button is diabled without a date range', async () => {
+    it('book button is disabled without a date range', async () => {
         render(<MemoryRouter><Booking /></MemoryRouter>)
         fireEvent.click(await screen.findByText('VR Headset'))
         expect(screen.getByRole('button', { name: /book equipment/i })).toBeDisabled()
@@ -35,14 +34,14 @@ describe("Booking", () => {
     it('shows nothing when API fails', async () => {
         server.use(http.get('*/api/equipment', () => HttpResponse.error()))        
         render(<MemoryRouter><Booking /></MemoryRouter>)
-        await new Promise(r => setTimeout(r, 100))
+        await new Promise(resolve => setTimeout(resolve, 100))
         expect(screen.queryByText('VR Headset')).not.toBeInTheDocument()
     })
 
     it('shows no equipment when list is empty', async () => {
         server.use(http.get('*/api/equipment', () => HttpResponse.json([])))
         render(<MemoryRouter><Booking /></MemoryRouter>)
-        await new Promise(r => setTimeout(r, 100))
+        await new Promise(resolve => setTimeout(resolve, 100))
         expect(screen.queryByRole('button', { name: /view/i })).not.toBeInTheDocument()
     })
 })
