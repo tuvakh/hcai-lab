@@ -29,7 +29,7 @@ describe("EventCard", () => {
     describe("date formatting", () => {
         it("valid ISO date formats", () => {
             render(<EventCard title="AI Workshop" date="2025-05-15T14:00:00" place="Trondheim" description="A talk about AI" />)
-            expect(screen.getByText(/15\. mai/)).toBeInTheDocument()
+            expect(screen.getByText(/15.*may/i)).toBeInTheDocument()
         })
         it("invalid date doesn't crash", () => {
             render(<EventCard title="AI Workshop" date="not a date" place="Trondheim" description="A talk about AI" />)

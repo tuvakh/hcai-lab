@@ -14,8 +14,8 @@ export default function EventCard({ title, description, date, place, eventImg, e
     const eventDate = new Date(date);
     const isValidDate = !isNaN(eventDate);
     const day   = isValidDate ? eventDate.getDate() + "." : date.split(" ")[0];
-    const month = isValidDate ? eventDate.toLocaleString("nb-NO", { month: "long" }) : date.split(" ")[1];
-    const time  = isValidDate ? eventDate.toLocaleTimeString("nb-NO", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
+    const month = isValidDate ? eventDate.toLocaleString("en-US", { month: "long" }) : date.split(" ")[1];
+    const time  = isValidDate ? eventDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
 
     const handleSubmit = async (formEvent) => {
     formEvent.preventDefault();
@@ -52,7 +52,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
     function formatDate(dateStr) {
         const eventDate = new Date(dateStr);
         if (isNaN(eventDate)) return dateStr;
-        return eventDate.toLocaleString("nb-NO", {
+        return eventDate.toLocaleString("en-US", {
             day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
         });
     }
