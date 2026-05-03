@@ -37,12 +37,17 @@ describe("EventCard", () => {
         })
     })
 
-    describe("edge cases", () => {
+    describe("modal content", () => {
         it("renders with seats boundary", () => {
             render(<EventCard title="AI Workshop" date="2025-05-15T14:00:00" place="Trondheim" description="A talk about AI" />)
             fireEvent.click(screen.getByText("AI Workshop"))
             fireEvent.click(screen.getByLabelText("How many seats do you want?"))
             expect(screen.getByLabelText("How many seats do you want?")).toHaveAttribute('min', '1')
+        })
+        it("submit button is present in modal", () => {
+            render(<EventCard title="AI Workshop" date="not a date" place="Trondheim" description="A talk about AI" />)
+            fireEvent.click(screen.getByText("AI Workshop"))
+            expect(screen.getAllByRole('button', { name: /book seat/i }).length).toBeGreaterThan(1)
         })
     })
 })
