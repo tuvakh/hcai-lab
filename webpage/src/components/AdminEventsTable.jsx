@@ -13,7 +13,7 @@ const EVENT_FIELDS = [
     { key: "eventImg", label: "Image path", type: "text", required: true, folder: "events" },
 ];
 
-export default function AdminEventsTable({ events, setEvents }) {
+export default function AdminEventsTable({ events, setEvents, seatBookings = [] }) {
     const [modal, setModal] = useState(null);
     const dragIndex = useRef(null);
     const [dragOverIndex, setDragOverIndex] = useState(null);
@@ -98,6 +98,7 @@ export default function AdminEventsTable({ events, setEvents }) {
                             <th>Title</th>
                             <th>Date</th>
                             <th>Location</th>
+                            <th>Seats (left/max)</th>
                             <th>Description</th>
                             <th className="admin-page__action-col">Actions</th>
                         </tr>
@@ -117,6 +118,7 @@ export default function AdminEventsTable({ events, setEvents }) {
                                 <td>{eventItem.title}</td>
                                 <td>{eventItem.date}</td>
                                 <td>{eventItem.place}</td>
+                                <td>{eventItem.maxSeats - seatBookings.filter(booking => booking.eventId === eventItem._id).reduce((sum, booking) => sum + (booking.seats || 1), 0)}/{eventItem.maxSeats}</td>
                                 <td className="admin-page__desc-cell">{eventItem.description}</td>
                                 <td className="admin-page__actions-cell">
                                     <button
