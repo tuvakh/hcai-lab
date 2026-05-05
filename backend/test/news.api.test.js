@@ -1,4 +1,7 @@
-// Api tests for GET /api/news endpoint, covering positive, boundary, edge, and negative cases. Uses Jest and Supertest to mock the NewsArticle model and test the Express route handler in isolation. Validates correct handling of the 'region' query parameter, DB query construction, response structure, and error handling without leaking internal details.
+// Api tests for GET /api/news endpoint, covering positive, boundary, edge, and negative cases. 
+// Uses Jest and Supertest to mock the NewsArticle model and test the Express route handler in isolation. Validates correct handling of the 
+// 'region' query parameter, DB query construction, response structure, and error handling without leaking internal details.
+// To run:   cd backend && npm test
 const request    = require("supertest");
 const express    = require("express");
 
