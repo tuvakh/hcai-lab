@@ -1,6 +1,8 @@
 {
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "node --test tests/end2end/events.spec.js tests/end2end/booking.spec.js"
   },
   "jest": {
     "testMatch": ["**/tests/**/*.test.js"],
@@ -14,6 +16,7 @@
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.6.0",
     "jest": "^30.3.0",
+    "puppeteer": "^24.15.0",
     "supertest": "^7.2.2"
   }
 }

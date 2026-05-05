@@ -102,7 +102,7 @@ export default function Admin() {
 
           {/* ── Events ──────────────────────────────────────────────────── */}
           {activeTab === "Events" && (
-                <AdminEventsTable events={events} setEvents={setEvents} />
+                <AdminEventsTable events={events} setEvents={setEvents} seatBookings={seatBookings} />
           )}
 
           {/* ── Equipment ───────────────────────────────────────────────── */}

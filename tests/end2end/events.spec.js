@@ -1,46 +1,93 @@
-import { test, expect } from '@playwright/test';
+import { describe, it, before, after, beforeEach, afterEach } from 'node:test'
+import assert from 'node:assert/strict'
+import puppeteer from 'puppeteer'
 
-test.describe('Events', () => {
-    test('events page shows the Events heading', async ({ page }) => {
-        await page.goto('/events');
-        await expect(page.getByRole('heading', { name: 'Events' })).toBeVisible();
-    });
+const BASE_URL = 'http://localhost:5173'
 
-    test('event cards are visible on the page', async ({ page }) => {
-        await page.goto('/events');
-        await expect(page.getByRole('button', { name: /book seat/i }).first()).toBeVisible();
-    });
+describe('Events', () => {
+    let browser, page
 
-    test('clicking an event card opens the modal', async ({ page }) => {
-        await page.goto('/events');
-        await page
-            .getByRole('button', { name: /Book seat/i })
-            .first()
-            .click();
-        await expect(page.getByLabel('First name: ')).toBeVisible();
-    });
+    before(async () => {
+        browser = await puppeteer.launch({ headless: true })
+    })
 
-    test('modal shows event title', async ({ page }) => {
-        await page.goto('/events');
-        await page
-            .getByRole('button', { name: /Book seat/i })
-            .first()
-            .click();
-        await expect(page.getByRole('dialog').getByRole('heading', { name: 'Details' })).toBeVisible();
-    });
+    after(async () => {
+        await browser.close()
+    })
 
-    test('user can fill in and submit the seat booking form', async ({ page }) => {
-        await page.goto('/events');
-        await page
-            .getByRole('button', { name: /book seat/i })
-            .first()
-            .click();
-        await page.getByRole('dialog').getByLabel('First name:').fill('Test User');
-        await page.getByRole('dialog').getByLabel('Email:').fill('test@test.com');
-        await page
-            .getByRole('dialog')
-            .getByRole('button', { name: /book seat/i })
-            .click();
-        await expect(page.getByRole('dialog')).toBeVisible();
-    });
-});
+    beforeEach(async () => {
+        page = await browser.newPage()
+        await page.goto(`${BASE_URL}/events`)
+    })
+
+    afterEach(async () => {
+        await page.close()
+    })
+
+    it('events page shows the Events heading', async () => {
+        await page.waitForSelector('h1')
+        const heading = await page.$eval('h1', element => element.textContent)
+        assert.match(heading, /Events/i)
+    })
+
+    it('clicking an event card opens the modal', async () => {
+        await page.waitForSelector('button')
+        await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('button'))
+                .find(btn => /book seat/i.test(btn.textContent))
+            btn.click()
+        })
+        await page.waitForSelector('[role="dialog"]')
+        const label = await page.$eval('[role="dialog"] label', element => element.textContent)
+        assert.match(label, /first name/i)
+    })
+
+    it('modal shows a details section', async () => {
+        await page.waitForSelector('button')
+        await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('button'))
+                .find(btn => /book seat/i.test(btn.textContent))
+            btn.click()
+        })
+        await page.waitForSelector('[role="dialog"]')
+        const heading = await page.$eval('[role="dialog"] h3', element => element.textContent)
+        assert.match(heading, /Details/i)
+    })
+
+    it('submitting without a name keeps the modal open', async () => {
+        await page.waitForSelector('button')
+        await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('button'))
+                .find(btn => /book seat/i.test(btn.textContent))
+            btn.click()
+        })
+        await page.waitForSelector('[role="dialog"]')
+        await page.type('[role="dialog"] input[id="email"]', 'test@test.com')
+        await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('[role="dialog"] button'))
+                .find(btn => /book seat/i.test(btn.textContent))
+            btn.click()
+        })
+        const dialog = await page.$('[role="dialog"]')
+        assert.notEqual(dialog, null)
+    })
+
+    it('user can fill in and submit the seat booking form', async () => {
+        await page.waitForSelector('button')
+        await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('button'))
+                .find(btn => /book seat/i.test(btn.textContent))
+            btn.click()
+        })
+        await page.waitForSelector('[role="dialog"]')
+        await page.type('[role="dialog"] input[id="name"]', 'Test User')
+        await page.type('[role="dialog"] input[id="email"]', 'test@test.com')
+        await page.evaluate(() => {
+            const btn = Array.from(document.querySelectorAll('[role="dialog"] button'))
+                .find(btn => /book seat/i.test(btn.textContent))
+            btn.click()
+        })
+        const dialog = await page.$('[role="dialog"]')
+        assert.notEqual(dialog, null)
+    })
+})
