@@ -1,11 +1,22 @@
 {
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "test:e2e": "node --test tests/end2end/events.spec.js tests/end2end/booking.spec.js"
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*.test.js"],
+    "modulePaths": ["<rootDir>/backend/node_modules"]
+  },
   "dependencies": {
     "mongodb": "^7.2.0",
     "mongoose": "^9.5.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0"
-  },
-  "scripts": {}
+    "@types/node": "^25.6.0",
+    "jest": "^30.3.0",
+    "puppeteer": "^24.15.0",
+    "supertest": "^7.2.2"
+  }
 }

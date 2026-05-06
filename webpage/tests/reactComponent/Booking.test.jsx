@@ -1,47 +1,56 @@
-import {render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { http, HttpResponse } from 'msw';
-import { server } from './setup';
+import { vi } from 'vitest';
 import Booking from "../../src/pages/Booking";
 
-describe("Booking", () => { 
-    beforeEach(() => {
-        server.use(
-            http.get('*/api/equipment', () => HttpResponse.json([
-                { id: '1', name: 'VR Headset', category: 'VR', description: 'A VR headset' }
-            ])),
-            http.get('*/api/bookings', () => HttpResponse.json([]))
-        )
+const mockEquipment = [{ id: '1', name: 'VR Headset', category: 'VR', description: 'A VR headset' }]
+
+function mockFetch(equipmentData = mockEquipment, bookingsData = []) {
+    vi.spyOn(global, 'fetch').mockImplementation((url) => {
+        if (url.endsWith('/equipment')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(equipmentData) })
+        if (url.includes('/bookings')) return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(bookingsData) })
+        return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve([]) })    
+    })
+}
+
+describe("Booking", () => {
+    afterEach(() => {
+        vi.restoreAllMocks()
     })
 
     it('shows equipment cards from API', async () => {
+        mockFetch()
         render(<MemoryRouter><Booking /></MemoryRouter>)
         expect(await screen.findByText('VR Headset')).toBeInTheDocument()
     })
 
-    it('clicking a card open the modal', async () => {
+    it('clicking a card opens the modal', async () => {
+        mockFetch()
         render(<MemoryRouter><Booking /></MemoryRouter>)
         fireEvent.click(await screen.findByText('VR Headset'))
         expect(screen.getByLabelText('Name:')).toBeInTheDocument()
     })
 
     it('book button is disabled without a date range', async () => {
+        mockFetch()
         render(<MemoryRouter><Booking /></MemoryRouter>)
         fireEvent.click(await screen.findByText('VR Headset'))
         expect(screen.getByRole('button', { name: /book equipment/i })).toBeDisabled()
     })
 
     it('shows nothing when API fails', async () => {
-        server.use(http.get('*/api/equipment', () => HttpResponse.error()))        
+        vi.spyOn(global, 'fetch').mockRejectedValue(new Error('Network error'))
         render(<MemoryRouter><Booking /></MemoryRouter>)
-        await new Promise(resolve => setTimeout(resolve, 100))
-        expect(screen.queryByText('VR Headset')).not.toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.queryByText('VR Headset')).not.toBeInTheDocument()
+        })
     })
 
     it('shows no equipment when list is empty', async () => {
-        server.use(http.get('*/api/equipment', () => HttpResponse.json([])))
+        mockFetch([])
         render(<MemoryRouter><Booking /></MemoryRouter>)
-        await new Promise(resolve => setTimeout(resolve, 100))
-        expect(screen.queryByRole('button', { name: /view/i })).not.toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.queryByRole('button', { name: /view/i })).not.toBeInTheDocument()
+        })
     })
 })
