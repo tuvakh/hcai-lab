@@ -155,4 +155,4 @@ function startNewsFetcher() {
   cron.schedule("0 */6 * * *", fetchAllNews);
 }
 
-module.exports = { startNewsFetcher };
+module.exports = { startNewsFetcher, isAiRelated, inferTag, stripHtml, truncate };
