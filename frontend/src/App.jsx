@@ -17,6 +17,7 @@ import MyBookings from "./pages/MyBookings.jsx";
 //http://localhost:5173/Admin
 
 // Removed duplicate App function and default export
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {

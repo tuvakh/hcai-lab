@@ -11,7 +11,6 @@ const navItems = [
   { label: "News", path: "/news" },
   { label: "Booking", path: "/booking" },
 ];
-//transperant nav bar version 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

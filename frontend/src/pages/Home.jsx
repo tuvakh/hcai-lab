@@ -62,7 +62,7 @@ export default function Home() {
                 item={item}
                 saved={false}  
                 onOpen={(item) => setActiveItem(item)}
-                isFeatured={item.id === 1} // første artikkel som featured
+                isFeatured={item.id === 1}
             />
             ))}
         </div>
