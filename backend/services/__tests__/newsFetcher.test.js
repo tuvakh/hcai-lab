@@ -27,12 +27,10 @@ describe("isAiRelated(title, text)", () => {
 
   describe("boundary cases", () => {
     it('matches " ai " when surrounded by spaces in the text', () => {
-      // The keyword " ai " (with leading and trailing spaces) is in the list
       expect(isAiRelated("This is ai research", "")).toBe(true);
     });
 
     it('does NOT match "ai" embedded inside a word without spaces', () => {
-      // "railway" contains the letters "ai" but not the keyword " ai "
       expect(isAiRelated("Railway news today", "")).toBe(false);
     });
   });
@@ -54,8 +52,6 @@ describe("isAiRelated(title, text)", () => {
 
   describe("negative cases", () => {
     it("does not throw when null is passed as title — returns false", () => {
-      // null is not undefined, so the default "" is not used.
-      // JS coerces null to "null", which does not match any AI keyword.
       expect(() => isAiRelated(null, "")).not.toThrow();
       expect(isAiRelated(null, "")).toBe(false);
     });
@@ -102,14 +98,10 @@ describe("inferTag(title, text)", () => {
 
   describe("boundary cases — rule priority", () => {
     it("returns the tag from the earlier rule when multiple rules match", () => {
-      // "openai" matches the OpenAI rule (position 1)
-      // "research" matches the Research rule (position 10)
-      // The first match must win
       expect(inferTag("OpenAI publishes new research paper", "")).toBe("OpenAI");
     });
 
     it('returns "Robotics" before "Design" when both keywords appear', () => {
-      // "robot" matches Robotics (position 6); "design" matches Design (position 7)
       expect(inferTag("Robot interface design", "")).toBe("Robotics");
     });
   });
@@ -130,7 +122,6 @@ describe("inferTag(title, text)", () => {
 
   describe("negative cases", () => {
     it("does not throw when null is passed — returns AI News", () => {
-      // JS coerces null to "null null", which matches no tag rule
       expect(() => inferTag(null, null)).not.toThrow();
       expect(inferTag(null, null)).toBe("AI News");
     });
@@ -205,7 +196,6 @@ describe("stripHtml(str)", () => {
     });
 
     it("handles malformed HTML (unclosed tag) without throwing", () => {
-      // The regex requires a closing > to match, so an unclosed tag is left as-is
       expect(() => stripHtml("<div unclosed")).not.toThrow();
     });
 
@@ -235,7 +225,7 @@ describe("truncate(text, max)", () => {
     });
 
     it("works correctly with the production summary length of 300", () => {
-      const text = "word ".repeat(100); // 500 chars
+      const text = "word ".repeat(100);
       expect(truncate(text, 300).length).toBe(301);
     });
   });
@@ -273,8 +263,6 @@ describe("truncate(text, max)", () => {
 
   describe("negative cases", () => {
     it("handles negative max — slice(0, -1) removes the last character", () => {
-      // 'Hello'.length (5) is not <= -1, so truncation runs.
-      // slice(0, -1) = "Hell", then "…" is appended → "Hell…"
       expect(truncate("Hello", -1)).toBe("Hell…");
     });
   });
