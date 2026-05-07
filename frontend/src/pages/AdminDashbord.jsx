@@ -12,19 +12,57 @@ import AdminSeatBookingsTable from "../components/AdminSeatBookingsTable";
 import Button from "../components/Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "hcai2024";
+
+function LoginGate({ onLogin }) {
+  const [input, setInput] = useState("");
+  const [error, setError] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (input === ADMIN_PASSWORD) {
+      sessionStorage.setItem("adminAuth", "true");
+      onLogin();
+    } else {
+      setError(true);
+      setInput("");
+    }
+  }
+
+  return (
+    <div className="admin-login">
+      <form className="admin-login__form" onSubmit={handleSubmit}>
+        <p className="admin-login__label">Dashboard</p>
+        <h1 className="admin-login__title">Admin Login</h1>
+        <input
+          className="admin-login__input"
+          type="password"
+          placeholder="Password"
+          value={input}
+          autoFocus
+          onChange={(e) => { setInput(e.target.value); setError(false); }}
+        />
+        {error && <p className="admin-login__error">Incorrect password</p>}
+        <button className="admin-login__btn" type="submit">Log in</button>
+      </form>
+    </div>
+  );
+}
 
 export default function Admin() {
   const navigate = useNavigate();
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem("adminAuth") === "true");
   const [activeTab, setActiveTab] = useState("Overview");
-
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
   const [events, setEvents] = useState([]);
   const [equipments, setEquipments] = useState([]);
   const [equipmentBookings, setEquipmentBookings] = useState([]);
   const [seatBookings, setSeatBookings] = useState([]);
-  
+
   useEffect(() => {
+    if (!authed) return;
+
     fetch(`${API_URL}/api/projects`)
       .then((response) => response.json())
       .then(setProjects)
@@ -34,7 +72,7 @@ export default function Admin() {
       .then((response) => response.json())
       .then(setPeople)
       .catch(() => {});
-    
+
     fetch(`${API_URL}/api/events`)
         .then((response) => response.json())
         .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
@@ -52,14 +90,16 @@ export default function Admin() {
             setSeatBookings(data.filter(b => b.type === "seat"));
         })
         .catch(() => {});
-  }, []);
+  }, [authed]);
+
+  if (!authed) return <LoginGate onLogin={() => setAuthed(true)} />;
 
   return (
     <main className="admin-page">
 
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
-        <Button text="Log out" action={() => navigate("/")} variant="secondary"/>
+        <Button text="Log out" action={() => { sessionStorage.removeItem("adminAuth"); navigate("/"); }} variant="secondary"/>
       </aside>
 
       {/* ── Body ──────────────────────────────────────────────────────────── */}
