@@ -201,16 +201,6 @@ h1, h2, h3 {
 .news-page__content {
   padding: var(--big-space) var(--mega-space) var(--mega-space);
 }
-@media (max-width: 900px) {
-  .news-page__content {
-    padding: var(--medium-space) var(--big-space) var(--bigger-space);
-  }
-}
-@media (max-width: 600px) {
-  .news-page__content {
-    padding: var(--medium-space) var(--medium-space) var(--bigger-space);
-  }
-}
 .news-page__status {
   color: var(--border-color);
   font-size: var(--step--1);
@@ -310,9 +300,6 @@ h1, h2, h3 {
 }
 
 @media (max-width: 1024px) {
-  .news-page {
-    padding-inline: var(--big-space);
-  }
   .news-page__layout {
     grid-template-columns: 1fr;
     grid-template-areas: "sidebar" "main" "more";
@@ -326,9 +313,6 @@ h1, h2, h3 {
   }
 }
 @media (max-width: 600px) {
-  .news-page {
-    padding-inline: var(--normal-space);
-  }
   .news-rail__track {
     grid-template-columns: 1fr;
   }
@@ -1153,16 +1137,14 @@ h1, h2, h3 {
   left: 0;
   right: 0;
   z-index: 1000;
-  -webkit-backdrop-filter: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--bigger-space);
   background: rgba(28, 35, 111, 0.35);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow: var(--navbar-shadow);
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent);
-          mask-image: linear-gradient(to bottom, black 70%, transparent);
 }
 .navbar__logo {
   display: flex;
@@ -1273,6 +1255,13 @@ h1, h2, h3 {
   background-size: cover;
   background-position: center 90%;
   display: flex;
+}
+@media (max-width: 768px) {
+  .heroSection {
+    background-position: center center;
+  }
+}
+.heroSection {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -2233,6 +2222,10 @@ h1, h2, h3 {
   border: 1px solid var(--border-color);
   cursor: pointer;
   transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 .news-sidebar__item:hover {
   background: var(--background-color);
@@ -2247,6 +2240,22 @@ h1, h2, h3 {
 }
 .news-sidebar__item-title {
   opacity: 0.85;
+}
+.news-sidebar__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--step-0);
+  color: gold;
+  padding: 0;
+  line-height: 1;
+  margin-left: auto;
+  display: block;
+  transition: transform 0.1s, opacity 0.15s;
+}
+.news-sidebar__remove:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
 }
 .news-sidebar__empty {
   font-size: var(--step--2);

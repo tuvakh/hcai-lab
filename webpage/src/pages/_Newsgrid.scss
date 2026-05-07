@@ -52,7 +52,6 @@
 // Tablet (≤1024px): sidebar collapses above content, 2-col card grid
 @media (max-width: 1024px) {
   .news-page {
-    padding-inline: var(--big-space);
 
     &__layout {
       grid-template-columns: 1fr;
@@ -75,9 +74,6 @@
 
 // Mobile (≤600px): single column cards, tighter padding
 @media (max-width: 600px) {
-  .news-page {
-    padding-inline: var(--normal-space);
-  }
 
   .news-rail__track {
     grid-template-columns: 1fr;

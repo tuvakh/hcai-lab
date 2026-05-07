@@ -46,7 +46,7 @@ export default function NewsModal({ item, onClose }) {
 
                     {item.url && item.url !== "#" && (
                         <a
-                            className="news-modal__read-more"
+                            className="news-modal__link"
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"

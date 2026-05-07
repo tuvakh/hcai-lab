@@ -3,6 +3,10 @@
     background-size: cover;
     background-position: center 90%;
     display: flex;
+
+    @media (max-width: 768px) {
+        background-position: center center;
+    }
     justify-content: center;
     align-items: center;
     text-align: center;
