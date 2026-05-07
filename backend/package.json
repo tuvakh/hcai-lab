@@ -8,7 +8,9 @@
     "test": "jest"
   },
   "jest": {
-    "testMatch": ["**/test/**/*.test.js"]
+    "testMatch": [
+      "**/test/**/*.test.js"
+    ]
   },
   "dependencies": {
     "cheerio": "^1.2.0",
