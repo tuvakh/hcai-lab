@@ -1,0 +1,43 @@
+import { useState } from "react";
+import { useNavigate, Link } from "react-router";
+
+function Register() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    try {
+      const res = await fetch("http://localhost:3001/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) return setError(data.error);
+      navigate("/login");
+    } catch {
+      setError("Something went wrong");
+    }
+  }
+
+  return (
+    <main className="auth-page">
+      <div className="auth-page__card">
+        <h1 className="auth-page__title">Register</h1>
+        <form className="auth-page__form" onSubmit={handleSubmit}>
+          <input className="auth-page__input" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input className="auth-page__input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          {error && <p className="auth-page__error">{error}</p>}
+          <button className="auth-page__btn" type="submit">Register</button>
+        </form>
+        <p className="auth-page__link">Already have an account? <Link to="/login">Log in</Link></p>
+      </div>
+    </main>
+  );
+}
+
+export default Register;

@@ -36,7 +36,7 @@ export default function People() {
           Interested in collaborating or joining the team? We'd love to hear
           from you.
         </p>
-        <a href="mailto:hcai@ntnu.no" className="btn btn--primary btn--large">
+        <a href="mailto:hcai@ntnu.no" className="btn btn--white btn--large">
           Get in touch
         </a>
       </section>

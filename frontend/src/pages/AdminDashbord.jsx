@@ -99,13 +99,16 @@ export default function Admin() {
       .then(setEquipments)
       .catch(() => {});
 
-    fetch(`${API_URL}/api/bookings`)
-        .then(r => r.json())
-        .then(data => {
-            setEquipmentBookings(data.filter(b => b.type === "equipment"));
-            setSeatBookings(data.filter(b => b.type === "seat"));
-        })
-        .catch(() => {});
+    fetch(`${API_URL}/api/bookings`, {
+  headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
+})
+  .then(r => r.json())
+  .then(data => {
+    setEquipmentBookings(data.filter(b => b.type === "equipment"));
+    setSeatBookings(data.filter(b => b.type === "seat"));
+  })
+  .catch(() => {});
+
   }, [authed]);
 
   if (!authed) return <LoginGate onLogin={() => setAuthed(true)} />;

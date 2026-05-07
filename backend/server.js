@@ -11,6 +11,7 @@ const bookingsRouter = require("./routes/bookings");
 const uploadRouter = require("./routes/upload");
 const searchRouter = require("./routes/search");
 const newsRouter = require("./routes/news");
+const authRouter = require("./routes/auth");
 const { startNewsFetcher } = require("./services/newsFetcher");
 const adminAuthRouter = require("./routes/adminAuth");
 
@@ -32,6 +33,7 @@ app.use("/api/bookings", bookingsRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api/search", searchRouter);
 app.use("/api/news", newsRouter);
+app.use("/api/auth", authRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI)

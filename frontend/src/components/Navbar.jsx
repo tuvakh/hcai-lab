@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import logo from "../assets/logo.png";
+import { useAuth } from "../context/AuthContext";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -14,6 +15,7 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,6 +73,33 @@ export default function Navbar() {
               </NavLink>
             </li>
           ))}
+          {user ? (
+            <>
+                <li>
+                <NavLink to="/my-bookings" className="navbar__link" onClick={closeMenu}>
+                    My Bookings
+                </NavLink>
+                </li>
+                <li>
+                <button className="navbar__link" onClick={() => { logout(); closeMenu(); }}>
+                    Log out
+                </button>
+                </li>
+            </>
+            ) : (
+            <>
+                <li>
+                <NavLink to="/login" className="navbar__link" onClick={closeMenu}>
+                    Log in
+                </NavLink>
+                </li>
+                <li>
+                <NavLink to="/register" className="navbar__link" onClick={closeMenu}>
+                    Register
+                </NavLink>
+                </li>
+            </>
+            )}
         </ul>
       </nav>
     </>
