@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Booking = require("../models/Booking");
 const Event = require("../models/Event");
+const authMiddleware = require("../middleware/auth");
 
-router.get("/", async (req, res) => {
-  const bookings = await Booking.find();
+router.get("/", authMiddleware, async (req, res) => {
+  const filter = req.query.email ? { bookedByEmail: req.query.email } : {};
+  const bookings = await Booking.find(filter);
   res.json(bookings);
 });
 
