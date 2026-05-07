@@ -285,3 +285,75 @@
 
 
 }
+
+// ─── Admin Login Gate ─────────────────────────────────────────────────────────
+.admin-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--normal-space);
+        width: 100%;
+        max-width: 360px;
+        padding: var(--big-space);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--primary-color);
+    }
+
+    &__label {
+        font-size: var(--step--2);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--secondary-color);
+        margin: 0;
+    }
+
+    &__title {
+        font-size: var(--step-2);
+        font-weight: 400;
+        margin: 0;
+    }
+
+    &__input {
+        padding: var(--small-space) var(--normal-space);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-btn);
+        background: var(--background-color);
+        color: var(--white-color);
+        font-size: var(--step-0);
+
+        &:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+    }
+
+    &__error {
+        font-size: var(--step--1);
+        color: #e05c5c;
+        margin: 0;
+    }
+
+    &__btn {
+        padding: var(--small-space) var(--normal-space);
+        background: var(--secondary-color);
+        color: var(--primary-color);
+        border: none;
+        border-radius: var(--border-radius-btn);
+        font-size: var(--step-0);
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+}
