@@ -10,7 +10,7 @@ router.get("/", authMiddleware, async (req, res) => {
   res.json(bookings);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     if (req.body.type === "seat") {
       const event = await Event.findById(req.body.eventId);

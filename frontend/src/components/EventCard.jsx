@@ -1,53 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from './Buttons';
 import Modal from './Modal';
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-export default function EventCard({ title, description, date, place, eventImg, eventId, bookSeat, maxSeats, seatsLeft, variant, onBooked}) {
+export default function EventCard({ title, description, date, place, eventImg, eventId, bookSeat, maxSeats, seatsLeft, variant, onBooked }) {
+    const { token, user } = useAuth();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(user?.email || "");
     const [seats, setSeats] = useState(1);
     const [booked, setBooked] = useState(false);
 
     const eventDate = new Date(date);
     const isValidDate = !isNaN(eventDate);
-    const day   = isValidDate ? eventDate.getDate() + "." : date.split(" ")[0];
+    const day = isValidDate ? eventDate.getDate() + "." : date.split(" ")[0];
     const month = isValidDate ? eventDate.toLocaleString("en-US", { month: "long" }) : date.split(" ")[1];
-    const time  = isValidDate ? eventDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
+    const time = isValidDate ? eventDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
 
     const handleSubmit = async (formEvent) => {
-    formEvent.preventDefault();
-    try {
-        const response = await fetch(`${API_URL}/api/bookings`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                type: "seat",
-                eventId,
-                eventTitle: title,
-                bookedByName: name,
-                bookedByEmail: email,
-                seats,
-            }),
-        });
-        if (!response.ok) {
-            const err = await response.json();
-            alert(err.error || "Booking failed");
-            return;
+        formEvent.preventDefault();
+        try {
+            const response = await fetch(`${API_URL}/api/bookings`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    type: "seat",
+                    eventId,
+                    eventTitle: title,
+                    bookedByName: name,
+                    bookedByEmail: email,
+                    seats,
+                }),
+            });
+            if (!response.ok) {
+                const err = await response.json();
+                alert(err.error || "Booking failed");
+                return;
+            }
+            onBooked(eventId, seats);
+            setBooked(true);
+            setIsOpen(false);
+            setName('');
+            setEmail('');
+            setSeats(1);
+        } catch (error) {
+            console.error("Booking failed:", error);
         }
-        onBooked(eventId, seats);
-        setBooked(true);
-        setIsOpen(false);
-        setName('');
-        setEmail('');
-        setSeats(1);
-    } catch (error) {
-        console.error("Booking failed:", error);
-    }
-};
-
+    };
 
     function formatDate(dateStr) {
         const eventDate = new Date(dateStr);
@@ -80,7 +86,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
         <>
             <div className="eventCard" onClick={() => setIsOpen(true)}>
                 <div className='eventCard__info img-overlay'>
-                    <img className="eventCard__img" src={eventImg}/>
+                    <img className="eventCard__img" src={eventImg} />
                     <div className='eventCard__text'>
                         <h3 className='eventCard__text--title'>{title}</h3>
                         <p>{formatDate(date)}</p>
@@ -118,7 +124,9 @@ export default function EventCard({ title, description, date, place, eventImg, e
 
                     <div className="modal__section">
                         <h3 className="modal__section-title">Book Seat</h3>
-                        {booked ? (
+                        {!token ? (
+                            <p>You need to <Link to="/login">log in</Link> to book a seat.</p>
+                        ) : booked ? (
                             <p>Your seat has been booked!</p>
                         ) : seatsLeft <= 0 ? (
                             <p>This event is fully booked.</p>
@@ -130,7 +138,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
                                 <input id="email" type="email" placeholder="What's your email" value={email} onChange={(event) => setEmail(event.target.value)} required />
                                 <label htmlFor="seats">How many seats do you want?</label>
                                 <input id="seats" type="number" min="1" max={seatsLeft} placeholder="Number of seats" value={seats} onChange={(event) => setSeats(Number(event.target.value))} />
-                                <Button text="Book seat" type="submit" variant="primary" size="large" disabled={seatsLeft <= 0}/>
+                                <Button text="Book seat" type="submit" variant="primary" size="large" disabled={seatsLeft <= 0} />
                             </form>
                         )}
                     </div>
