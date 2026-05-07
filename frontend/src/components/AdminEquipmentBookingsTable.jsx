@@ -4,7 +4,10 @@ export default function AdminEquipmentBookingsTable({ bookings, setBookings }) {
     async function deleteBooking(id) {
         if (!window.confirm("Remove this booking?")) return;
         setBookings(prev => prev.filter(booking => booking.id !== id));
-        fetch(`${API_URL}/api/bookings/${id}`, { method: "DELETE" }).catch(() => {});
+        fetch(`${API_URL}/api/bookings/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
+        }).catch(() => { });
     }
 
     return (

@@ -22,6 +22,14 @@ function MyBookings() {
       .catch(() => setError("Could not load bookings"));
   }, [token]);
 
+    async function handleUnbook(id) {
+    await fetch(`http://localhost:3001/api/bookings/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setBookings((prev) => prev.filter((b) => b.id !== id));
+  }
+
   if (error) return <p>{error}</p>;
 
   return (
@@ -30,7 +38,7 @@ function MyBookings() {
     {bookings.length === 0 ? (
       <p className="my-bookings-page__empty">No bookings yet</p>
     ) : (
-      <BookingList bookings={bookings} onUnbook={() => {}} />
+      <BookingList bookings={bookings} onUnbook={handleUnbook} />
     )}
   </main>
 );
