@@ -25,15 +25,15 @@ function MyBookings() {
   if (error) return <p>{error}</p>;
 
   return (
-    <main>
-      <h1>My Bookings</h1>
-      {bookings.length === 0 ? (
-        <p>No bookings yet</p>
-      ) : (
-        <BookingList bookings={bookings} onUnbook={() => {}} />
-      )}
-    </main>
-  );
+  <main className="my-bookings-page">
+    <h1 className="my-bookings-page__title">My Bookings</h1>
+    {bookings.length === 0 ? (
+      <p className="my-bookings-page__empty">No bookings yet</p>
+    ) : (
+      <BookingList bookings={bookings} onUnbook={() => {}} />
+    )}
+  </main>
+);
 }
 
 export default MyBookings;
