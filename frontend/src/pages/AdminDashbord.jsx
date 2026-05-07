@@ -12,20 +12,34 @@ import AdminSeatBookingsTable from "../components/AdminSeatBookingsTable";
 import Button from "../components/Buttons";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || "hcai2024";
 
 function LoginGate({ onLogin }) {
   const [input, setInput] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (input === ADMIN_PASSWORD) {
-      sessionStorage.setItem("adminAuth", "true");
-      onLogin();
-    } else {
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: input }),
+      });
+      if (!res.ok) {
+        setError(true);
+        setInput("");
+        return;
+      }
+      const { token } = await res.json();
+      sessionStorage.setItem("adminToken", token);
+      onLogin(token);
+    } catch {
       setError(true);
-      setInput("");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -43,7 +57,9 @@ function LoginGate({ onLogin }) {
           onChange={(e) => { setInput(e.target.value); setError(false); }}
         />
         {error && <p className="admin-login__error">Incorrect password</p>}
-        <button className="admin-login__btn" type="submit">Log in</button>
+        <button className="admin-login__btn" type="submit" disabled={loading}>
+          {loading ? "Logging in…" : "Log in"}
+        </button>
       </form>
     </div>
   );
@@ -51,7 +67,7 @@ function LoginGate({ onLogin }) {
 
 export default function Admin() {
   const navigate = useNavigate();
-  const [authed, setAuthed] = useState(() => sessionStorage.getItem("adminAuth") === "true");
+  const [authed, setAuthed] = useState(() => !!sessionStorage.getItem("adminToken"));
   const [activeTab, setActiveTab] = useState("Overview");
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
@@ -99,7 +115,7 @@ export default function Admin() {
 
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
-        <Button text="Log out" action={() => { sessionStorage.removeItem("adminAuth"); navigate("/"); }} variant="secondary"/>
+        <Button text="Log out" action={() => { sessionStorage.removeItem("adminToken"); navigate("/"); }} variant="secondary"/>
       </aside>
 
       {/* ── Body ──────────────────────────────────────────────────────────── */}
