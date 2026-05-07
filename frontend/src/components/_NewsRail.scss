@@ -1,6 +1,3 @@
-// src/components/_NewsRail.scss
-// BEM block: news-rail
-
 .news-rail {
     margin-bottom: var(--big-space);
   
@@ -20,7 +17,6 @@
       padding: 0;
       padding-block-end: var(--small-space);
 
-      // hides 3 news on mobile so it's not too many
       @media (max-width: 600px) {
         .news-card:nth-child(n+4) {
           display: none;

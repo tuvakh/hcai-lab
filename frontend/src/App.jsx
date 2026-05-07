@@ -9,9 +9,6 @@ import Footer from "./components/Footer";
 import ScrollToTop from './components/ScrollToTop';
 import Admin from "./pages/AdminDashbord.jsx";
 import Display from "./pages/Display.jsx";
-//http://localhost:5173/Admin
-
-// Removed duplicate App function and default export
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {
