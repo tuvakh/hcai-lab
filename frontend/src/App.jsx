@@ -9,6 +9,15 @@ import Footer from "./components/Footer";
 import ScrollToTop from './components/ScrollToTop';
 import Admin from "./pages/AdminDashbord.jsx";
 import Display from "./pages/Display.jsx";
+
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import MyBookings from "./pages/MyBookings.jsx";
+
+//http://localhost:5173/Admin
+
+// Removed duplicate App function and default export
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {
@@ -29,6 +38,9 @@ function Layout() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/display" element={<Display />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
       </Routes>
       {!isAdmin && !isDisplay && <Footer />}
     </>
