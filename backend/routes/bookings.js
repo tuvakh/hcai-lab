@@ -32,9 +32,15 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  const booking = await Booking.findByIdAndDelete(req.params.id);
+router.delete("/:id", authMiddleware, async (req, res) => {
+  const booking = await Booking.findById(req.params.id);
   if (!booking) return res.status(404).json({ error: "Booking not found" });
+
+  if (req.user.role !== "admin" && booking.bookedByEmail !== req.user.email) {
+    return res.status(403).json({ error: "Not allowed" });
+  }
+
+  await booking.deleteOne();
   res.json({ message: "Booking deleted" });
 });
 
