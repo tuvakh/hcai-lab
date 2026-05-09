@@ -68,6 +68,10 @@
     &--calendar {
       margin-block-start: var(--small-space);
     }
+    &--error {
+        color: #c91515;
+        font-weight: bold;
+    }
   }
 
   .react-calendar {
