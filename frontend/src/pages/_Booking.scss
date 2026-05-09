@@ -28,28 +28,13 @@
     text-align: center;
 
     &-text {
-      max-width: 700px;
-      margin: 0 auto var(--big-space);
-      color: var(--white-color);
-      font-size: var(--step-0);
-      line-height: 1.6;
+      margin-inline: auto;
+      width: clamp(30ch, 100%, 60ch);
     }
   }
 
-  &__section-title,
-  &__details-title,
   &__contact-title {
-    margin: 0 0 var(--medium-space);
-    color: var(--white-color);
-    line-height: 1;
-  }
-
-  &__section-title {
-    font-size: var(--step-4);
-  }
-
-  &__details-title,
-  &__contact-title {
+    margin: 0 0 var(--small-space);
     font-size: var(--step-3);
   }
 

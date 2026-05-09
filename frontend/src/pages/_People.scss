@@ -23,7 +23,7 @@
   }
 
   &__contact-title {
-    font-size: var(--step-1);
+    font-size: var(--step-2);
     font-weight: 400;
     letter-spacing: 0.04em;
     color: var(--white-color);
@@ -31,7 +31,7 @@
   }
 
   &__contact-text {
-    font-size: var(--step--2);
+    font-size: var(--step--1);
     line-height: 1.65;
     max-width: clamp(30ch, 50%, 35ch);
     margin: 0 auto var(--medium-space);

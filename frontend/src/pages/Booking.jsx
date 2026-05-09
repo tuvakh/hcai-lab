@@ -139,7 +139,6 @@ export default function Booking() {
             </HeroSection>
 
             <section className="booking-page__grid-section">
-                <h2 className="booking-page__section-title">Browse Equipment</h2>
                 <CardGrid
                     variant="equipment"
                     items={equipment.map(item => ({ ...item, status: getOverallStatus(item) }))}

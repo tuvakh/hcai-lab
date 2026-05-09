@@ -36,9 +36,11 @@
 
   &__title {
     font-size: var(--step-0);
-    line-height: 1.25;
+    font-family: var(--text-font);
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: normal;
     color: var(--black-color);
-    margin: 0;
   }
 
   &__summary {

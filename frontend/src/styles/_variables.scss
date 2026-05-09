@@ -1,6 +1,6 @@
 :root {
     --step--2: clamp(0.6944rem, 0.6513rem + 0.1919vw, 0.8rem);
-    --step--1: clamp(0.8333rem, 0.7652rem + 0.303vw, 1.1rem);
+    --step--1: clamp(0.8333rem, 0.7652rem + 0.3033vw, 1rem);
     --step-0: clamp(1rem, 0.8977rem + 0.4545vw, 1.15rem);
     --step-1: clamp(1.2rem, 1.0517rem + 0.6591vw, 1.5rem);
     --step-2: clamp(1.44rem, 1.2301rem + 0.933vw, 2.2rem);
@@ -14,7 +14,6 @@
     --norwegian-label: #1350CB;
     --international-label: #672292;
     --white-color: #ffffff;
-    --text-color: #ffffff;
     --black-color: #1A191D;
     --role-color: #d7a8ff;
     --available-color: #088b64;
@@ -37,7 +36,7 @@
         rgba(78, 92, 163, 0.85)
     );
 
-    --title-font: 'impact', sans-serif;
+    --title-font: 'anton', sans-serif;
     --text-font: 'articulat-cf', sans-serif;
 
     --mini-space: 0.25rem;
