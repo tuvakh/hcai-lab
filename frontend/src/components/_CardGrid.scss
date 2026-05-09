@@ -110,9 +110,10 @@
 
   &__name {
     font-size: var(--step-1);
-    letter-spacing: 0.04em;
+    font-family: var(--text-font);
+    letter-spacing: normal;
+    text-transform: none;
     line-height: 1.2;
-    margin: 0;
     color: var(--white-color);
   }
 
