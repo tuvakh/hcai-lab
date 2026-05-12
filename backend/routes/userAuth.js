@@ -3,16 +3,21 @@ const router = express.Router();
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const authMiddleware = require("../middleware/auth");
 
 router.post("/register", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
+
     const salt = crypto.randomBytes(16).toString("hex");
     const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
     const passwordHash = `${salt}:${hash}`;
-    const user = await User.create({ email, passwordHash });
+    const user = await User.create({ email, passwordHash, name });
     res.status(201).json({ message: "User created" });
   } catch (err) {
+    if (err.code === 11000) {
+        return res.status(400).json({ error: "An account with this email already exists." });
+    }
     res.status(400).json({ error: err.message });
   }
 });
@@ -31,5 +36,27 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
   res.json({ token });
 });
+
+router.get("/user", authMiddleware, async (req, res) => {
+  const user = await User.findById(req.user.userId).select("email name");
+  res.json(user);
+});
+
+
+router.get("/favorites", authMiddleware, async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  res.json(user?.favorites || []);
+});
+
+router.post("/favorites/:id", authMiddleware, async (req, res) => {
+  await User.findByIdAndUpdate(req.user.userId, { $addToSet: { favorites: req.params.id } });
+  res.json({ message: "Added" });
+});
+
+router.delete("/favorites/:id", authMiddleware, async (req, res) => {
+  await User.findByIdAndUpdate(req.user.userId, { $pull: { favorites: req.params.id } });
+  res.json({ message: "Removed" });
+});
+
 
 module.exports = router;

@@ -9,8 +9,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
     setError(null);
     try {
       const res = await fetch("http://localhost:3001/api/auth/login", {
@@ -21,7 +21,7 @@ function Login() {
       const data = await res.json();
       if (!res.ok) return setError(data.error);
       login(data.token);
-      navigate("/my-bookings");
+      navigate("/userpage");
     } catch {
       setError("Something went wrong");
     }
@@ -32,8 +32,8 @@ function Login() {
       <div className="auth-page__card">
         <h1 className="auth-page__title">Log in</h1>
         <form className="auth-page__form" onSubmit={handleSubmit}>
-          <input className="auth-page__input" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <input className="auth-page__input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input className="auth-page__input" type="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+          <input className="auth-page__input" type="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} required />
           {error && <p className="auth-page__error">{error}</p>}
           <button className="auth-page__btn" type="submit">Log in</button>
         </form>

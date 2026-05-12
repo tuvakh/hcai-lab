@@ -12,7 +12,7 @@ import Display from "./pages/Display.jsx";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import MyBookings from "./pages/MyBookings.jsx";
+import UserPage from "./pages/UserPage.jsx";
 
 //http://localhost:5173/Admin
 
@@ -40,7 +40,7 @@ function Layout() {
         <Route path="/display" element={<Display />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/userpage" element={<UserPage />} />
       </Routes>
       {!isAdmin && !isDisplay && <Footer />}
     </>

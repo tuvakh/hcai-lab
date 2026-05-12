@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from './Buttons';
 import Modal from './Modal';
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -34,6 +34,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
                     type: "seat",
                     eventId,
                     eventTitle: title,
+                    eventDescription: description,
                     bookedByName: name,
                     bookedByEmail: email,
                     seats,

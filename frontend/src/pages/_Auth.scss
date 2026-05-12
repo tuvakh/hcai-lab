@@ -40,8 +40,15 @@
     }
 
     &:focus {
-      outline: 2px solid var(--tertiary-color);
-      outline-offset: 2px;
+    outline: 2px solid var(--tertiary-color);
+    outline-offset: 2px;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px var(--background-color) inset;
+        -webkit-text-fill-color: var(--white-color);
     }
   }
 
@@ -62,9 +69,14 @@
   }
 
   &__error {
-    color: var(--booked-color);
+    background: rgba(151, 13, 80, 0.2);
+    border: 1px solid var(--booked-color);
+    border-radius: var(--border-radius);
+    color: var(--white-color);
     font-size: var(--step--1);
+    padding: var(--small-space) var(--normal-space);
   }
+
 
   &__link {
     margin-top: var(--normal-space);

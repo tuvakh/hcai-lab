@@ -20,7 +20,14 @@ export default function Home() {
     useEffect(() => {
     fetch(`${API_URL}/api/events`)
         .then((response) => response.json())
-        .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
+        .then((data) => {
+            const now = new Date();
+            setEvents(
+                data
+                .filter(event => new Date(event.date) >= now)
+                .sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))
+            );
+        })
         .catch(() => {});
     }, []);
 

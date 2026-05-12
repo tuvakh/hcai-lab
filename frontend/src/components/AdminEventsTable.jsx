@@ -104,7 +104,9 @@ export default function AdminEventsTable({ events, setEvents, seatBookings = [] 
                         </tr>
                     </thead>
                     <tbody>
-                        {events.map((eventItem, index) => (
+                        {events.map((eventItem, index) => {
+                            const isPast = new Date(eventItem.date) < new Date();
+                            return(
                             <tr
                                 key={eventItem.id}
                                 draggable
@@ -112,7 +114,7 @@ export default function AdminEventsTable({ events, setEvents, seatBookings = [] 
                                 onDragOver={(event) => drag.over(event, index)}
                                 onDrop={() => drag.drop(index)}
                                 onDragEnd={drag.end}
-                                className={dragOverIndex === index && dragIndex.current !== index ? "admin-page__row--drag-over" : ""}
+                                className={`${dragOverIndex === index && dragIndex.current !== index ? "admin-page__row--drag-over" : ""} ${isPast ? "admin-page__row--past" : ""}`}
                             >
                                 <td className="admin-page__drag-handle" title="Drag to reorder">&#8942;</td>
                                 <td>{eventItem.title}</td>
@@ -131,7 +133,8 @@ export default function AdminEventsTable({ events, setEvents, seatBookings = [] 
                                     >Delete</button>
                                 </td>
                             </tr>
-                        ))}
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

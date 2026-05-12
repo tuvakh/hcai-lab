@@ -1,6 +1,6 @@
 import Tag from './Tags';
 
-export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = false, variant }) {
+export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = false, variant, token }) {
   const classes = [
     "news-card",
     saved      && "news-card--saved",
@@ -48,17 +48,17 @@ export default function NewsCard({ item, saved, onStar, onOpen, isFeatured = fal
             day: "numeric", month: "short",
           })}
         </time>
-        <button
-          type="button"
-          className={`news-card__star${saved ? " news-card__star--on" : ""}`}
-          aria-label={saved
-            ? `Remove "${item.headline}" from favorites`
-            : `Save "${item.headline}" to favorites`}
-          aria-pressed={saved}
-          onClick={(event) => { event.stopPropagation(); onStar(item); }}
-        >
-          {saved ? "★" : "☆"}
-        </button>
+        {token && (
+            <button
+                type="button"
+                className={`news-card__star${saved ? " news-card__star--on" : ""}`}
+                aria-label={saved ? `Remove "${item.headline}" from favorites` : `Save "${item.headline}" to favorites`}
+                aria-pressed={saved}
+                onClick={(event) => { event.stopPropagation(); onStar(item); }}
+            >
+                {saved ? "★" : "☆"}
+            </button>
+        )}
       </div>
     </article>
   );
