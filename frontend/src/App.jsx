@@ -7,7 +7,7 @@ import Events from "./pages/Event.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
 import ScrollToTop from './components/ScrollToTop';
-import Admin from "./pages/AdminDashbord.jsx";
+import Admin from "./pages/AdminDashboard.jsx";
 import Display from "./pages/Display.jsx";
 
 import Login from "./pages/Login.jsx";

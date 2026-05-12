@@ -1,20 +1,21 @@
-FROM node:25-slim AS build
-
-RUN mkdir /app
+FROM node:20-alpine AS build
 
 WORKDIR /app
-COPY . /app
+
+COPY package*.json ./
 
 RUN npm ci
+
+COPY . .
+
 RUN npm run build
 
-FROM node:25-slim AS runtime
+FROM nginx:alpine
 
-RUN mkdir /run.app
-WORKDIR /run.app
+COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY --from=build /app/dist /run.app
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-RUN npm install --global serve
+EXPOSE 80
 
-EXPOSE 9001
+CMD ["nginx", "-g", "daemon off;"]
