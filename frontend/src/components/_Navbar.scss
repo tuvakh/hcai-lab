@@ -9,13 +9,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--bigger-space);
+    padding: var(--medium-space) var(--big-space);
    
     background: rgba(28, 35, 111, 0.35);
     backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    mask-image: linear-gradient(to bottom, black 90%, transparent);
     box-shadow: var(--navbar-shadow);
-
+   
+    @media (max-width: 600px) {
+        mask-image: none;
+        box-shadow: none;
+    }
     // ── logo ─────────────────────────────────────────────────────────────────
     &__logo {
         display: flex;
@@ -71,6 +75,15 @@
         }
     }
 
+    &__btn {
+        display: flex;
+        gap: var(--small-space);
+
+        @media (max-width: 600px) {
+            margin-block-start: var(--normal-space);
+        }
+    }
+
     // ── hamburger ────────────────────────────────────────────────────────────
     &__toggle {
         display: none;
@@ -114,7 +127,7 @@
             right: 0;
             flex-direction: column;
             align-items: flex-start;
-            padding: var(--normal-space);
+            padding: var(--small-space) var(--big-space) var(--big-space);
             gap: var(--small-space);
             background: rgba(28, 35, 111, 0.75);
             backdrop-filter: blur(12px);
