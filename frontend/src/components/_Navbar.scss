@@ -105,7 +105,7 @@
 // ── mobile ────────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
     .navbar {
-        padding: var(--normal-space);
+        padding: var(--medium-space);
 
         &__links {
             position: absolute;

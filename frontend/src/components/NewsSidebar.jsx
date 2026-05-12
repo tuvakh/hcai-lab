@@ -1,8 +1,9 @@
 import Button from './Buttons';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 export default function NewsSidebar({ favItems, onOpen, onStar, token }) {
     const navigate = useNavigate();
+    const location = useLocation();
 
     return (
       <aside className="news-sidebar" aria-labelledby="sidebar-heading">
@@ -11,7 +12,7 @@ export default function NewsSidebar({ favItems, onOpen, onStar, token }) {
           {!token ? (
   <div className="news-sidebar__login">
     <p className="news-sidebar__empty">You need to have a user to save news.</p>
-<Button text="Log in" variant="white" action={() => navigate('/login')} className="news-sidebar__login-btn" />
+    <Button text="Log in" variant="white" action={() => navigate('/login', { state: { from: location.pathname } })} className="news-sidebar__login-btn" />
   </div>
 
         ) : favItems.length === 0 ? (

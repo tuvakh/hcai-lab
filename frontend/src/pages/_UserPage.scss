@@ -2,8 +2,17 @@
   background: var(--background-color);
   color: var(--white-color);
   min-height: 100vh;
-  padding: var(--mega-space);
-  margin-block-start: 100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: var(--big-space);
+  margin-block-start: 120px;
+  @media (min-width: 600px) { 
+    margin-block-start: 180px;
+    margin: 180px var(--mega-space) var(--mega-space);
+  }
+
 
   &__header {
     margin-block-end: var(--big-space);
@@ -25,7 +34,7 @@
 
   &__section-title {
     text-transform: none;
-    margin-block-end: var(--medium-space);
+    margin-block-end: var(--small-space);
   }
 
   &__empty {

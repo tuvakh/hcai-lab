@@ -15,7 +15,6 @@ export default function Display() {
     const [equipments, setEquipments] = useState([]);
     const [bookings, setBookings] = useState([]);
 
-
     function fetchEvents() {
         fetch(`${API_URL}/api/events`)
             .then(response => response.json())

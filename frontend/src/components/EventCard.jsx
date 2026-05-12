@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from './Buttons';
 import Modal from './Modal';
-import { useNavigate, Link } from "react-router";
+import { useLocation, useNavigate, Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -20,6 +20,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
     const day = isValidDate ? eventDate.getDate() + "." : date.split(" ")[0];
     const month = isValidDate ? eventDate.toLocaleString("en-US", { month: "long" }) : date.split(" ")[1];
     const time = isValidDate ? eventDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }) : date.split(" ")[3];
+    const location = useLocation()
 
     const handleSubmit = async (formEvent) => {
         formEvent.preventDefault();
@@ -126,7 +127,13 @@ export default function EventCard({ title, description, date, place, eventImg, e
                     <div className="modal__section">
                         <h3 className="modal__section-title">Book Seat</h3>
                         {!token ? (
-                            <p>You need to <Link to="/login">log in</Link> to book a seat.</p>
+                            <div className="modal__section-booking">
+                                <p>You need to have a user to book a seat.</p>
+                                <div className="modal__section-btn">
+                                    <Button text="Log in" variant="white" action={() => navigate('/login', { state: { from: location.pathname } })} />
+                                    <Button text="Register" variant="white" action={() => navigate('/register', { state: { from: location.pathname } })} />
+                                </div>
+                            </div>
                         ) : booked ? (
                             <p>Your seat has been booked!</p>
                         ) : seatsLeft <= 0 ? (

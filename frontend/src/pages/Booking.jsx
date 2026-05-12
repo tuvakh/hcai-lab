@@ -8,7 +8,7 @@ import Modal from "../components/Modal";
 import CardGrid from "../components/CardGrid";
 import Tag from '../components/Tags';
 import Button from "../components/Buttons";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 
@@ -33,7 +33,7 @@ export default function Booking() {
     const [bookedByEmail, setBookedByEmail] = useState(user?.email || "");
     const [rangeError, setRangeError] = useState(null);
     const [rangeStart, setRangeStart] = useState(null);
-
+    const location = useLocation()
 
     useEffect(() => {
         fetch(`${API_URL}/api/equipment`)
@@ -179,97 +179,100 @@ export default function Booking() {
                         <p className="modal__bio">{selectedEquipment.description}</p>
                     </div>
 
-                    {!token ? (
-                        <div className="modal__section">
-                            <p>You need to <Link to="/login">log in</Link> to book equipment.</p>
-                        </div>
-                    ) : (
-                        <form className="modal__section" onSubmit={event => { event.preventDefault(); handleBook(); }}>
-                            <h3 className="modal__section-title">Book Equipment</h3>
-                            <div className="event-form">
-                                <label htmlFor="bookedByName">Name:</label>
-                                <input
-                                    id="bookedByName"
-                                    type="text"
-                                    placeholder="Your name"
-                                    value={bookedByName}
-                                    onChange={event => setBookedByName(event.target.value)}
-                                    required
-                                />
-                                <p className="form-hint">Your name may be visible to others. Avoid using your full name unless intended.</p>
-                                <label htmlFor="bookedByEmail">Email:</label>
-                                <input
-                                    id="bookedByEmail"
-                                    type="email"
-                                    placeholder="Your email"
-                                    value={bookedByEmail}
-                                    onChange={event => setBookedByEmail(event.target.value)}
-                                    required
-                                />
-                                <p className="form-hint">Your email is only visible to admins.</p>
-                                <label>Select booking period (1 week max):</label>
-                                <Calendar
-                                    selectRange={true}
-                                    onClickDay={(date) => {
-  setRangeStart(date);
-  setRangeError(null);
-}}
-onChange={(range) => {
-const days = Math.floor((range[1] - range[0]) / (1000 * 60 * 60 * 24));
-  if (days > 7) {
-    setRangeError("Maximum booking period is one week");
-    setSelectedRange(null);
-    setRangeStart(null);
-    return;
-  }
-  setRangeError(null);
-  setSelectedRange(range);
-  setRangeStart(null);
-}}
-
-
-
-                                    value={selectedRange}
-                                    minDate={new Date()}
-                                    maxDate={rangeStart ? (() => {
-  const d = new Date(rangeStart);
-  d.setDate(d.getDate() + 7);
-  d.setHours(23, 59, 59, 999);
-  return d;
-})() : undefined}
-
-
-                                    tileClassName={({ date }) =>
-                                        isDateBooked(selectedEquipment.id, date) ? "tile--booked" : null
-                                    }
-                                    tileDisabled={({ date, view }) => {
-                                        if (view !== "month") return false;
-                                        const today = new Date();
-                                        today.setHours(0, 0, 0, 0);
-                                        return date < today || isDateBooked(selectedEquipment.id, date);
-                                    }}
-                                />
-
-                                <p className="form-hint form-hint--calendar">Greyed out dates are already booked or in the past.</p>
-                                {selectedRange && (
-                                    <p className="booking-duration__summary">
-                                        {selectedRange[0].toDateString()} → {selectedRange[1].toDateString()}
-                                    </p>
-                                )}
-
-                                {rangeError && <p className="form-hint form-hint--error">{rangeError}</p>}
-
-                                <button
-                                    type="submit"
-                                    className="btn btn--primary btn--large"
-                                    disabled={!selectedRange}
-                                >
-                                    Book equipment
-                                </button>
+                    <div className="modal__section">
+                        <h3 className="modal__section-title">Book Equipment</h3>
+                        {!token ? (
+                            <div className="modal__section-booking modal__section-booking--equipment">
+                                <p>You need to have a user to book equipment.</p>
+                                <div className="modal__section-btn">
+                                    <Button text="Log in" variant="white" action={() => navigate('/login', { state: { from: location.pathname } })} />
+                                    <Button text="Register" variant="white" action={() => navigate('/register', { state: { from: location.pathname } })} />
+                                </div>
                             </div>
-                        </form>
+                        ) : (
+                            <form className="modal__section" onSubmit={event => { event.preventDefault(); handleBook(); }}>
+                                <h3 className="modal__section-title">Book Equipment</h3>
+                                <div className="event-form">
+                                    <label htmlFor="bookedByName">Name:</label>
+                                    <input
+                                        id="bookedByName"
+                                        type="text"
+                                        placeholder="Your name"
+                                        value={bookedByName}
+                                        onChange={event => setBookedByName(event.target.value)}
+                                        required
+                                    />
+                                    <p className="form-hint">Your name may be visible to others. Avoid using your full name unless intended.</p>
+                                    <label htmlFor="bookedByEmail">Email:</label>
+                                    <input
+                                        id="bookedByEmail"
+                                        type="email"
+                                        placeholder="Your email"
+                                        value={bookedByEmail}
+                                        onChange={event => setBookedByEmail(event.target.value)}
+                                        required
+                                    />
+                                    <p className="form-hint">Your email is only visible to admins.</p>
+                                    <label>Select booking period (1 week max):</label>
+                                    <Calendar
+                                        selectRange={true}
+                                        onClickDay={(date) => {
+                                            setRangeStart(date);
+                                            setRangeError(null);
+                                        }}
+                                        onChange={(range) => {
+                                            const days = Math.floor((range[1] - range[0]) / (1000 * 60 * 60 * 24));
+                                            if (days > 7) {
+                                                setRangeError("Maximum booking period is one week");
+                                                setSelectedRange(null);
+                                                setRangeStart(null);
+                                                return;
+                                            }
+                                            setRangeError(null);
+                                            setSelectedRange(range);
+                                            setRangeStart(null);
+                                        }}
 
-                    )}
+                                        value={selectedRange}
+                                        minDate={new Date()}
+                                        maxDate={rangeStart ? (() => {
+                                            const d = new Date(rangeStart);
+                                            d.setDate(d.getDate() + 7);
+                                            d.setHours(23, 59, 59, 999);
+                                            return d;
+                                        })() : undefined}
+
+                                        tileClassName={({ date }) =>
+                                            isDateBooked(selectedEquipment.id, date) ? "tile--booked" : null
+                                        }
+                                        tileDisabled={({ date, view }) => {
+                                            if (view !== "month") return false;
+                                            const today = new Date();
+                                            today.setHours(0, 0, 0, 0);
+                                            return date < today || isDateBooked(selectedEquipment.id, date);
+                                        }}
+                                    />
+
+                                    <p className="form-hint form-hint--calendar">Greyed out dates are already booked or in the past.</p>
+                                    {selectedRange && (
+                                        <p className="booking-duration__summary">
+                                            {selectedRange[0].toDateString()} → {selectedRange[1].toDateString()}
+                                        </p>
+                                    )}
+
+                                    {rangeError && <p className="form-hint form-hint--error">{rangeError}</p>}
+
+                                    <button
+                                        type="submit"
+                                        className="btn btn--primary btn--large"
+                                        disabled={!selectedRange}
+                                    >
+                                        Book equipment
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </div>
                 </Modal>
             )}
 
