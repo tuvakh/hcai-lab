@@ -6,6 +6,7 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     flex: 1 1 250px; 
+    position: relative;
     text-align: center;
     min-height: clamp(350px, 50%, 420px);
     overflow: hidden;

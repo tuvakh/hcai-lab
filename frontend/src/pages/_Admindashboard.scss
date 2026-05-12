@@ -27,7 +27,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: flex-end;
-            padding: var(--small-space) var(--medium-space);
+            padding: var(--normal-space);
             border-right: none;
             border-bottom: 1px solid var(--border-color);
         }
@@ -299,6 +299,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--background-color);
+    margin-inline: var(--big-space);
 
     &__form {
         display: flex;

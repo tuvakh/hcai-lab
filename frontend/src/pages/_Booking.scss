@@ -29,6 +29,7 @@
 
     &-text {
       margin-inline: auto;
+      margin-block-end: var(--normal-space);
       width: clamp(30ch, 100%, 60ch);
     }
   }
@@ -76,7 +77,7 @@
 
   .react-calendar {
     margin-block-start: var(--mini-space);
-    width: 70%;
+    min-width: 70%;
     border: 1px solid var(--tertiary-color);
     border-radius: var(--border-radius);
     font-family: inherit;

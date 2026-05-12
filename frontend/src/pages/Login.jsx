@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, useLocation, Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
@@ -8,6 +8,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const location = useLocation();
+  const from = location.state?.from || '/userpage'
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -21,7 +23,7 @@ function Login() {
       const data = await res.json();
       if (!res.ok) return setError(data.error);
       login(data.token);
-      navigate("/userpage");
+      navigate(from);
     } catch {
       setError("Something went wrong");
     }
