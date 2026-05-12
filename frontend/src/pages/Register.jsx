@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link, useLocation } from "react-router";
 
 function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +20,7 @@ function Register() {
       });
       const data = await res.json();
       if (!res.ok) return setError(data.error);
-      navigate("/login");
+      navigate('/login', { state: { from: location.state?.from } })
     } catch {
       setError("Something went wrong");
     }
@@ -36,7 +37,7 @@ function Register() {
           {error && <p className="auth-page__error">{error}</p>}
           <button className="auth-page__btn" type="submit">Register</button>
         </form>
-        <p className="auth-page__link">Already have an account? <Link to="/login">Log in</Link></p>
+        <p className="auth-page__link">Already have an account? <Link to="/login" state={{ from: location.state?.from }}>Log in</Link></p>
       </div>
     </main>
   );

@@ -39,7 +39,7 @@ function Login() {
           {error && <p className="auth-page__error">{error}</p>}
           <button className="auth-page__btn" type="submit">Log in</button>
         </form>
-        <p className="auth-page__link">No account? <Link to="/register">Register</Link></p>
+        <p className="auth-page__link">No account? <Link to="/register" state={{ from: location.state?.from }}>Register</Link></p>
       </div>
     </main>
   );

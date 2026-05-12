@@ -27,7 +27,7 @@ function UserPage() {
 
     useEffect(() => {
         if (!token) {
-            navigate("/login");
+            navigate("/login", { state: { from: location.pathname } })
             return;
         }
         fetch(`${API_URL}/api/bookings?email=${user.email}`, {
