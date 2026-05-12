@@ -3,8 +3,6 @@ services:
     image: tuvakh/idg2671_hcai_frontend
     ports:
       - "6001:80"
-    env_file:
-      - frontend.secret.env
     depends_on:
       - backend
 
