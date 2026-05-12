@@ -10,9 +10,6 @@
   // ── Content area — matches people-page and projects-page padding ──────────
   &__content {
     padding: var(--big-space) var(--mega-space) var(--mega-space);
-
-    @media (max-width: 900px) { padding: var(--medium-space) var(--big-space) var(--bigger-space); }
-    @media (max-width: 600px) { padding: var(--medium-space) var(--medium-space) var(--bigger-space); }
   }
 
   &__status {

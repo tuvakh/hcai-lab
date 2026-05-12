@@ -1,14 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-
 // ─── navbar ───────────────────────────────────────────────────────────────────
-
+//Nav should work now 
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    -webkit-backdrop-filter: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,8 +13,8 @@
    
     background: rgba(28, 35, 111, 0.35);
     backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     box-shadow: var(--navbar-shadow);
-    mask-image: linear-gradient(to bottom, black 70%, transparent);
 
     // ── logo ─────────────────────────────────────────────────────────────────
     &__logo {
@@ -112,7 +109,7 @@
 
         &__links {
             position: absolute;
-            top: 64px;
+            top: 100%;
             left: 0;
             right: 0;
             flex-direction: column;
