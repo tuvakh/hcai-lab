@@ -88,10 +88,9 @@ const navigate = useNavigate();
   </>
 ) : (
   <>
-    <li>
+    <li className="navbar__btn">
       <Button text="Log in" variant="white" action={() => { navigate("/login"); closeMenu(); }} />
-    </li>
-    <li>
+    
       <Button text="Register" variant="primary" action={() => { navigate("/register"); closeMenu(); }} />
     </li>
   </>
