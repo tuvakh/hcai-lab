@@ -143,11 +143,6 @@
     flex-wrap: wrap;
     gap: var(--big-space);
 
-    &__date:hover {
-        color: var(--white-color);
-        transform: translateX(3px);
-        font-weight: 500;
-    }
     &__icon {
         padding-inline: var(--small-space);
     }

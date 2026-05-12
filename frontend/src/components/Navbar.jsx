@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import logo from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
+import Button from "./Buttons";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { user, logout } = useAuth();
+const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,32 +76,27 @@ export default function Navbar() {
             </li>
           ))}
           {user ? (
-            <>
-                <li>
-                <NavLink to="/my-bookings" className="navbar__link" onClick={closeMenu}>
-                    My Bookings
-                </NavLink>
-                </li>
-                <li>
-                <button className="navbar__link" onClick={() => { logout(); closeMenu(); }}>
-                    Log out
-                </button>
-                </li>
-            </>
-            ) : (
-            <>
-                <li>
-                <NavLink to="/login" className="navbar__link" onClick={closeMenu}>
-                    Log in
-                </NavLink>
-                </li>
-                <li>
-                <NavLink to="/register" className="navbar__link" onClick={closeMenu}>
-                    Register
-                </NavLink>
-                </li>
-            </>
-            )}
+  <>
+    <li>
+      <NavLink to="/userpage" className="navbar__link" onClick={closeMenu}>
+        My Profile
+      </NavLink>
+    </li>
+    <li>
+      <Button text="Log out" variant="white" action={() => { logout(); navigate("/"); closeMenu(); }} />
+    </li>
+  </>
+) : (
+  <>
+    <li>
+      <Button text="Log in" variant="white" action={() => { navigate("/login"); closeMenu(); }} />
+    </li>
+    <li>
+      <Button text="Register" variant="primary" action={() => { navigate("/register"); closeMenu(); }} />
+    </li>
+  </>
+)}
+
         </ul>
       </nav>
     </>

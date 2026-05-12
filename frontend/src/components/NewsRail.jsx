@@ -1,7 +1,7 @@
 // src/components/NewsRail.jsx
 import NewsCard from "./NewsCard";
 
-export default function NewsRail({ label, items, saved, onStar, onOpen }) {
+export default function NewsRail({ label, items, saved, onStar, onOpen, token }) {
   if (!items || items.length === 0) return null;
 
   return (
@@ -16,6 +16,7 @@ export default function NewsRail({ label, items, saved, onStar, onOpen }) {
               onStar={onStar}
               onOpen={onOpen}
               isFeatured={index === 1}
+              token={token}
             />
           </li>
         ))}

@@ -1,12 +1,24 @@
-export default function NewsSidebar({ favItems, onOpen, onStar }) {
+import Button from './Buttons';
+import { useNavigate } from 'react-router';
+
+export default function NewsSidebar({ favItems, onOpen, onStar, token }) {
+    const navigate = useNavigate();
+
     return (
       <aside className="news-sidebar" aria-labelledby="sidebar-heading">
         <h2 className="news-sidebar__heading" id="sidebar-heading">Favorites</h2>
 
-        {favItems.length === 0 ? (
-          <p className="news-sidebar__empty" aria-live="polite">
+          {!token ? (
+  <div className="news-sidebar__login">
+    <p className="news-sidebar__empty">You need to have a user to save news.</p>
+<Button text="Log in" variant="white" action={() => navigate('/login')} className="news-sidebar__login-btn" />
+  </div>
+
+        ) : favItems.length === 0 ? (
+        <p className="news-sidebar__empty" aria-live="polite">
             Star a card to save it here.
-          </p>
+        </p>
+
         ) : (
           <ul className="news-sidebar__list">
             {favItems.map((item) => (
@@ -21,9 +33,7 @@ export default function NewsSidebar({ favItems, onOpen, onStar }) {
                 <strong className="news-sidebar__item-tag">{item.tag}</strong>
                 {" — "}
                 <span className="news-sidebar__item-title">
-                  {item.headline.length > 40
-                    ? `${item.headline.slice(0, 40)}…`
-                    : item.headline}
+                  {item.headline}
                 </span>
                 <button
                   type="button"

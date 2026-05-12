@@ -188,9 +188,15 @@
     }
 
     // ── Drag-over row highlight ────────────────────────────────────────────────
-    &__row--drag-over td {
-        background: rgba(19, 80, 203, 0.14);
-        border-top: 2px solid var(--norwegian-label);
+    &__row {
+        &--drag-over td {
+            background: rgba(19, 80, 203, 0.14);
+            border-top: 2px solid var(--norwegian-label);
+        }
+
+        &--past {
+            opacity: 0.45;
+        }
     }
 
     // ── Group header row ───────────────────────────────────────────────────────

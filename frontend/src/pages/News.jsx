@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeroSection from "../components/HeroSection";
 import NewsRail from "../components/NewsRail";
 import NewsSidebar from "../components/NewsSidebar";
 import NewsModal from "../components/NewsModal";
 import { useNews } from "../hooks/useNews";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router";
 
 const INIT_COUNT = 6;
 
@@ -13,6 +15,7 @@ export default function News() {
   const [intlCount, setIntlCount] = useState(INIT_COUNT);
   const [saved,     setSaved]     = useState(new Set());
   const [activeItem, setActiveItem] = useState(null);
+  const { token } = useAuth();  
 
   const { items: norAll,  loading: norLoading,  error: norError  } = useNews("norway");
   const { items: intlAll, loading: intlLoading, error: intlError } = useNews("international");
@@ -26,19 +29,39 @@ export default function News() {
   );
   const count     = region === "norway" ? norCount      : intlCount;
 
-    const total     = region === "norway" ? norAll.length : intlAll.length;
+  const total     = region === "norway" ? norAll.length : intlAll.length;
   const initCount = INIT_COUNT;
   const setCount  = region === "norway" ? setNorCount   : setIntlCount;
 
   const canShowMore = count < total;
   const canShowLess = count > initCount;
 
-  const toggleStar = (item) =>
+  const toggleStar = (item) => {
+    const isSaved = saved.has(item.id);
     setSaved((prev) => {
-      const next = new Set(prev);
-      next.has(item.id) ? next.delete(item.id) : next.add(item.id);
-      return next;
+        const next = new Set(prev);
+        isSaved ? next.delete(item.id) : next.add(item.id);
+        return next;
     });
+    if (!token) return;
+    fetch(`http://localhost:3001/api/auth/favorites/${item.id}`, {
+        method: isSaved ? "DELETE" : "POST",
+        headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+
+  useEffect(() => {
+    if (!token) {
+        setSaved(new Set());
+        return;
+    }
+    fetch("http://localhost:3001/api/auth/favorites", {
+        headers: { Authorization: `Bearer ${token}` },
+    })
+        .then(res => res.json())
+        .then(ids => setSaved(new Set(ids)));
+    }, [token]);
+
 
   return (
     <main className="news-page">
@@ -92,6 +115,7 @@ export default function News() {
                     label="Norway"
                     items={norItems}
                     saved={saved}
+                    token={token}
                     onStar={toggleStar}
                     onOpen={setActiveItem}
                   />
@@ -117,6 +141,7 @@ export default function News() {
                     saved={saved}
                     onStar={toggleStar}
                     onOpen={setActiveItem}
+                    token={token}
                   />
                 )}
               </>
@@ -146,8 +171,7 @@ export default function News() {
             </div>
           </div>
 
-          <NewsSidebar favItems={favItems} onOpen={setActiveItem} onStar={toggleStar} />
-        </div>
+            <NewsSidebar favItems={favItems} onOpen={setActiveItem} onStar={toggleStar} token={token} />        </div>
       </section>
 
       <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />

@@ -19,6 +19,7 @@ function BookingList({ bookings, onUnbook }) {
             ) : (
               <>
                 <h3 className="card__name">{booking.eventTitle}</h3>
+                <p className="card__desc">{booking.eventDescription}</p>
                 <p className="card__desc">
                   <strong>Seats:</strong> {booking.seats}
                 </p>

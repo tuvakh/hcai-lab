@@ -18,6 +18,7 @@ const bookingSchema = new mongoose.Schema(
     // seat only
     eventId:      String,
     eventTitle:   String,
+    eventDescription: String,
     seats:        Number,
   },
   {

@@ -91,7 +91,13 @@ export default function Admin() {
 
     fetch(`${API_URL}/api/events`)
         .then((response) => response.json())
-        .then((data) => setEvents(data.sort((earlierEvent, laterEvent) => new Date(earlierEvent.date) - new Date(laterEvent.date))))
+.then((data) => setEvents(data.sort((a, b) => {
+    const now = new Date();
+    const aIsPast = new Date(a.date) < now;
+    const bIsPast = new Date(b.date) < now;
+    if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
+    return new Date(a.date) - new Date(b.date);
+})))
         .catch(() => {});
 
     fetch(`${API_URL}/api/equipment`)

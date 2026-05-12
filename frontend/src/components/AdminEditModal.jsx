@@ -143,7 +143,7 @@ export default function AdminEditModal({ fields, data, onSave, onClose, title })
                     ))}
                     <div className="admin-modal__actions">
                         <Button text="Close" action={onClose} variant="secondary" />
-                        <Button text="Save" action={onClose} variant="save" />
+                        <Button text="Save" type="submit" variant="save" />
                     </div>
                 </form>
             </div>
