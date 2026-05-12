@@ -5,11 +5,9 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: var(--big-space);
   margin-block-start: 120px;
   @media (min-width: 600px) { 
-    margin-block-start: 180px;
     margin: 180px var(--mega-space) var(--mega-space);
   }
 

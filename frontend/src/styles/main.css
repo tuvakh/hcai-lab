@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 /* reset.scss – simple reset + base styles */
 *,
 *::before,
@@ -344,6 +343,7 @@ h1, h2, h3 {
 }
 .booking-page__contact-text {
   margin-inline: auto;
+  margin-block-end: var(--normal-space);
   width: clamp(30ch, 100%, 60ch);
 }
 .booking-page__contact-title {
@@ -382,7 +382,7 @@ h1, h2, h3 {
 }
 .booking-page .react-calendar {
   margin-block-start: var(--mini-space);
-  width: 70%;
+  min-width: 70%;
   border: 1px solid var(--tertiary-color);
   border-radius: var(--border-radius);
   font-family: inherit;
@@ -569,7 +569,7 @@ h1, h2, h3 {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    padding: var(--small-space) var(--medium-space);
+    padding: var(--normal-space);
     border-right: none;
     border-bottom: 1px solid var(--border-color);
   }
@@ -789,6 +789,7 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   background-color: var(--background-color);
+  margin-inline: var(--big-space);
 }
 .admin-login__form {
   display: flex;
@@ -943,6 +944,7 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-inline: var(--big-space);
 }
 .auth-page__card {
   background: var(--primary-color);
@@ -1020,8 +1022,15 @@ h1, h2, h3 {
   background: var(--background-color);
   color: var(--white-color);
   min-height: 100vh;
-  padding: var(--mega-space);
-  margin-block-start: 100px;
+  display: flex;
+  flex-direction: column;
+  margin: var(--big-space);
+  margin-block-start: 120px;
+}
+@media (min-width: 600px) {
+  .user-page {
+    margin: 180px var(--mega-space) var(--mega-space);
+  }
 }
 .user-page__header {
   margin-block-end: var(--big-space);
@@ -1039,7 +1048,7 @@ h1, h2, h3 {
 }
 .user-page__section-title {
   text-transform: none;
-  margin-block-end: var(--medium-space);
+  margin-block-end: var(--small-space);
 }
 .user-page__empty {
   color: var(--secondary-color);
@@ -1059,6 +1068,7 @@ h1, h2, h3 {
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   flex: 1 1 250px;
+  position: relative;
   text-align: center;
   min-height: clamp(350px, 50%, 420px);
   overflow: hidden;
@@ -1312,11 +1322,19 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--bigger-space);
+  padding: var(--medium-space) var(--big-space);
   background: rgba(28, 35, 111, 0.35);
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent);
+          mask-image: linear-gradient(to bottom, black 90%, transparent);
   box-shadow: var(--navbar-shadow);
+}
+@media (max-width: 600px) {
+  .navbar {
+    -webkit-mask-image: none;
+            mask-image: none;
+    box-shadow: none;
+  }
 }
 .navbar__logo {
   display: flex;
@@ -1363,6 +1381,15 @@ h1, h2, h3 {
   background: var(--white-color);
   border-radius: 2px;
 }
+.navbar__btn {
+  display: flex;
+  gap: var(--small-space);
+}
+@media (max-width: 600px) {
+  .navbar__btn {
+    margin-block-start: var(--normal-space);
+  }
+}
 .navbar__toggle {
   display: none;
   flex-direction: column;
@@ -1396,7 +1423,7 @@ h1, h2, h3 {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: var(--normal-space);
+    padding: var(--medium-space);
   }
   .navbar__links {
     position: absolute;
@@ -1405,7 +1432,7 @@ h1, h2, h3 {
     right: 0;
     flex-direction: column;
     align-items: flex-start;
-    padding: var(--normal-space);
+    padding: var(--small-space) var(--big-space) var(--big-space);
     gap: var(--small-space);
     background: rgba(28, 35, 111, 0.75);
     backdrop-filter: blur(12px);
@@ -1632,7 +1659,6 @@ h1, h2, h3 {
   }
 }
 .booking-list {
-  margin-top: var(--big-space);
   align-items: stretch;
 }
 .booking-list.card-grid {
@@ -1973,6 +1999,13 @@ h1, h2, h3 {
   padding: var(--medium-space);
   border-top: 1px solid var(--border-color);
 }
+.modal__section-booking {
+  display: flex;
+  margin: var(--bigger-space);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .modal__section-title {
   font-size: var(--step--2);
   font-weight: 700;
@@ -1980,6 +2013,11 @@ h1, h2, h3 {
   letter-spacing: 0.14em;
   color: var(--secondary-color);
   margin: 0 0 var(--normal-space);
+}
+.modal__section-btn {
+  display: flex;
+  margin-block-start: var(--normal-space);
+  gap: var(--normal-space);
 }
 .modal__contact {
   padding: var(--normal-space) var(--medium-space) var(--medium-space);
