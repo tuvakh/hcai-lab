@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import Tag from './Tags';
+import { cloudinaryUrl } from "../utils/cloudinaryUrl";
 
 export default function CardGrid({ items = [], variant = "people", onSelect }) {
   const [selected, setSelected] = useState(null);
@@ -18,7 +19,7 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
           >
             <div className="card__image-wrap">
               {item.image ? (
-                <img src={item.image} alt={item.name} className="card__image" />
+                <img src={cloudinaryUrl(item.image, 400)} alt={item.name} className="card__image" loading="lazy" />
               ) : (
                 <div className="card__image card__image--placeholder" />
               )}
@@ -62,7 +63,7 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
               <div className="modal__header">
                 <div className="modal__image-wrap">
                   {selected.image ? (
-                    <img src={selected.image} alt={selected.name} className="modal__image" />
+                    <img src={cloudinaryUrl(selected.image, 800)} alt={selected.name} className="modal__image" loading="lazy" />
                   ) : (
                     <div className="modal__image modal__image--placeholder" />
                   )}

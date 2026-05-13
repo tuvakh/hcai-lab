@@ -3,6 +3,7 @@ import Button from './Buttons';
 import Modal from './Modal';
 import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import { cloudinaryUrl } from "../utils/cloudinaryUrl";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -73,7 +74,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
                         <span className="eventCardDisplay__text--day">{day}</span>
                         <span className="eventCardDisplay__text--month">{month}</span>
                     </div>
-                    <img className="eventCardDisplay__img" src={eventImg} />
+                    <img className="eventCardDisplay__img" src={cloudinaryUrl(eventImg, 600)} loading="lazy" />
                 </div>
                 <div className="eventCardDisplay__description">
                     <h3 className="eventCardDisplay__title">{title}</h3>
@@ -88,7 +89,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
         <>
             <div className="eventCard" onClick={() => setIsOpen(true)}>
                 <div className='eventCard__info img-overlay'>
-                    <img className="eventCard__img" src={eventImg} />
+                    <img className="eventCard__img" src={cloudinaryUrl(eventImg, 600)} loading="lazy" />
                     <div className='eventCard__text'>
                         <h3 className='eventCard__text--title'>{title}</h3>
                         <p>{formatDate(date)}</p>
@@ -102,7 +103,7 @@ export default function EventCard({ title, description, date, place, eventImg, e
             {isOpen && (
                 <Modal onClose={() => setIsOpen(false)} ariaLabel={title}>
                     <div className='img-overlay'>
-                        <img src={eventImg} alt={title} className="modal__image modal__image--event img-overlay" />
+                        <img src={cloudinaryUrl(eventImg, 900)} alt={title} className="modal__image modal__image--event img-overlay" loading="lazy" />
                         <div className="modal__header modal__header--event">
                             <h2 className="modal__name">{title}</h2>
                             <p className="modal__bio">{description}</p>
