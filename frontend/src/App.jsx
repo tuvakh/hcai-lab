@@ -6,7 +6,6 @@ import Booking from "./pages/Booking.jsx";
 import Events from "./pages/Event.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
-import ScrollToTop from './components/ScrollToTop';
 import Admin from "./pages/AdminDashboard.jsx";
 import Display from "./pages/Display.jsx";
 
@@ -14,20 +13,18 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import UserPage from "./pages/UserPage.jsx";
 
-//http://localhost:5173/Admin
-
-// Removed duplicate App function and default export
+import useScrollToTop from './hooks/useScrollToTop.js';
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 function Layout() {
+  useScrollToTop(); 
   const location = useLocation();
   const isAdmin = location.pathname.toLowerCase().startsWith("/admin");
   const isDisplay = location.pathname === "/display";
 
   return (
     <>
-    <ScrollToTop /> 
       {!isAdmin && !isDisplay && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />

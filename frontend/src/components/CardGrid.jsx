@@ -46,7 +46,7 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
                   <Tag status={item.status === "Available" ? "available" : "booked"}>{item.status}</Tag>
                 </div>
               )}
-              <p className="card__desc">{item.shortDescription || item.description}</p>
+              <p className="card__description">{item.shortDescription || item.description}</p>
               <span className="card__cta">
                 {variant === "people" ? "View profile →" : variant === "equipment" ? "View booking details →" : "View project →"}
               </span>

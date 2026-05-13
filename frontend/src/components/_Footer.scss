@@ -13,28 +13,16 @@
       gap: 2.5rem;
     }
   
-    &__brand {
-      display: flex;
-      align-items: flex-start;
-    }
-  
     &__logo {
       width: 220px;
-      max-width: 100%;
-      height: auto;
-      display: block;
     }
   
     &__content {
       display: grid;
       grid-template-columns: 1fr 1fr 1.3fr;
-      gap: 3rem;
-      align-items: start;
     }
   
-    &__column {
-      min-width: 0;
-  
+    &__column {  
       &--map {
         display: flex;
         justify-content: flex-end;
@@ -42,9 +30,7 @@
     }
   
     &__heading {
-      line-height: 1;
       margin: 0 0 var(--small-space);
-      text-transform: uppercase;
   
       &--contact {
         margin-top: var(--big-space);
@@ -53,8 +39,6 @@
   
     &__list {
       list-style: none;
-      margin: 0;
-      padding: 0;
     }
   
     &__list li {
@@ -71,31 +55,21 @@
   
     &__list a:hover,
     &__text a:hover {
-      opacity: 0.75;
+      color: var(--secondary-color);
     }
   
     &__map {
-      width: 100%;
       max-width: 360px;
+      border: 0;
       border-radius: var(--border-radius);
-      display: block;
-    }
-  
-    &__bottom {
-      margin-top: var(--bigger-space);
-      text-align: center;
     }
   
     &__copyright {
-      margin: 0;
+      margin-top: var(--bigger-space);
+      text-align: center;
       font-size: var(--step--1);
       color: var(--tertiary-color);
     }
-
-    &__map {
-    border: 0;
-    border-radius: var(--border-radius);
-}
   }
   
   @media (max-width: 900px) {
@@ -105,23 +79,8 @@
         gap: 2rem;
       }
   
-      &__column--map {
-        justify-content: flex-start;
-      }
-  
-      &__map {
-        max-width: 100%;
-      }
-  
       &__heading {
         font-size: var(--step-1);
-      }
-  
-      &__list a,
-      &__text,
-      &__text a,
-      &__copyright {
-        font-size: var(--step-0);
       }
     }
   }

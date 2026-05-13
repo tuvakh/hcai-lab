@@ -1,7 +1,8 @@
 // src/components/AdminPeopleTable.jsx
-import { useRef, useState } from "react";
+import { useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 import AdminSearch from "./AdminSearch";
+import { useDragAndDrop } from "../hooks/useDragAndDrop";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -24,28 +25,7 @@ const PEOPLE_FIELDS = [
 export default function AdminPeopleTable({ people, setPeople }) {
     const [cristinModal, setCristinModal] = useState(false);
     const [modal, setModal] = useState(null);
-    const dragIndex = useRef(null);
-    const [dragOverIndex, setDragOverIndex] = useState(null);
-
-    function reorder(list, from, to) {
-        const next = [...list];
-        const [item] = next.splice(from, 1);
-        next.splice(to, 0, item);
-        return next;
-    }
-
-    const drag = {
-        start: (index) => { dragIndex.current = index; },
-        over: (event, index) => { event.preventDefault(); setDragOverIndex(index); },
-        drop: (index) => {
-            if (dragIndex.current !== null && dragIndex.current !== index) {
-                setPeople(reorder(people, dragIndex.current, index));
-            }
-            dragIndex.current = null;
-            setDragOverIndex(null);
-        },
-        end: () => { dragIndex.current = null; setDragOverIndex(null); },
-    };
+    const { drag, dragOverIndex } = useDragAndDrop(people, setPeople);
 
     async function savePerson(data, index) {
         if (index === null) {
@@ -126,7 +106,7 @@ export default function AdminPeopleTable({ people, setPeople }) {
                                 onDragOver={(event) => drag.over(event, index)}
                                 onDrop={() => drag.drop(index)}
                                 onDragEnd={drag.end}
-                                className={dragOverIndex === index && dragIndex.current !== index ? "admin-page__row--drag-over" : ""}
+                                className={dragOverIndex === index ? "admin-page__row--drag-over" : ""}
                             >
                                 <td className="admin-page__drag-handle" title="Drag to reorder">&#8942;</td>
                                 <td>{person.name}</td>

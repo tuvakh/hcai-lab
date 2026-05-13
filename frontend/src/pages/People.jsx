@@ -11,7 +11,7 @@ export default function People() {
     fetch(`${API_URL}/api/people`)
       .then((response) => response.json())
       .then(setPeople)
-      .catch((err) => console.error("Failed to fetch people:", err));
+      .catch(() => {});
   }, []);
 
   return (
