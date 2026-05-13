@@ -1,17 +1,10 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
+
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
-import Admin from "./pages/AdminDashboard.jsx";
-import Display from "./pages/Display.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import UserPage from "./pages/UserPage.jsx";
-
 import useScrollToTop from './hooks/useScrollToTop.js';
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
-import ScrollToTop from './components/ScrollToTop';
 
 const Home     = lazy(() => import("./pages/Home.jsx"));
 const People   = lazy(() => import("./pages/People.jsx"));
