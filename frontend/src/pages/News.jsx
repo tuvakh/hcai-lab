@@ -5,7 +5,8 @@ import NewsSidebar from "../components/NewsSidebar";
 import NewsModal from "../components/NewsModal";
 import { useNews } from "../hooks/useNews";
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const INIT_COUNT = 6;
 
@@ -44,7 +45,7 @@ export default function News() {
         return next;
     });
     if (!token) return;
-    fetch(`http://localhost:3001/api/auth/favorites/${item.id}`, {
+    fetch(`${API_URL}/api/auth/favorites/${item.id}`, {
         method: isSaved ? "DELETE" : "POST",
         headers: { Authorization: `Bearer ${token}` },
     });
@@ -55,7 +56,7 @@ export default function News() {
         setSaved(new Set());
         return;
     }
-    fetch("http://localhost:3001/api/auth/favorites", {
+    fetch(`${API_URL}/api/auth/favorites`, {        
         headers: { Authorization: `Bearer ${token}` },
     })
         .then(res => res.json())

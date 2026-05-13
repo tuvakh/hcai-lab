@@ -1618,7 +1618,7 @@ h1, h2, h3 {
   letter-spacing: 0.1em;
   color: var(--role-color);
 }
-.card__desc {
+.card__description {
   font-size: var(--step--2);
   line-height: 1.5;
   color: var(--secondary-color);
@@ -1659,10 +1659,7 @@ h1, h2, h3 {
   }
 }
 .booking-list {
-  align-items: stretch;
-}
-.booking-list.card-grid {
-  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  margin-top: var(--big-space);
 }
 .booking-list .card {
   min-height: 100%;
@@ -1674,13 +1671,7 @@ h1, h2, h3 {
   transform: none;
   box-shadow: var(--box-shadow);
 }
-.booking-list .card__cta {
-  transform: none;
-}
-.booking-list .card__body {
-  min-width: 0;
-}
-.booking-list .card__desc {
+.booking-list .card__description {
   font-size: 1rem;
 }
 
@@ -1697,41 +1688,25 @@ h1, h2, h3 {
   flex-direction: column;
   gap: 2.5rem;
 }
-.footer__brand {
-  display: flex;
-  align-items: flex-start;
-}
 .footer__logo {
   width: 220px;
-  max-width: 100%;
-  height: auto;
-  display: block;
 }
 .footer__content {
   display: grid;
   grid-template-columns: 1fr 1fr 1.3fr;
-  gap: 3rem;
-  align-items: start;
-}
-.footer__column {
-  min-width: 0;
 }
 .footer__column--map {
   display: flex;
   justify-content: flex-end;
 }
 .footer__heading {
-  line-height: 1;
   margin: 0 0 var(--small-space);
-  text-transform: uppercase;
 }
 .footer__heading--contact {
   margin-top: var(--big-space);
 }
 .footer__list {
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 .footer__list li {
   margin-bottom: var(--mini-space);
@@ -1742,26 +1717,18 @@ h1, h2, h3 {
   text-decoration: none;
 }
 .footer__list a:hover, .footer__text a:hover {
-  opacity: 0.75;
+  color: var(--secondary-color);
 }
 .footer__map {
-  width: 100%;
   max-width: 360px;
-  border-radius: var(--border-radius);
-  display: block;
-}
-.footer__bottom {
-  margin-top: var(--bigger-space);
-  text-align: center;
-}
-.footer__copyright {
-  margin: 0;
-  font-size: var(--step--1);
-  color: var(--tertiary-color);
-}
-.footer__map {
   border: 0;
   border-radius: var(--border-radius);
+}
+.footer__copyright {
+  margin-top: var(--bigger-space);
+  text-align: center;
+  font-size: var(--step--1);
+  color: var(--tertiary-color);
 }
 
 @media (max-width: 900px) {
@@ -1769,17 +1736,8 @@ h1, h2, h3 {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  .footer__column--map {
-    justify-content: flex-start;
-  }
-  .footer__map {
-    max-width: 100%;
-  }
   .footer__heading {
     font-size: var(--step-1);
-  }
-  .footer__list a, .footer__text, .footer__text a, .footer__copyright {
-    font-size: var(--step-0);
   }
 }
 .tag {

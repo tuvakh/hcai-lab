@@ -1,5 +1,4 @@
 // src/components/NewsModal.jsx
-import { useEffect } from "react";
 import Modal from "./Modal";
 import Tag from './Tags';
 

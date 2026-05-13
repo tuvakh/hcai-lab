@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import HeroSection from "../components/HeroSection";
@@ -9,7 +9,6 @@ import CardGrid from "../components/CardGrid";
 import Tag from '../components/Tags';
 import Button from "../components/Buttons";
 import { useAuth } from "../context/AuthContext";
-
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -28,7 +27,7 @@ export default function Booking() {
     const [myBookings, setMyBookings] = useState([]);
     const [selectedEquipment, setSelectedEquipment] = useState(null);
     const [selectedRange, setSelectedRange] = useState(null);
-    const [bookedByName, setBookedByName] = useState("");
+    const [bookedByName, setBookedByName] = useState(user?.name || "");
     const [bookedByEmail, setBookedByEmail] = useState(user?.email || "");
     const [rangeError, setRangeError] = useState(null);
     const [rangeStart, setRangeStart] = useState(null);
@@ -124,11 +123,6 @@ export default function Booking() {
         setSelectedRange(null);
     }
 
-    function handleUnbook(id) {
-        fetch(`${API_URL}/api/bookings/${id}`, { method: "DELETE" }).catch(() => { });
-        setMyBookings((prev) => prev.filter((booking) => booking.id !== id));
-    }
-
     return (
         <main className="booking-page">
             <HeroSection heroImg="/assets/hero/equipment.png">
@@ -189,8 +183,7 @@ export default function Booking() {
                                 </div>
                             </div>
                         ) : (
-                            <form className="modal__section" onSubmit={event => { event.preventDefault(); handleBook(); }}>
-                                <h3 className="modal__section-title">Book Equipment</h3>
+                            <form onSubmit={event => { event.preventDefault(); handleBook(); }}>
                                 <div className="event-form">
                                     <label htmlFor="bookedByName">Name:</label>
                                     <input
@@ -281,7 +274,7 @@ export default function Booking() {
                     <p className="booking-page__contact-text">
                         Here you can review all current equipment bookings
                     </p>
-                    <BookingList bookings={myBookings} onUnbook={handleUnbook} />
+                    <BookingList bookings={myBookings} />
                 </section>
             )}
         </main>

@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from './Buttons';
 import Modal from './Modal';
-import { useLocation, useNavigate, Link } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { cloudinaryUrl } from "../utils/cloudinaryUrl";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-export default function EventCard({ title, description, date, place, eventImg, eventId, bookSeat, maxSeats, seatsLeft, variant, onBooked }) {
+export default function EventCard({ title, description, date, place, eventImg, eventId, maxSeats, seatsLeft, variant, onBooked }) {
     const { token, user } = useAuth();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
-    const [name, setName] = useState('');
+    const [name, setName] = useState(user?.name || "");
     const [email, setEmail] = useState(user?.email || "");
     const [seats, setSeats] = useState(1);
     const [booked, setBooked] = useState(false);
@@ -53,8 +53,8 @@ export default function EventCard({ title, description, date, place, eventImg, e
             setName('');
             setEmail('');
             setSeats(1);
-        } catch (error) {
-            console.error("Booking failed:", error);
+        } catch { 
+            alert("Booking failed. Please try again.");
         }
     };
 

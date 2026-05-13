@@ -1,8 +1,10 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
+
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer";
-import ScrollToTop from './components/ScrollToTop';
+import useScrollToTop from './hooks/useScrollToTop.js';
+
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router";
 
 const Home     = lazy(() => import("./pages/Home.jsx"));
 const People   = lazy(() => import("./pages/People.jsx"));
@@ -17,13 +19,13 @@ const Register = lazy(() => import("./pages/Register.jsx"));
 const UserPage = lazy(() => import("./pages/UserPage.jsx"));
 
 function Layout() {
+  useScrollToTop(); 
   const location = useLocation();
   const isAdmin = location.pathname.toLowerCase().startsWith("/admin");
   const isDisplay = location.pathname === "/display";
 
   return (
     <>
-      <ScrollToTop />
       {!isAdmin && !isDisplay && <Navbar />}
       <Suspense fallback={null}>
         <Routes>

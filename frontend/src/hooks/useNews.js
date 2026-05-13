@@ -47,7 +47,6 @@ export function useNews(region) {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("[useNews] fetch failed:", err);
         setError(err.message);
         setLoading(false);
       });

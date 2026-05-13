@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const router = express.Router();
+const { adminAuth } = require('../middleware/auth');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -11,7 +12,7 @@ cloudinary.config({
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", upload.single("file"), async (req, res) => {
+router.post("/", adminAuth, upload.single("file"), async (req, res) => {
   try {
     const folder = req.query.folder || "misc";
     const result = await new Promise((resolve, reject) => {

@@ -14,7 +14,7 @@ export default function Projects() {
     fetch(`${API_URL}/api/projects`)
       .then((res) => res.json())
       .then((data) => setProjects(data))
-      .catch((err) => console.error("Failed to fetch projects:", err))
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
