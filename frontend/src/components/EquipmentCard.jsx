@@ -1,4 +1,5 @@
 import Tag from './Tags';
+import { cloudinaryUrl } from "../utils/cloudinaryUrl";
 
 function EquipmentCard({ name, category, description, image, status, onClick, isSelected }) {   return (
       <article
@@ -6,7 +7,7 @@ function EquipmentCard({ name, category, description, image, status, onClick, is
         onClick={onClick}
       >
         <div className="equipment-card__image">
-         <img src={image} alt={name} />
+         <img src={cloudinaryUrl(image, 400)} alt={name} loading="lazy" />
         </div>
         
         <h3>{name}</h3>

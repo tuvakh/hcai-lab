@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const compression = require("compression");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({
   origin: process.env.FRONTEND_URL || "http://localhost:5173",
 }));
+app.use(compression());
 app.use(express.json());
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
