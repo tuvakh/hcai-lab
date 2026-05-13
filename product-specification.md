@@ -6,7 +6,6 @@ This document describes the requirements for a web-based solution for NTNU’s H
 **Authors:** \
 Nicolai Buseth \
 Tuva Konstanse Hansen \
-Mathias Fornes Torsteinshaugen \
 Chanya Sanboonsiri 
 
 **Dates & Milestones:**
