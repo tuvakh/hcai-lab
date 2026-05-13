@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import HeroSection from "../components/HeroSection";
@@ -8,7 +8,6 @@ import Modal from "../components/Modal";
 import CardGrid from "../components/CardGrid";
 import Tag from '../components/Tags';
 import Button from "../components/Buttons";
-import { useNavigate, useLocation } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
 
@@ -278,9 +277,9 @@ export default function Booking() {
 
             {myBookings.length > 0 && (
                 <section className="booking-page__contact">
-                    <h2 className="booking-page__contact-title">My Bookings</h2>
+                    <h2 className="booking-page__contact-title">All Bookings</h2>
                     <p className="booking-page__contact-text">
-                        Here you can review and manage your current equipment bookings.
+                        Here you can review all current equipment bookings
                     </p>
                     <BookingList bookings={myBookings} onUnbook={handleUnbook} />
                 </section>

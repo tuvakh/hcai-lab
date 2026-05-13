@@ -1,6 +1,6 @@
 import Tag from './Tags';
 
-function BookingList({ bookings, onUnbook }) {
+function BookingList({ bookings, onUnbook, showUnbook = false }) {
   return (
     <div className="booking-list card-grid">
       {bookings.map((booking) => (
@@ -21,17 +21,19 @@ function BookingList({ bookings, onUnbook }) {
                 <h3 className="card__name">{booking.eventTitle}</h3>
                 <p className="card__desc">{booking.eventDescription}</p>
                 <p className="card__desc">
-                  <strong>Seats:</strong> {booking.seats}
+                  <strong>Your seats:</strong> {booking.seats}
                 </p>
               </>
             )}
-            <button
-              type="button"
-              className="btn btn--white btn--large"
-              onClick={() => onUnbook(booking.id)}
-            >
-              Unbook
-            </button>
+            {showUnbook && (
+                <button
+                    type="button"
+                    className="btn btn--white btn--large"
+                    onClick={() => onUnbook(booking.id)}
+                >
+                    Unbook
+                </button>
+            )}
           </div>
         </article>
       ))}

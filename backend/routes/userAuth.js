@@ -9,6 +9,18 @@ router.post("/register", async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
+    if (!password || password.length < 8) {
+        return res.status(400).json({ error: "Password must be at least 8 characters." });
+    }
+    if (!email || !email.includes("@")) {
+        return res.status(400).json({ error: "Invalid email address." });
+    }
+    if (!/^[a-zA-ZæøåÆØÅ\s\-']+$/.test(name)) {
+        return res.status(400).json({ error: "Name can only contain letters, spaces, and hyphens." });
+    }
+
+
+
     const salt = crypto.randomBytes(16).toString("hex");
     const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
     const passwordHash = `${salt}:${hash}`;

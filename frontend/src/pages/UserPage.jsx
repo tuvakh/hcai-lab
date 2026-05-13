@@ -86,7 +86,7 @@ function UserPage() {
                 {equipmentBookings.length === 0 ? (
                     <p className="user-page__empty">No equipment bookings yet.</p>
                 ) : (
-                    <BookingList bookings={equipmentBookings} onUnbook={handleUnbook} />
+                    <BookingList bookings={equipmentBookings} onUnbook={handleUnbook} showUnbook />
                 )}
             </section>
 
@@ -95,7 +95,7 @@ function UserPage() {
                 {eventBookings.length === 0 ? (
                     <p className="user-page__empty">No seat bookings yet.</p>
                 ) : (
-                    <BookingList bookings={eventBookings} onUnbook={handleUnbook} />
+                    <BookingList bookings={eventBookings} onUnbook={handleUnbook} showUnbook />
                 )}
             </section>
 

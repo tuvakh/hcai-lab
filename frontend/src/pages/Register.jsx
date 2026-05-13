@@ -31,9 +31,9 @@ function Register() {
       <div className="auth-page__card">
         <h1 className="auth-page__title">Register</h1>
         <form className="auth-page__form" onSubmit={handleSubmit}>
-          <input className="auth-page__input" type="text" placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} required />
+          <input className="auth-page__input" type="text" pattern="[a-zA-ZæøåÆØÅ\s\-']+" title="Name can only contain letters, spaces, and hyphens" placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} required />
           <input className="auth-page__input" type="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} required />
-          <input className="auth-page__input" type="password" placeholder="Password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+          <input className="auth-page__input" type="password" minLength={8} placeholder="Password (min 8 characters" value={password} onChange={(event) => setPassword(event.target.value)} required />
           {error && <p className="auth-page__error">{error}</p>}
           <button className="auth-page__btn" type="submit">Register</button>
         </form>
