@@ -1,4 +1,3 @@
-// src/components/AdminEditModal.jsx
 import { useState } from "react";
 import Modal from "./Modal";
 import Button from "./Buttons";

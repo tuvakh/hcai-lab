@@ -60,3 +60,8 @@ npm test
 
 The `docker-compose.yml` is pre-configured for local use.
 For production, secrets are stored on the server and not committed to git.
+
+---
+
+## Information for delivery only (we know this should be private in a real project)
+Admin password: HCAI2026

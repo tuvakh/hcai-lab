@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Button from "./Buttons";
+import Modal from "./Modal";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -50,12 +51,9 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
   }
 
   return (
-    <div className="admin-modal" role="dialog" aria-modal="true">
-      <div className="admin-modal__box">
-        <div className="admin-modal__header">
-          <h2 className="admin-modal__title">{isEmployee ? "Import Employee" : "Import Project"}</h2>
-          <button className="admin-modal__close" onClick={onClose} type="button" aria-label="Close">&times;</button>
-        </div>
+    <Modal onClose={onClose} ariaLabel={isEmployee ? "Import Employee" : "Import Project"} size="small">
+      <div className="admin-modal__content">
+        <h2 className="admin-modal__title">{isEmployee ? "Import Employee" : "Import Project"}</h2>
         <form onSubmit={handleSearch} className="admin-modal__form">
           <div className="admin-modal__field">
             <label className="admin-modal__label">{isEmployee ? "Search by name" : "Search by title"}</label>
@@ -115,6 +113,6 @@ export default function AdminImportSearch({ type, onSelect, onClose, existingEma
           </ul>
         )}
       </div>
-    </div>
+    </Modal>
   );
 }

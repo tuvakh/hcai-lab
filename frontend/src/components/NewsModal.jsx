@@ -1,4 +1,3 @@
-// src/components/NewsModal.jsx
 import Modal from "./Modal";
 import Tag from './Tags';
 

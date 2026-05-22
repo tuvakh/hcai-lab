@@ -1,19 +1,4 @@
-// _grid.scss
-// Layout for the News page content section (below the hero).
-// The HeroSection component handles the top of the page — no top padding needed here.
-// Cosmetic styles live in _news.scss.
-// Import order: @use 'news'; then @use 'grid';
-//
-// Named areas (inner layout):
-//   main    — news rails
-//   sidebar — favorites panel
-//   more    — pagination buttons
-// ─────────────────────────────────────────────────────────────────────────────
-
 .news-page {
-  // padding lives in news-page__content — see _News.scss
-
-  // ── inner layout: main content + sidebar ────────────────────────────────
   &__layout {
     display: grid;
     grid-template-columns: 1fr 280px;
@@ -26,30 +11,31 @@
     align-items: start;
   }
 
-  &__main { grid-area: main; min-width: 0; }
-  &__more { grid-area: more; justify-self: center; width: 100%; }
+  &__main {
+    grid-area: main;
+    min-width: 0;
+  }
+
+  &__more {
+    grid-area: more;
+    justify-self: center;
+    width: 100%;
+  }
 }
 
-// Sidebar — sticky so it follows as you scroll through cards
 .news-sidebar {
   grid-area: sidebar;
   align-self: stretch;
   position: sticky;
-  top: calc(64px + 1rem);   // 64px = navbar height
+  top: calc(64px + 1rem);
 }
 
-// ─── Rail card track ─────────────────────────────────────────────────────────
-// Fixed 3-col grid — cards always appear as a tidy equal-width row.
-// minmax(0, 1fr) prevents any single card overflowing its column.
 .news-rail__track {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--normal-space);
 }
 
-// ─── Breakpoints ─────────────────────────────────────────────────────────────
-
-// Tablet (≤1024px): sidebar collapses above content, 2-col card grid
 @media (max-width: 1024px) {
   .news-page {
 
@@ -72,9 +58,7 @@
   }
 }
 
-// Mobile (≤600px): single column cards, tighter padding
 @media (max-width: 600px) {
-
   .news-rail__track {
     grid-template-columns: 1fr;
   }

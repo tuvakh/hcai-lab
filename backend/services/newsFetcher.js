@@ -87,7 +87,6 @@ async function processFeed(feedConfig, region) {
 
   for (const item of feed.items ?? []) {
     const rawTitle = item.title ?? "";
-    // arXiv titles contain "arXiv:XXXX Announce Type: new" — extract the real title after "Title:"
     const title = rawTitle.includes("Announce Type")
       ? (rawTitle.match(/Title:\s*(.+)/)?.[1] ?? rawTitle).trim()
       : rawTitle;
@@ -95,7 +94,7 @@ async function processFeed(feedConfig, region) {
     const rawContent = stripHtml(item.content ?? item["content:encoded"] ?? "");
     const snippet    = item.contentSnippet ?? item.summary ?? "";
     const fullText   = (rawContent.length > snippet.length ? rawContent : snippet)
-      .replace(/arXiv:\S+\s+Announce Type:[^\n]*/gi, "") // strip wherever it appears
+      .replace(/arXiv:\S+\s+Announce Type:[^\n]*/gi, "") 
       .replace(/^\s*Abstract:\s*/i, "")
       .trim();
     const url = item.link ?? item.guid ?? "";
@@ -140,7 +139,6 @@ async function processFeed(feedConfig, region) {
 async function fetchAllNews() {
   console.log("[newsFetcher] Starting news fetch...");
 
-  // Fetch all feeds in parallel instead of sequentially
   const tasks = Object.entries(FEEDS).flatMap(([region, feeds]) =>
     feeds.map((feed) => processFeed(feed, region))
   );

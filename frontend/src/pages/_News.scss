@@ -1,13 +1,7 @@
-// src/pages/_News.scss
-// Page-level styles only — news-page block.
-// Component styles live in their own files in src/components/.
-// Hero text uses heroSection__intro--* — see _HeroSection.scss.
-
 .news-page {
   min-height: 100vh;
   background-color: var(--background-color);
 
-  // ── Content area — matches people-page and projects-page padding ──────────
   &__content {
     padding: var(--big-space) var(--mega-space) var(--mega-space);
   }
@@ -17,11 +11,11 @@
     font-size: var(--step--1);
     padding: var(--normal-space) 0;
 
-    &--error { color: #f87171; }
+    &--error {
+      color: #f87171;
+    }
   }
-  
 
-  // ── Filter bar ───────────────────────────────────────────────────────────
   &__filter-bar {
     display: flex;
     flex-wrap: wrap;
@@ -32,7 +26,6 @@
     border-radius: var(--border-radius);
   }
 
-  // ── More / show less buttons ──────────────────────────────────────────────
   &__more {
     display: flex;
     justify-content: center;

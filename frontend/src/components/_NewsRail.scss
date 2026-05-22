@@ -1,32 +1,29 @@
 .news-rail {
-    margin-bottom: var(--big-space);
-  
-    &__label {
-      font-size: var(--step--2);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--secondary-color);
-      font-weight: 700;
-      margin-bottom: var(--small-space);
-    }
-  
-    // <ul> reset — grid columns set in _NewsGrid.scss
-    &__track {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      padding-block-end: var(--small-space);
+  margin-bottom: var(--big-space);
 
-      @media (max-width: 600px) {
-        .news-card:nth-child(n+4) {
-          display: none;
-        }
+  &__label {
+    font-size: var(--step--2);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: var(--small-space);
+  }
+
+  &__track {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-block-end: var(--small-space);
+
+    @media (max-width: 600px) {
+      .news-card:nth-child(n+4) {
+        display: none;
       }
     }
-  
-    // display: contents lets the <article> be the direct grid child
-    &__item {
-      display: contents;
-    }
   }
-  
+
+  &__item {
+    display: contents;
+  }
+}

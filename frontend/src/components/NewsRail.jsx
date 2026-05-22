@@ -1,4 +1,3 @@
-// src/components/NewsRail.jsx
 import NewsCard from "./NewsCard";
 
 export default function NewsRail({ label, items, saved, onStar, onOpen, token }) {

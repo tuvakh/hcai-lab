@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const newsArticleSchema = new mongoose.Schema(
   {
-    externalId: { type: String, unique: true }, // article URL — used to deduplicate
+    externalId: { type: String, unique: true },
     region:     { type: String, enum: ["norway", "international"] },
     tag:        String,
     headline:   String,
@@ -12,7 +12,7 @@ const newsArticleSchema = new mongoose.Schema(
     source:     String,
     image:      { type: String, default: null },
     publishedAt: Date,
-    fetchedAt:  { type: Date, default: Date.now, expires: 60 * 60 * 24 * 7 }, // Auto deletes after 7 days + 60 sec
+    fetchedAt:  { type: Date, default: Date.now, expires: 60 * 60 * 24 * 7 },
   },
   {
     toJSON: {

@@ -1,54 +1,56 @@
 .card-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--normal-space);
+  margin: var(--bigger-space) auto;
+  width: 85%;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+    gap: var(--mega-space);
+  }
+
+  &__flex {
     display: flex;
-    flex-direction: column;
-    gap: var(--normal-space);
-    margin: var(--bigger-space) auto;
-    width: 85%;
-
-    &__grid {
-        display: grid;
-grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-gap: var(--mega-space); 
-    }
-
-    &__flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        flex-wrap: wrap;
-    }
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
 }
 
 .info-section {
-    display: grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    text-align: center;
-    justify-content: center;
-    padding: var(--mega-space) var(--big-space);
-    background-color: var(--primary-color);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  text-align: center;
+  justify-content: center;
+  padding: var(--mega-space) var(--big-space);
+  background-color: var(--primary-color);
 
-    &__box {
-        margin: var(--big-space);
-        max-width: clamp(100px, 100%, 500px);
-        margin-inline: auto;
-        border-radius: var(--border-radius);
-    }
-    &__info {
-        margin: auto;
-        z-index: 1; 
-        width: clamp(32ch, 50%, 60ch);
-    }
-    @media (max-width: 600px) { 
-        gap: var(--bigger-space);
-    }
+  &__box {
+    margin: var(--big-space);
+    max-width: clamp(100px, 100%, 500px);
+    margin-inline: auto;
+    border-radius: var(--border-radius);
+  }
 
-     &__contact {
-        border-right: 1px solid var(--white-color);
+  &__info {
+    margin: auto;
+    z-index: 1;
+    width: clamp(32ch, 50%, 60ch);
+  }
 
-        @media (max-width: 600px) { 
-            padding-block-end: var(--bigger-space);
-            border-bottom: 1px solid var(--white-color);
-            border-right: none;
-        }
+  @media (max-width: 600px) {
+    gap: var(--bigger-space);
+  }
+
+  &__contact {
+    border-right: 1px solid var(--white-color);
+
+    @media (max-width: 600px) {
+      padding-block-end: var(--bigger-space);
+      border-bottom: 1px solid var(--white-color);
+      border-right: none;
     }
+  }
 }

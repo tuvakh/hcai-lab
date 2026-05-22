@@ -1,4 +1,3 @@
-// src/components/AdminStatCard.jsx
 export default function AdminStatCard({ label, value, onClick }) {
   return (
     <div

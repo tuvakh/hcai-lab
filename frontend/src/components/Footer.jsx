@@ -30,7 +30,7 @@ export default function Footer() {
               <h2 className="footer__heading footer__heading--contact">Contact</h2>
               <p className="footer__text">
                 Sujay Shalawadi <br />
-                <a to="mailto:sujay.shalawadi@ntnu.no">
+                <a href="mailto:sujay.shalawadi@ntnu.no">
                   sujay.shalawadi@ntnu.no
                 </a>
               </p>

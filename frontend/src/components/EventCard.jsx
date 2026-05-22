@@ -113,13 +113,13 @@ export default function EventCard({ title, description, date, place, eventImg, e
           <div className="modal__section">
             <h3 className="modal__section-title">Details</h3>
             <div className="event-details">
-              <span className="event-details__date">
+              <span>
                 <span className="event-details__icon">📅</span>{formatDate(date)}
               </span>
-              <span className="event-details__date">
+              <span>
                 <span className="event-details__icon">📍</span>{place}
               </span>
-              <span className="event-details__date">
+              <span>
                 <span className="event-details__icon">🪑</span>{seatsLeft} / {maxSeats} seats available
               </span>
             </div>

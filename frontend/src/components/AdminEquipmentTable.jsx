@@ -1,4 +1,3 @@
-// src/components/AdminEquipmentsTable.jsx
 import { useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 import { useDragAndDrop } from "../hooks/useDragAndDrop";

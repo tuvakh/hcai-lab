@@ -2,7 +2,6 @@ const express = require("express");
 const router  = express.Router();
 const NewsArticle = require("../models/NewsArticle");
 
-// GET /api/news?region=norway   or   /api/news?region=international
 router.get("/", async (req, res) => {
   const { region } = req.query;
 

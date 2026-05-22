@@ -175,7 +175,7 @@ export default function Booking() {
           <div className="modal__section">
             <h3 className="modal__section-title">Book Equipment</h3>
             {!token ? (
-              <div className="modal__section-booking modal__section-booking--equipment">
+              <div className="modal__section-booking">
                 <p>You need to have a user to book equipment.</p>
                 <div className="modal__section-btn">
                   <Button text="Log in" variant="white" action={() => navigate('/login', { state: { from: location.pathname } })} />
@@ -247,7 +247,7 @@ export default function Booking() {
 
                   <p className="form-hint form-hint--calendar">Greyed out dates are already booked or in the past.</p>
                   {selectedRange && (
-                    <p className="booking-duration__summary">
+                    <p className="form-hint__summary">
                       {selectedRange[0].toDateString()} → {selectedRange[1].toDateString()}
                     </p>
                   )}

@@ -1,4 +1,3 @@
-// src/components/AdminProjectsTable.jsx
 import { useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 import AdminSearch from "./AdminSearch";
@@ -112,7 +111,7 @@ export default function AdminProjectsTable({ projects, setProjects }) {
                   </div>
                 </td>
                 <td>{project.tags.join(", ")}</td>
-                <td className="admin-page__team-cell">{project.team.join(", ")}</td>
+                <td>{project.team.join(", ")}</td>
                 <td className="admin-page__actions-cell">
                   <Button text="Edit" action={() => setModal({ item: { ...project, links: project.links?.[0]?.url ?? "" }, index: index })} variant="secondary" size="small" />
                   <Button text="Delete" action={() => deleteProject(index)} variant="delete" size="small" />

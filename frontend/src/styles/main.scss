@@ -1,7 +1,9 @@
+// Global styling
 @use 'reset';
 @use 'global';
 @use 'variables';
 
+// Pages
 @use '../pages/Home';
 @use '../pages/News';
 @use '../pages/People';
@@ -13,16 +15,20 @@
 @use '../pages/Auth';
 @use '../pages/UserPage';
 
-
-@use '../components/EventCard';
-@use '../components/Buttons';
+// Common components
 @use '../components/Navbar';
-@use '../components/HeroSection';
-@use '../components/CardGrid';
-@use '../components/BookingList';
 @use '../components/Footer';
+@use '../components/HeroSection';
+@use '../components/Buttons';
 @use '../components/Tags';
 @use '../components/Modal';
+
+// Card Components
+@use '../components/CardGrid';
+@use '../components/EventCard';
+
+// Booking Components
+@use '../components/BookingList';
 
 //News Components
 @use '../components/NewsCards';
@@ -34,4 +40,3 @@
 @use '../components/AdminStatCard';
 @use '../components/AdminSearch';
 @use '../components/AdminEditModal';
-

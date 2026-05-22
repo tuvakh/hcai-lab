@@ -1,25 +1,28 @@
-// ─── People Page ─────────────────────────────────────────────────────
-
 .people-page {
   min-height: 100vh;
   background-color: var(--background-color);
 
-  // ─── Grid Section ─────────────────────────────────────────────────
   &__grid-section {
     width: 100%;
     padding: var(--big-space) var(--mega-space);
 
-    @media (max-width: 900px) { padding: var(--medium-space) var(--big-space); }
-    @media (max-width: 600px) { padding: var(--medium-space); }
+    @media (max-width: 900px) {
+      padding: var(--medium-space) var(--big-space);
+    }
+
+    @media (max-width: 600px) {
+      padding: var(--medium-space);
+    }
   }
 
-  // ─── Contact Section ──────────────────────────────────────────────
   &__contact {
     background: var(--primary-color);
     text-align: center;
     padding: 3.5rem 2rem;
 
-    @media (max-width: 600px) { padding: var(--bigger-space) var(--medium-space); }
+    @media (max-width: 600px) {
+      padding: var(--bigger-space) var(--medium-space);
+    }
   }
 
   &__contact-title {

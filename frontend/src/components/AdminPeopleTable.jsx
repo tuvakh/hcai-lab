@@ -1,4 +1,3 @@
-// src/components/AdminPeopleTable.jsx
 import { useState } from "react";
 import AdminEditModal from "./AdminEditModal";
 import AdminSearch from "./AdminSearch";

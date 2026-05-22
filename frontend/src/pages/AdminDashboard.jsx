@@ -1,4 +1,3 @@
-// src/pages/Admin.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import AdminStatCard from "../components/AdminStatCard";
@@ -121,13 +120,10 @@ export default function Admin() {
 
   return (
     <main className="admin-page">
-
-      {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
         <Button text="Log out" action={() => { sessionStorage.removeItem("adminToken"); navigate("/"); }} variant="secondary" />
       </aside>
 
-      {/* ── Body ──────────────────────────────────────────────────────────── */}
       <div className="admin-page__body">
 
         <header className="admin-page__header">
@@ -141,7 +137,6 @@ export default function Admin() {
             <Button text="← Back" className="admin-page__back-btn" action={() => setActiveTab("Overview")} variant="secondary" size="small" />
           )}
 
-          {/* ── Overview ────────────────────────────────────────────────── */}
           {activeTab === "Overview" && (
             <div role="tabpanel">
               <div className="admin-page__stats">
@@ -155,27 +150,22 @@ export default function Admin() {
             </div>
           )}
 
-          {/* ── People ──────────────────────────────────────────────────── */}
           {activeTab === "People" && (
             <AdminPeopleTable people={people} setPeople={setPeople} />
           )}
 
-          {/* ── Projects ────────────────────────────────────────────────── */}
           {activeTab === "Projects" && (
             <AdminProjectsTable projects={projects} setProjects={setProjects} />
           )}
 
-          {/* ── Events ──────────────────────────────────────────────────── */}
           {activeTab === "Events" && (
             <AdminEventsTable events={events} setEvents={setEvents} seatBookings={seatBookings} />
           )}
 
-          {/* ── Equipment ───────────────────────────────────────────────── */}
           {activeTab === "Equipment" && (
             <AdminEquipmentTable equipments={equipments} setEquipments={setEquipments} />
           )}
 
-          {/* ── Bookings ────────────────────────────────────────────────── */}
           {activeTab === "Booked equipment" && (
             <AdminEquipmentBookingsTable bookings={equipmentBookings} setBookings={setEquipmentBookings} />
           )}
@@ -183,8 +173,6 @@ export default function Admin() {
           {activeTab === "Booked seats" && (
             <AdminSeatBookingsTable bookings={seatBookings} setBookings={setSeatBookings} events={events} />
           )}
-
-
         </section>
       </div>
     </main>

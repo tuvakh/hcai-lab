@@ -1,86 +1,86 @@
 .footer {
-    background: var(--footer-color);
-    padding: var(--mega-space) 0 var(--big-space);
-  
-    &__inner {
-      width: min(1200px, 90%);
-      margin: 0 auto;
-    }
-  
-    &__top {
+  background: var(--footer-color);
+  padding: var(--mega-space) 0 var(--big-space);
+
+  &__inner {
+    width: min(1200px, 90%);
+    margin: 0 auto;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  &__logo {
+    width: 220px;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr;
+  }
+
+  &__column {
+    &--map {
       display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
+      justify-content: flex-end;
     }
-  
-    &__logo {
-      width: 220px;
+  }
+
+  &__heading {
+    margin: 0 0 var(--small-space);
+
+    &--contact {
+      margin-top: var(--big-space);
     }
-  
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__list li {
+    margin-bottom: var(--mini-space)
+  }
+
+  &__list a,
+  &__text,
+  &__text a {
+    line-height: 1.5;
+    color: var(--white-color);
+    text-decoration: none;
+  }
+
+  &__list a:hover,
+  &__text a:hover {
+    color: var(--secondary-color);
+  }
+
+  &__map {
+    max-width: 360px;
+    border: 0;
+    border-radius: var(--border-radius);
+  }
+
+  &__copyright {
+    margin-top: var(--bigger-space);
+    text-align: center;
+    font-size: var(--step--1);
+    color: var(--tertiary-color);
+  }
+}
+
+@media (max-width: 900px) {
+  .footer {
     &__content {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1.3fr;
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
-  
-    &__column {  
-      &--map {
-        display: flex;
-        justify-content: flex-end;
-      }
-    }
-  
+
     &__heading {
-      margin: 0 0 var(--small-space);
-  
-      &--contact {
-        margin-top: var(--big-space);
-      }
-    }
-  
-    &__list {
-      list-style: none;
-    }
-  
-    &__list li {
-      margin-bottom: var(--mini-space)
-    }
-  
-    &__list a,
-    &__text,
-    &__text a {
-      line-height: 1.5;
-      color: var(--white-color);
-      text-decoration: none;
-    }
-  
-    &__list a:hover,
-    &__text a:hover {
-      color: var(--secondary-color);
-    }
-  
-    &__map {
-      max-width: 360px;
-      border: 0;
-      border-radius: var(--border-radius);
-    }
-  
-    &__copyright {
-      margin-top: var(--bigger-space);
-      text-align: center;
-      font-size: var(--step--1);
-      color: var(--tertiary-color);
+      font-size: var(--step-1);
     }
   }
-  
-  @media (max-width: 900px) {
-    .footer {
-      &__content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-  
-      &__heading {
-        font-size: var(--step-1);
-      }
-    }
-  }
+}

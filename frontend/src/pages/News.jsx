@@ -100,7 +100,6 @@ export default function News() {
         <div className="news-page__layout">
           <div className="news-page__main">
 
-            {/* Norway tab */}
             {region === "norway" && (
               <>
                 {norLoading && (
@@ -124,7 +123,6 @@ export default function News() {
               </>
             )}
 
-            {/* International tab */}
             {region === "international" && (
               <>
                 {intlLoading && (

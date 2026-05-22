@@ -7,7 +7,8 @@
   flex-direction: column;
   margin: var(--big-space);
   margin-block-start: 120px;
-  @media (min-width: 600px) { 
+
+  @media (min-width: 600px) {
     margin: 180px var(--mega-space) var(--mega-space);
   }
 
@@ -46,4 +47,3 @@
     gap: var(--normal-space);
   }
 }
-

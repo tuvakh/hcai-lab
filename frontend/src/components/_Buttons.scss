@@ -1,141 +1,141 @@
 .info-btn {
-    margin-block-start: var(--normal-space);
+  margin-block-start: var(--normal-space);
 }
 
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--step--2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: var(--small-space) var(--normal-space);
+  border-radius: var(--border-radius-btn);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+
+  &--primary {
+    background: var(--primary-color);
+    color: var(--white-color);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 6px 6px 18px var(--primary-color);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &--save {
+    background: var(--background-color);
+    color: var(--secondary-color);
+    border-color: var(--border-color);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 6px 6px 18px var(--primary-color);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: var(--secondary-color);
+    border-color: var(--border-color);
+
+    &:hover {
+      border-color: var(--tertiary-color);
+      color: var(--white-color);
+    }
+  }
+
+  &--delete {
+    background: rgba(168, 13, 59, 0.8);
+    color: #f79fc1;
+    border-color: rgba(239, 68, 68, 0.25);
+
+    &:hover {
+      background: rgba(168, 13, 59, 0.4);
+    }
+  }
+
+  &--white {
+    background: var(--white-color);
+    color: var(--primary-color);
+
+    &:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: var(--box-shadow);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: var(--secondary-color);
+    border-color: var(--border-color);
+
+    &:hover {
+      background: var(--border-color);
+      color: var(--white-color);
+    }
+  }
+
+  &--large {
+    font-size: var(--step--1);
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  &--small {
     font-size: var(--step--2);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: var(--small-space) var(--normal-space);
-    border-radius: var(--border-radius-btn);
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
+    padding: var(--mini-space) var(--small-space);
+    letter-spacing: 0.06em;
+  }
 
-    &--primary {
-        background: var(--primary-color);
-        color: var(--white-color);
+  &--filter {
+    background: transparent;
+    color: var(--secondary-color);
+    border-color: var(--border-color);
 
-        &:hover {
-            transform: translateY(-1px);
-            box-shadow: 6px 6px 18px var(--primary-color);
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
+    &:hover {
+      background: var(--tertiary-color);
+      color: var(--white-color);
     }
+  }
 
-    &--save {
-        background: var(--background-color);
-        color: var(--secondary-color);
-        border-color: var(--border-color);
+  &--filter--active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white-color);
+  }
 
-        &:hover {
-            transform: translateY(-1px);
-            box-shadow: 6px 6px 18px var(--primary-color);
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
+  &--filter--norway {
+    &.btn--filter--active {
+      background: var(--norwegian-label);
+      border-color: var(--norwegian-label);
+      color: var(--white-color);
     }
+  }
 
-    &--secondary {
-        background: transparent;
-        color: var(--secondary-color);
-        border-color: var(--border-color);
-
-        &:hover {
-            border-color: var(--tertiary-color);
-            color: var(--white-color);
-        }
+  &--filter--international {
+    &.btn--filter--active {
+      background: var(--international-label);
+      border-color: var(--international-label);
+      color: var(--white-color);
     }
-
-    &--delete {
-        background: rgba(168, 13, 59, 0.8);
-        color: #f79fc1;
-        border-color: rgba(239, 68, 68, 0.25);
-
-        &:hover {
-            background: rgba(168, 13, 59, 0.4);
-        }
-    }
-
-    &--white {
-        background: var(--white-color);
-        color: var(--primary-color);
-
-        &:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: var(--box-shadow);
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
-    }
-
-    &--ghost {
-        background: transparent;
-        color: var(--secondary-color);
-        border-color: var(--border-color);
-
-        &:hover {
-            background: var(--border-color);
-            color: var(--white-color);
-        }
-    }
-
-    &--large {
-        font-size: var(--step--1);
-        text-transform: none;
-        letter-spacing: 0;
-    }
-
-    &--small {
-        font-size: var(--step--2);
-        padding: var(--mini-space) var(--small-space);
-        letter-spacing: 0.06em;
-    }
-
-    &--filter {
-        background: transparent;
-        color: var(--secondary-color);
-        border-color: var(--border-color);
-
-        &:hover {
-            background: var(--tertiary-color);
-            color: var(--white-color);
-        }
-    }
-
-    &--filter--active {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
-        color: var(--white-color);
-    }
-
-    &--filter--norway {
-        &.btn--filter--active {
-            background: var(--norwegian-label);
-            border-color: var(--norwegian-label);
-            color: var(--white-color);
-        }
-    }
-
-    &--filter--international {
-        &.btn--filter--active {
-            background: var(--international-label);
-            border-color: var(--international-label);
-            color: var(--white-color);
-        }
-    }
+  }
 }
