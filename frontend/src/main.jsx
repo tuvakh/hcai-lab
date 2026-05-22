@@ -5,10 +5,11 @@ import "./styles/main.scss";
 import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <StrictMode>
-        <App />
-    </StrictMode>
-</AuthProvider>
+
+  <StrictMode>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </StrictMode>
 );
 

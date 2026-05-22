@@ -1,6 +1,6 @@
 // src/pages/Admin.jsx
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import AdminStatCard from "../components/AdminStatCard";
 import AdminEventsTable from "../components/AdminEventsTable";
 import AdminProjectsTable from "../components/AdminProjectsTable";
@@ -82,38 +82,38 @@ export default function Admin() {
     fetch(`${API_URL}/api/projects`)
       .then((response) => response.json())
       .then(setProjects)
-      .catch(() => {});
+      .catch(() => { });
 
     fetch(`${API_URL}/api/people`)
       .then((response) => response.json())
       .then(setPeople)
-      .catch(() => {});
+      .catch(() => { });
 
     fetch(`${API_URL}/api/events`)
-        .then((response) => response.json())
-.then((data) => setEvents(data.sort((a, b) => {
-    const now = new Date();
-    const aIsPast = new Date(a.date) < now;
-    const bIsPast = new Date(b.date) < now;
-    if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
-    return new Date(a.date) - new Date(b.date);
-})))
-        .catch(() => {});
+      .then((response) => response.json())
+      .then((data) => setEvents(data.sort((a, b) => {
+        const now = new Date();
+        const aIsPast = new Date(a.date) < now;
+        const bIsPast = new Date(b.date) < now;
+        if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
+        return new Date(a.date) - new Date(b.date);
+      })))
+      .catch(() => { });
 
     fetch(`${API_URL}/api/equipment`)
       .then((response) => response.json())
       .then(setEquipments)
-      .catch(() => {});
+      .catch(() => { });
 
     fetch(`${API_URL}/api/bookings`, {
-  headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
-})
-  .then(r => r.json())
-  .then(data => {
-    setEquipmentBookings(data.filter(b => b.type === "equipment"));
-    setSeatBookings(data.filter(b => b.type === "seat"));
-  })
-  .catch(() => {});
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
+    })
+      .then(r => r.json())
+      .then(data => {
+        setEquipmentBookings(data.filter(b => b.type === "equipment"));
+        setSeatBookings(data.filter(b => b.type === "seat"));
+      })
+      .catch(() => { });
 
   }, [authed]);
 
@@ -124,7 +124,7 @@ export default function Admin() {
 
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className="admin-page__sidebar">
-        <Button text="Log out" action={() => { sessionStorage.removeItem("adminToken"); navigate("/"); }} variant="secondary"/>
+        <Button text="Log out" action={() => { sessionStorage.removeItem("adminToken"); navigate("/"); }} variant="secondary" />
       </aside>
 
       {/* ── Body ──────────────────────────────────────────────────────────── */}
@@ -145,11 +145,11 @@ export default function Admin() {
           {activeTab === "Overview" && (
             <div role="tabpanel">
               <div className="admin-page__stats">
-                <AdminStatCard label="Employees"  value={people.length}    onClick={() => setActiveTab("People")} />
-                <AdminStatCard label="Projects"   value={projects.length}  onClick={() => setActiveTab("Projects")} />
-                <AdminStatCard label="Events"     value={events.length}    onClick={() => setActiveTab("Events")} />
-                <AdminStatCard label="Equipment"  value={equipments.length}   onClick={() => setActiveTab("Equipment")} />
-                <AdminStatCard label="Booked equipment"   value={equipmentBookings.length}     onClick={() => setActiveTab("Booked equipment")} />
+                <AdminStatCard label="Employees" value={people.length} onClick={() => setActiveTab("People")} />
+                <AdminStatCard label="Projects" value={projects.length} onClick={() => setActiveTab("Projects")} />
+                <AdminStatCard label="Events" value={events.length} onClick={() => setActiveTab("Events")} />
+                <AdminStatCard label="Equipment" value={equipments.length} onClick={() => setActiveTab("Equipment")} />
+                <AdminStatCard label="Booked equipment" value={equipmentBookings.length} onClick={() => setActiveTab("Booked equipment")} />
                 <AdminStatCard label="Booked seats" value={seatBookings.length} onClick={() => setActiveTab("Booked seats")} />
               </div>
             </div>
@@ -157,31 +157,31 @@ export default function Admin() {
 
           {/* ── People ──────────────────────────────────────────────────── */}
           {activeTab === "People" && (
-              <AdminPeopleTable people={people} setPeople={setPeople} />
+            <AdminPeopleTable people={people} setPeople={setPeople} />
           )}
 
           {/* ── Projects ────────────────────────────────────────────────── */}
           {activeTab === "Projects" && (
-              <AdminProjectsTable projects={projects} setProjects={setProjects} />
+            <AdminProjectsTable projects={projects} setProjects={setProjects} />
           )}
 
           {/* ── Events ──────────────────────────────────────────────────── */}
           {activeTab === "Events" && (
-                <AdminEventsTable events={events} setEvents={setEvents} seatBookings={seatBookings} />
+            <AdminEventsTable events={events} setEvents={setEvents} seatBookings={seatBookings} />
           )}
 
           {/* ── Equipment ───────────────────────────────────────────────── */}
           {activeTab === "Equipment" && (
-                <AdminEquipmentTable equipments={equipments} setEquipments={setEquipments} />
+            <AdminEquipmentTable equipments={equipments} setEquipments={setEquipments} />
           )}
 
           {/* ── Bookings ────────────────────────────────────────────────── */}
           {activeTab === "Booked equipment" && (
-                <AdminEquipmentBookingsTable bookings={equipmentBookings} setBookings={setEquipmentBookings} />
+            <AdminEquipmentBookingsTable bookings={equipmentBookings} setBookings={setEquipmentBookings} />
           )}
 
           {activeTab === "Booked seats" && (
-                <AdminSeatBookingsTable bookings={seatBookings} setBookings={setSeatBookings} events={events} />
+            <AdminSeatBookingsTable bookings={seatBookings} setBookings={setSeatBookings} events={events} />
           )}
 
 

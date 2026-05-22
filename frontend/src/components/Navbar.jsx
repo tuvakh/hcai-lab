@@ -17,7 +17,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { user, logout } = useAuth();
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,63 +41,61 @@ const navigate = useNavigate();
   };
 
   return (
-    <>
-      <nav className={`navbar${isScrolled ? " navbar--scrolled" : ""}`}>
-        <NavLink to="/" className="navbar__logo">
-          <img src={logo} alt="HCAI Lab logo" className="navbar__logo-image" />
-        </NavLink>
+    <nav className={`navbar${isScrolled ? " navbar--scrolled" : ""}`}>
+      <NavLink to="/" className="navbar__logo">
+        <img src={logo} alt="HCAI Lab logo" className="navbar__logo-image" />
+      </NavLink>
 
-        <button
-          type="button"
-          className={`navbar__toggle${isOpen ? " navbar__toggle--open" : ""}`}
-          aria-label="Toggle navigation"
-          aria-expanded={isOpen}
-          onClick={toggleMenu}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+      <button
+        type="button"
+        className={`navbar__toggle${isOpen ? " navbar__toggle--open" : ""}`}
+        aria-label="Toggle navigation"
+        aria-expanded={isOpen}
+        onClick={toggleMenu}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
 
-        <ul className={`navbar__links${isOpen ? " navbar__links--open" : ""}`}>
-          {navItems.map((item) => (
-            <li key={item.path}>
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  isActive
-                    ? "navbar__link navbar__link--active"
-                    : "navbar__link"
-                }
-                onClick={closeMenu}
-              >
-                {item.label}
+      <ul className={`navbar__links${isOpen ? " navbar__links--open" : ""}`}>
+        {navItems.map((item) => (
+          <li key={item.path}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                isActive
+                  ? "navbar__link navbar__link--active"
+                  : "navbar__link"
+              }
+              onClick={closeMenu}
+            >
+              {item.label}
+            </NavLink>
+          </li>
+        ))}
+        {user ? (
+          <>
+            <li>
+              <NavLink to="/userpage" className="navbar__link" onClick={closeMenu}>
+                My Profile
               </NavLink>
             </li>
-          ))}
-          {user ? (
-  <>
-    <li>
-      <NavLink to="/userpage" className="navbar__link" onClick={closeMenu}>
-        My Profile
-      </NavLink>
-    </li>
-    <li>
-      <Button text="Log out" variant="white" action={() => { logout(); navigate("/"); closeMenu(); }} />
-    </li>
-  </>
-) : (
-  <>
-    <li className="navbar__btn">
-      <Button text="Log in" variant="white" action={() => { navigate("/login"); closeMenu(); }} />
-    
-      <Button text="Register" variant="primary" action={() => { navigate("/register"); closeMenu(); }} />
-    </li>
-  </>
-)}
+            <li>
+              <Button text="Log out" variant="white" action={() => { logout(); navigate("/"); closeMenu(); }} />
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="navbar__btn">
+              <Button text="Log in" variant="white" action={() => { navigate("/login"); closeMenu(); }} />
 
-        </ul>
-      </nav>
-    </>
+              <Button text="Register" variant="primary" action={() => { navigate("/register"); closeMenu(); }} />
+            </li>
+          </>
+        )}
+
+      </ul>
+    </nav>
   );
 }

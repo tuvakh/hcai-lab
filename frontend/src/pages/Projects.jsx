@@ -14,7 +14,7 @@ export default function Projects() {
     fetch(`${API_URL}/api/projects`)
       .then((res) => res.json())
       .then((data) => setProjects(data))
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, []);
 
@@ -22,8 +22,8 @@ export default function Projects() {
     activeFilter === "All"
       ? projects
       : projects.filter((project) =>
-          Array.isArray(project.status) ? project.status.includes(activeFilter) : project.status === activeFilter
-        );
+        Array.isArray(project.status) ? project.status.includes(activeFilter) : project.status === activeFilter
+      );
 
   return (
     <main className="projects-page">

@@ -190,10 +190,10 @@ export default function CardGrid({ items = [], variant = "people", onSelect }) {
                 <div className="modal__header-text modal__header-text--full">
                   <div className="modal__tags">
                     {selected.status && (Array.isArray(selected.status) ? selected.status : [selected.status]).map((status) => (
-                        <Tag key={status} status={status}>{status}</Tag>
+                      <Tag key={status} status={status}>{status}</Tag>
                     ))}
                     {selected.tags?.map((tag) => (
-                        <Tag key={tag}>{tag}</Tag>
+                      <Tag key={tag}>{tag}</Tag>
                     ))}
                   </div>
                   <h2 className="modal__name">{selected.name}</h2>

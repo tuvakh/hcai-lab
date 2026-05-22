@@ -11,28 +11,28 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 const INIT_COUNT = 6;
 
 export default function News() {
-  const [region,    setRegion]    = useState("norway");
-  const [norCount,  setNorCount]  = useState(INIT_COUNT);
+  const [region, setRegion] = useState("norway");
+  const [norCount, setNorCount] = useState(INIT_COUNT);
   const [intlCount, setIntlCount] = useState(INIT_COUNT);
-  const [saved,     setSaved]     = useState(new Set());
+  const [saved, setSaved] = useState(new Set());
   const [activeItem, setActiveItem] = useState(null);
-  const { token } = useAuth();  
+  const { token } = useAuth();
 
-  const { items: norAll,  loading: norLoading,  error: norError  } = useNews("norway");
+  const { items: norAll, loading: norLoading, error: norError } = useNews("norway");
   const { items: intlAll, loading: intlLoading, error: intlError } = useNews("international");
 
-  const norItems  = (norAll || []).slice(0, norCount);
+  const norItems = (norAll || []).slice(0, norCount);
   const intlItems = (intlAll || []).slice(0, intlCount);
-  const favItems  = [...(norAll || []), ...(intlAll || [])]
-  .filter((n) => saved.has(n.id))
-  .filter((item, index, self) =>
-    index === self.findIndex((t) => t.id === item.id)
-  );
-  const count     = region === "norway" ? norCount      : intlCount;
+  const favItems = [...(norAll || []), ...(intlAll || [])]
+    .filter((n) => saved.has(n.id))
+    .filter((item, index, self) =>
+      index === self.findIndex((t) => t.id === item.id)
+    );
+  const count = region === "norway" ? norCount : intlCount;
 
-  const total     = region === "norway" ? norAll.length : intlAll.length;
+  const total = region === "norway" ? norAll.length : intlAll.length;
   const initCount = INIT_COUNT;
-  const setCount  = region === "norway" ? setNorCount   : setIntlCount;
+  const setCount = region === "norway" ? setNorCount : setIntlCount;
 
   const canShowMore = count < total;
   const canShowLess = count > initCount;
@@ -40,28 +40,28 @@ export default function News() {
   const toggleStar = (item) => {
     const isSaved = saved.has(item.id);
     setSaved((prev) => {
-        const next = new Set(prev);
-        isSaved ? next.delete(item.id) : next.add(item.id);
-        return next;
+      const next = new Set(prev);
+      isSaved ? next.delete(item.id) : next.add(item.id);
+      return next;
     });
     if (!token) return;
     fetch(`${API_URL}/api/auth/favorites/${item.id}`, {
-        method: isSaved ? "DELETE" : "POST",
-        headers: { Authorization: `Bearer ${token}` },
+      method: isSaved ? "DELETE" : "POST",
+      headers: { Authorization: `Bearer ${token}` },
     });
   };
 
   useEffect(() => {
     if (!token) {
-        setSaved(new Set());
-        return;
+      setSaved(new Set());
+      return;
     }
-    fetch(`${API_URL}/api/auth/favorites`, {        
-        headers: { Authorization: `Bearer ${token}` },
+    fetch(`${API_URL}/api/auth/favorites`, {
+      headers: { Authorization: `Bearer ${token}` },
     })
-        .then(res => res.json())
-        .then(ids => setSaved(new Set(ids)));
-    }, [token]);
+      .then(res => res.json())
+      .then(ids => setSaved(new Set(ids)));
+  }, [token]);
 
 
   return (
@@ -172,7 +172,7 @@ export default function News() {
             </div>
           </div>
 
-            <NewsSidebar favItems={favItems} onOpen={setActiveItem} onStar={toggleStar} token={token} />        </div>
+          <NewsSidebar favItems={favItems} onOpen={setActiveItem} onStar={toggleStar} token={token} />        </div>
       </section>
 
       <NewsModal item={activeItem} onClose={() => setActiveItem(null)} />

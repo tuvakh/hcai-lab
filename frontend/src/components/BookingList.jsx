@@ -1,6 +1,6 @@
 import Button from './Buttons';
 
-function BookingList({ bookings, onUnbook = () => {}, showUnbook = false }) {
+function BookingList({ bookings, onUnbook = () => { }, showUnbook = false }) {
   return (
     <div className="booking-list card-grid">
       {bookings.map((booking) => (
@@ -26,7 +26,7 @@ function BookingList({ bookings, onUnbook = () => {}, showUnbook = false }) {
               </>
             )}
             {showUnbook && (
-                <Button text="Unbook" variant="white" size="large" action={() => onUnbook(booking.id)} />
+              <Button text="Unbook" variant="white" size="large" action={() => onUnbook(booking.id)} />
             )}
           </div>
         </article>
