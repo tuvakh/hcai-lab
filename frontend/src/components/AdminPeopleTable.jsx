@@ -31,7 +31,10 @@ export default function AdminPeopleTable({ people, setPeople }) {
       try {
         const response = await fetch(`${API_URL}/api/people`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`
+          },
           body: JSON.stringify(data),
         });
         const saved = await response.json();
@@ -44,7 +47,10 @@ export default function AdminPeopleTable({ people, setPeople }) {
       try {
         const response = await fetch(`${API_URL}/api/people/${person._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
+          },
           body: JSON.stringify(data),
         });
         const saved = await response.json();
@@ -60,7 +66,10 @@ export default function AdminPeopleTable({ people, setPeople }) {
     if (!window.confirm("Remove this person?")) return;
     const person = people[index];
     setPeople((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
-    fetch(`${API_URL}/api/people/${person._id}`, { method: "DELETE" }).catch(() => { });
+    fetch(`${API_URL}/api/people/${person._id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
+    }).catch(() => { });
   }
 
   return (

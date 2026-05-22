@@ -22,7 +22,10 @@ export default function AdminEventsTable({ events, setEvents, seatBookings = [] 
       try {
         const response = await fetch(`${API_URL}/api/events`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`
+          },
           body: JSON.stringify(data),
         });
         const saved = await response.json();
@@ -35,7 +38,10 @@ export default function AdminEventsTable({ events, setEvents, seatBookings = [] 
       try {
         const response = await fetch(`${API_URL}/api/events/${existingEvent._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
+          },
           body: JSON.stringify(data),
         });
         const saved = await response.json();
@@ -52,7 +58,10 @@ export default function AdminEventsTable({ events, setEvents, seatBookings = [] 
     if (!window.confirm("Remove this event?")) return;
     const existingEvent = events[index];
     setEvents((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
-    fetch(`${API_URL}/api/events/${existingEvent._id}`, { method: "DELETE" }).catch(() => { });
+    fetch(`${API_URL}/api/events/${existingEvent._id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
+    }).catch(() => { });
   }
 
 

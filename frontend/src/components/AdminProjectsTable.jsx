@@ -34,7 +34,10 @@ export default function AdminProjectsTable({ projects, setProjects }) {
       try {
         const response = await fetch(`${API_URL}/api/projects`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`
+          },
           body: JSON.stringify(payload),
         });
         const saved = await response.json();
@@ -47,7 +50,10 @@ export default function AdminProjectsTable({ projects, setProjects }) {
       try {
         const response = await fetch(`${API_URL}/api/projects/${project._id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
+          },
           body: JSON.stringify(data),
         });
         const saved = await response.json();
@@ -64,7 +70,10 @@ export default function AdminProjectsTable({ projects, setProjects }) {
     if (!window.confirm("Remove this project?")) return;
     const project = projects[index];
     setProjects((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
-    fetch(`${API_URL}/api/projects/${project._id}`, { method: "DELETE" }).catch(() => { });
+    fetch(`${API_URL}/api/projects/${project._id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("adminToken")}` },
+    }).catch(() => { });
   }
 
   return (
