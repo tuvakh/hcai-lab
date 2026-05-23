@@ -40,6 +40,31 @@ npm run dev
 
 ---
 
+## Deploy to production
+
+**1. Build and push images to Docker Hub (run locally):**
+```bash
+docker build -t tuvakh/idg2671_hcai_frontend ./frontend
+docker build -t tuvakh/idg2671_hcai_backend ./backend
+docker push tuvakh/idg2671_hcai_frontend
+docker push tuvakh/idg2671_hcai_backend
+```
+
+**2. SSH into the server and switch to the team user:**
+```bash
+ssh [your-ntnu-username]@ai-research.it.ntnu.no
+su team1
+```
+
+**3. Pull the new images and restart:**
+```bash
+cd ~/app
+docker compose -f remote-compose.yaml pull
+docker compose -f remote-compose.yaml up -d
+```
+
+---
+
 ## Run tests
 
 **Backend unit & API integration tests** (Jest):
