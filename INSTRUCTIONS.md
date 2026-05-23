@@ -55,6 +55,7 @@ docker push tuvakh/idg2671_hcai_backend
 ssh [your-ntnu-username]@ai-research.it.ntnu.no
 su team1
 ```
+(We have not changed the password)
 
 **3. Pull the new images and restart:**
 ```bash
