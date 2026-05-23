@@ -46,9 +46,7 @@ function inferTag(title = "", text = "") {
 
 const FEEDS = {
   norway: [
-    { url: "https://shifter.no/feed/",  source: "Shifter" },
-    { url: "https://www.digi.no/rss",   source: "Digi.no" },
-    { url: "https://khrono.no/feed",    source: "Khrono"  },
+    { url: "https://www.digi.no/rss", source: "Digi.no" },
   ],
   international: [
     { url: "https://deepmind.google/blog/rss.xml",   source: "Google DeepMind" },
