@@ -31,19 +31,19 @@ describe('Events', () => {
     })
 
     it('clicking an event card opens the modal', async () => {
-        await page.waitForSelector('button')
+        await page.waitForSelector('.eventCard__button')
         await page.evaluate(() => {
             const btn = Array.from(document.querySelectorAll('button'))
                 .find(btn => /book seat/i.test(btn.textContent))
             btn.click()
         })
         await page.waitForSelector('[role="dialog"]')
-        const label = await page.$eval('[role="dialog"] label', element => element.textContent)
-        assert.match(label, /first name/i)
+        const title = await page.$eval('[role="dialog"] h2', element => element.textContent)
+        assert.ok(title.length > 0)
     })
 
     it('modal shows a details section', async () => {
-        await page.waitForSelector('button')
+        await page.waitForSelector('.eventCard__button')
         await page.evaluate(() => {
             const btn = Array.from(document.querySelectorAll('button'))
                 .find(btn => /book seat/i.test(btn.textContent))
@@ -54,40 +54,33 @@ describe('Events', () => {
         assert.match(heading, /Details/i)
     })
 
-    it('submitting without a name keeps the modal open', async () => {
-        await page.waitForSelector('button')
+    it('modal shows login prompt for unauthenticated users', async () => {
+        await page.waitForSelector('.eventCard__button')
         await page.evaluate(() => {
             const btn = Array.from(document.querySelectorAll('button'))
                 .find(btn => /book seat/i.test(btn.textContent))
             btn.click()
         })
         await page.waitForSelector('[role="dialog"]')
-        await page.type('[role="dialog"] input[id="email"]', 'test@test.com')
-        await page.evaluate(() => {
-            const btn = Array.from(document.querySelectorAll('[role="dialog"] button'))
-                .find(btn => /book seat/i.test(btn.textContent))
-            btn.click()
-        })
-        const dialog = await page.$('[role="dialog"]')
-        assert.notEqual(dialog, null)
+        const text = await page.$eval('[role="dialog"]', element => element.textContent)
+        assert.match(text, /you need to have a user/i)
     })
 
-    it('user can fill in and submit the seat booking form', async () => {
-        await page.waitForSelector('button')
+    it('clicking Log in in the modal navigates to the login page', async () => {
+        await page.waitForSelector('.eventCard__button')
         await page.evaluate(() => {
             const btn = Array.from(document.querySelectorAll('button'))
                 .find(btn => /book seat/i.test(btn.textContent))
             btn.click()
         })
         await page.waitForSelector('[role="dialog"]')
-        await page.type('[role="dialog"] input[id="name"]', 'Test User')
-        await page.type('[role="dialog"] input[id="email"]', 'test@test.com')
         await page.evaluate(() => {
             const btn = Array.from(document.querySelectorAll('[role="dialog"] button'))
-                .find(btn => /book seat/i.test(btn.textContent))
+                .find(btn => /log in/i.test(btn.textContent))
             btn.click()
         })
-        const dialog = await page.$('[role="dialog"]')
-        assert.notEqual(dialog, null)
+        await page.waitForFunction(() => window.location.pathname === '/login')
+        const url = page.url()
+        assert.match(url, /\/login/)
     })
 })

@@ -1,7 +1,11 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
 import { vi } from 'vitest';
 import Booking from "../../src/pages/Booking";
+
+vi.mock('../../src/context/AuthContext', () => ({
+    useAuth: () => ({ token: 'mock-token', user: { name: 'Test User' }, login: vi.fn(), logout: vi.fn() })
+}))
 
 const mockEquipment = [{ id: '1', name: 'VR Headset', category: 'VR', description: 'A VR headset' }]
 
