@@ -64,9 +64,25 @@ function LoginGate({ onLogin }) {
   );
 }
 
+function isTokenExpired(token) {
+  try {
+    const { exp } = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    return exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+}
+
 export default function Admin() {
   const navigate = useNavigate();
-  const [authed, setAuthed] = useState(() => !!sessionStorage.getItem("adminToken"));
+  const [authed, setAuthed] = useState(() => {
+    const token = sessionStorage.getItem("adminToken");
+    if (token && isTokenExpired(token)) {
+      sessionStorage.removeItem("adminToken");
+      return false;
+    }
+    return !!token;
+  });
   const [activeTab, setActiveTab] = useState("Overview");
   const [projects, setProjects] = useState([]);
   const [people, setPeople] = useState([]);
@@ -74,6 +90,20 @@ export default function Admin() {
   const [equipments, setEquipments] = useState([]);
   const [equipmentBookings, setEquipmentBookings] = useState([]);
   const [seatBookings, setSeatBookings] = useState([]);
+
+  useEffect(() => {
+    if (!authed) return;
+    const token = sessionStorage.getItem("adminToken");
+    if (token) {
+      const { exp } = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+      const ms = exp * 1000 - Date.now();
+      const timer = setTimeout(() => {
+        sessionStorage.removeItem("adminToken");
+        setAuthed(false);
+      }, ms);
+      return () => clearTimeout(timer);
+    }
+  }, [authed]);
 
   useEffect(() => {
     if (!authed) return;
