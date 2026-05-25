@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 
 const AuthContext = createContext(null);
 
@@ -23,7 +23,10 @@ function getStoredToken() {
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(getStoredToken);
 
-  const user = token ? JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))) : null;
+  const user = useMemo(() => {
+    if (!token) return null;
+    return JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+  }, [token]);
 
   const logout = useCallback(() => {
     sessionStorage.removeItem("token");
@@ -31,12 +34,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (!token) return;
-    const { exp } = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
-    const ms = exp * 1000 - Date.now();
+    if (!token || !user) return;
+    const ms = user.exp * 1000 - Date.now();
     const timer = setTimeout(logout, ms);
     return () => clearTimeout(timer);
-  }, [token, logout]);
+  }, [token, logout, user]);
 
   function login(newToken) {
     sessionStorage.setItem("token", newToken);

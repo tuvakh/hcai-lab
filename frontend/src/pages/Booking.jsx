@@ -227,12 +227,9 @@ export default function Booking() {
 
                     value={selectedRange}
                     minDate={new Date()}
-                    maxDate={rangeStart ? (() => {
-                      const d = new Date(rangeStart);
-                      d.setDate(d.getDate() + 7);
-                      d.setHours(23, 59, 59, 999);
-                      return d;
-                    })() : undefined}
+                    maxDate={rangeStart 
+                      ? new Date(rangeStart.getTime() + 7 * 24 * 60 * 60 * 1000) 
+                      : undefined}
 
                     tileClassName={({ date }) =>
                       isDateBooked(selectedEquipment.id, date) ? "tile--booked" : null
