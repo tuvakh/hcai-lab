@@ -7,12 +7,14 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
     setError(null);
     try {
+      if (password !== confirmPassword) return setError("Passwords do not match");
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,6 +36,7 @@ function Register() {
           <input className="auth-page__input" type="text" pattern="[a-zA-ZæøåÆØÅ\s\-']+" title="Name can only contain letters, spaces, and hyphens" placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} required />
           <input className="auth-page__input" type="email" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} required />
           <input className="auth-page__input" type="password" minLength={8} placeholder="Password (min 8 characters)" value={password} onChange={(event) => setPassword(event.target.value)} required />
+          <input className="auth-page__input" type="password" placeholder="Confirm password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} required />
           {error && <p className="auth-page__error">{error}</p>}
           <button className="auth-page__btn" type="submit">Register</button>
         </form>
