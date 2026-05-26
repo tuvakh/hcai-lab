@@ -44,8 +44,10 @@ npm run dev
 
 **1. Build and push images to Docker Hub (run locally):**
 ```bash
-docker build -t tuvakh/idg2671_hcai_frontend ./frontend
-docker build -t tuvakh/idg2671_hcai_backend ./backend
+docker build --platform linux/amd64 \
+  --build-arg VITE_API_URL=https://team1.ai-research.it.ntnu.no \
+  -t tuvakh/idg2671_hcai_frontend ./frontend
+docker build --platform linux/amd64 -t tuvakh/idg2671_hcai_backend ./backend
 docker push tuvakh/idg2671_hcai_frontend
 docker push tuvakh/idg2671_hcai_backend
 ```
