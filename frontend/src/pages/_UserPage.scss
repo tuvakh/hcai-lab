@@ -1,0 +1,49 @@
+.user-page {
+  background: var(--background-color);
+  color: var(--white-color);
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  margin: var(--big-space);
+  margin-block-start: 120px;
+
+  @media (min-width: 600px) {
+    margin: 180px var(--mega-space) var(--mega-space);
+  }
+
+
+  &__header {
+    margin-block-end: var(--big-space);
+  }
+
+  &__title {
+    font-size: var(--step-4);
+    margin-block-end: var(--mini-space);
+  }
+
+  &__email {
+    font-size: var(--step-0);
+    color: var(--secondary-color);
+  }
+
+  &__section {
+    margin-block-end: var(--mega-space);
+  }
+
+  &__section-title {
+    text-transform: none;
+    margin-block-end: var(--small-space);
+  }
+
+  &__empty {
+    color: var(--secondary-color);
+    font-size: var(--step-0);
+  }
+
+  &__articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--normal-space);
+  }
+}

@@ -1,0 +1,54 @@
+.heroSection {
+  height: 100vh;
+  background-size: cover;
+  background-position: center 90%;
+  display: flex;
+
+  @media (max-width: 768px) {
+    background-position: center center;
+  }
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &--display {
+    height: 20vh;
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+
+    &--logo {
+      width: clamp(100px, 35%, 250px);
+      margin-block-end: var(--normal-space);
+    }
+
+    &--label {
+      font-size: var(--step--2);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--secondary-color);
+      margin-block-end: var(--normal-space);
+    }
+
+    &--title {
+      font-size: var(--step-4);
+      margin: 0 0 var(--small-space);
+      line-height: 1.05;
+    }
+
+    &--text {
+      max-width: clamp(30ch, 50%, 38ch);
+    }
+
+    &--displayText {
+      max-width: clamp(35ch, 50%, 50ch);
+      font-size: var(--step-2);
+    }
+  }
+}

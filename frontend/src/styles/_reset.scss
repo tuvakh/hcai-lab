@@ -1,0 +1,46 @@
+/* reset.scss – simple reset + base styles */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.3;
+  background-color: #ffffff;
+  color: #222222;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input[type="datetime-local"]::-webkit-datetime-edit {
+  color: transparent;
+}
+
+input[type="datetime-local"]:focus::-webkit-datetime-edit,
+input[type="datetime-local"]:not([value=""])::-webkit-datetime-edit {
+  color: inherit;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}

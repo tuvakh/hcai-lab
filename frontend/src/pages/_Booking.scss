@@ -1,0 +1,138 @@
+.booking-page {
+  background: var(--background-color);
+  color: var(--white-color);
+  padding-block-end: var(--mega-space);
+
+  button {
+    cursor: pointer;
+  }
+
+  &__grid-section,
+  &__contact {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  &__grid-section {
+    margin-top: var(--bigger-space);
+    max-width: 100%;
+  }
+
+  &__contact {
+    margin-top: var(--mega-space);
+    text-align: center;
+
+    &-text {
+      margin-inline: auto;
+      margin-block-end: var(--normal-space);
+      width: clamp(30ch, 100%, 60ch);
+    }
+  }
+
+  &__contact-title {
+    margin: 0 0 var(--small-space);
+    font-size: var(--step-3);
+  }
+
+  .card {
+    min-width: 0;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 760px;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+
+  .form-hint {
+    font-size: var(--step--1);
+    color: var(--primary-color);
+    margin-block-end: var(--normal-space);
+
+    &--calendar {
+      margin-block-start: var(--small-space);
+    }
+
+    &--error {
+      color: #c91515;
+      font-weight: bold;
+    }
+
+    &__summary {
+      color: var(--primary-color);
+    }
+  }
+
+  .react-calendar {
+    margin-block-start: var(--mini-space);
+    min-width: 70%;
+    border: 1px solid var(--tertiary-color);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    background: var(--primary-color);
+
+    &__navigation button {
+      background: none !important;
+      color: var(--white-color);
+
+      &:hover,
+      &:focus {
+        background: rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+
+    &__month-view__weekdays {
+      border-top: 0.1rem solid var(--tertiary-color);
+      color: var(--white-color);
+    }
+
+    &__tile {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+
+      &:hover {
+        background-color: var(--white-color) !important;
+      }
+
+      &--now {
+        background: var(--role-color);
+      }
+
+      &--range,
+      &--rangeStart,
+      &--rangeEnd {
+        background: var(--tertiary-color);
+        font-weight: bold;
+      }
+
+      &:disabled {
+        background: var(--tertiary-color);
+        opacity: 0.5;
+        color: inherit;
+        cursor: not-allowed;
+      }
+    }
+
+    .tile--booked {
+      background: rgba(255, 100, 100, 0.4);
+      color: white;
+    }
+  }
+
+  @media (max-width: 900px) {
+
+    &__grid-section,
+    &__contact {
+      width: 92%;
+    }
+
+    &__contact-title {
+      font-size: var(--step-2);
+    }
+
+    .modal {
+      max-width: 92vw;
+    }
+  }
+}

@@ -1,0 +1,106 @@
+.display-page {
+  font-size: var(--step-2);
+  max-height: 100vh;
+}
+
+.display-h2 {
+  font-size: var(--step-4);
+  padding: 0;
+}
+
+.display-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--normal-space);
+  padding: var(--bigger-space);
+
+  &:nth-of-type(odd) {
+    background-color: var(--primary-color);
+  }
+
+  &--qr {
+    flex-direction: row;
+    align-items: center;
+    padding-block: 0;
+  }
+
+  &--news {
+    min-height: 375px;
+  }
+
+  &__box {
+    padding-block: var(--normal-space);
+    color: var(--primary-color);
+    justify-items: end;
+    flex: 1;
+  }
+
+  &__qr-info {
+    width: 30ch;
+  }
+
+  &__qr-img {
+    width: 70%;
+    padding: var(--normal-space);
+  }
+}
+
+.display-equipment {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__legend-box {
+    display: flex;
+    gap: var(--normal-space);
+    font-size: var(--step-1);
+  }
+
+  &__legend {
+    padding: var(--small-space) var(--normal-space);
+    border-radius: var(--border-radius-btn);
+
+    &--available {
+      border: 3px solid #4bc8a3;
+      background-color: var(--available-color);
+    }
+
+    &--booked {
+      border: 3px solid #e25a9c;
+      background-color: var(--booked-color);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--small-space);
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    padding: var(--big-space);
+    border-radius: var(--border-radius);
+  }
+
+  &__circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--border-radius-btn);
+
+    &--available {
+      border: 3px solid #4bc8a3;
+      background-color: var(--available-color);
+    }
+
+    &--booked {
+      border: 3px solid #e25a9c;
+      background-color: var(--booked-color);
+    }
+  }
+}

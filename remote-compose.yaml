@@ -1,0 +1,24 @@
+services:
+  frontend:
+    image: tuvakh/idg2671_hcai_frontend
+    ports:
+      - "6001:80"
+    depends_on:
+      - backend
+
+  backend:
+    image: tuvakh/idg2671_hcai_backend
+    ports:
+      - "6101:3001"
+    env_file:
+      - .env.secret
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

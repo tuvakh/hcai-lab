@@ -1,0 +1,110 @@
+.news-card {
+  background: var(--white-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: var(--normal-space);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  min-width: 0;
+  transition: transform 0.18s, box-shadow 0.18s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--background-color);
+    outline-offset: 2px;
+  }
+
+  &--saved {
+    border-color: var(--background-color);
+    box-shadow: var(--box-shadow);
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  &__title {
+    font-size: var(--step-0);
+    font-family: var(--text-font);
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--black-color);
+  }
+
+  &__summary {
+    font-size: var(--step--2);
+    color: var(--footer-color);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  &__why {
+    font-size: var(--step--2);
+    color: var(--primary-color);
+    background: var(--tertiary-color);
+    border-left: 3px solid var(--background-color);
+    padding: var(--small-space);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    line-height: 1.45;
+    margin: auto 0 0;
+  }
+
+  &__why-label {
+    font-weight: 700;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block-start: var(--small-space);
+    border-top: 1px solid var(--secondary-color);
+    margin-top: auto;
+  }
+
+  &__time {
+    font-size: var(--step--2);
+    color: var(--tertiary-color);
+  }
+
+  &__star {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--step-0);
+    color: var(--secondary-color);
+    padding: 0;
+    line-height: 1;
+    transition: color 0.15s, transform 0.1s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &--on {
+      color: var(--background-color);
+    }
+  }
+
+}
+
+.news-card-display {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  padding: var(--big-space);
+  border-radius: var(--border-radius);
+
+  &__title {
+    padding-block-start: var(--normal-space);
+    font-size: var(--step-3);
+  }
+}

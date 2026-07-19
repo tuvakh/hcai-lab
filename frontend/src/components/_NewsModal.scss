@@ -1,0 +1,116 @@
+.news-modal {
+  &__scroll {
+    overflow-y: auto;
+    padding: var(--big-space) var(--normal-space) var(--normal-space);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-space);
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--tertiary-color);
+      border-radius: 2px;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: var(--mini-space);
+  }
+
+  &__title {
+    line-height: 1.2;
+    margin: 0;
+    padding-inline-end: var(--big-space);
+  }
+
+  &__summary {
+    font-size: var(--step--1);
+    color: var(--secondary-color);
+    line-height: 1.65;
+    margin: 0;
+    font-style: italic;
+    padding-block-end: var(--normal-space);
+    border-bottom: 1px solid var(--secondary-color);
+  }
+
+  &__body {
+    line-height: 1.75;
+
+    p {
+      margin: 0 0 var(--normal-space);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__why {
+    font-size: var(--step--1);
+    background: rgba(103, 122, 183, 0.12);
+    border: 1px solid rgba(143, 161, 221, 0.25);
+    border-left: 3px solid var(--secondary-color);
+    padding: var(--normal-space);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    color: var(--white-color);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  &__why-label {
+    display: block;
+    font-weight: 700;
+    font-size: var(--step--2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--secondary-color);
+    margin-bottom: var(--mini-space);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--normal-space);
+    padding-block-start: var(--normal-space);
+    margin-top: auto;
+    border-top: 1px solid var(--background-color);
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    font-size: var(--step--2);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: var(--small-space) var(--medium-space);
+    border-radius: var(--border-radius-btn);
+    border: 1px solid var(--secondary-color);
+    background: transparent;
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      background: var(--secondary-color);
+      color: var(--primary-color);
+    }
+  }
+
+  &__meta {
+    font-size: var(--step--2);
+    color: var(--secondary-color);
+  }
+}

@@ -1,0 +1,27 @@
+# Claude Code internal directory
+.claude
+
+# macOS
+.DS_Store
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# User-uploaded files (stored locally, not committed)
+webpage/public/assets/uploads/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
