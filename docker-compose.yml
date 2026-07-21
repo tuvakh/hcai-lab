@@ -4,9 +4,9 @@ services:
     container_name: hcai-backend
     restart: unless-stopped
     environment:
-      - PORT=3001
-      - FRONTEND_URL=http://localhost
-      - MONGODB_URI=mongodb+srv://team1:REDACTED@hcai-lab.ww8wgz8.mongodb.net/hcai
+      - PORT=${PORT}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - MONGODB_URI=${MONGODB_URI}
     volumes:
       - backend-data:/app/data
     ports:
